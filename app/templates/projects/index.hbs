@@ -1,0 +1,39 @@
+<!-- index -->
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex">
+            <h3 class="mr-auto">
+                My projects list
+            </h3>
+            <div>
+                <button type="button" class="btn btn-success" {{action "newProject" model}}>{{svg-jar "plus" class="octicon"}} New project</button>
+            </div>
+        </div>
+        <div class="card-text">
+            <table class="table table-sm table-hover table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Fragmentation sample</th>
+                  <th scope="col" width="30px"></th>
+                </tr>
+              </thead>
+              <tbody>
+            <!-- <div class="list-group"> -->
+              {{#each model as |project|}}
+                    <tr>
+                        <td>{{#link-to 'projects.show' project}} {{project.name}} {{/link-to }}</td>
+                        <td>{{project-status-badge project=project class="d-inline"}}</td>
+                        <td>{{#if project.frag_sample}} {{project.frag_sample.name}} {{/if}}</td>
+                        <td>{{#bs-button class="btn-sm" type="danger" onClick=(action (mut dataToDelete) project )}}{{svg-jar "trashcan" class="octicon"}}{{/bs-button}}</td>
+                    </tr>
+              {{/each}}
+              </tbody>
+            </table>
+            {{pagination-handler data=model}}
+        </div>
+    </div>
+</div>
+
+{{delete-modal title="Delete project" dataToDelete=dataToDelete dataLabel=model.dataLabel updateDataController='updateDataController'}}

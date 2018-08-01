@@ -1,0 +1,147 @@
+@import "ember-bootstrap/bootstrap";
+@import "node_modules/bootstrap/scss/bootstrap";
+
+$primary-color: #073877;
+$secondary-color: #636a71;
+$success-color: rgb(64,159,64);
+$warning-color: rgb(200,145,17);
+$info-color: rgb(83,139,214);
+$danger-color: rgb(200,43,17);
+
+$theme-colors: (
+    "primary": $primary-color,
+    "secondary": $secondary-color,
+    "success": $success-color,
+    "warning": $warning-color,
+    "info": $info-color,
+    "danger": $danger-color,
+);
+
+html {
+    overflow-y: scroll;
+}
+
+#body {
+    margin-top: 74px;
+    align: center;
+}
+
+a.ember-view {
+    color: $primary-color;
+}
+
+a.ember-view.btn, a.ember-view.btn:hover{
+    color: white;
+}
+
+
+a.ember-view:hover {
+    color: $info-color;
+}
+
+li.page-item.active > a {
+    color: white !important,
+}
+
+
+a.ember-view.btn-like {
+    text-decoration: none;
+}
+
+.login-form {
+    max-width: 500px;
+    margin: auto;
+}
+
+.limit-width {
+    max-width: 350px;
+}
+
+.hidden {
+    display: none;
+}
+
+.card-body h2{
+    border: 1px solid transparent;
+}
+
+.card-body h2 input{
+	maring: 0;
+	border-radius: 0.25rem;
+	padding: 0.375rem 0.75rem;
+    font-size: 2rem;
+}
+
+.form-control.edit.title {
+	font-size: 2rem;
+	font-family: inherit;
+	font-weight: 500;
+	line-height: 1.2;
+	color: inherit;
+    padding: 0;
+    margin: 0;
+	margin-bottom: 0.5rem;
+    border-radius: 0.25rem;
+}
+
+.form-control-plaintext {
+    maring: 0;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    padding: 0.375rem 0.75rem;
+}
+
+@import "ember-bootstrap/bootstrap";
+
+.progress.btn-size {
+    height: 38px;
+    .progress-bar{
+        padding: 0px 12px 0px 12px;
+    }
+}
+
+.pagination>li>a,
+.pagination>li>a:hover,
+.pagination>li>span {
+  color: $primary-color;
+}
+.pagination>li.page-item.active>a {
+  border: 1px solid $primary-color;
+  background: $primary-color;
+  color: #fff;
+}
+
+.card.card-tabs {
+    border-top: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+}
+
+.nav.nav-tabs>li.nav-item{
+    >a {
+        color: $secondary-color;
+    }
+    >a.active {
+        color: $primary-color;
+    }
+}
+
+a.list-group-item.active {
+    background-color: $primary-color;
+    border-color: $primary-color;
+}
+
+a.list-group-item.item-sm {
+    padding: 6px 10px 6px 10px;
+}
+
+.import-alert {
+    display: none;
+}
+
+.progress {
+	background-color: #7e91a4;
+	font-size: 1rem;
+	font-weight: 400;
+	height: 1.5rem;
+}

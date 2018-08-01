@@ -1,0 +1,28 @@
+<!-- Pagination handler -->
+{{#if (gt data.meta.pagination.last.page 1)}}
+    <nav aria-label="Page navigation">
+      <ul class="pagination justify-content-center">
+        {{#if data.meta.pagination.prev}}
+            <li class="page-item">
+                <a href="#" {{action (route-action 'updateDataPage' data.dataLabel data.meta.pagination.prev.page)}} class="page-link">
+                    <span aria-hidden="true">&laquo;</span>
+                    <span class="sr-only">Previous</span>
+                </a>
+            </li>
+            {{#each count as |number|}}
+                <li class="page-item {{if (eq number data.meta.pagination.current) 'active'}} ">     
+                    <a href="#" {{action (route-action 'updateDataPage' data.dataLabel number)}} class="page-link">   
+                        {{number}}
+                    </a>
+                </li>
+            {{/each}}
+            <li class="page-item">
+                <a href="#" {{action (route-action 'updateDataPage' data.dataLabel data.meta.pagination.next.page)}} class="page-link">
+                    <span aria-hidden="true">&raquo;</span>
+                    <span class="sr-only">Next</span>
+                </a>
+            </li>
+        {{/if}}
+      </ul>
+    </nav>
+{{/if}}

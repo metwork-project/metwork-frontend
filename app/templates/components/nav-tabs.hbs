@@ -1,0 +1,9 @@
+<!-- nav-tabs -->
+{{test }}
+<ul class="nav nav-tabs">
+    {{#each navDisplays as |nav| }}
+      <li class="nav-item">
+        <a class="nav-link {{if (eq activeNav nav.toggle) 'active'}}" {{ action (mut activeNav) nav.toggle }} href="#">{{nav.libelle}}</a>
+      </li>
+    {{/each}}
+</ul>

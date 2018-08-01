@@ -1,0 +1,46 @@
+<!-- Reactions index -->
+
+<!-- index -->
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex">
+            <h3 class="mr-auto">
+                Reactions
+            </h3>
+            <div>
+                {{file-upload modalId="frag-file-upload-modal" title="Import reaction file" routeLabel="reactions/uploadfile" metaDatas=uploadMetaDatas}}
+            </div>
+        </div>
+        <div class="card-text">
+            <table class="table table-sm table-hover table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Name</th>
+                  <th scope="col">User</th>
+                  <th scope="col">Reactants</th>
+                  <th scope="col" width="30px"></th>
+                </tr>
+              </thead>
+              <tbody>
+            <!-- <div class="list-group"> -->
+              {{#each model as |reaction|}}
+                    <tr > <!-- {{action "showProject" project class=""}} > -->
+                        <td>{{#link-to 'reactions.show' reaction}} {{reaction.name}} {{/link-to }}</td>
+                        <td>{{reaction.user.username}}</td>
+                        <td>{{reaction.reactants_number}}</td>
+                        <td>{{#if reaction.has_no_project}}
+                        {{#bs-button class="btn-sm" type="danger" onClick=(action (mut dataToDelete) reaction )}}{{svg-jar "trashcan" class="octicon"}}{{/bs-button}}
+                        {{/if}}</td>
+                    </tr>
+              {{/each}}
+              </tbody>
+            </table>
+
+        {{pagination-handler data=model}}
+        </div>
+    </div>
+</div>
+
+{{delete-modal title="Delete reaction" dataToDelete=dataToDelete dataLabel=model.dataLabel updateDataController='updateDataController'}}
+
+

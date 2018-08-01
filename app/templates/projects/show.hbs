@@ -1,0 +1,182 @@
+<!-- show -->
+{{nav-tabs navParams=navParams activeNav=activeNav model=model}}
+
+<div class="card card-tabs">
+  <div class="card-body">
+
+    {{#if (eq activeNav 'info')}}
+            <div class="d-flex">
+                    <div class="mr-auto">
+                        <h3 class="d-inline">
+                            {{#if (not model.isNew)}}
+                                {{model.name}} 
+                                {{project-status-badge project=model class="d-inline"}}
+                            {{else}}
+                                Create Project
+                            {{/if}}
+                        </h3> 
+                    </div>
+                {{#if model.readyToRun}}
+                    <div>
+                        {{bs-button type="warning" 
+                            class = "btn-lg"
+                            defaultText="Start run" 
+                            onClick=(action 'startRun') }}
+                    </div>
+                {{/if}}
+                {{#if model.runFinish}}
+                    <div>
+                        {{bs-button type="success" 
+                            class = "btn"
+                            defaultText="Clone project" 
+                            onClick=(action 'cloneProject') }}
+                    </div>
+                {{/if}}
+            </div>
+        <form>
+            <div class="form-group" >
+                <label>Name</label>
+                {{input value=model.name model=model class='form-control' disabled=(not model.editable)}}
+            </div>
+            <div class="form-group">
+                <label>Description</label>
+                {{textarea value=model.description model=model class='form-control' rows='3' disabled=(not model.editable)}}
+
+            </div>
+        </form>
+        {{# if model.runOrFinish}}
+            <div>
+                <h4> Results </h4>
+                <p> Total molecules : {{model.molecules_all_count}} </p>
+                <p> Annotations proposal : {{model.molecules_matching_count}} </p>
+            </div>
+        {{/if}}
+        <div class="d-flex">
+            <div class="mr-auto">
+            {{#if model.editable}}
+                {{bs-button type=model.saveOrCreate.class
+                    defaultText=model.saveOrCreate.libelle
+                    onClick=(route-action "save_p" model) }}
+            {{/if}}
+            {{#unless model.isNew}}
+                    {{!bs-button type="danger"  
+                        defaultText="Delete" 
+                        onClick=(route-action "delete_p" model) }}
+            {{else}}
+                    {{bs-button type="secondary"  
+                        defaultText="Cancel" 
+                        onClick=(route-action "cancel_create" model) }}
+            {{/unless}}
+            {{#if model.runFinish}}
+                {{bs-button type="secondary"  
+                    defaultText="Annotations" 
+                    onClick=(action 'getFile' 'download_annotations' 'metwork_annotations.csv') }}
+                {{bs-button type="secondary"  
+                    defaultText="Annotations details" 
+                    onClick=(action 'getFile' 'download_annotations_details' 'metwork_annotations_details.csv') }}
+                {{bs-button type="secondary"  
+                    defaultText="MetExplore" 
+                    onClick=(action 'getFile' 'download_metexplore' 'metwork_metexplore.json') }}
+                {{bs-button type="secondary"  
+                    defaultText="All molecules" 
+                    onClick=(action 'getFile' 'download_all_molecules' 'metwork_all_molecules.csv') }}
+            {{/if}}
+            </div>
+
+        </div>
+    {{/if}}
+    {{#if (eq activeNav 'data')}}
+        <div class="d-flex">
+            <h3  class="mr-auto">Fragmentation data</h3>
+                {{#if model.editable}}
+                    <div>
+                        {{bs-button type="primary"  
+                            defaultText="Select data" 
+                            onClick=(action (mut selectFragModal) true) }}
+                    </div>
+                {{/if}}
+            </div>
+        {{#if model.hasSample}}
+                <p><b>Sample name : </b> {{#link-to 'fragsamples.show' model.frag_sample}} {{model.frag_sample.name}} {{/link-to }}</p>
+                <p><b>Total ions : </b> {{model.frag_sample.ions_count}}</p>
+                <p><b>Annotated ions : </b> {{model.frag_sample.annotations_count}}</p>
+            <h4 class="mr-auto">
+                Selected annotations
+            </h4>
+						{{project-selectable
+							project=model
+							list-available=annotations-available
+							list-selected=annotations-selected
+							dataLabel1='annotations-available' 
+							dataLabel2='annotations-selected'
+							field="frag-annotation"
+							updateDataComponent=(action 'updateDataController')
+						}}
+        {{else}}
+            <div>No data selected</div>
+        {{/if}}
+    {{/if}}
+    {{#if (eq activeNav 'metabolization')}}
+        <h4 class="mr-auto">
+            Depth limit
+        </h4>
+        <form class="form-inline">
+
+                <label class="mb-2 mr-sm-2">Total ({{model.depthLimits.depth_total}} max)</label>
+                {{input type="number" min=0 max=10 value=model.depth_total model=model class='form-control mb-2 mr-sm-2' disabled=(not model.editable)}}
+
+				{{#if false}}
+			        <label class="mb-2 mr-sm-2">Ghost metabolites ({{model.depthLimits.depth_last_match}} max)</label>
+			        {{input type="number" min=0 max=1 value=model.depth_last_match model=model class='form-control mb-2 mr-sm-2' disabled=(not model.editable)}}
+				{{/if}}
+
+                {{#if (and model.editable model.okDepth)}}
+                    {{bs-button type=model.saveOrCreate.class
+                        class="mb-2 mr-sm-2"
+                        defaultText='Save'
+                        onClick=(route-action "save_p" model) }}
+                {{/if}}
+
+        </form>
+        <h4 class="mr-auto">
+            Select reactions ({{model.REACTIONS_LIMIT}} max)
+        </h4>
+				{{project-selectable
+					project=model
+					list-available=reactions-available
+					list-selected=reactions-selected
+					dataLabel1='reactions-available' 
+					dataLabel2='reactions-selected'
+					field="reaction"
+					updateDataComponent=(action 'updateDataController')
+				}}
+    {{/if}}
+    </div>
+</div>
+
+{{#bs-modal class=modalId open=selectFragModal onHidden=(action (mut selectFragModal) false) as |modal|}}
+  {{#modal.header}}
+    <h4 class="modal-title">
+      Select fragmentation data
+    </h4>
+  {{/modal.header}}
+  {{#modal.body}}
+        <ul class="list-group">
+          {{#each fragsample as |fs|}}
+				{{#if fs.importFinish}}
+		            <a href="#" class="list-group-item list-group-item-action d-flex" {{action 'setFragSample' fs}}> 
+		                <div class="mr-auto">
+		                {{fs.name}} 
+		                </div>
+		                <div>
+		                    <span class="badge badge-primary">{{fs.ions_count}} ions</span>
+		                    <span class="badge badge-secondary ">{{fs.annotations_count}} annotations</span>
+		                </div>
+		            </a>
+				{{/if}}
+          {{/each}}
+        </ul>
+        {{pagination-handler data=fragsample}}
+  {{/modal.body}}
+{{/bs-modal}}
+

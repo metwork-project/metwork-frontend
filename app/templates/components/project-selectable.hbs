@@ -1,0 +1,26 @@
+<!-- project-selectable-->
+
+<div class="row">
+	<div class="col-6">
+		<h5>Available</h5>
+    {{#each list-available as |i| }}
+				{{project-selectable-item 
+					project=project field=field item=i ids=model.reaction_ids 
+					display=i.display
+					dataLabel1=dataLabel1 dataLabel2=dataLabel2
+					updateDataComponentItem=(action 'updateDataComponentAction')}}
+    {{/each}}
+	{{pagination-handler data=list-available}}
+	</div>
+	<div class="col-6">
+		<h5>Selected</h5>
+    {{#each list-selected as |i| }}
+				{{project-selectable-item 
+					project=project field=field item=i ids=model.reaction_ids 
+					display=i.display
+					dataLabel1=dataLabel1 dataLabel2=dataLabel2
+					updateDataComponentItem=(action 'updateDataComponentAction')}}
+    {{/each}}
+	{{pagination-handler data=list-selected}}
+	</div>
+</div>

@@ -1,0 +1,53 @@
+<!-- route show -->
+
+<div class="card">
+    <div class="card-body">
+        <div class="d-flex">
+            <h3  class="mr-auto"> {{model.name}}</h3>
+
+        </div>
+            <div>
+                <p><b>Number of reactants :</b> {{model.reactants_number}}</p>
+                <form>
+
+                    <div class="container"><div class="row">
+                        <div class="form-group col-md-6">
+                            <label>Name</label>
+                            {{input value=model.name model=model class='form-control'}}
+                            <label>Description</label>
+                            {{textarea value=model.description model=model class='form-control' rows='3'}}
+                            <div class="m-1">
+                                {{#bs-button type="primary" onClick=(action 'save_reaction')}}Save info{{/bs-button}}
+                            </div>
+                        </div>
+                        <div class="form-group col-md-6">
+                            {{{image}}}
+                        </div>
+                    </div></div>
+                </form>
+        </div>
+        <h4 class="mr-auto">
+            Test reaction
+        </h4>
+        <form>
+            <div class="container"><div class="row">
+                <div class="form-group col-md-6">
+                    <label>Reactant(s) smiles</label>
+                    {{textarea row="3" class="form-control" value=reactants }}
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Products smiles</label>
+                    <textarea readonly row="3" class="form-control reaction-products" value={{products}} />
+                </div>
+            </div></div>
+            <div class="d-flex justify-content-center">
+                <button type="button" 
+                    class="btn reaction-reactants m-2 btn-primary"
+                    onClick={{action 'runReaction' reactants}}
+                    >
+                        Run reaction
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

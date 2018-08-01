@@ -1,0 +1,55 @@
+<!-- register -->
+
+<div class="card login-form">
+  <div class="card-body">
+    <h3 class="card-title">Register for beta test</h3>
+
+    {{#if signupComplete}}
+        <div class="alert alert-success" role="alert">
+          You've successfully register to beta test, thank you.
+            <br />
+          You'll receive an email soon.
+        </div>
+    {{else}}
+        {{#bs-form 
+            formLayout='horizontal' 
+            onSubmit=(action "register") 
+            novalidate=true 
+            model=model 
+            as |form|}}
+
+              {{form.element 
+                    controlType="email" 
+                    label="Email" 
+                    placeholder="your@email.com" 
+                    property="email"
+                    value=email}}
+                    <div class="invalid-feedback">test {{email_error}}</div>
+              {{form.element 
+                    controlType="text" 
+                    label="Organization" 
+                    placeholder="Organization" 
+                    property="organization"
+                    value=organization}}
+              {{form.element 
+                    controlType="text" 
+                    label="Full Name" 
+                    placeholder="Name" 
+                    property="name"
+                    value=name}}
+              {{bs-button 
+                    defaultText="Sign Up" 
+                    type="submit" 
+                    buttonType="submit"
+                    class="btn btn-primary"}}
+
+        {{/bs-form}}
+        {{#if error }}
+            <div class="alert alert-danger m-2" role="alert">
+              {{error}}
+            </div>
+        {{/if}}
+
+    {{/if}}
+  </div>
+</div>
