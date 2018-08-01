@@ -59,6 +59,16 @@ module.exports = function(environment) {
     ENV.APP.autoboot = false;
   }
 
+  if (environment === 'docker') {
+    //ENV.host = 'http://backend_api';
+    ENV.host = 'http://localhost';
+    ENV.APInameSpace = 'metwork-api';
+    //ENV.rootURL = '/metwork/';
+    ENV.rootURL = '/';
+// https://stackoverflow.com/questions/24621812/ember-cli-running-in-an-application-context-on-tomcat
+    ENV.locationType = 'hash';
+  }
+
   if (environment === 'production') {
     ENV.host = 'https://metwork.pharmacie.parisdescartes.fr';
     ENV.APInameSpace = 'metwork-api';
