@@ -135,6 +135,16 @@
             onClick=(route-action "save_p" model) }}
         {{/if}}
     </form>
+    {{#if model.runFinish}}
+      <h4 class="mr-auto">
+          Metabolization Network
+      </h4>
+
+      {{bs-button type="primary"
+          defaultText="Test cytoscape"
+          onClick=(action 'startMetabolizationNetwork') }}
+        <div id="cy"></div>
+    {{/if}}
     <h4>
       Select reactions ({{model.REACTIONS_LIMIT}} max)
     </h4>

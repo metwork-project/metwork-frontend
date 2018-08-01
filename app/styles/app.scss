@@ -131,4 +131,9 @@ a.list-group-item.item-sm {
 	height: 1.5rem;
 }
 
-@import "ember-bootstrap/bootstrap";
+#cy {
+  width: 800px;
+  height: 800px;
+  display: block;
+	border: 1px solid black;
+}
