@@ -1,26 +1,33 @@
 <h1 class="text-center">Welcome to MetWork </h1>
-<h1 class="text-center">a web server for natural products anticipation</h1>
-  <div id="news">
-    <h4>News</h4>
-	<h5>25th July 2018</h5>
-    The beta version of MetWork is live now!<br />
-    You can now register by clicking below or test the service as a guest user.
-  </div>
+<h2 class="text-center"><i>a web server for natural products anticipation</i></h2>
 
-<div class="d-flex justify-content-center m-3">
-{{#link-to "betatest-register" class="btn btn-warning" role="button"}} Sign up to beta test {{/link-to}}
-</div>
 <div class="d-flex justify-content-center m-3">
     {{bs-button type="primary"  
         defaultText="Download all molecules generated" 
         onClick=(action 'getFile' 'download_all_molecules' 'metwork_all_molecules.csv') }}
 </div>
 
+  <div id="news">
+    <h3>News</h3>
+    
+		<h5>1st August 2018</h5>
+		  The code of of MetWork is available on GitHub :
+		  <a href="https://github.com/YannBeauxis/metwork" target="_blank"> https://github.com/YannBeauxis/metwork </a>
+		  
+		<h5>25th July 2018</h5>
+		  The beta version of MetWork is live now!<br />
+		  You can now register by clicking below or test the service as a guest user.
+  </div>
+
+<div class="d-flex justify-content-center m-3">
+{{#link-to "betatest-register" class="btn btn-warning" role="button"}} Sign up to beta test {{/link-to}}
+</div>
+
 <h5>23th May 2018</h5>
 The MetWork project has been presented at the 11e JS du RFMF Liège 2018 in Belgium.
 Two posters and a flash communication.
 
-<p class="text-center"><i> click on images to see poster details </i></p>
+<p class="text-center"><i> click on poster image to download the .pdf </i></p>
 <div class="container d-flex justify-content-center ">
   <div class="row d-flex justify-content-center ">
       <a 
