@@ -4,7 +4,7 @@ module.exports = function(environment) {
     let ENV = {
     modulePrefix: 'metwork-frontend',
     environment,
-    host: 'https://somehost.com', 
+    host: 'https://somehost.com',
     rootURL: '/',
     locationType: 'auto',
     EmberENV: {
@@ -40,8 +40,10 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
     // ENV.APP.API_HOST = 'http://127.0.0.1:8000';
-    ENV.host = 'http://0.0.0.0:8000';
+    //ENV.host = 'http://0.0.0.0:8000';
+    ENV.host = 'http://localhost:8000';
     ENV.APInameSpace = '';
+    //ENV.APInameSpace = 'metwork-api';
 
     //ENV.host = 'http://172.28.203.217:80';
     //ENV.APInameSpace = 'metwork-backend/api';
