@@ -15,22 +15,22 @@ export default Controller.extend(PaginatedControllerMixin, {
             {toggle: 'info', libelle: 'Info'},
             {toggle: 'data', libelle: 'Data', display:'saved'},
             {toggle: 'metabolization', libelle: 'Metabolization', display:'saved'},
-            {toggle: 'fragmentation', libelle: 'Fragmentation', display:'saved'},
+            //{toggle: 'fragmentation', libelle: 'Fragmentation', display:'saved'},
         ];
     },
 
     genDataComponents:  function () {
-        this.dataComponents['fragsample'] = 
+        this.dataComponents['fragsample'] =
             { params : {page: 1, page_size: 10} };
-        //this.dataComponents['frag-annotation'] = 
+        //this.dataComponents['frag-annotation'] =
         //    { params : {page: 1, page_size: 10, frag_sample_id: this.model.get('frag_sample.id')} };
-        this.dataComponents['annotations-available'] = 
+        this.dataComponents['annotations-available'] =
             { routeLabel: 'frag-annotation', params : {project_id: this.model.get('id'), page: 1, page_size: 10, selected: false} };
-        this.dataComponents['annotations-selected'] = 
+        this.dataComponents['annotations-selected'] =
             { routeLabel: 'frag-annotation', params : {project_id: this.model.get('id'), page: 1, page_size: 10, selected: true} };
-        this.dataComponents['reactions-available'] = 
+        this.dataComponents['reactions-available'] =
             { routeLabel: 'reaction', params : {project_id: this.model.get('id'), page: 1, page_size: 10, selected: false} };
-        this.dataComponents['reactions-selected'] = 
+        this.dataComponents['reactions-selected'] =
             { routeLabel: 'reaction', params : {project_id: this.model.get('id'), page: 1, page_size: 10, selected: true} };
     },
 
@@ -58,7 +58,7 @@ export default Controller.extend(PaginatedControllerMixin, {
                   //console.log(response.data.status_code);
                   //self.model.set('status_code', response.data.status_code);
                   self.model.reload().then(function(/*response*/) {
-										self.model.poll() 
+										self.model.poll()
 									});
 								});
         },

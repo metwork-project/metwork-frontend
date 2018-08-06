@@ -1,0 +1,25 @@
+@import "../base/colors";
+
+.project-selectable  .d-flex.available {
+  margin-right: -30px;
+}
+
+.project-selectable .selectable-title {
+  text-align: center;
+}
+
+.project-selectable .octicon {
+  height: 30px;
+  width: 30px;
+}
+
+.project-selectable .selectable-frame {
+  border: 1px solid $border-color;
+  margin: 1px;
+  padding: 8px;
+}
+
+.project-selectable a {
+  margin: 1 px;
+  width: 99% !important;
+}

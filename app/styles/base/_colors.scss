@@ -1,0 +1,17 @@
+$primary-color: #073877;
+$secondary-color: #636a71;
+$success-color: rgb(64,159,64);
+$warning-color: rgb(200,145,17);
+$info-color: rgb(83,139,214);
+$danger-color: rgb(200,43,17);
+
+$border-color: rgba(0, 0, 0, 0.125);
+
+$theme-colors: (
+    "primary": $primary-color,
+    "secondary": $secondary-color,
+    "success": $success-color,
+    "warning": $warning-color,
+    "info": $info-color,
+    "danger": $danger-color,
+);
