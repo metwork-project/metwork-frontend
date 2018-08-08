@@ -152,44 +152,23 @@
     <h4>
       Spectrum filter
     </h4>
-    <!-- 'filter_min_intensity',
-'filter_parent_filter_tolerance',
-'filter_matched_peaks_window',
-'filter_min_matched_peaks_search',
-'cosine_mz_tolerance',
-'cosine_min_matched_peaks',
-'cosine_threshold'  -->
-    <form class="form-inline">
-        <label class="mb-2 mr-sm-2">Minimum intensity threshold</label>
-        {{input type="number" value=fragCompareConf.filter_min_intensity model=model class='form-control mb-2 mr-sm-2' disabled=(not model.editable)}}
-    </form>
-    <form class="form-inline">
-        <label class="mb-2 mr-sm-2">Minimum intensity threshold</label>
-        {{input type="number" value=fragCompareConf.filter_matched_peaks_window model=model class='form-control mb-2 mr-sm-2' disabled=(not model.editable)}}
-    </form>
-    <form class="form-inline">
-        <label class="mb-2 mr-sm-2">filter_matched_peaks_window</label>
-        {{input type="number" value=fragCompareConf.filter_matched_peaks_window model=model class='form-control mb-2 mr-sm-2' disabled=(not model.editable)}}
-    </form>
-    <form class="form-inline">
-        <label class="mb-2 mr-sm-2">filter_min_matched_peaks_search</label>
-        {{input type="number" value=fragCompareConf.filter_min_matched_peaks_search model=model class='form-control mb-2 mr-sm-2' disabled=(not model.editable)}}
-    </form>
+    <!-- {{compareConfFields}} -->
+    {{#each compareConfFields.filter as |f|}}
+      {{ frag-compare-conf-field
+        fragCompareConf=fragCompareConf
+        label=f.label step=f.step
+        value=f.value disabled=(not model.editable) }}
+    {{/each}}
     <h4>
       Cosine score
     </h4>
-    <form class="form-inline">
-        <label class="mb-2 mr-sm-2">cosine_mz_tolerance</label>
-        {{input type="number" step="0.01" value=fragCompareConf.cosine_mz_tolerance model=model class='form-control mb-2 mr-sm-2' disabled=(not model.editable)}}
-    </form>
-    <form class="form-inline">
-        <label class="mb-2 mr-sm-2">cosine_min_matched_peaks</label>
-        {{input type="number" value=fragCompareConf.cosine_min_matched_peaks model=model class='form-control mb-2 mr-sm-2' disabled=(not model.editable)}}
-    </form>
-    <form class="form-inline">
-        <label class="mb-2 mr-sm-2">cosine_threshold</label>
-        {{input type="number" step="0.01" value=fragCompareConf.cosine_threshold model=model class='form-control mb-2 mr-sm-2' disabled=(not model.editable)}}
-    </form>
+    <!-- {{compareConfFields}} -->
+    {{#each compareConfFields.cosine as |f|}}
+      {{ frag-compare-conf-field
+        fragCompareConf=fragCompareConf
+        label=f.label step=f.step
+        value=f.value disabled=(not model.editable) }}
+    {{/each}}
     {{#if (and model.editable model.okDepth)}}
       {{bs-button type=model.saveOrCreate.class
         class="mb-2 mr-sm-2"
