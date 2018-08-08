@@ -15,7 +15,7 @@ export default Controller.extend(PaginatedControllerMixin, {
             {toggle: 'info', libelle: 'Info'},
             {toggle: 'data', libelle: 'Data', display:'saved'},
             {toggle: 'metabolization', libelle: 'Metabolization', display:'saved'},
-            //{toggle: 'fragmentation', libelle: 'Fragmentation', display:'saved'},
+            {toggle: 'fragmentation', libelle: 'Fragmentation', display:'saved'},
         ];
     },
 

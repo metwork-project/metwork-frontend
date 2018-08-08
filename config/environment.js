@@ -41,7 +41,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
     // ENV.APP.API_HOST = 'http://127.0.0.1:8000';
     //ENV.host = 'http://0.0.0.0:8000';
-    ENV.host = 'http://localhost:8000';
+    ENV.host = 'http://194.168.0.1:8000';
     ENV.APInameSpace = '';
     //ENV.APInameSpace = 'metwork-api';
 
@@ -63,7 +63,7 @@ module.exports = function(environment) {
 
   if (environment === 'docker') {
     //ENV.host = 'http://backend_api';
-    ENV.host = 'http://localhost';
+    ENV.host = 'http://194.168.0.1';
     ENV.APInameSpace = 'metwork-api';
     //ENV.rootURL = '/metwork/';
     ENV.rootURL = '/';

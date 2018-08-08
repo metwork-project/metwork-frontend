@@ -3,7 +3,7 @@ import Mixin from '@ember/object/mixin';
 export default Mixin.create({
 
     model(params) {
-        return this.store.query(this.routeLabel, { 
+        return this.store.query(this.routeLabel, {
             page_size: params.page_size,
             page: params.page,
         });
@@ -29,7 +29,7 @@ export default Mixin.create({
         }
 
         if (controller.dataComponents){
-            Object.keys(controller.dataComponents).map( 
+            Object.keys(controller.dataComponents).map(
                 function(dataLabel) {
                     this.addData(dataLabel, controller.dataComponents[dataLabel])
                 },
@@ -39,9 +39,9 @@ export default Mixin.create({
             controller.dataComponents = {}
         }
         model.dataLabel = 'model';
-        
-        controller.dataComponents['model'] = { 
-            routeLabel: this.routeLabel, 
+
+        controller.dataComponents['model'] = {
+            routeLabel: this.routeLabel,
             params : {page: controller.page, page_size: controller.page_size }};
     },
 
@@ -59,7 +59,7 @@ export default Mixin.create({
         };
         // add specific params
         if (values.params) {
-            Object.keys(values.params).map( 
+            Object.keys(values.params).map(
                 function(param) {
                     params[param] = values.params[param];},
                 this);
@@ -74,7 +74,7 @@ export default Mixin.create({
         let self = this;
         let routeLabel = this.controller.dataComponents[dataLabel].routeLabel
         let params = this.controller.dataComponents[dataLabel].params;
-        this.store.query(routeLabel, 
+        this.store.query(routeLabel,
                 params)
             .then(function(data) {
                 data.set('dataLabel', dataLabel);

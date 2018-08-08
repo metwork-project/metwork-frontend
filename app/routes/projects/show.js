@@ -4,8 +4,8 @@ import PaginatedRouteMixin from 'metwork-frontend/mixins/paginated-route';
 import FileDownloadMixin from 'metwork-frontend/mixins/file-download';
 
 export default Route.extend(
-	AuthenticatedRouteMixin, 
-	PaginatedRouteMixin, 
+	AuthenticatedRouteMixin,
+	PaginatedRouteMixin,
 	FileDownloadMixin, {
 
     model(params) {
@@ -13,20 +13,25 @@ export default Route.extend(
 
     },
 
-    setupController(controller/*, model*/) {
+    setupController(controller, model) {
         this._super(...arguments);
         controller.set('activeNav', 'info');
+				let fragCompareConfId = model.get('frag_compare_conf_id');
+				controller.set('fragCompareConf', this.get('store').findRecord(
+					'frag_compare_conf',fragCompareConfId, { reload: true }) );
     },
 
     actions: {
-        save_p(model) {  
-            let self=this; 
-            let isNew = model.get('isNew'); 
+        save_p(model) {
+            let self=this;
+            let isNew = model.get('isNew');
 
             model.save().then(function() {
                 if (isNew) {
-                    let id = model.get('id');
-                    self.transitionTo('/projects/'+ id);}
+                  let id = model.get('id');
+									self.controller.genDataComponents();
+									self.transitionTo('/projects/'+ id);
+								}
             }, function() {
             });
         },
