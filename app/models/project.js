@@ -138,6 +138,8 @@ export default DS.Model.extend({
 
 	toggleItem: memberAction({ path: 'toggle_item', type: 'patch' }),
 
+	updateFragCompareConf: memberAction({ path: 'update_frag_compare_conf', type: 'patch' }),
+
 	startRun: memberAction({ path: 'start_run', type: 'post' }),
 
 });

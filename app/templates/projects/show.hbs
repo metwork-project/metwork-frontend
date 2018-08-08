@@ -156,8 +156,8 @@
     {{#each compareConfFields.filter as |f|}}
       {{ frag-compare-conf-field
         fragCompareConf=fragCompareConf
-        label=f.label step=f.step
-        value=f.value disabled=(not model.editable) }}
+        f=f
+        disabled=(not model.editable) }}
     {{/each}}
     <h4>
       Cosine score
@@ -166,14 +166,14 @@
     {{#each compareConfFields.cosine as |f|}}
       {{ frag-compare-conf-field
         fragCompareConf=fragCompareConf
-        label=f.label step=f.step
-        value=f.value disabled=(not model.editable) }}
+        f=f
+        disabled=(not model.editable) }}
     {{/each}}
     {{#if (and model.editable model.okDepth)}}
       {{bs-button type=model.saveOrCreate.class
         class="mb-2 mr-sm-2"
         defaultText='Save'
-        onClick=(route-action "save_p" model) }}
+        onClick=(action "fragCompareConfSave" model) }}
     {{/if}}
   {{/if}}
   </div>

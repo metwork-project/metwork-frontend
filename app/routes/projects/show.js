@@ -10,15 +10,12 @@ export default Route.extend(
 
     model(params) {
         return this.get('store').findRecord('project', params.project_id, { reload: true });
-
     },
 
     setupController(controller, model) {
-        this._super(...arguments);
-        controller.set('activeNav', 'info');
-				let fragCompareConfId = model.get('frag_compare_conf_id');
-				controller.set('fragCompareConf', this.get('store').findRecord(
-					'frag_compare_conf',fragCompareConfId, { reload: true }) );
+      this._super(...arguments);
+      controller.set('activeNav', 'info');
+			controller.getFragCompareConf();
     },
 
     actions: {
@@ -30,6 +27,7 @@ export default Route.extend(
                 if (isNew) {
                   let id = model.get('id');
 									self.controller.genDataComponents();
+									self.controller.getFragCompareConf();
 									self.transitionTo('/projects/'+ id);
 								}
             }, function() {

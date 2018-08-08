@@ -1,6 +1,8 @@
 import Controller from '@ember/controller';
 import PaginatedControllerMixin from 'metwork-frontend/mixins/paginated-controller';
 import { computed } from '@ember/object';
+import $ from 'jquery';
+
 export default Controller.extend(PaginatedControllerMixin, {
 
   activeNav: 'info',
@@ -78,10 +80,25 @@ export default Controller.extend(PaginatedControllerMixin, {
       getFile(request, fileName) {
          this.send('downloadFile', request, "text/plain;charset=utf-8", fileName);
       },
+      fragCompareConfSave() {
+        let params = {}
+        $('.frag-compare-conf-field > input').each(function( index ) {
+            params[ $( this ).attr('name') ] = $( this ).val() ;
+          })
+        this.model.updateFragCompareConf(params);
+      }
   },
 
   hasReaction: function(reactionId) {
       return reactionId in this.get('model.reactions_ids');
+  },
+
+  getFragCompareConf: function() {
+    let fragCompareConfId = this.get('model.frag_compare_conf_id');
+    if (fragCompareConfId)	{
+      this.set('fragCompareConf', this.get('store').findRecord(
+        'frag_compare_conf',fragCompareConfId, { reload: true }) );
+    }
   },
 
   compareConfFields: computed('fragCompareConf', function() {
@@ -89,27 +106,27 @@ export default Controller.extend(PaginatedControllerMixin, {
       filter: [
         { label:'Minimum intensity threshold',
           step:'1',
-          value:this.get('fragCompareConf.filter_min_intensity') },
+          fieldName:'filter_min_intensity' },
         { label:'filter_parent_filter_tolerance',
           step:'1',
-          value:this.get('fragCompareConf.filter_parent_filter_tolerance') },
+          fieldName:'filter_parent_filter_tolerance'},
         { label:'filter_matched_peaks_window',
           step:'1',
-          value:this.get('fragCompareConf.filter_matched_peaks_window') },
+          fieldName:'filter_matched_peaks_window'},
         { label:'filter_min_matched_peaks_search',
           step:'1',
-          value:this.get('fragCompareConf.filter_min_matched_peaks_search') },
+          fieldName:'filter_min_matched_peaks_search' },
       ],
       cosine: [
         { label:'cosine_mz_tolerance',
           step:'0.01',
-          value:this.get('fragCompareConf.cosine_mz_tolerance') },
+          fieldName:'cosine_mz_tolerance' },
         { label:'cosine_min_matched_peaks',
           step:'1',
-          value:this.get('fragCompareConf.cosine_min_matched_peaks') },
+                    fieldName:'cosine_min_matched_peaks' },
         { label:'cosine_threshold',
           step:'0.01',
-          value:this.get('fragCompareConf.cosine_threshold') },
+          fieldName:'cosine_threshold' },
       ]
     }
   }),
