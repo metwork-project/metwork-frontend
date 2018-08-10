@@ -1,0 +1,11 @@
+<!-- frag-compare-conf-field -->
+
+<form class="form-inline frag-compare-conf-field">
+    <label class="mb-2 mr-sm-2">{{f.label}}</label>
+    {{input
+      name=f.fieldName
+      type="number"
+      step=f.step
+      value=(get fragCompareConf f.fieldName)
+      class='form-control mb-2 mr-sm-2' disabled=disabled}}
+</form>

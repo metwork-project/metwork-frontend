@@ -7,10 +7,9 @@ export default Mixin.create({
     page_size: 10,
 
     actions: {
-        updateDataController: function ( dataLabel ) {	
-					this.send('updateDataPage', dataLabel, this.dataComponents[dataLabel].params.page);
-        },
-
+      updateDataController: function ( dataLabel ) {
+				this.send('updateDataPage', dataLabel, this.dataComponents[dataLabel].params.page);
+      },
     },
-    
+
 });

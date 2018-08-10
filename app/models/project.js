@@ -8,7 +8,7 @@ import { later } from '@ember/runloop'
 
 export default DS.Model.extend({
 
-	name: DS.attr('string', {		 
+	name: DS.attr('string', {
 			defaultValue() {
 					return `New project ${moment().format("MMM Do YY, hh:mm:ss")}`
 			}
@@ -26,6 +26,7 @@ export default DS.Model.extend({
 	molecules_matching_count: DS.attr('number'),
 	molecules_all_count: DS.attr('number'),
 	REACTIONS_LIMIT: DS.attr('number'),
+	frag_compare_conf_id: DS.attr('number'),
 
   reactions: DS.hasMany('reactions', {async: true}),
 
@@ -37,14 +38,14 @@ export default DS.Model.extend({
 			var _this = this;
 		if (this.get('runningOrQueue')) {
 			later( function() {
-				_this.reload(); 
+				_this.reload();
 				_this.poll();
 			}, 2000);
 		}
 	},
 
-	updateFragSample: memberAction({ 
-			path: 'update_frag_sample', 
+	updateFragSample: memberAction({
+			path: 'update_frag_sample',
 			type: 'patch' }),
 
 	statusRef: function() {
@@ -87,8 +88,8 @@ export default DS.Model.extend({
 	}),
 
 	statusInfo: computed('status_code', function() {
-			return this.allStatusInfo()[ 
-					this.statusRef()[ 
+			return this.allStatusInfo()[
+					this.statusRef()[
 							this.get('status_code') ] ];
 	}),
 
@@ -136,6 +137,8 @@ export default DS.Model.extend({
 	cloneProject: memberAction({ path: 'clone_project', type: 'post' }),
 
 	toggleItem: memberAction({ path: 'toggle_item', type: 'patch' }),
+
+	updateFragCompareConf: memberAction({ path: 'update_frag_compare_conf', type: 'patch' }),
 
 	startRun: memberAction({ path: 'start_run', type: 'post' }),
 
