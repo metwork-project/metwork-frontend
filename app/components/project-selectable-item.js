@@ -4,7 +4,6 @@ import { computed } from '@ember/object';
 export default Component.extend({
 
   buttonType: computed( 'frame', function() {
-    console.log(this.get('frame'));
     if (this.get('frame') == "selected") {
       return "btn-primary"
     } else {

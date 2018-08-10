@@ -82,7 +82,7 @@ export default Controller.extend(PaginatedControllerMixin, {
       },
       fragCompareConfSave() {
         let params = {}
-        $('.frag-compare-conf-field > input').each(function( index ) {
+        $('.frag-compare-conf-field > input').each(function( /*index*/ ) {
             params[ $( this ).attr('name') ] = $( this ).val() ;
           })
         this.model.updateFragCompareConf(params);

@@ -12,7 +12,7 @@ export default Route.extend(
         return this.get('store').findRecord('project', params.project_id, { reload: true });
     },
 
-    setupController(controller, model) {
+    setupController(controller/*, model*/) {
       this._super(...arguments);
       controller.set('activeNav', 'info');
 			controller.getFragCompareConf();
