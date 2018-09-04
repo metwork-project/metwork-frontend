@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import PaginatedControllerMixin from 'metwork-frontend/mixins/paginated-controller';
 import CytoscapeMixin from 'metwork-frontend/mixins/cytoscape';
+import { computed } from '@ember/object';
 
 export default Controller.extend(PaginatedControllerMixin, CytoscapeMixin, {
 
@@ -86,13 +87,17 @@ export default Controller.extend(PaginatedControllerMixin, CytoscapeMixin, {
           })
         this.model.updateFragCompareConf(params);
       },
-      startMetabolizationNetwork() {
-        let _this = this
-        this.model.cytoscapeJSData().then( function(response) {
-          //data = JSON.parse(response);
-          _this.send('startCytoscape', response);
-        }) ;
-      },
+      reloadMetabolizationNetwork() {
+        this.loadMetabolizationNetwork();
+      }
+  },
+
+  loadMetabolizationNetwork: function() {
+    let _this = this
+    this.model.cytoscapeJSData().then( function(response) {
+      //data = JSON.parse(response);
+      _this.send('startCytoscape', response);
+    }) ;
   },
 
   hasReaction: function(reactionId) {
@@ -137,5 +142,8 @@ export default Controller.extend(PaginatedControllerMixin, CytoscapeMixin, {
     }
   }),
 
+  startMetabolizationNetwork: computed('activeNav', function() {
+    this.loadMetabolizationNetwork();
+  }),
 
 });

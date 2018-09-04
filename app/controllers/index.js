@@ -1,7 +1,6 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import FileDownloadMixin from 'metwork-frontend/mixins/file-download';
-import { computed } from '@ember/object';
 import CytoscapeMixin from 'metwork-frontend/mixins/cytoscape';
 
 export default Controller.extend( FileDownloadMixin, CytoscapeMixin, {
