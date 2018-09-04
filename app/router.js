@@ -25,6 +25,7 @@ Router.map(function() {
     this.route('show', { path: '/:reaction_id' });
   });
   this.route('betatest-register');
+  this.route('documentation');
 });
 
 export default Router;
