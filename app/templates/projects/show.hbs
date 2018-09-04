@@ -173,13 +173,14 @@
         {{/if}}
     </form>
     {{#if model.runFinish}}
+    {{startMetabolizationNetwork}}
       <h4 class="mr-auto">
           Metabolization Network
       </h4>
 
       {{bs-button type="primary"
-          defaultText="Test cytoscape"
-          onClick=(action 'startMetabolizationNetwork') }}
+          defaultText="Reload network"
+          onClick=(action 'reloadMetabolizationNetwork') }}
         <div id="cy"></div>
     {{/if}}
     <h4>
