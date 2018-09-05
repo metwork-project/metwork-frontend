@@ -3,15 +3,12 @@ import ENV from 'metwork-frontend/config/environment';
 import $ from 'jquery';
 import { run } from '@ember/runloop';
 
-
 export default Controller.extend({
-    error:'',
-    signupComplete: false,
 
   actions: {
     register() {
       let self = this;
-      let {email, username, organization, password, confirm_password} = this.getProperties(
+      let {email, username, organization, password, confirm_password} = this.model.getProperties(
         'email',
         'username',
         'organization',
@@ -46,6 +43,6 @@ export default Controller.extend({
             }
         });
       });
-    }
-  }
+    },
+  },
 });

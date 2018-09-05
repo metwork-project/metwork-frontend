@@ -6,33 +6,39 @@ import { run } from '@ember/runloop';
 
 export default Controller.extend({
   session: service('session'),
+  success: false,
+  error: false,
 
 	authenticate_ : function(email, password) {
       this.get('session').authenticate('authenticator:drf-token-authenticator', email, password).catch((reason) => {
-        if (reason == '{"non_field_errors":["Unable to log in with provided credentials."]}') { 
+        console.log(reason);
+        if (reason == '{"non_field_errors":["Unable to log in with provided credentials."]}') {
             this.set('error', 'Wrong email or password');
+        } else {
+          this.set('error', reason);
         }
       });
 	},
 
   actions: {
-    authenticate() {
-      let { email, password } = this.getProperties('email', 'password');
-			this.authenticate_(email, password)
+    authenticate({ email, password }) {
+      this.authenticate_(email, password)
     },
 
     authenticateGuest() {
-			let email = 'metwork.dev@gmail.com'
-			let password = 'AYL6jGBm6R'
-			this.authenticate_(email, password)
+      let email = 'metwork.dev@gmail.com'
+      let password = 'AYL6jGBm6R'
+      this.authenticate_(email, password)
     },
 
     resetPassword() {
+      this.set('success', false);
+      this.set('error', false);
       let {email} = this.getProperties(
         'email',
-      ); 
-
-      //let email = "mail@yannbeauxis.net" 
+      );
+      let this_ = this
+      //let email = "mail@yannbeauxis.net"
       let base_url = ENV.host;
         if(ENV.APInameSpace != '') {
             base_url += '/' + ENV.APInameSpace
@@ -45,13 +51,15 @@ export default Controller.extend({
         }),
         contentType: 'application/json;charset=utf-8',
         dataType: 'json'
-      }).then( (/*response*/) => {
+      }).then( (response) => {
         run(function() {
-            this.set('signupComplete', true);
+          console.log(response);
+          // this.set('signupComplete', true);
+          this_.set('success', response.success);
         });
       }, (xhr/*, status, error*/) => {
         run(function() {
-            this.set('error', xhr.responseText);
+          this_.set('error', xhr.responseText);
         });
       });
     },
