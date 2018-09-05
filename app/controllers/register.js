@@ -11,8 +11,9 @@ export default Controller.extend({
   actions: {
     register() {
       let self = this;
-      let {email, organization, password, confirm_password} = this.getProperties(
+      let {email, username, organization, password, confirm_password} = this.getProperties(
         'email',
+        'username',
         'organization',
         'password',
         'confirm_password'
@@ -26,6 +27,7 @@ export default Controller.extend({
         type: 'POST',
         data: JSON.stringify({
           email: email,
+          username: username,
           organization: organization,
           password: password,
           confirm_password: confirm_password

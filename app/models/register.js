@@ -10,6 +10,11 @@ const Validations = buildValidations({
       })
     ]
   },
+  username: {
+    validators: [
+      validator('presence', true),
+    ]
+  },
   organization: {
     validators: [
       validator('presence', true),
