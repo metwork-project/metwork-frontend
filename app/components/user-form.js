@@ -9,7 +9,7 @@ export default Component.extend({
 
   buttonClass: computed('buttonColor', function() {
     let buttonColor = 'primary';
-    if (this.get('buttonColor')) {buttonColor = this.get('buttonColor')};
+    if (this.get('buttonColor')) {buttonColor = this.get('buttonColor')}
     return "btn btn-" + buttonColor;
   }),
 
