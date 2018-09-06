@@ -6,4 +6,10 @@ export default Route.extend(UnauthenticatedRouteMixin, {
         return this.get('store').createRecord('user', {});
     },
 
+    setupController(controller, model) {
+      this._super(...arguments);
+      model.set('checkEmail', true );
+      // model.set('checkPassword', true );
+    },
+
 });
