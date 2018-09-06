@@ -25,9 +25,12 @@ Router.map(function() {
     this.route('show', { path: '/:reaction_id' });
   });
 
+  this.route('documentation');
+
   this.route('users', function() {
     this.route('show', { path: '/:user_id' });
   });
+  
 });
 
 export default Router;
