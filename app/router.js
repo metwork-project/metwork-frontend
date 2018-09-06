@@ -24,7 +24,6 @@ Router.map(function() {
   this.route('reactions', function() {
     this.route('show', { path: '/:reaction_id' });
   });
-  this.route('betatest-register');
 
   this.route('users', function() {
     this.route('show', { path: '/:user_id' });
