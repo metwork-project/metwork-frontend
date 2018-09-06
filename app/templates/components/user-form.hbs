@@ -1,0 +1,39 @@
+{{#bs-form
+  formLayout='horizontal'
+  onSubmit=(action 'submitAction')
+  novalidate=true
+  model=model
+  as |form|}}
+
+  {{#each getFields as |f|}}
+
+    {{form.element
+      controlType=f.controlType
+      label=f.label
+      placeholder=f.placeholder
+      property=f.property
+      value=f.value}}
+
+  {{/each}}
+
+  <div class="d-flex justify-content-between">
+
+    <div>
+      {{bs-button
+        defaultText=submitText
+        type="submit"
+        buttonType="submit"
+        class="btn btn-primary"}}
+    </div>
+
+    <div>
+      {{yield}}
+    </div>
+
+  </div>
+{{/bs-form}}
+{{#if error }}
+  <div class="alert alert-danger m-2" role="alert">
+    {{error}}
+  </div>
+{{/if}}

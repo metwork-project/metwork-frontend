@@ -7,6 +7,10 @@ module.exports = function(environment) {
     host: 'https://somehost.com',
     rootURL: '/',
     locationType: 'auto',
+    guestUser: {
+      email: 'metwork.dev@gmail.com',
+      password: 'AYL6jGBm6R'
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
