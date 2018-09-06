@@ -2,6 +2,7 @@ import DS from 'ember-data';
 const { attr } = DS;
 import { validator, buildValidations } from 'ember-cp-validations';
 import { not } from '@ember/object/computed';
+import {memberAction/*, collectionAction*/} from 'ember-api-actions';
 
 const Validations = buildValidations({
   email: {
@@ -52,4 +53,9 @@ export default DS.Model.extend(Validations, {
   email: attr('string'),
   username: attr('string'),
   organization: attr('string'),
+
+  changePassword: memberAction({
+			path: 'change_password',
+			type: 'patch' }),
+
 });

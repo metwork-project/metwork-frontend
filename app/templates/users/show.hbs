@@ -1,0 +1,21 @@
+<div class="card login-form">
+  <div class="card-body">
+    <h3 class="card-title">{{model.username}}</h3>
+
+      {{user-form
+        formType='info'
+        model=model
+        submitText='Save info'
+        }}
+
+    <br/>
+    <h4 class="card-title">Change password</h4>
+
+      {{user-form
+        formType='changePassword'
+        model=model
+        submitText='Change password'
+        }}
+
+  </div>
+</div>

@@ -11,7 +11,6 @@ export default Controller.extend({
 
 	authenticate_ : function(email, password) {
       this.get('session').authenticate('authenticator:drf-token-authenticator', email, password).catch((reason) => {
-        console.log(reason);
         if (reason == '{"non_field_errors":["Unable to log in with provided credentials."]}') {
             this.set('error', 'Wrong email or password');
         } else {
