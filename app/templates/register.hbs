@@ -9,51 +9,12 @@
           Account created, you can now {{#link-to 'login' class="alert-link"}}login{{/link-to}} to acces to your account.
         </div>
     {{else}}
-        {{#bs-form 
-            formLayout='horizontal' 
-            onSubmit=(action "register") 
-            novalidate=true 
-            model=model 
-            as |form|}}
-
-              {{form.element 
-                    controlType="email" 
-                    label="Email" 
-                    placeholder="your@email.com" 
-                    property="email"
-                    value=email}}
-                    <div class="invalid-feedback">test {{email_error}}</div>
-              {{form.element 
-                    controlType="text" 
-                    label="Organization" 
-                    placeholder="Organization" 
-                    property="organization"
-                    value=organization}}
-              {{form.element 
-                    controlType="password" 
-                    label="Password" 
-                    placeholder="Password" 
-                    property="password"
-                    value=password}}
-              {{form.element 
-                    controlType="password" 
-                    label="Confirm Password" 
-                    placeholder="Confirm Password" 
-                    property="confirm_password"
-                    value=confirm_password}}
-              {{bs-button 
-                    defaultText="Sign Up" 
-                    type="submit" 
-                    buttonType="submit"
-                    class="btn btn-primary"}}
-
-        {{/bs-form}}
-        {{#if error }}
-            <div class="alert alert-danger m-2" role="alert">
-              {{error}}
-            </div>
-        {{/if}}
-
+      {{user-form
+        formType='register'
+        model=model
+        signupComplete=signupComplete
+        submitText='Create user'
+        register=(action 'register')}}
     {{/if}}
   </div>
 </div>
