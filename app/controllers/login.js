@@ -8,33 +8,48 @@ export default Controller.extend({
   session: service('session'),
   success: false,
   error: false,
+  guestError: false,
 
 	authenticate_ : function(email, password) {
-      this.get('session').authenticate('authenticator:drf-token-authenticator', email, password).catch((reason) => {
-        if (reason == '{"non_field_errors":["Unable to log in with provided credentials."]}') {
-            this.set('error', 'Wrong email or password');
-        } else {
-          this.set('error', reason);
-        }
-      });
+    this.get('session').authenticate('authenticator:drf-token-authenticator', email, password).catch((reason) => {
+      if (reason == '{"non_field_errors":["Unable to log in with provided credentials."]}') {
+          this.set('error', 'Wrong email or password');
+      } else {
+        this.set('error', reason);
+      }
+    });
 	},
 
   actions: {
     authenticate({ email, password }) {
-      this.authenticate_(email, password)
+      if (this.model.get('email')) {
+        this.authenticate_(email, password)
+      } else {
+        this.set(
+          'error',
+          'Please provide your email to login');
+      }
     },
 
     authenticateGuest() {
-      let email = ENV.guestUser.email
-      let password = ENV.guestUser.password
 
-      this.authenticate_(email, password)
+      if (this.model.get('confirmLicense')) {
+        let email = ENV.guestUser.email
+        let password = ENV.guestUser.password
+
+        this.authenticate_(email, password)
+
+      } else {
+        this.set(
+          'guestError',
+          'You must have your own licence for ChemAxon Reactor product to log as a guest User');
+      }
     },
 
     resetPassword() {
       this.set('success', false);
       this.set('error', false);
-      let {email} = this.getProperties(
+      let {email} = this.get('model').getProperties(
         'email',
       );
       let this_ = this
@@ -58,7 +73,12 @@ export default Controller.extend({
         });
       }, (xhr/*, status, error*/) => {
         run(function() {
-          this_.set('error', xhr.responseText);
+          let response = JSON.parse(xhr.responseText) ;
+          if (response.email) {
+            this_.set('error', 'Please provide a valid email');
+          } else {
+            this_.set('error', xhr.responseText);
+          }
         });
       });
     },

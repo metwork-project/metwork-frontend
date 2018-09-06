@@ -2,7 +2,7 @@
 
 <div class="card login-form">
   <div class="card-body">
-    <h3 class="card-title">Register as new user</h3>
+    <h3 class="card-title">Create a new user</h3>
 
     {{#if signupComplete}}
         <div class="alert alert-success" role="alert">
@@ -14,7 +14,16 @@
         model=model
         signupComplete=signupComplete
         submitText='Create user'
+        error=error
+        buttonColor="success"
         register=(action 'register')}}
+    {{/if}}
+
+    {{#if (not model.confirmLicense)}}
+      <br />
+      <p> Get a ChemAxon license on
+        <a href="https://chemaxon.com/" target="_blank"> their website </a>
+      </p>
     {{/if}}
   </div>
 </div>
