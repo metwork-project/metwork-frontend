@@ -34,7 +34,7 @@ export default Controller.extend({
     resetPassword() {
       this.set('success', false);
       this.set('error', false);
-      let {email} = this.getProperties(
+      let {email} = this.get('model').getProperties(
         'email',
       );
       let this_ = this
@@ -58,7 +58,12 @@ export default Controller.extend({
         });
       }, (xhr/*, status, error*/) => {
         run(function() {
-          this_.set('error', xhr.responseText);
+          let response = JSON.parse(xhr.responseText) ;
+          if (response.email) {
+            this_.set('error', 'Please provide a valid email');
+          } else {
+            this_.set('error', xhr.responseText);
+          }
         });
       });
     },
