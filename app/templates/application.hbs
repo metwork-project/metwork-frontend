@@ -16,7 +16,13 @@
         <div>
           {{#if session.isAuthenticated}}
             {{#bs-button type="secondary" onClick=(action 'invalidateSession')}} Logout {{/bs-button}}
-            {{#link-to "users.show" currentUser.user class="btn-like"}} {{#bs-button type="primary" }} My account {{/bs-button}} {{/link-to}}
+            {{# if (not currentUser.isGuest)}}
+              {{#link-to "users.show" currentUser.user class="btn-like"}}
+                {{#bs-button type="primary" }}
+                  My account
+                {{/bs-button}}
+              {{/link-to}}
+            {{/if}}
           {{else}}
               {{#link-to "register" class="btn-like"}} {{#bs-button type="success" }} Register {{/bs-button}} {{/link-to}}
             {{#link-to "login" class="btn-like"}} {{#bs-button type="primary" }}Login {{/bs-button}} {{/link-to}}

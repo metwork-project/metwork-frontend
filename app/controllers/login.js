@@ -25,8 +25,9 @@ export default Controller.extend({
     },
 
     authenticateGuest() {
-      let email = 'metwork.dev@gmail.com'
-      let password = 'AYL6jGBm6R'
+      let email = ENV.guestUser.email
+      let password = ENV.guestUser.password
+
       this.authenticate_(email, password)
     },
 
@@ -52,7 +53,6 @@ export default Controller.extend({
         dataType: 'json'
       }).then( (response) => {
         run(function() {
-          console.log(response);
           // this.set('signupComplete', true);
           this_.set('success', response.success);
         });
