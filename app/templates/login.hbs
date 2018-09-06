@@ -7,6 +7,7 @@
     {{#user-form
       formType='login'
       model=model
+      error=error
       signupComplete=signupComplete
       submitText='Login'
       authenticate=(action 'authenticate')}}
@@ -15,26 +16,32 @@
           defaultText="Reset password"
           onClick=(action 'resetPassword') }}
 
-        {{bs-button
-          type="submit"
-          buttonType="submit"
-          defaultText="Guest Login"
-          onClick=(action "authenticateGuest")
-          class="btn btn-warning"}}
-
     {{/user-form}}
 
-
-    {{#if error }}
-        <div class="alert alert-danger m-2" role="alert">
-          {{error}}
-        </div>
-    {{/if}}
     {{#if success }}
         <div class="alert alert-success m-2" role="success">
           {{success}}
         </div>
     {{/if}}
+
+    <br />
+
+    <h3 class="card-title">Guest login</h3>
+
+    {{user-form
+      formType='guestLogin'
+      model=model
+      error=guestError
+      submitText='Login as a guest'
+      authenticateGuest=(action 'authenticateGuest')}}
+
+    {{#if (not model.confirmLicense)}}
+      <br />
+      <p> Get a ChemAxon license on
+        <a href="https://chemaxon.com/" target="_blank"> their website </a>
+      </p>
+    {{/if}}
+
   </div>
 
 </div>

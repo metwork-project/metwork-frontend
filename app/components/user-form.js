@@ -43,14 +43,24 @@ export default Component.extend({
         placeholder: "Confirm Password",
         property: "confirm_password",
         value: '',
+      },
+      confirmLicense: {
+        controlType: "checkbox",
+        label: "I certify that I have my own license for ChemAxon Reactor product",
+        property: "confirmLicense",
+        value: false,
       }
     };
 
     switch( this.get('formType') ) {
       case 'login':
         return [fields.email, fields.password];
+      case 'guestLogin':
+        return [fields.confirmLicense];
       case 'register':
-        return [fields.email, fields.username, fields.organization, fields.password, fields.confirmPassword];
+        return [fields.email, fields.username, fields.organization,
+            fields.password, fields.confirmPassword,
+            fields.confirmLicense,];
       case 'info':
         return [fields.email, fields.username, fields.organization];
       case 'changePassword':
@@ -63,6 +73,9 @@ export default Component.extend({
       switch( this.get('formType') ) {
         case 'login':
           this.authenticate(this.model.getProperties('email', 'password'));
+          break;
+        case 'guestLogin':
+          this.authenticateGuest();
           break;
         case 'register':
           this.register();

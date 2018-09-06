@@ -8,7 +8,7 @@ export default Route.extend(UnauthenticatedRouteMixin, {
 
     setupController(controller, model) {
       this._super(...arguments);
-      model.set('checkEmail', true );
+      //model.set('checkEmail', true );
       // model.set('checkPassword', true );
     },
 
