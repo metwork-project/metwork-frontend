@@ -7,6 +7,12 @@ export default Component.extend({
   error:'',
   signupComplete: false,
 
+  buttonClass: computed('buttonColor', function() {
+    let buttonColor = 'primary';
+    if (this.get('buttonColor')) {buttonColor = this.get('buttonColor')};
+    return "btn btn-" + buttonColor;
+  }),
+
   getFields: computed( function() {
     let fields = {
       email: {
