@@ -139,3 +139,7 @@ a.list-group-item.item-sm {
 }
 
 @import "ember-bootstrap/bootstrap";
+
+.tippy-popper {
+  pointer-events: auto;
+}

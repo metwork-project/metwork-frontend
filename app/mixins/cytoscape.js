@@ -1,4 +1,7 @@
 import Mixin from '@ember/object/mixin';
+// import cytoscape from 'cytoscape';
+import { popper } from 'cytoscape-popper';
+import tippy from 'tippy.js';
 
 export default Mixin.create({
 
@@ -30,8 +33,15 @@ export default Mixin.create({
 	    };
 			this.set('layout', layout);
 
+			// cytoscape.use( popper );
+
 			var cy = cytoscape({
 				container: $('#cy'),
+
+				boxSelectionEnabled: false,
+			  autounselectify: true,
+				maxZoom: 2,
+			  minZoom: 0.5,
 
 				elements: data,
 
@@ -78,7 +88,48 @@ export default Mixin.create({
 		    layout: layout,
 
 				});
+
 				this.set('cy',cy);
+
+				var makeTippy = function(node){
+					node.hasTippy = true;
+					let text = node.data('name');
+					if (node.data('nodeType') === 'molecule') {
+						text = node.data('smiles');
+					}
+					let t = tippy( node.popperRef(), {
+						html: (function(){
+							var div = document.createElement('div');
+							div.innerHTML = text;
+							return div;
+						})(),
+						trigger: 'manual',
+						arrow: true,
+						// placement: 'bottom',
+						hideOnClick: false,
+						multiple: false,
+						sticky: true,
+						stickyDuration: 0,
+					} ).tooltips[0];
+					node.tippy = t;
+					return t;
+				};
+
+				cy.nodes().on('tap', function(evt) {
+					let node = evt.target;
+					if (node.hasTippy) {
+						let tippy = node.tippy
+						if(tippy.state.visible) {
+							tippy.hide();
+						} else {
+							tippy.show();
+						}
+					} else {
+						makeTippy(node, 'foo');
+						node.tippy.show();
+					}
+				});
+
 		},
 	},
 
