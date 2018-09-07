@@ -1,65 +1,43 @@
 <!-- Login -->
-
-
-
 <div class="card login-form">
 
   <div class="card-body">
     <h3 class="card-title">Login</h3>
 
-				{{#bs-form 
-				    formLayout='horizontal' 
-				    onSubmit=(action "authenticate") 
-				    novalidate=true 
-				    model=model as |form|}}
+    {{#user-form
+      formType='login'
+      model=model
+      error=error
+      signupComplete=signupComplete
+      submitText='Login'
+      authenticate=(action 'authenticate')}}
 
-				      {{form.element 
-				            controlType="email" 
-				            label="Email" 
-				            placeholder="your@email.com" 
-				            property="email"
-				            value=email}}
-				      {{form.element 
-				            controlType="password" 
-				            label="Password" 
-				            placeholder="Password" 
-				            property="password"
-				            value=password}}
+        {{bs-button type="secondary"
+          defaultText="Reset password"
+          onClick=(action 'resetPassword') }}
 
-					<div class="d-flex justify-content-between">
+    {{/user-form}}
 
-						<div>
-				      {{bs-button 
-				            defaultText="Login" 
-				            type="submit" 
-				            buttonType="submit"
-				            class="btn btn-primary"}}
-				        {{bs-button type="secondary"  
-				            defaultText="Forgot password ?" 
-				            onClick=(action 'resetPassword') }}
-
-						</div>
-						<div>
-	
-							{{bs-button 
-									type="submit" 
-									buttonType="submit"
-									defaultText="Guest Login" 
-									onClick=(action "authenticateGuest")
-									class="btn btn-warning"}}
-
-						</div>
-
-					</div>
-				{{/bs-form}}
-
-    {{#if error }}
-        <div class="alert alert-danger m-2" role="alert">
-          {{error}}
+    {{#if success }}
+        <div class="alert alert-success m-2" role="success">
+          {{success}}
         </div>
     {{/if}}
-	</div>
+
+    <br />
+
+    <h3 class="card-title">Guest login</h3>
+
+    {{user-form
+      formType='guestLogin'
+      model=model
+      error=guestError
+      buttonColor="warning"
+      submitText='Login as a guest'
+      needCertifyCheck=true
+      certifyCheck=certifyCheck
+      authenticateGuest=(action 'authenticateGuest')}}
+
+  </div>
 
 </div>
-
-

@@ -1,7 +1,7 @@
 import Base from 'ember-simple-auth/authenticators/base';
 import ENV from 'metwork-frontend/config/environment';
 import { Promise } from 'rsvp';
-import { isEmpty } from '@ember/utils'; 
+import { isEmpty } from '@ember/utils';
 import $ from 'jquery';
 import { run } from '@ember/runloop';
 

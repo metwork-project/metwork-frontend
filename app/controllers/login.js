@@ -6,33 +6,55 @@ import { run } from '@ember/runloop';
 
 export default Controller.extend({
   session: service('session'),
+  success: false,
+  error: false,
+  guestError: false,
 
 	authenticate_ : function(email, password) {
-      this.get('session').authenticate('authenticator:drf-token-authenticator', email, password).catch((reason) => {
-        if (reason == '{"non_field_errors":["Unable to log in with provided credentials."]}') { 
-            this.set('error', 'Wrong email or password');
-        }
-      });
+    this.get('session').authenticate('authenticator:drf-token-authenticator', email, password).catch((reason) => {
+      if (reason == '{"non_field_errors":["Unable to log in with provided credentials."]}') {
+          this.set('error', 'Wrong email or password');
+      } else {
+        this.set('error', reason);
+      }
+    });
 	},
 
   actions: {
-    authenticate() {
-      let { email, password } = this.getProperties('email', 'password');
-			this.authenticate_(email, password)
+    authenticate({ email, password }) {
+      if (this.model.get('email')) {
+        this.authenticate_(email, password)
+      } else {
+        this.set(
+          'error',
+          'Please provide your email to login');
+      }
     },
 
     authenticateGuest() {
-			let email = 'metwork.dev@gmail.com'
-			let password = 'AYL6jGBm6R'
-			this.authenticate_(email, password)
+
+      if (this.get('certifyCheck')) {
+        let email = ENV.guestUser.email
+        let password = ENV.guestUser.password
+
+        this.authenticate_(email, password)
+
+      } else {
+        this.set(
+          'guestError',
+          'You must certify that you will use MetWork for non-commercial activity '
+          + 'either directly or as a means of promoting or soliciting business ');
+      }
     },
 
     resetPassword() {
-      let {email} = this.getProperties(
+      this.set('success', false);
+      this.set('error', false);
+      let {email} = this.get('model').getProperties(
         'email',
-      ); 
-
-      //let email = "mail@yannbeauxis.net" 
+      );
+      let this_ = this
+      //let email = "mail@yannbeauxis.net"
       let base_url = ENV.host;
         if(ENV.APInameSpace != '') {
             base_url += '/' + ENV.APInameSpace
@@ -45,13 +67,19 @@ export default Controller.extend({
         }),
         contentType: 'application/json;charset=utf-8',
         dataType: 'json'
-      }).then( (/*response*/) => {
+      }).then( (response) => {
         run(function() {
-            this.set('signupComplete', true);
+          // this.set('signupComplete', true);
+          this_.set('success', response.success);
         });
       }, (xhr/*, status, error*/) => {
         run(function() {
-            this.set('error', xhr.responseText);
+          let response = JSON.parse(xhr.responseText) ;
+          if (response.email) {
+            this_.set('error', 'Please provide a valid email');
+          } else {
+            this_.set('error', xhr.responseText);
+          }
         });
       });
     },
