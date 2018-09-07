@@ -49,6 +49,12 @@ export default Component.extend({
         placeholder: "Confirm Password",
         property: "confirm_password",
         value: '',
+      },
+      confirmLicense: {
+        controlType: "checkbox",
+        label: "I certify that I have my own license for ChemAxon Reactor product",
+        property: "confirmLicense",
+        value: false,
       }
     };
 
