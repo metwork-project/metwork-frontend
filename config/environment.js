@@ -7,6 +7,10 @@ module.exports = function(environment) {
     host: 'https://somehost.com',
     rootURL: '/',
     locationType: 'auto',
+    guestUser: {
+      email: 'metwork.dev@gmail.com',
+      password: 'AYL6jGBm6R'
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build
@@ -41,6 +45,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
     // ENV.APP.API_HOST = 'http://127.0.0.1:8000';
     //ENV.host = 'http://0.0.0.0:8000';
+    ENV.serverName = 'http://194.168.0.1';
     ENV.host = 'http://194.168.0.1:8000';
     ENV.APInameSpace = '';
     //ENV.APInameSpace = 'metwork-api';
@@ -63,6 +68,7 @@ module.exports = function(environment) {
 
   if (environment === 'docker') {
     //ENV.host = 'http://backend_api';
+    ENV.serverName = 'http://194.168.0.1';
     ENV.host = 'http://194.168.0.1';
     ENV.APInameSpace = 'metwork-api';
     //ENV.rootURL = '/metwork/';
@@ -72,6 +78,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
+    ENV.serverName = 'https://metwork.pharmacie.parisdescartes.fr';
     ENV.host = 'https://metwork.pharmacie.parisdescartes.fr';
     ENV.APInameSpace = 'metwork-api';
     //ENV.rootURL = '/metwork/';
