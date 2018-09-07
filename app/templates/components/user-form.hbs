@@ -16,6 +16,18 @@
 
   {{/each}}
 
+  {{#if needCertifyCheck}}
+    <div class="row">
+      <div class="col-md-1">
+        {{input type="checkbox" name="certifyCheck" checked=certifyCheck}}
+      </div>
+      <div class="col-md-11">
+            I certify that I will use MetWork for non-commercial activity either directly
+            or as a means of promoting or soliciting business
+      </div>
+    </div>
+  {{/if}}
+
   <div class="d-flex justify-content-between">
 
     <div>

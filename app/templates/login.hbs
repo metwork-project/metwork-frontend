@@ -34,14 +34,9 @@
       error=guestError
       buttonColor="warning"
       submitText='Login as a guest'
+      needCertifyCheck=true
+      certifyCheck=certifyCheck
       authenticateGuest=(action 'authenticateGuest')}}
-
-    {{#if (not model.confirmLicense)}}
-      <br />
-      <p> Get a ChemAxon license on
-        <a href="https://chemaxon.com/" target="_blank"> their website </a>
-      </p>
-    {{/if}}
 
   </div>
 

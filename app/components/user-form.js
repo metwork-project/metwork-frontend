@@ -62,11 +62,10 @@ export default Component.extend({
       case 'login':
         return [fields.email, fields.password];
       case 'guestLogin':
-        return [fields.confirmLicense];
+        return [];
       case 'register':
         return [fields.email, fields.username, fields.organization,
-            fields.password, fields.confirmPassword,
-            fields.confirmLicense,];
+            fields.password, fields.confirmPassword];
       case 'info':
         return [fields.email, fields.username, fields.organization];
       case 'changePassword':

@@ -16,14 +16,10 @@
         submitText='Create user'
         error=error
         buttonColor="success"
+        needCertifyCheck=true
+        certifyCheck=certifyCheck
         register=(action 'register')}}
     {{/if}}
 
-    {{#if (not model.confirmLicense)}}
-      <br />
-      <p> Get a ChemAxon license on
-        <a href="https://chemaxon.com/" target="_blank"> their website </a>
-      </p>
-    {{/if}}
   </div>
 </div>

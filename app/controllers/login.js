@@ -33,7 +33,7 @@ export default Controller.extend({
 
     authenticateGuest() {
 
-      if (this.model.get('confirmLicense')) {
+      if (this.get('certifyCheck')) {
         let email = ENV.guestUser.email
         let password = ENV.guestUser.password
 
@@ -42,7 +42,8 @@ export default Controller.extend({
       } else {
         this.set(
           'guestError',
-          'You must have your own licence for ChemAxon Reactor product to log as a guest User');
+          'You must certify that you will use MetWork for non-commercial activity '
+          + 'either directly or as a means of promoting or soliciting business ');
       }
     },
 

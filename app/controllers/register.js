@@ -10,16 +10,15 @@ export default Controller.extend({
   actions: {
     register() {
       let self = this;
-      let {email, username, organization, password, confirm_password, confirmLicense}
+      let {email, username, organization, password, confirm_password}
         = this.model.getProperties(
           'email',
           'username',
           'organization',
           'password',
-          'confirm_password',
-          'confirmLicense'
+          'confirm_password'
         );
-      if (confirmLicense) {
+      if (this.get('certifyCheck')) {
         let base_url = ENV.host;
           if(ENV.APInameSpace != '') {
               base_url += '/' + ENV.APInameSpace
@@ -51,7 +50,8 @@ export default Controller.extend({
       } else {
         self.set(
           'error',
-          'You must have your own licence for ChemAxon Reactor product to create a User');
+          'You must certify that you will use MetWork for non-commercial activity '
+          + 'either directly or as a means of promoting or soliciting business ');
       }
     },
   },
