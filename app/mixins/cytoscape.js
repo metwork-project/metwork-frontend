@@ -152,37 +152,47 @@ export default Mixin.create({
 						}
 					});
 				};
+				cy.nodes().on('taphold', function(evt) {
+					let node = evt.target;
+					cy.nodes().hide();
+					node.show();
+					node.predecessors().show();
+					node.successors().show();
+					cy.onHold = true;
+				});
 
 				cy.nodes().on('tap', function(evt) {
-					let node = evt.target;
-					let nodeId = node.data('id')
-					if (node.hasTippy) {
-						let tippy = node.tippy
-						if(tippy.state.visible) {
-							tippy.hide();
-						} else {
-							tippy.show();
-						}
-					} else {
-						makeTippy(node).then( function (tippy) {
-							tippy.show();
-							// node.tippy.show();
-							if (node.data('nodeType') === 'molecule') {
-								var viewACS = new ChemDoodle.ViewerCanvas(nodeId, 200, 200);
-								viewACS.specs.bonds_width_2D = .6;
-								viewACS.specs.bonds_saturationWidthAbs_2D = 2.6;
-								viewACS.specs.bonds_hashSpacing_2D = 2.5;
-								viewACS.specs.atoms_font_size_2D = 10;
-								viewACS.specs.atoms_font_families_2D = ['Helvetica', 'Arial', 'sans-serif'];
-								viewACS.specs.atoms_displayTerminalCarbonLabels_2D = true;
-								// var molfile =
-								var moltarget = ChemDoodle.readMOL(node.data('molFile'));
-								moltarget.scaleToAverageBondLength(14.4);
-								viewACS.loadMolecule(moltarget);
+					if (!cy.onHold) {
+						let node = evt.target;
+						let nodeId = node.data('id')
+						if (node.hasTippy) {
+							let tippy = node.tippy
+							if(tippy.state.visible) {
+								tippy.hide();
+							} else {
+								tippy.show();
 							}
-						});
-
+						} else {
+							makeTippy(node).then( function (tippy) {
+								tippy.show();
+								// node.tippy.show();
+								if (node.data('nodeType') === 'molecule') {
+									var viewACS = new ChemDoodle.ViewerCanvas(nodeId, 200, 200);
+									viewACS.specs.bonds_width_2D = .6;
+									viewACS.specs.bonds_saturationWidthAbs_2D = 2.6;
+									viewACS.specs.bonds_hashSpacing_2D = 2.5;
+									viewACS.specs.atoms_font_size_2D = 10;
+									viewACS.specs.atoms_font_families_2D = ['Helvetica', 'Arial', 'sans-serif'];
+									viewACS.specs.atoms_displayTerminalCarbonLabels_2D = true;
+									// var molfile =
+									var moltarget = ChemDoodle.readMOL(node.data('molFile'));
+									moltarget.scaleToAverageBondLength(14.4);
+									viewACS.loadMolecule(moltarget);
+								}
+							});
+						}
 					}
+				cy.onHold = false;
 				});
 
 		},
