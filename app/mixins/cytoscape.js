@@ -25,6 +25,7 @@ export default Mixin.create({
 				secondary: '#636a71',
 				success: 'rgb(64,159,64)',
 				warning: 'rgb(200,145,17)',
+				danger: 'rgb(200,43,17)'
 			}
 			let cose =  {
 				name: 'cose',
@@ -91,6 +92,17 @@ export default Mixin.create({
 								'background-color': colors.warning,
 								'text-outline-color':	colors.warning,
 							})
+					.selector('.node-select')
+						.css({
+							// 'text-outline-width':	'0',
+							'text-outline-color':	colors.danger,
+							// 'color': 'red',
+							// 'border-width': '3px',
+							// 'border-style': 'solid',
+							// 'border-color': 'red',
+							// 'font-weight': 'bold',
+							'background-color': colors.danger,
+						})
 					.selector('edge')
 						.css({
 			        'curve-style': 'bezier',
@@ -170,35 +182,61 @@ export default Mixin.create({
 					});
 				};
 				cy.nodes().on('tap', function(evt) {
-					let node = evt.target;
-					if (node.hasTippy) {
-							node.tippy.hide();
+					cy.nodes('.node-select').removeClass('node-select');
+					let nodeTarget = evt.target;
+					let nodeTargetPosBegin = nodeTarget.position();
+					nodeTarget.addClass('node-select');
+					if (nodeTarget.hasTippy) {
+							nodeTarget.tippy.hide();
 					}
+
+					cy.elements('.shown-init').removeClass('shown-init');
+					cy.elements(':visible').addClass('shown-init');
+
+					cy.elements('.hidden-init').removeClass('hidden-init');
+					cy.elements(':hidden').addClass('hidden-init');
+
+					cy.elements().addClass('to-hide');
+					cy.elements('.to-show').removeClass('to-show');
+					nodeTarget.addClass('to-show');
+					nodeTarget.predecessors().addClass('to-show');
+					nodeTarget.successors().addClass('to-show');
+					cy.elements('.to-show').removeClass('to-hide');
+
+					var elementsToShow =  cy.elements('.to-show')
+
 					var nodes = cy.nodes();
-					var nodesShownBegin = cy.nodes(':visible');
+					// var nodesShownBegin = cy.nodes(':visible');
 					var posBegin = {};
 					var posEnd = {};
+					var opacity = {};
 					for( var i = 0; i < nodes.length; i++ ) {
 						var n = nodes[i];
 						var p = n.position();
-
 						posBegin[ n.id() ] = { x: p.x, y: p.y };
 					}
-					var animateNode = function(nodesTarget, positions, nodesHidden) {
-						// console.log(nodesHidden);
-						// nodesHidden.animate({
-						// for( var i = 0; i < nodesHidden.length; i++ ) {
-						// 	var n = nodesHidden[i]
-						// 	n.animate({
-						// 		style: {opacity:0.01},
-						// 		position: positions[ n.position() ],
-						// 		duration: 1000,
-						// 	});
-						// 	// n.hide();
-						// }
-						// nodesHiddenEnd.hide();
-						for( var i = 0; i < nodesTarget.length; i++ ) {
-							var n = nodesTarget[i];
+
+					var animateNode = function(positions) {
+
+						cy.nodes('.to-hide').animate({
+							style: {opacity: 0},
+							duration: 1000,
+						})
+
+						// cy.edges('.to-hide').animate({
+						// 	style: {opacity: 0.01},
+						// 	duration: 1000,
+						// })
+
+						cy.edges('.to-show').animate({
+							style: {opacity: 1},
+							duration: 1000,
+						});
+
+
+						var nodesToShow = cy.nodes('.to-show')
+						for( var i = 0; i < nodesToShow.length; i++ ) {
+							var n = nodesToShow[i];
 							n.animate({
 								style: {opacity: 1},
 								position: positions[ n.id() ],
@@ -208,42 +246,49 @@ export default Mixin.create({
 
 					}
 					 cy.startBatch();
-					 	var nodeShownBegin = cy.elements(':visible');
-					 	var nodesHiddenBegin = cy.elements(':hidden');
-						cy.nodes().hide();
-						node.show();
-						node.predecessors().show();
-						node.successors().show();
-						var nodesShownEnd = cy.elements(':visible');
-						var nodesHiddenEnd = cy.elements(':hidden');
-						var l = nodesShownEnd.layout({
+
+						cy.elements('.to-show').show();
+
+						var l = elementsToShow.layout({
 										name: 'cose',
 										nodeRepulsion: 400000,
 										animate: true,
 						})
-						nodeShownBegin.style('opacity', 1);
-						nodesHiddenBegin.style('opacity', 0.01);
+
 						l.on('layoutstop', function() {
 							for( var i = 0; i < nodes.length; i++ ){
 								var n = nodes[i];
 								var p = n.position();
 								posEnd[ n.id() ] = { x: p.x, y: p.y };
+								if (n.hasClass('to-show')) {
+									opacity[ n.id() ] = 1;
+								} else {
+									opacity[ n.id() ] = 0;
+								}
 							}
+
 							cy.animate({
 								fit: {
-									eles: nodesShownEnd,
+									eles: elementsToShow,
 									padding: 20
 								}
 								}, {
 								duration: 1000,
 							});
+
 							nodes.positions( function (n, i) {
 								return posBegin[ n.id() ];
 							});
-							cy.fit(nodeShownBegin,20)
-							// nodeShownBegin.show();
-							animateNode(nodesShownEnd, posEnd, nodesHiddenEnd);
+
+							cy.nodes('.hidden-init').positions( function() {
+								return nodeTargetPosBegin;
+							})
+
+							cy.fit(cy.elements('.shown-init'),20)
+
+							animateNode( posEnd );
 						})
+
 						l.run();
 
 
@@ -254,15 +299,16 @@ export default Mixin.create({
 
 				});
 
-				cy.nodes().on('mouseout', function(evt) {
+				cy.nodes().on('mouseout_', function(evt) {
 					// if (!cy.onHold) {
 						let node = evt.target;
+
 						if (node.hasTippy) {
 								node.tippy.hide();
 						}
 				});
 
-				cy.nodes().on('mouseover', function(evt) {
+				cy.nodes().on('mouseover_', function(evt) {
 						// } else {
 					let node = evt.target;
 					let nodeId = node.data('id')

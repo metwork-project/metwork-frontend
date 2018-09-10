@@ -3,6 +3,7 @@
 
 @import "base/colors";
 @import "components/project-selectable";
+@import "components/cytoscape";
 
 html {
     overflow-y: scroll;
@@ -131,21 +132,4 @@ a.list-group-item.item-sm {
 	height: 1.5rem;
 }
 
-#cy {
-  width: 100%;
-  height: 800px;
-  display: block;
-	border: 1px solid black;
-}
-
 @import "ember-bootstrap/bootstrap";
-
-.tippy-popper {
-  pointer-events: auto;
-}
-
-.tippy-tooltip.light-theme {
-  color: black;
-  border: solid 1px black;
-  background-color: white;
-}
