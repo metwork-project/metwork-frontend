@@ -6,6 +6,18 @@ import tippy from 'tippy.js';
 export default Mixin.create({
 
 	actions: {
+		testAction() {
+			let cy = this.get('cy')
+			cy.animate({
+				fit: {
+					eles: cy.nodes(':visible'),
+					padding: 20
+				}
+				}, {
+				duration: 1000,
+			});
+		},
+
 		startCytoscape(data) {
 			let _this = this;
 			let colors = {
@@ -14,25 +26,27 @@ export default Mixin.create({
 				success: 'rgb(64,159,64)',
 				warning: 'rgb(200,145,17)',
 			}
-			let layout =  {
+			let cose =  {
 				name: 'cose',
-				idealEdgeLength: 100,
-				nodeOverlap: 20,
-				refresh: 20,
-				fit: true,
-				padding: 30,
-				randomize: false,
-				componentSpacing: 100,
+				// idealEdgeLength: 100,
+				// nodeOverlap: 20,
+				// refresh: 20,
+				// fit: true,
+				// padding: 30,
+				// randomize: false,
+				// componentSpacing: 100,
 				nodeRepulsion: 400000,
-				edgeElasticity: 100,
-				nestingFactor: 5,
-				gravity: 80,
-				numIter: 1000,
-				initialTemp: 200,
-				coolingFactor: 0.95,
-				minTemp: 1.0
+				// edgeElasticity: 100,
+				// nestingFactor: 5,
+				// gravity: 80,
+				// numIter: 1000,
+				// initialTemp: 200,
+				// coolingFactor: 0.95,
+				// minTemp: 1.0,
+				animate: true,
 	    };
-			this.set('layout', layout);
+
+			this.set('layout', cose);
 
 			// cytoscape.use( popper );
 
@@ -41,8 +55,8 @@ export default Mixin.create({
 
 				boxSelectionEnabled: false,
 			  autounselectify: true,
-				maxZoom: 2,
-			  minZoom: 0.5,
+				// maxZoom: 2,
+			  // minZoom: 0.5,
 
 				elements: data,
 
@@ -86,9 +100,11 @@ export default Mixin.create({
 							'target-arrow-shape': 'triangle',
 						}),
 
-		    layout: layout,
+		    layout: cose,
 
 				});
+
+				cy.fit({padding: 20});
 
 				this.set('cy',cy);
 
@@ -152,16 +168,88 @@ export default Mixin.create({
 						}
 					});
 				};
-				cy.nodes().on('taphold', function(evt) {
+				cy.nodes().on('tap', function(evt) {
 					let node = evt.target;
-					cy.nodes().hide();
-					node.show();
-					node.predecessors().show();
-					node.successors().show();
+					var nodes = cy.nodes();
+					var nodesShownBegin = cy.nodes(':visible');
+					var posBegin = {};
+					var posEnd = {};
+					for( var i = 0; i < nodes.length; i++ ) {
+						var n = nodes[i];
+						var p = n.position();
+
+						posBegin[ n.id() ] = { x: p.x, y: p.y };
+					}
+					var animateNode = function(nodesTarget, positions, nodesHidden) {
+						// console.log(nodesHidden);
+						// nodesHidden.animate({
+						// for( var i = 0; i < nodesHidden.length; i++ ) {
+						// 	var n = nodesHidden[i]
+						// 	n.animate({
+						// 		style: {opacity:0.01},
+						// 		position: positions[ n.position() ],
+						// 		duration: 1000,
+						// 	});
+						// 	// n.hide();
+						// }
+						// nodesHiddenEnd.hide();
+						for( var i = 0; i < nodesTarget.length; i++ ) {
+							var n = nodesTarget[i];
+							n.animate({
+								style: {opacity: 1},
+								position: positions[ n.id() ],
+								duration: 1000,
+							});
+						}
+
+					}
+					 cy.startBatch();
+					 	var nodeShownBegin = cy.elements(':visible');
+					 	var nodesHiddenBegin = cy.elements(':hidden');
+						cy.nodes().hide();
+						node.show();
+						node.predecessors().show();
+						node.successors().show();
+						var nodesShownEnd = cy.elements(':visible');
+						var nodesHiddenEnd = cy.elements(':hidden');
+						var l = nodesShownEnd.layout({
+										name: 'cose',
+										nodeRepulsion: 400000,
+										animate: true,
+						})
+						nodeShownBegin.style('opacity', 1);
+						nodesHiddenBegin.style('opacity', 0.01);
+						l.on('layoutstop', function() {
+							for( var i = 0; i < nodes.length; i++ ){
+								var n = nodes[i];
+								var p = n.position();
+								posEnd[ n.id() ] = { x: p.x, y: p.y };
+							}
+							cy.animate({
+								fit: {
+									eles: nodesShownEnd,
+									padding: 20
+								}
+								}, {
+								duration: 1000,
+							});
+							nodes.positions( function (n, i) {
+								return posBegin[ n.id() ];
+							});
+							// nodeShownBegin.show();
+							animateNode(nodesShownEnd, posEnd, nodesHiddenEnd);
+						})
+						l.run();
+
+
+					 cy.endBatch();
+
+
 					cy.onHold = true;
+
 				});
 
-				cy.nodes().on('tap', function(evt) {
+				cy.nodes().on('tappp', function(evt) {
 					if (!cy.onHold) {
 						let node = evt.target;
 						let nodeId = node.data('id')
