@@ -94,10 +94,11 @@ export default Mixin.create({
 					.selector('edge')
 						.css({
 			        'curve-style': 'bezier',
-							'width': 4,
+							'width': 6,
 							'line-color': '#ccc',
 							'target-arrow-color': '#ccc',
 							'target-arrow-shape': 'triangle',
+							'arrow-scale': 1.5,
 						}),
 
 		    layout: cose,
@@ -170,6 +171,9 @@ export default Mixin.create({
 				};
 				cy.nodes().on('tap', function(evt) {
 					let node = evt.target;
+					if (node.hasTippy) {
+							node.tippy.hide();
+					}
 					var nodes = cy.nodes();
 					var nodesShownBegin = cy.nodes(':visible');
 					var posBegin = {};
