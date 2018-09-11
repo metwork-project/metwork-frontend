@@ -14,3 +14,15 @@
   border: solid 1px black;
   background-color: white;
 }
+
+.tippy-tooltip {
+  padding: 0;
+}
+
+canvas.ChemDoodleWebComponent {
+  border: 0;
+}
+
+.smiles-display .value {
+  display: none;
+}
