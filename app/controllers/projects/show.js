@@ -1,9 +1,13 @@
 import Controller from '@ember/controller';
 import PaginatedControllerMixin from 'metwork-frontend/mixins/paginated-controller';
 import CytoscapeMixin from 'metwork-frontend/mixins/cytoscape';
+import CytoscapeFilterMixin from 'metwork-frontend/mixins/cytoscape-filter';
 import { computed } from '@ember/object';
 
-export default Controller.extend(PaginatedControllerMixin, CytoscapeMixin, {
+export default Controller.extend(
+  PaginatedControllerMixin,
+  CytoscapeMixin,
+  CytoscapeFilterMixin, {
 
   activeNav: 'info',
 
@@ -94,9 +98,12 @@ export default Controller.extend(PaginatedControllerMixin, CytoscapeMixin, {
 
   loadMetabolizationNetwork: function() {
     let _this = this
-    this.model.cytoscapeJSData().then( function(response) {
-      //data = JSON.parse(response);
-      _this.send('startCytoscape', response);
+    this.model.metabolizationNetwork().then( function(response) {
+      _this.send(
+        'startCytoscape',
+        response,
+        [_this.activateFilter, _this.activateHighlight,
+          _this.activateTippy] );
     }) ;
   },
 

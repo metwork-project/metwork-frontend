@@ -142,6 +142,6 @@ export default DS.Model.extend({
 
 	startRun: memberAction({ path: 'start_run', type: 'post' }),
 
-	cytoscapeJSData: memberAction({ path: 'cytoscapejs_data', type: 'get' }),
+	metabolizationNetwork: memberAction({ path: 'metabolization_network', type: 'get' }),
 
 });

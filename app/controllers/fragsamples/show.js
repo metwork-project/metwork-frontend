@@ -2,8 +2,13 @@ import Controller from '@ember/controller';
 import $ from 'jquery';
 import { computed } from '@ember/object';
 import PaginatedControllerMixin from 'metwork-frontend/mixins/paginated-controller';
+import CytoscapeMixin from 'metwork-frontend/mixins/cytoscape';
+import CytoscapeFilterMixin from 'metwork-frontend/mixins/cytoscape-filter';
 
-export default Controller.extend(PaginatedControllerMixin, {
+export default Controller.extend(
+  PaginatedControllerMixin,
+  CytoscapeMixin,
+  CytoscapeFilterMixin, {
 
     activeNav: 'info',
     dataToDelete: false,
@@ -17,7 +22,7 @@ export default Controller.extend(PaginatedControllerMixin, {
     },
 
     genDataComponents:  function () {
-        this.dataComponents['frag-annotation'] = 
+        this.dataComponents['frag-annotation'] =
             { params : {page: 1, page_size: 5, frag_sample_id: this.model.id} };
     },
 
@@ -52,5 +57,22 @@ export default Controller.extend(PaginatedControllerMixin, {
             //this.toggleModal(false);
             this.send('addAnnotationQuery', params, this);
         },
+
+        loadMolecularNetwork() {
+          let _this = this
+          this.model.molecularNetwork().then( function(response) {
+            _this.send(
+              'startCytoscape',
+              response,
+              [/*_this.activateFilter, _this.activateHighlight,
+                _this.activateTippy*/] );
+          }) ;
+        },
     },
+
+
+  startMolecularNetwork: computed('activeNav', function() {
+    this.loadMolecularNetwork();
+  }),
+
 });
