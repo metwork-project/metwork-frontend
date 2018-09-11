@@ -28,9 +28,9 @@ export default Mixin.create(CytoscapeStyleMixin, {
       let _this = this;
       let cose =  {
         name: 'cose',
-        nodeRepulsion: 800000,
+        nodeRepulsion: 40000,
         nodeOverlap: 20,
-        gravity: 0.1,
+        gravity: 1,
         animate: true,
         componentSpacing: 100,
       };
