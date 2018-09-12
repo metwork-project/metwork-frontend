@@ -102,8 +102,8 @@ export default Controller.extend(
       _this.send(
         'startCytoscape',
         response,
-        [_this.activateFilter, _this.activateHighlight,
-          _this.activateTippy] );
+        'metabolization',
+        ['filter', 'highlight', 'tippy'] );
     }) ;
   },
 

@@ -2,7 +2,7 @@ import Mixin from '@ember/object/mixin';
 
 export default Mixin.create({
 
-  cyStyle: function() {
+  cyStyle: function(graphStyle) {
 
     let colors = {
       primary: '#073877',
@@ -13,7 +13,7 @@ export default Mixin.create({
       info: 'rgb(83,139,214)',
     }
 
-    return cytoscape.stylesheet()
+    let styleSheet = cytoscape.stylesheet()
       .selector('node')
         .css({
           'background-color': '#666',
@@ -47,17 +47,10 @@ export default Mixin.create({
           })
       .selector('.node-select')
         .css({
-          'text-outline-color':  colors.info,
-          'background-color': colors.info,
-        })
-      .selector('edge')
-        .css({
-          'curve-style': 'bezier',
-          'width': 4, //6,
-          'line-color': '#ccc',
-          // 'target-arrow-color': '#ccc',
-          // 'target-arrow-shape': 'triangle',
-          // 'arrow-scale': 1.5,
+          'border-width': '4px',
+          'border-color':  colors.danger,
+          // 'text-outline-color':  colors.info,
+          // 'background-color': colors.info,
         })
       .selector('.highlight')
         .css({
@@ -66,6 +59,34 @@ export default Mixin.create({
           'target-arrow-color': colors.info,
           'text-outline-color':  colors.info,
         })
-  },
+      .selector('.downlight')
+        .css({
+          'opacity':  0.2,
+        })
 
+
+    switch (graphStyle) {
+      case 'metabolization':
+        styleSheet.selector('edge')
+          .css({
+            'curve-style': 'bezier',
+            'width': 6,
+            'line-color': '#ccc',
+            'target-arrow-color': '#ccc',
+            'target-arrow-shape': 'triangle',
+            'arrow-scale': 1.5,
+          })
+        break;
+      default:
+        styleSheet.selector('edge')
+          .css({
+            'curve-style': 'bezier',
+            'width': 4,
+            'line-color': '#ccc',
+          })
+        break;
+    }
+
+    return styleSheet;
+  },
 });
