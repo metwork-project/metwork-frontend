@@ -10,6 +10,7 @@ export default Controller.extend(
   CytoscapeFilterMixin, {
 
   activeNav: 'info',
+  spinnerStatus: 'waiting',
 
   didReceiveAttrs: function() {
       this.activeNav = 'info';
@@ -92,12 +93,17 @@ export default Controller.extend(
         this.model.updateFragCompareConf(params);
       },
       reloadMetabolizationNetwork() {
+        cy = this.get('cy');
+        if (cy) {
+          cy.elements().remove();
+        }
         this.loadMetabolizationNetwork();
       }
   },
 
   loadMetabolizationNetwork: function() {
     let _this = this
+    this.set('spinnerStatus', 'loading');
     this.model.metabolizationNetwork().then( function(response) {
       _this.send(
         'startCytoscape',

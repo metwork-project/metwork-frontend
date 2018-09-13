@@ -71,7 +71,15 @@ export default Mixin.create({
   tipIon: function(node) {
     var info = node.data('info');
     var bestAnnotation = node.data('bestAnnotation');
+    var cosineDisplay = '';
+    if (bestAnnotation.cosine > 0) {
+      cosineDisplay = `
+        <p>
+          cosine: ${bestAnnotation.cosine}
+        </p>`;
+    }
     //     <p class='ion-info-display'>
+    //          ${cosineDisplay}
     var newContent = `
       <div class='row'>
         <div class='col-6'>
@@ -88,9 +96,7 @@ export default Mixin.create({
               ${bestAnnotation.smiles}
             <span>
           </p>
-          <p>
-            cosine: ${bestAnnotation.cosine}
-          </p>
+          ${cosineDisplay}
         </div>
         <div class='col-6'>
           ${info}

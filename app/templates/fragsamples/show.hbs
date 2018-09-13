@@ -23,14 +23,6 @@
 
                 </div>
             </form>
-            <h4 class="mr-auto">
-                Molecular Network
-            </h4>
-
-            {{bs-button type="primary"
-                defaultText="Load network"
-                onClick=(action 'loadMolecularNetwork') }}
-              <div id="cy"></div>
         {{/if}}
         {{#if (eq activeNav 'annotations')}}
             <div class="d-flex">
@@ -82,7 +74,15 @@
         {{pagination-handler data=frag-annotation}}
 
         {{/if}}
-
+        {{#if (eq activeNav 'network')}}
+          <div class='graph-content'>
+            {{graph-loader
+              spinnerStatus=spinnerStatus
+              loadNetwork=(action 'loadMolecularNetwork')
+              class="h-100"}}
+            <div id="cy"></div>
+          </div>
+        {{/if}}
     </div>
 </div>
 

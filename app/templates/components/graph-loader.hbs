@@ -1,0 +1,21 @@
+{{#if (not-eq spinnerStatus 'stop')}}
+  <div class="container graph-loader">
+    <div class="row align-items-center">
+      <div class="col">
+        {{#if (eq spinnerStatus 'waiting')}}
+          {{bs-button type="primary"
+            defaultText="Load network"
+
+            onClick=loadNetwork }}
+        {{else if (eq spinnerStatus 'loading') }}
+          <div class="spinner-display">
+            {{ember-spinner}}
+          </div>
+          <div>
+            loading network ...
+          </div>
+        {{/if}}
+      </div>
+    </div>
+  </div>
+{{/if}}

@@ -13,26 +13,14 @@ export default Mixin.create(
   CytoscapeFilterMixin, {
 
   actions: {
-    testAction() {
-      let cy = this.get('cy')
-      cy.animate({
-        fit: {
-          eles: cy.nodes(':visible'),
-          padding: 20
-        }
-        }, {
-        duration: 1000,
-      });
-    },
-
     startCytoscape(data, graphStyle, activateOptions) {
       let _this = this;
       let cose =  {
         name: 'cose',
         nodeRepulsion: 40000,
-        nodeOverlap: 20,
+        // nodeOverlap: 4,
         // gravity: 1,
-        animate: true,
+        // animate: true,
         // componentSpacing: 100,
       };
       this.set('layout', cose);
@@ -110,7 +98,7 @@ export default Mixin.create(
         _this.activateOption(cy, optionName);
       });
 
-
+      this.set('spinnerStatus', 'stop');
 
     },
   },

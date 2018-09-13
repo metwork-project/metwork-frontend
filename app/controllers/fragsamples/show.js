@@ -12,12 +12,14 @@ export default Controller.extend(
 
     activeNav: 'info',
     dataToDelete: false,
+    spinnerStatus: 'waiting',
 
     init() {
         this._super(...arguments);
         this.navParams = [
-            {toggle: 'info', libelle: 'Info'},
-            {toggle: 'annotations', libelle: 'Annotations'},
+          {toggle: 'info', libelle: 'Info'},
+          {toggle: 'annotations', libelle: 'Annotations'},
+          {toggle: 'network', libelle: 'Network'},
         ];
     },
 
@@ -59,6 +61,7 @@ export default Controller.extend(
         },
 
         loadMolecularNetwork() {
+          this.set('spinnerStatus', 'loading');
           let _this = this
           this.model.molecularNetwork().then( function(response) {
             _this.send(
@@ -69,6 +72,10 @@ export default Controller.extend(
               // ['filter', 'highlight', 'tippy'] );
           }) ;
         },
+
+        stopLoading() {
+          this.set('spinnerStatus', 'stop');
+        }
     },
 
 
