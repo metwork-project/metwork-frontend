@@ -65,7 +65,7 @@ export default Controller.extend(
               'startCytoscape',
               response,
               'molecular',
-              ['highlight'] );
+              ['highlight', 'tip'] );
               // ['filter', 'highlight', 'tippy'] );
           }) ;
         },

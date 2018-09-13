@@ -144,8 +144,8 @@ export default Mixin.create({
           cy.elements().removeClass('downlight');
         });
         break;
-      case 'tippy':
-        cy.tippyActivated = true;
+      case 'tip':
+        cy.tipActivated = true;
     }
   }
 

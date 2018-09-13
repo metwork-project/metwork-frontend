@@ -103,7 +103,7 @@ export default Controller.extend(
         'startCytoscape',
         response,
         'metabolization',
-        ['filter', 'highlight', 'tippy'] );
+        ['filter', 'highlight', 'tip'] );
     }) ;
   },
 

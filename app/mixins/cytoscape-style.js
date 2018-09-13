@@ -35,12 +35,14 @@ export default Mixin.create({
         .css({
           'shape': 'ellipse',
         })
-      .selector('node[nodeType = "molecule"][annotation = "init"]')
+      .selector(`node[nodeType = "molecule"][annotationType = "init"],
+                node[nodeType = "ion"][annotationType = "init"]`)
         .css({
           'background-color': colors.success,
           'text-outline-color':  colors.success,
         })
-        .selector('node[nodeType = "molecule"][annotation = "proposal"]')
+        .selector(`node[nodeType = "molecule"][annotationType = "proposal"],
+                  node[nodeType = "ion"][annotationType = "proposal"]`)
           .css({
             'background-color': colors.warning,
             'text-outline-color':  colors.warning,

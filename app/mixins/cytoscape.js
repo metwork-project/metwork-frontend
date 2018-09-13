@@ -96,7 +96,7 @@ export default Mixin.create(
       cy.nodes().on('tap', function(evt) {
 
         let node = evt.target;
-        if (cy.tippyActivated && !cy.onHold) {
+        if (cy.tipActivated && !cy.onHold) {
           let nodeId = node.data('id')
           if (node.hasTip) {
             node.tip.show();
