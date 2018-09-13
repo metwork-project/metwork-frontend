@@ -24,26 +24,11 @@ export default Mixin.create({
   },
 
   tipAnnotation: function(node) {
-    // var smiles = node.data('smiles');
-    var cosine = node.data('cosine');
-    var newContent =
-      `<canvas
-        class="ChemDoodleWebComponent"
-        id="${node.data('id')}" width="200" height="200"
-        alt="ChemDoodle Web Component"
-        style="width: 100px; height: 100px; background-color: rgb(255, 255, 255);">
-          This browser does not support HTML5/Canvas.
-      </canvas>
-      <p class='smiles-display'>
-        <button type="button" class="btn btn-light btn-sm">Display smiles</button>
-        <span class='value m-1'>
-          ${node.data('smiles')}
-        <span>
-      </p>
-      <p class='cosine-display'>
-        cosine : ${cosine}
-      </p>`;
 
+    var newContent = this.moleculeElement(
+      node.data('id'),
+      node.data('smiles'),
+      node.data('cosine'));
     var tipContent = this.updateTipContent(node.tip, newContent);
 
     this.displayMolecule(node);
@@ -71,41 +56,32 @@ export default Mixin.create({
   tipIon: function(node) {
     var info = node.data('info');
     var bestAnnotation = node.data('bestAnnotation');
-    var cosineDisplay = '';
-    if (bestAnnotation.cosine > 0) {
-      cosineDisplay = `
+
+    if (bestAnnotation.smiles) {
+      var newContent = `
+        <div class='row'>
+          <div class='col-6'>
+            ${this.moleculeElement(
+              node.data('id'),
+              bestAnnotation.smiles,
+              bestAnnotation.cosine)}
+          </div>
+          <div class='col-6'>
+            ${info}
+          </div>
+        </div>`;
+    } else {
+      var newContent = `
         <p>
-          cosine: ${bestAnnotation.cosine}
+          ${info}
         </p>`;
     }
-    //     <p class='ion-info-display'>
-    //          ${cosineDisplay}
-    var newContent = `
-      <div class='row'>
-        <div class='col-6'>
-          <canvas
-            class="ChemDoodleWebComponent"
-            id="${node.data('id')}" width="200" height="200"
-            alt="ChemDoodle Web Component"
-            style="width: 100px; height: 100px; background-color: rgb(255, 255, 255);">
-              This browser does not support HTML5/Canvas.
-          </canvas>
-          <p class='smiles-display'>
-            <button type="button" class="btn btn-light btn-sm">Display smiles</button>
-            <span class='value m-1'>
-              ${bestAnnotation.smiles}
-            <span>
-          </p>
-          ${cosineDisplay}
-        </div>
-        <div class='col-6'>
-          ${info}
-        </div>
-      </div>
-      `;
 
     var tipContent = this.updateTipContent(node.tip, newContent);
-    this.displayMolecule(node);
+
+    if (bestAnnotation.smiles) {
+      this.displayMolecule(node);
+    }
   },
 
   displayMolecule: function(node) {
@@ -117,13 +93,37 @@ export default Mixin.create({
     viewACS.specs.atoms_font_size_2D = 10;
     viewACS.specs.atoms_font_families_2D = ['Helvetica', 'Arial', 'sans-serif'];
     viewACS.specs.atoms_displayTerminalCarbonLabels_2D = true;
-    // var molfile =
     var moltarget = ChemDoodle.readMOL(node.data('molFile'));
     moltarget.scaleToAverageBondLength(14.4);
     viewACS.loadMolecule(moltarget);
     $('#' + node.tip.popper.id + ' .smiles-display .btn').click( function (event) {
-      $(event.target).parent().children().toggle();
+      var target = document.getElementById(`smiles-${node.data('id')}`);
+      target.select();
+      document.execCommand("copy");
     })
+  },
+
+  moleculeElement: function(id, smiles, cosine) {
+    var cosineDisplay = '';
+    if (cosine > 0) {
+      cosineDisplay = `
+        <p>
+          cosine: ${cosine}
+        </p>`;
+    }
+    return `
+      <canvas
+        class="ChemDoodleWebComponent"
+        id="${id}" width="200" height="200"
+        alt="ChemDoodle Web Component"
+        style="width: 100px; height: 100px; background-color: rgb(255, 255, 255);">
+          This browser does not support HTML5/Canvas.
+      </canvas>
+      <div class='smiles-display'>
+        <input class='value' type="text" value=${smiles} id="smiles-${id}">
+        <button type="button" class="btn btn-light btn-sm">Copy</button>
+      </div>
+      ${cosineDisplay}`;
   },
 
 });
