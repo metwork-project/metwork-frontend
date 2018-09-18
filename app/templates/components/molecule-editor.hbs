@@ -1,0 +1,46 @@
+<div>
+  <div class='molecule-editor'>
+    <div class='molecule-editor-loader'>
+        {{ember-spinner}}
+    </div>
+  </div>
+  <div class='molecule-editor-sketcher'>
+    <canvas
+      class="ChemDoodleWebComponent"
+      id={{canvasId}} width="100" height="100"
+      alt="ChemDoodle Web Component"
+      style="width: 500px; height: 300px; background-color: rgb(255, 255, 255);">
+        This browser does not support HTML5/Canvas.
+    </canvas>
+    <div>
+      {{bs-button type="primary"
+        defaultText="testChemdoodleJSON"
+        onClick=(action 'testExportJSON') }}
+      {{bs-button type="info"
+        defaultText="Load Smarts"
+        onClick=(action (mut smartsModal) true) }}
+    </div>
+  </div>
+</div>
+
+{{#bs-modal
+  class=modalId
+  open=smartsModal
+  onHidden=(action (mut smartsModal) false) as |modal|}}
+  {{#modal.header}}
+    <h4 class="modal-title">
+      Load reaction from SMARTS
+    </h4>
+  {{/modal.header}}
+  {{#modal.body}}
+    <form>
+        <div class="form-group">
+          {{textarea value=smarts class='form-control smarts-value' rows='3'}}
+        </div>
+    </form>
+  {{/modal.body}}
+  {{#modal.footer}}
+        {{#bs-button onClick=(action (mut smartsModal) false)}}Cancel{{/bs-button}}
+        {{#bs-button type="info" onClick=(action 'loadSmarts')}}Load SMARTS{{/bs-button}}
+  {{/modal.footer}}
+{{/bs-modal}}

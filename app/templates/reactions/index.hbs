@@ -21,6 +21,7 @@
               <thead>
                 <tr>
                   <th scope="col">Name</th>
+                  <th scope="col">Status</th>
                   <th scope="col">User</th>
                   <th scope="col">Reactants</th>
                   <th scope="col" width="30px"></th>
@@ -31,6 +32,7 @@
               {{#each model as |reaction|}}
                     <tr >
                         <td>{{#link-to 'reactions.show' reaction}} {{reaction.name}} {{/link-to }}</td>
+                        <td>{{status-badge model=reaction}}</td>
                         <td>{{reaction.user.username}}</td>
                         <td>{{reaction.reactants_number}}</td>
                         <td>{{#if reaction.has_no_project}}
