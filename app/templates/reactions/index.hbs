@@ -8,7 +8,12 @@
                 Reactions
             </h3>
             <div>
-                {{file-upload modalId="frag-file-upload-modal" title="Import reaction file" routeLabel="reactions/uploadfile" metaDatas=uploadMetaDatas}}
+              {{#bs-button onClick=(action "changeFilter" "all")}}
+                All
+              {{/bs-button}}
+              <button type="button" class="btn btn-success" {{action "newItem" "reaction" model}}>
+                {{svg-jar "plus" class="octicon"}} New reaction
+              </button>
             </div>
         </div>
         <div class="card-text">
@@ -24,7 +29,7 @@
               <tbody>
             <!-- <div class="list-group"> -->
               {{#each model as |reaction|}}
-                    <tr > <!-- {{action "showProject" project class=""}} > -->
+                    <tr >
                         <td>{{#link-to 'reactions.show' reaction}} {{reaction.name}} {{/link-to }}</td>
                         <td>{{reaction.user.username}}</td>
                         <td>{{reaction.reactants_number}}</td>

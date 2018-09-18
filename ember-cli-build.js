@@ -24,7 +24,7 @@ module.exports = function(defaults) {
     app.import('vendor/chemdoodleweb/ChemDoodleWeb.js');
     app.import('vendor/chemdoodleweb/uis/ChemDoodleWeb-uis.js');
     app.import('vendor/chemdoodleweb/ChemDoodleWeb.css');
-    app.import('vendor/chemdoodleweb/uis/ChemDoodleWeb-uis.css');
+    app.import('vendor/chemdoodleweb/uis/jquery-ui-1.11.4.css');
 
   // Use `app.import` to add additional libraries to the generated
   // output files.

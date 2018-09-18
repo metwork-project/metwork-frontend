@@ -3,7 +3,7 @@
     <div class="card-body">
         <div class="d-flex">
             <h3 class="mr-auto">
-                Fragmentation data 
+                Fragmentation data
             </h3>
             <div>
                 {{file-upload modalId="frag-file-upload-modal" title="Import fragmentation file" routeLabel="fragsamples/uploadfile" metaDatas=uploadMetaDatas}}
@@ -22,7 +22,7 @@
               <tbody>
             <!-- <div class="list-group"> -->
               {{#each model as |sample|}}
-                    <tr > <!-- {{action "showProject" project class=""}} > -->
+                    <tr >
                         <td>
 							{{#if sample.importFinish}}
 								{{#link-to 'fragsamples.show' sample}} {{sample.name}} {{/link-to }}
@@ -31,7 +31,7 @@
 							{{/if}}
 						</td>
                         <td>{{sample.file_name}}</td>
-                        <td>							
+                        <td>
 							{{#if sample.importFinish}}
 								{{sample.ions_count}}
 							{{else}}

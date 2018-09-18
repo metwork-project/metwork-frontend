@@ -7,11 +7,11 @@
 
         </div>
             <div>
-                <p><b>Number of reactants :</b> {{model.reactants_number}}</p>
+                <p><b>Number of reactants :</b> {{model.reactants_number}} </p>
                 <form>
 
                     <div class="container"><div class="row">
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-lg-4">
                             <label>Name</label>
                             {{input value=model.name model=model class='form-control'}}
                             <label>Description</label>
@@ -20,35 +20,57 @@
                                 {{#bs-button type="primary" onClick=(action 'save_reaction')}}Save info{{/bs-button}}
                             </div>
                         </div>
-                        <div class="form-group col-md-6">
+                        <div class="form-group col-lg-8">
                             {{{image}}}
+                            {{#if model.isEditable}}
+                              <div>
+                                {{bs-button type="primary"
+                                  defaultText="testChemdoodle"
+                                  onClick=(action 'testChemdoodle') }}
+                                  {{bs-button type="primary"
+                                    defaultText="testChemdoodleJSON"
+                                    onClick=(action 'testExportJSON') }}
+                                <div class='molecule-editor'>
+                                  <canvas
+                                    class="ChemDoodleWebComponent"
+                                    id="sketcher" width="100" height="100"
+                                    alt="ChemDoodle Web Component"
+                                    style="width: 500px; height: 300px; background-color: rgb(255, 255, 255);">
+                                      This browser does not support HTML5/Canvas.
+                                  </canvas>
+                                </div>
+                              </div>
+                            {{/if}}
                         </div>
                     </div></div>
                 </form>
         </div>
-        <h4 class="mr-auto">
-            Test reaction
-        </h4>
-        <form>
-            <div class="container"><div class="row">
-                <div class="form-group col-md-6">
-                    <label>Reactant(s) smiles</label>
-                    {{textarea row="3" class="form-control" value=reactants }}
-                </div>
-                <div class="form-group col-md-6">
-                    <label>Products smiles</label>
-                    <textarea readonly row="3" class="form-control reaction-products" value={{products}} />
-                </div>
-            </div></div>
-            <div class="d-flex justify-content-center">
-                <button type="button"
-                    class="btn reaction-reactants m-2 btn-primary"
-                    onClick={{action 'runReaction' reactants}}
-                    >
-                        Run reaction
-                </button>
-            </div>
-        </form>
+    <!-- Test Reaction -->
+        {{#if model.isActive}}
+          <h4 class="mr-auto">
+              Test reaction
+          </h4>
+          <form>
+              <div class="container"><div class="row">
+                  <div class="form-group col-md-6">
+                      <label>Reactant(s) smiles</label>
+                      {{textarea row="3" class="form-control" value=reactants }}
+                  </div>
+                  <div class="form-group col-md-6">
+                      <label>Products smiles</label>
+                      <textarea readonly row="3" class="form-control reaction-products" value={{products}} />
+                  </div>
+              </div></div>
+              <div class="d-flex justify-content-center">
+                  <button type="button"
+                      class="btn reaction-reactants m-2 btn-primary"
+                      onClick={{action 'runReaction' reactants}}
+                      >
+                          Run reaction
+                  </button>
+              </div>
+            </form>
+          {{/if}}
     </div>
     <div class="card-footer">
       <img src="/assets/images/powered_by_chemaxon_GOLD_M.png" class="mx-auto d-block" height=40 />

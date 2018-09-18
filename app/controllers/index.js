@@ -25,22 +25,6 @@ export default Controller.extend( FileDownloadMixin, CytoscapeMixin, {
 
 	},
 
-	data: function() {
-
-		return [ // list of graph elements to start with
-					{ // node a
-						data: { id: 'a' , shape: 'roundrectangle'}
-					},
-					{ // node b
-						data: { id: 'b' , shape: 'triangle',}
-					},
-					{ // edge ab
-						data: { id: 'ab', source: 'a', target: 'b' }
-					}
-				]
-
-	},
-
 	actions: {
     getFile(request, fileName) {
        this.send('downloadFile', request, "text/plain;charset=utf-8", fileName);

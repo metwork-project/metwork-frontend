@@ -56,6 +56,14 @@ export default Mixin.create({
           this.controller.dataComponents[dataLabel].params.page = page;
           this.updateData(dataLabel);
       },
+      refreshCurrentRoute(){
+       this.refresh();
+      },
+      newItem(routeLabel, model) {
+        var inflector = new Inflector(Inflector.defaultRules);
+        let mr = model.store.createRecord(routeLabel);
+        this.transitionTo(inflector.pluralize(routeLabel) + '.show', mr);
+      },
     },
 
     addData: function( dataLabel, values ) {
