@@ -126,7 +126,6 @@ export default Mixin.create({
 
 
            cy.endBatch();
-
         });
           break;
       case 'highlight':

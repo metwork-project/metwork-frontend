@@ -46,19 +46,19 @@ export default Mixin.create(
           var _makeTip = function(node) {
             return new Promise(function(resolve /*, reject */) {
               let tip = tippy( node.popperRef(), {
-              html: (function(){
-                var div = document.createElement('div');
-                div.innerHTML = '<div class="content">Loading data ...</div>';
-                return div;
-              })(),
-              trigger: 'manual',
-              arrow: true,
-              // placement: 'bottom',
-              theme: 'light',
-              hideOnClick: false,
-              multiple: false,
-              sticky: true,
-              stickyDuration: 0,
+                html: (function(){
+                  var div = document.createElement('div');
+                  div.innerHTML = '<div class="content">Loading data ...</div>';
+                  return div;
+                })(),
+                trigger: 'manual',
+                arrow: true,
+                // placement: 'bottom',
+                theme: 'light',
+                hideOnClick: false,
+                multiple: false,
+                sticky: true,
+                stickyDuration: 0,
               } ).tooltips[0];
               node.tippy = tip;
               resolve(tip);
