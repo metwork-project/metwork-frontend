@@ -125,14 +125,22 @@
           </h4>
         </div>
         <div>
-          {{bs-button type="primary"
+          {{#bs-button type="info"
               class="m-1"
-              defaultText="Reload network"
+
+              onClick=(action 'toggleDisplayNodeName') }}
+            Display
+            {{#if (eq displayNodeName 'parent_mass')}}
+              cosines
+            {{else}}
+              mass
+            {{/if}}
+          {{/bs-button}}
+          {{#bs-button type="secondary"
+              class="m-1"
               onClick=(action 'reloadMetabolizationNetwork') }}
-          {{bs-button type="primary"
-              class="m-1"
-              defaultText="Display Cosines"
-              onClick=(action 'toggleCosineAction') }}
+            {{svg-jar "sync" class="octicon"}}
+          {{/bs-button}}
         </div>
       </div>
       <div class='graph-content'>

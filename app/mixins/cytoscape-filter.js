@@ -1,4 +1,5 @@
 import Mixin from '@ember/object/mixin';
+import tippy from 'tippy.js';
 
 export default Mixin.create({
 
@@ -16,6 +17,40 @@ export default Mixin.create({
 
     switch (option) {
       case 'filter':
+        cy.nodes().on('mouseover', function(evt) {
+          let node = evt.target;
+          node.mouseOver = true;
+          setTimeout(function(){
+            if( node.mouseOver) {
+              if (!node.filterInfosTip) {
+                let tip = tippy( node.popperRef(), {
+                  html: (function(){
+                    var div = document.createElement('div');
+                    div.innerHTML = '<div class="content p-1">Long click to filter</div>';
+                    return div;
+                  })(),
+                  trigger: 'manual',
+                  animateFill: false,
+                  arrow: false,
+                  placement: 'bottom',
+                  // theme: 'light',
+                  hideOnClick: false,
+                  multiple: false,
+                  sticky: true,
+                  stickyDuration: 0,
+                } ).tooltips[0];
+                node.filterInfosTip = tip
+              }
+              node.filterInfosTip.show()
+            } }, 3000);
+        }),
+        cy.nodes().on('mouseout', function(evt) {
+          let node = evt.target;
+          node.mouseOver = false;
+          if (node.filterInfosTip) {
+            node.filterInfosTip.hide();
+          }
+        }),
         cy.nodes().on('taphold', function(evt) {
           cy.onHold = true;
           cy.nodes('.node-select').removeClass('node-select');

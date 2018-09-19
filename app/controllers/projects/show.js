@@ -12,6 +12,7 @@ export default Controller.extend(
   cosineDisplayed: false,
   activeNav: 'info',
   spinnerStatus: 'waiting',
+  displayNodeName: 'parent_mass',
 
   didReceiveAttrs: function() {
       this.activeNav = 'info';
@@ -42,47 +43,21 @@ export default Controller.extend(
           { routeLabel: 'reaction', params : {project_id: this.model.get('id'), page: 1, page_size: 10, selected: true} };
   },
 
-  toggleCosine: function() {
-    let this_ = this
-    if (this.get('cosineDisplayed')) {
-      this.get('cy').nodes(':visible').forEach( function(node) {
-        if (node.cosineTip) {
-          node.cosineTip.hide()
-          this_.set('cosineDisplayed', false)
-        }
-      })
-    } else {
-      this_.get('cy').nodes(':visible').forEach( function(node) {
-        if (node.data('cosine')) {
-          if (! node.cosineTip) {
-            var cosineTip = tippy( node.popperRef(), {
-                html: (function(){
-                  var div = document.createElement('div');
-                  div.innerHTML = `<div class="content">${ node.data('cosine')}</div>`;
-                  return div;
-                })(),
-                animateFill: false,
-                trigger: 'manual',
-                arrow: false,
-                placement: 'right',
-                theme: 'light',
-                hideOnClick: false,
-                multiple: false,
-                sticky: true,
-                stickyDuration: 0,
-              } ).tooltips[0];
-            node.cosineTip = cosineTip
-          }
-          node.cosineTip.show()
-        }
-      })
-      this_.set('cosineDisplayed', true)
-    }
-  },
-
   actions: {
-      toggleCosineAction() {
-        this.toggleCosine()
+      toggleDisplayNodeName() {
+        if (this.get('displayNodeName') === 'parent_mass') {
+          var field = 'best_cosine';
+        } else {
+          var field = 'parent_mass';
+        }
+        this.get('cy').nodes('[nodeType = "molecule"]').forEach( function(node) {
+          if (node.data(field)){
+            node.data('name', node.data(field));
+          } else {
+            node.data('name', '');
+          }
+        })
+        this.set('displayNodeName', field)
       },
       setFragSample(fragSample) {
           let self = this;
