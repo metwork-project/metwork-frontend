@@ -105,7 +105,7 @@ export default Mixin.create({
 
   moleculeElement: function(id, smiles, cosine) {
     var cosineDisplay = '';
-    if (cosine > 0) {
+    if (cosine) {
       cosineDisplay = `
         <p>
           cosine: ${cosine}
