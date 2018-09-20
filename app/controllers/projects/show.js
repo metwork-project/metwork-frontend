@@ -1,11 +1,18 @@
 import Controller from '@ember/controller';
 import PaginatedControllerMixin from 'metwork-frontend/mixins/paginated-controller';
+import CytoscapeMixin from 'metwork-frontend/mixins/cytoscape';
+import CytoscapeFilterMixin from 'metwork-frontend/mixins/cytoscape-filter';
 import { computed } from '@ember/object';
 import $ from 'jquery';
 
-export default Controller.extend(PaginatedControllerMixin, {
-
+export default Controller.extend(
+  PaginatedControllerMixin,
+  CytoscapeMixin,
+  CytoscapeFilterMixin, {
+  cosineDisplayed: false,
   activeNav: 'info',
+  spinnerStatus: 'waiting',
+  displayNodeName: 'parent_mass',
 
   didReceiveAttrs: function() {
       this.activeNav = 'info';
@@ -37,6 +44,22 @@ export default Controller.extend(PaginatedControllerMixin, {
   },
 
   actions: {
+      toggleDisplayNodeName() {
+        var field = 'best_cosine';
+        if (this.get('displayNodeName') === 'parent_mass') {
+          field = 'best_cosine';
+        } else {
+          field = 'parent_mass';
+        }
+        this.get('cy').nodes('[nodeType = "molecule"]').forEach( function(node) {
+          if (node.data(field)){
+            node.data('name', node.data(field));
+          } else {
+            node.data('name', '');
+          }
+        })
+        this.set('displayNodeName', field)
+      },
       setFragSample(fragSample) {
           let self = this;
           this.model.updateFragSample({
@@ -86,7 +109,26 @@ export default Controller.extend(PaginatedControllerMixin, {
             params[ $( this ).attr('name') ] = $( this ).val() ;
           })
         this.model.updateFragCompareConf(params);
+      },
+      reloadMetabolizationNetwork() {
+        var cy = this.get('cy');
+        if (cy) {
+          cy.elements().remove();
+        }
+        this.loadMetabolizationNetwork();
       }
+  },
+
+  loadMetabolizationNetwork: function() {
+    let _this = this
+    this.set('spinnerStatus', 'loading');
+    this.model.metabolizationNetwork().then( function(response) {
+      _this.send(
+        'startCytoscape',
+        response,
+        'metabolization',
+        ['filter', 'highlight', 'tip'] );
+    }) ;
   },
 
   hasReaction: function(reactionId) {
@@ -131,5 +173,12 @@ export default Controller.extend(PaginatedControllerMixin, {
     }
   }),
 
+  manageMetabolizationNetwork: computed('activeNav', function() {
+    if (this.get('activeNav') == 'metabolization') {
+      this.loadMetabolizationNetwork();
+    } else if (this.get('cy')) {
+      this.get('cy').destroy()
+    }
+  }),
 
 });

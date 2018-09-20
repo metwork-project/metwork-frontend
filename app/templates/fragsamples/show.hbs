@@ -1,4 +1,6 @@
 <!-- fragsmaple show -->
+{{manageMetabolizationNetwork}}
+
 {{nav-tabs navParams=navParams activeNav=activeNav}}
 
 <div class="card card-tabs">
@@ -33,10 +35,10 @@
                             {{#bs-button type="success" onClick=(action 'openAddAnnotModal')}} {{svg-jar "plus" class="octicon"}} Add annotation{{/bs-button}}
                         </div>
                     {{/if}}
-                    {{file-upload 
-                        class="m-1" 
-                        modalId="annot-file-upload-modal" 
-                        title="Import annotation file" 
+                    {{file-upload
+                        class="m-1"
+                        modalId="annot-file-upload-modal"
+                        title="Import annotation file"
                         routeLabel=uploadAnnotRouteLabel
                         dataLabel=frag-annotation.dataLabel
 												formatSelect=model.annotationFileFormats}}
@@ -74,7 +76,15 @@
         {{pagination-handler data=frag-annotation}}
 
         {{/if}}
-        
+        {{#if (eq activeNav 'network')}}
+          <div class='graph-content'>
+            {{graph-loader
+              spinnerStatus=spinnerStatus
+              loadNetwork=(action 'loadMolecularNetwork')
+              class="h-100"}}
+            <div id="cy"></div>
+          </div>
+        {{/if}}
     </div>
 </div>
 
@@ -103,13 +113,13 @@
   {{#modal.footer}}
     {{#if editing }}
         {{#bs-button onClick=(action modal.close)}}Cancel{{/bs-button}}
-        {{#bs-button type="success" onClick=(action 'addAnnotation')}}Upload{{/bs-button}}   
-    {{/if}}    
+        {{#bs-button type="success" onClick=(action 'addAnnotation')}}Upload{{/bs-button}}
+    {{/if}}
     {{#if uploading }}
         <div class="progress btn-size">
-          <div 
-            class="progress-bar progress-bar-striped progress-bar-animated bg-primary" 
-            role="progressbar" aria-valuenow="100" aria-valuemin="0" 
+          <div
+            class="progress-bar progress-bar-striped progress-bar-animated bg-primary"
+            role="progressbar" aria-valuenow="100" aria-valuemin="0"
             aria-valuemax="100" style="width: 100%">
             Uploading ...
             </div>
@@ -120,4 +130,3 @@
 
 
 {{delete-modal title="Delete annotation" dataToDelete=dataToDelete dataLabel='frag-annotation' updateDataController='updateDataController'}}
-

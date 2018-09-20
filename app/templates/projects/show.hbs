@@ -1,4 +1,6 @@
 <!-- show -->
+{{manageMetabolizationNetwork}}
+
 {{nav-tabs navParams=navParams activeNav=activeNav model=model}}
 
 <div class="card card-tabs">
@@ -109,6 +111,7 @@
 					dataLabel1='annotations-available'
 					dataLabel2='annotations-selected'
 					field="frag-annotation"
+          freeze=model.runOrFinish
 					updateDataComponent=(action 'updateDataController')
 				}}
     {{else}}
@@ -116,6 +119,40 @@
     {{/if}}
   {{/if}}
   {{#if (eq activeNav 'metabolization')}}
+    {{#if model.runFinish}}
+      <div class="d-flex">
+        <div class="mr-auto">
+          <h4 class="d-inline">
+              Metabolization Network
+          </h4>
+        </div>
+        <div>
+          {{#bs-button type="info"
+              class="m-1"
+
+              onClick=(action 'toggleDisplayNodeName') }}
+            Display
+            {{#if (eq displayNodeName 'parent_mass')}}
+              cosines
+            {{else}}
+              mass
+            {{/if}}
+          {{/bs-button}}
+          {{#bs-button type="secondary"
+              class="m-1"
+              onClick=(action 'reloadMetabolizationNetwork') }}
+            {{svg-jar "sync" class="octicon"}}
+          {{/bs-button}}
+        </div>
+      </div>
+      <div class='graph-content'>
+        {{graph-loader
+          spinnerStatus=spinnerStatus
+          loadNetwork=(action 'reloadMetabolizationNetwork')
+          class="h-100"}}
+        <div id="cy"></div>
+      </div>
+    {{/if}}
     <h4>
       Depth limit
     </h4>
@@ -145,6 +182,7 @@
 				dataLabel1='reactions-available'
 				dataLabel2='reactions-selected'
 				field="reaction"
+        freeze=model.runOrFinish
 				updateDataComponent=(action 'updateDataController')
 			}}
   {{/if}}

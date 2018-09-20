@@ -8,7 +8,7 @@ import FileUploadRouteMixin from 'metwork-frontend/mixins/file-upload-route';
 
 export default Route.extend(
     AuthenticatedRouteMixin,
-    PaginatedRouteMixin, 
+    PaginatedRouteMixin,
     FileUploadRouteMixin, {
 
         model(params) {
@@ -18,13 +18,15 @@ export default Route.extend(
         setupController(controller, model) {
             this._super(...arguments);
             controller.set('uploadAnnotRouteLabel', 'fragsamples/' + model.id + '/uploadfile_annotation');
+            controller.set('activeNav', 'info');
+            controller.set('spinnerStatus', 'waiting');
         },
 
         actions: {
-            addAnnotationQuery: function(params, controller) {   
+            addAnnotationQuery: function(params, controller) {
                 let self = this;
                 let access_token = this.get('session.data.authenticated.token');
-                let form_data = new FormData();                  
+                let form_data = new FormData();
                 form_data.append('ion_id', params.ionId);
                 form_data.append('smiles', params.smiles);
                 form_data.append('db_source', params.dbSource);
@@ -33,12 +35,12 @@ export default Route.extend(
                     beforeSend: function(xhr){
                         xhr.setRequestHeader('Authorization', `Token ${access_token}`);
                     },
-                    url: ENV.host + '/fragsamples/' + params.fragsample_id + '/add_annotation',  
+                    url: ENV.host + '/fragsamples/' + params.fragsample_id + '/add_annotation',
                     dataType: 'text',
                     cache: false,
                     contentType: false,
                     processData: false,
-                    data: form_data, 
+                    data: form_data,
                     type: 'POST',
                     }).then((/*response*/) => {
                         run(function() {

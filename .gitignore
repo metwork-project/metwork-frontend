@@ -3,6 +3,7 @@
 # compiled output
 /dist/*
 /dist-docker/*
+/dist-production/*
 /deploy/*
 /tmp
 

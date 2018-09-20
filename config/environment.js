@@ -12,6 +12,14 @@ module.exports = function(environment) {
       email: 'metwork.dev@gmail.com',
       password: 'AYL6jGBm6R'
     },
+    colors: {
+      primary: '#073877',
+      secondary: '#636a71',
+      success: 'rgb(64,159,64)',
+      warning: 'rgb(200,145,17)',
+      danger: 'rgb(200,43,17)',
+      info: 'rgb(83,139,214)',
+    },
     EmberENV: {
       FEATURES: {
         // Here you can enable experimental features on an ember canary build

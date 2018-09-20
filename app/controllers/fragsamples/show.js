@@ -2,22 +2,29 @@ import Controller from '@ember/controller';
 import $ from 'jquery';
 import { computed } from '@ember/object';
 import PaginatedControllerMixin from 'metwork-frontend/mixins/paginated-controller';
+import CytoscapeMixin from 'metwork-frontend/mixins/cytoscape';
+import CytoscapeFilterMixin from 'metwork-frontend/mixins/cytoscape-filter';
 
-export default Controller.extend(PaginatedControllerMixin, {
+export default Controller.extend(
+  PaginatedControllerMixin,
+  CytoscapeMixin,
+  CytoscapeFilterMixin, {
 
     activeNav: 'info',
     dataToDelete: false,
+    spinnerStatus: 'waiting',
 
     init() {
         this._super(...arguments);
         this.navParams = [
-            {toggle: 'info', libelle: 'Info'},
-            {toggle: 'annotations', libelle: 'Annotations'},
+          {toggle: 'info', libelle: 'Info'},
+          {toggle: 'annotations', libelle: 'Annotations'},
+          {toggle: 'network', libelle: 'Network'},
         ];
     },
 
     genDataComponents:  function () {
-        this.dataComponents['frag-annotation'] = 
+        this.dataComponents['frag-annotation'] =
             { params : {page: 1, page_size: 5, frag_sample_id: this.model.id} };
     },
 
@@ -52,5 +59,31 @@ export default Controller.extend(PaginatedControllerMixin, {
             //this.toggleModal(false);
             this.send('addAnnotationQuery', params, this);
         },
+
+        loadMolecularNetwork() {
+          this.set('spinnerStatus', 'loading');
+          let _this = this
+          this.model.molecularNetwork().then( function(response) {
+            _this.send(
+              'startCytoscape',
+              response,
+              'molecular',
+              ['highlight', 'tip'] );
+              // ['filter', 'highlight', 'tippy'] );
+          }) ;
+        },
+
+        stopLoading() {
+          this.set('spinnerStatus', 'stop');
+        }
     },
+
+    manageMetabolizationNetwork: computed('activeNav', function() {
+      if (this.get('activeNav') == 'metabolization') {
+        this.loadMolecularNetwork();
+      } else if (this.get('cy')) {
+        this.get('cy').destroy()
+      }
+    }),
+
 });

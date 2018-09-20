@@ -3,6 +3,7 @@ import DS from 'ember-data';
 import { computed } from '@ember/object';
 import { later } from '@ember/runloop'
 import _ from 'underscore';
+import {memberAction/*, collectionAction*/} from 'ember-api-actions';
 
 export default DS.Model.extend({
 	name: DS.attr(),
@@ -25,7 +26,7 @@ export default DS.Model.extend({
 			var _this = this;
 		if (!this.get('importFinish')) {
 			later( function() {
-				_this.reload(); 
+				_this.reload();
 				_this.poll();
 			}, 1000);
 		}
@@ -70,5 +71,6 @@ export default DS.Model.extend({
 	}
 	}),
 
+	molecularNetwork: memberAction({ path: 'molecular_network', type: 'get' }),
 
 });

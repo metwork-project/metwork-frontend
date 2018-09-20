@@ -1,0 +1,26 @@
+#cy {
+  width: 100%;
+  height: 100%;
+}
+
+.tippy-popper {
+  pointer-events: auto;
+}
+
+.tippy-tooltip.light-theme {
+  color: black;
+  border: solid 1px black;
+  background-color: white;
+}
+
+.tippy-tooltip {
+  padding: 0;
+}
+
+canvas.ChemDoodleWebComponent {
+  border: 0;
+}
+
+// .smiles-display .value {
+//   display: none;
+// }
