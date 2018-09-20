@@ -172,17 +172,6 @@
             onClick=(route-action "save_p" model) }}
         {{/if}}
     </form>
-    {{#if model.runFinish}}
-    {{startMetabolizationNetwork}}
-      <h4 class="mr-auto">
-          Metabolization Network
-      </h4>
-
-      {{bs-button type="primary"
-          defaultText="Reload network"
-          onClick=(action 'reloadMetabolizationNetwork') }}
-        <div id="cy"></div>
-    {{/if}}
     <h4>
       Select reactions ({{model.REACTIONS_LIMIT}} max)
     </h4>

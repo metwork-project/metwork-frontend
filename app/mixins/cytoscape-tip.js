@@ -113,18 +113,20 @@ export default Mixin.create({
         </p>`;
     }
     return `
-      <canvas
-        class="ChemDoodleWebComponent"
-        id="${id}" width="200" height="200"
-        alt="ChemDoodle Web Component"
-        style="width: 100px; height: 100px; background-color: rgb(255, 255, 255);">
-          This browser does not support HTML5/Canvas.
-      </canvas>
-      <div class='smiles-display'>
-        <input class='value' type="text" value=${smiles} id="smiles-${id}">
-        <button type="button" class="btn btn-light btn-sm">Copy</button>
-      </div>
-      ${cosineDisplay}`;
+      <div class="molecule">
+        <canvas
+          class="ChemDoodleWebComponent molecule"
+          id="${id}" width="200" height="200"
+          alt="ChemDoodle Web Component"
+          style="width: 100px; height: 100px; background-color: rgb(255, 255, 255);">
+            This browser does not support HTML5/Canvas.
+        </canvas>
+        <div class='smiles-display'>
+          <input class='value' type="text" value=${smiles} id="smiles-${id}">
+          <button type="button" class="btn btn-light btn-sm">Copy</button>
+        </div>
+        ${cosineDisplay}
+      </div>`;
   },
 
 });
