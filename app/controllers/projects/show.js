@@ -3,7 +3,7 @@ import PaginatedControllerMixin from 'metwork-frontend/mixins/paginated-controll
 import CytoscapeMixin from 'metwork-frontend/mixins/cytoscape';
 import CytoscapeFilterMixin from 'metwork-frontend/mixins/cytoscape-filter';
 import { computed } from '@ember/object';
-import tippy from 'tippy.js';
+import $ from 'jquery';
 
 export default Controller.extend(
   PaginatedControllerMixin,
@@ -45,10 +45,11 @@ export default Controller.extend(
 
   actions: {
       toggleDisplayNodeName() {
+        var field = 'best_cosine';
         if (this.get('displayNodeName') === 'parent_mass') {
-          var field = 'best_cosine';
+          field = 'best_cosine';
         } else {
-          var field = 'parent_mass';
+          field = 'parent_mass';
         }
         this.get('cy').nodes('[nodeType = "molecule"]').forEach( function(node) {
           if (node.data(field)){
@@ -110,7 +111,7 @@ export default Controller.extend(
         this.model.updateFragCompareConf(params);
       },
       reloadMetabolizationNetwork() {
-        cy = this.get('cy');
+        var cy = this.get('cy');
         if (cy) {
           cy.elements().remove();
         }
@@ -172,8 +173,12 @@ export default Controller.extend(
     }
   }),
 
-  startMetabolizationNetwork: computed('activeNav', function() {
-    this.loadMetabolizationNetwork();
+  manageMetabolizationNetwork: computed('activeNav', function() {
+    if (this.get('activeNav') == 'metabolization') {
+      this.loadMetabolizationNetwork();
+    } else if (this.get('cy')) {
+      this.get('cy').destroy()
+    }
   }),
 
 });

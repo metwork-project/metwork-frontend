@@ -1,17 +1,11 @@
 import Mixin from '@ember/object/mixin';
+import ENV from '../config/environment'
 
 export default Mixin.create({
 
   cyStyle: function(graphStyle) {
 
-    let colors = {
-      primary: '#073877',
-      secondary: '#636a71',
-      success: 'rgb(64,159,64)',
-      warning: 'rgb(200,145,17)',
-      danger: 'rgb(200,43,17)',
-      info: 'rgb(83,139,214)',
-    }
+    let colors = ENV.colors;
 
     let styleSheet = cytoscape.stylesheet()
       .selector('node')

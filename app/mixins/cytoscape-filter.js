@@ -44,6 +44,13 @@ export default Mixin.create({
               node.filterInfosTip.show()
             } }, 3000);
         }),
+        cy.on('destroy', function(/*evt*/) {
+          cy.nodes().forEach( function(node) {
+            if (node.filterInfosTip) {
+              node.filterInfosTip.destroy();
+            }
+          })
+        }),
         cy.nodes().on('mouseout', function(evt) {
           let node = evt.target;
           node.mouseOver = false;
@@ -173,7 +180,7 @@ export default Mixin.create({
           cy.endBatch();
         });
 
-        cy.nodes().on('mouseout', function(evt) {
+        cy.nodes().on('mouseout', function(/*evt*/) {
           // cy.elements().removeClass('highlight');
           cy.elements().removeClass('downlight');
         });

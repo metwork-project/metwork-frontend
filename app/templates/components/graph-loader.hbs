@@ -9,10 +9,10 @@
             onClick=loadNetwork }}
         {{else if (eq spinnerStatus 'loading') }}
           <div class="spinner-display">
-            {{ember-spinner}}
+            {{ember-spinner color=colors.primary}}
           </div>
-          <div>
-            loading network ...
+          <div class="loading-text">
+            loading network (could take several minutes) ...
           </div>
         {{/if}}
       </div>

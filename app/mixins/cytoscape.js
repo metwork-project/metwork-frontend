@@ -18,10 +18,10 @@ export default Mixin.create(
       let cose =  {
         name: 'cose',
         nodeRepulsion: 40000,
-        // nodeOverlap: 4,
-        // gravity: 1,
+        // nodeOverlap: 20,
+        // gravity: 2,
         // animate: true,
-        // componentSpacing: 100,
+        componentSpacing: 100,
       };
       this.set('layout', cose);
       // cytoscape.use( popper );
@@ -29,8 +29,8 @@ export default Mixin.create(
         container: $('#cy'),
         boxSelectionEnabled: false,
         autounselectify: true,
-        // maxZoom: 2,
-        // minZoom: 0.5,
+        maxZoom: 10,
+        minZoom: 0.1,
         elements: data,
         style: this.cyStyle(graphStyle),
         layout: cose,
@@ -70,7 +70,6 @@ export default Mixin.create(
             node.hasTip = true;
             tip.show();
             _this.loadTipContent(node);
-            resolve(tip);
           });
       }
 
@@ -85,7 +84,6 @@ export default Mixin.create(
 
         let node = evt.target;
         if (cy.tipActivated && !cy.onHold) {
-          let nodeId = node.data('id')
           if (node.hasTip) {
             node.tip.show();
           } else {
@@ -100,6 +98,9 @@ export default Mixin.create(
 
       this.set('spinnerStatus', 'stop');
 
+      cy.on('destroy', function(/*evt*/) {
+        _this.set('spinnerStatus','waiting')
+      })
     },
   },
 

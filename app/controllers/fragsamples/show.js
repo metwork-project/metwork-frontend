@@ -78,9 +78,12 @@ export default Controller.extend(
         }
     },
 
-
-  startMolecularNetwork: computed('activeNav', function() {
-    this.loadMolecularNetwork();
-  }),
+    manageMetabolizationNetwork: computed('activeNav', function() {
+      if (this.get('activeNav') == 'metabolization') {
+        this.loadMolecularNetwork();
+      } else if (this.get('cy')) {
+        this.get('cy').destroy()
+      }
+    }),
 
 });

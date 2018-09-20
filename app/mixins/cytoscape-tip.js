@@ -1,4 +1,5 @@
 import Mixin from '@ember/object/mixin';
+import $ from 'jquery';
 
 export default Mixin.create({
 
@@ -29,7 +30,7 @@ export default Mixin.create({
       node.data('id'),
       node.data('smiles'),
       node.data('cosine'));
-    var tipContent = this.updateTipContent(node.tip, newContent);
+    this.updateTipContent(node.tip, newContent);
 
     this.displayMolecule(node);
   },
@@ -46,7 +47,7 @@ export default Mixin.create({
              </div>
              <p>${ node.data('name')}</p>
            `;
-           var tipContent = this_.updateTipContent(node.tip, newContent);
+           this_.updateTipContent(node.tip, newContent);
            $('#' + node.tip.popper.id + ' svg').attr('width',200).attr('height',100).attr('viewBox', '0 0 400 200');
         });
       }
@@ -56,9 +57,9 @@ export default Mixin.create({
   tipIon: function(node) {
     var info = node.data('info');
     var bestAnnotation = node.data('bestAnnotation');
-
+    var newContent = ''
     if (bestAnnotation.smiles) {
-      var newContent = `
+      newContent = `
         <div class='row'>
           <div class='col-6'>
             ${this.moleculeElement(
@@ -71,13 +72,13 @@ export default Mixin.create({
           </div>
         </div>`;
     } else {
-      var newContent = `
+      newContent = `
         <p>
           ${info}
         </p>`;
     }
 
-    var tipContent = this.updateTipContent(node.tip, newContent);
+    this.updateTipContent(node.tip, newContent);
 
     if (bestAnnotation.smiles) {
       this.displayMolecule(node);
@@ -96,7 +97,7 @@ export default Mixin.create({
     var moltarget = ChemDoodle.readMOL(node.data('molFile'));
     moltarget.scaleToAverageBondLength(14.4);
     viewACS.loadMolecule(moltarget);
-    $('#' + node.tip.popper.id + ' .smiles-display .btn').click( function (event) {
+    $('#' + node.tip.popper.id + ' .smiles-display .btn').click( function (/*event*/) {
       var target = document.getElementById(`smiles-${node.data('id')}`);
       target.select();
       document.execCommand("copy");

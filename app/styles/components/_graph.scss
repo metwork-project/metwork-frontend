@@ -1,3 +1,5 @@
+@import "../base/colors";
+
 .graph-content {
   width: 100%;
   height: 600px;
@@ -15,4 +17,7 @@
   .col  {
     height: 100px;
     }
+  .loading-text {
+    color: $primary-color;
+  }
 }
