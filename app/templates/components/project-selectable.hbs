@@ -1,12 +1,8 @@
 <!-- project-selectable-->
 
+{{#if freeze}}
 <div class="row project-selectable">
 	<div class="col-6">
-		<div class="d-flex justify-content-between available">
-			<div></div>
-			<h5 class="selectable-title">Selected</h5>
-			{{svg-jar "triangle-left" class="octicon d-inline"}}
-		</div>
 		<div class="selectable-frame selected">
 			{{#each list-selected as |i| }}
 				{{project-selectable-item
@@ -17,20 +13,41 @@
 					updateDataComponentItem=(action 'updateDataComponentAction')}}
 			{{/each}}
 		</div>
-	{{pagination-handler data=list-selected}}
-	</div>
-	<div class="col-6">
-		<h5 class="selectable-title">Available</h5>
-		<div class="selectable-frame available">
-	    {{#each list-available as |i| }}
-				{{project-selectable-item
-					project=project field=field item=i ids=model.reaction_ids
-					display=i.display
-					frame="available"
-					dataLabel1=dataLabel1 dataLabel2=dataLabel2
-					updateDataComponentItem=(action 'updateDataComponentAction')}}
-	    {{/each}}
-		</div>
-	{{pagination-handler data=list-available}}
 	</div>
 </div>
+{{else}}
+	<div class="row project-selectable">
+		<div class="col-6">
+			<div class="d-flex justify-content-between available">
+				<div></div>
+				<h5 class="selectable-title">Selected</h5>
+				{{svg-jar "triangle-left" class="octicon d-inline"}}
+			</div>
+			<div class="selectable-frame selected">
+				{{#each list-selected as |i| }}
+					{{project-selectable-item
+						project=project field=field item=i ids=model.reaction_ids
+						display=i.display
+						frame="selected"
+						dataLabel1=dataLabel1 dataLabel2=dataLabel2
+						updateDataComponentItem=(action 'updateDataComponentAction')}}
+				{{/each}}
+			</div>
+		{{pagination-handler data=list-selected}}
+		</div>
+		<div class="col-6">
+			<h5 class="selectable-title">Available</h5>
+			<div class="selectable-frame available">
+		    {{#each list-available as |i| }}
+					{{project-selectable-item
+						project=project field=field item=i ids=model.reaction_ids
+						display=i.display
+						frame="available"
+						dataLabel1=dataLabel1 dataLabel2=dataLabel2
+						updateDataComponentItem=(action 'updateDataComponentAction')}}
+		    {{/each}}
+			</div>
+		{{pagination-handler data=list-available}}
+		</div>
+	</div>
+{{/if}}

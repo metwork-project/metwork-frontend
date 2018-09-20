@@ -3,6 +3,7 @@
 module.exports = function(environment) {
     let ENV = {
     modulePrefix: 'metwork-frontend',
+    version: 0.2,
     environment,
     host: 'https://somehost.com',
     rootURL: '/',
@@ -10,6 +11,14 @@ module.exports = function(environment) {
     guestUser: {
       email: 'metwork.dev@gmail.com',
       password: 'AYL6jGBm6R'
+    },
+    colors: {
+      primary: '#073877',
+      secondary: '#636a71',
+      success: 'rgb(64,159,64)',
+      warning: 'rgb(200,145,17)',
+      danger: 'rgb(200,43,17)',
+      info: 'rgb(83,139,214)',
     },
     EmberENV: {
       FEATURES: {
