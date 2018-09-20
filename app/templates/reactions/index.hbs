@@ -33,7 +33,7 @@
                     <tr >
                         <td>{{#link-to 'reactions.show' reaction}} {{reaction.name}} {{/link-to }}</td>
                         <td>{{status-badge model=reaction}}</td>
-                        <td>{{reaction.user.username}}</td>
+                        <td>{{reaction.user_name}}</td>
                         <td>{{reaction.reactants_number}}</td>
                         <td>{{#if reaction.has_no_project}}
                         {{#bs-button class="btn-sm" type="danger" onClick=(action (mut dataToDelete) reaction )}}{{svg-jar "trashcan" class="octicon"}}{{/bs-button}}

@@ -7,6 +7,7 @@ export default DS.Model.extend({
     name: DS.attr('string', {defaultValue: 'New reaction'}),
     description: DS.attr('string'),
     user: DS.belongsTo('user'),
+    user_name: DS.attr('string'),
     reactants_number: DS.attr('number', {defaultValue: 0}),
     has_no_project: DS.attr('boolean'),
     status_code: DS.attr('number', {defaultValue: 0}),
