@@ -46,6 +46,10 @@ export default DS.Model.extend({
         return this.get('status_code') == this.statusRef().VALID.code;
     }),
 
+    isEditing: computed('status_code', function() {
+      return this.get('status_code') < this.statusRef().VALID.code
+    }),
+
     isEditable: computed('status_code', function() {
       return this.get('status_code') < this.statusRef().ACTIVE.code
     }),
@@ -59,6 +63,8 @@ export default DS.Model.extend({
     runReaction: memberAction({ path: 'run_reaction', type: 'get' }),
 
     getImage: memberAction({ path: 'get_image', type: 'get' }),
+
+    evaluateJson: memberAction({ path: 'evaluate_json', type: 'patch' }), 
 
     display: computed('name', function() {
         return this.get('name');

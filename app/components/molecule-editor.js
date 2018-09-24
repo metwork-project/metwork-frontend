@@ -3,6 +3,10 @@ import { computed } from '@ember/object';
 
 export default Component.extend({
 
+  sketcher: null,
+  chemDoodleJSON: '',
+  chemDoodleJSONStatus: 'stop',
+
   didRender() {
     this._super(...arguments);
     if (! this.get('editorLoaded')) {
@@ -19,6 +23,16 @@ export default Component.extend({
     return this.get('skecthId') + '-modal'
   }),
 
+  udpdateChemDoodleJSON: computed('chemDoodleJSONStatus', function() {
+    if (this.get('sketcher')) {
+      var mols = this.get('sketcher').getMolecules();
+      var shapes = this.get('sketcher').shapes;
+      // this line converts the Molecule data structure to the JSON protocol Javascript object
+      var molJSON = new ChemDoodle.io.JSONInterpreter().contentTo(mols, shapes);
+      // this.set('chemDoodleJSON', JSON.stringify(molJSON) )
+    }
+  }),
+
   loadEditor: function() {
     ChemDoodle.default_atoms_useJMOLColors = true;
     var sketcher = new ChemDoodle.SketcherCanvas(this.get('canvasId'), 500, 300, {useServices:false, includeQuery: true})
@@ -29,13 +43,6 @@ export default Component.extend({
       this_.set('sketcher', sketcher); }, 500);
   },
 
-  getJSON: function() {
-    var mols = this.get('sketcher').getMolecules();
-    var shapes = this.get('sketcher').shapes;
-    // this line converts the Molecule data structure to the JSON protocol Javascript object
-    var molJSON = new ChemDoodle.io.JSONInterpreter().contentTo(mols, shapes);
-    return JSON.stringify(molJSON);
-  },
   loadJSON(jsonData) {
     var jsi = new ChemDoodle.io.JSONInterpreter();
     var target = jsi.contentFrom(jsonData);
@@ -56,8 +63,16 @@ export default Component.extend({
         }
       })
     },
+    getChemDoodleJSON: function() {
+      return new Promise(function(resolve /*, reject */) {
+
+      })
+    },
+
     testExportJSON(){
-      alert(this.getJSON());
+      this.send('getChemDoodleJSON').then(function(jsonData) {
+        alert(this.get('chemDoodleJSON'));
+      })
     },
 
     testChemdoodleJSON() {

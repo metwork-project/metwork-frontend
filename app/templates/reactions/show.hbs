@@ -17,8 +17,8 @@
                       {{editInfo.label}}
                     {{/bs-button}}
                   {{/if}}
-                  {{#bs-button type=saveInfo.btnType onClick=(action 'save_reaction') class="m-1"}}
-                    {{saveInfo.label}}
+                  {{#bs-button type=mainBtnInfo.btnType onClick=(action mainBtnInfo.action) class="m-1"}}
+                    {{mainBtnInfo.label}}
                   {{/bs-button}}
                 {{/if}}
             </div>
@@ -35,11 +35,16 @@
                             {{textarea value=model.description model=model class='form-control' rows='3'}}
 
                             <p><b>Number of reactants :</b> {{model.reactants_number}} </p>
+                            {{chemDoodleJSON}}
                         </div>
                         <div class="form-group col-lg-8">
                             {{{image}}}
                             {{#if model.isEditable}}
-                              {{molecule-editor model=model skecthId='sketcher-reaction'}}
+                              {{molecule-editor
+                                model=model
+                                skecthId='sketcher-reaction'
+                                chemDoodleJSON=chemDoodleJSON
+                                chemDoodleJSONStatus=chemDoodleJSONStatus}}
                             {{/if}}
                         </div>
                     </div></div>

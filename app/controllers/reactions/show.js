@@ -8,6 +8,8 @@ export default Controller.extend({
     image: "",
     currentUser: service('current-user'),
     editReaction: false,
+    chemDoodleJSON: '',
+    chemDoodleJSONStatus: 'stop',
 
     editMode: computed('model.status_code', 'editReaction', function() {
       return this.model.get('isReadyToActive') && this.get('editReaction')
@@ -22,45 +24,61 @@ export default Controller.extend({
       }
     }),
 
-    saveInfo: computed('model.status_code', 'editReaction', function() {
+    mainBtnInfo: computed('model.status_code', 'editReaction', function() {
       if (this.model.get('isNew')) {
-        return { btnType: 'success', label: 'Create Reaction' }
-      } else if ( this.get('editMode') ) {
-        return { btnType: 'primary', label: 'Update Reaction' }
+        return {
+          btnType: 'success',
+          label: 'Create Reaction',
+          action: this.saveReaction}
+      } else if ( this.model.get('isEditing') || this.model.get('isActive') ) {
+        return {
+          btnType: 'primary',
+          label: 'Save Reaction',
+          action: 'saveReaction'}
       } else if ( this.model.get('isReadyToActive') ) {
-        return { btnType: 'success', label: 'Validate Reaction' }
+        return {
+          btnType: 'warning',
+          label: 'Edit Reaction',
+          action: this.editReaction}
       }
     }),
 
     actions: {
-        save_reaction () {
-            let this_ = this;
-            let isNew = this.model.get('isNew');
-            this.model.save().then(function() {
-                if (isNew) {
-                  this_.model.set('user', this_.get('currentUser').user)
-                  let id = this_.model.get('id');
-                  this_.get('target').transitionTo('/reactions/'+ id);
-                }
-                this_.getImage();
-            });
-        },
-        runReaction() {
-            let self = this;
-            this.model.runReaction({smiles: this.reactants})
-                .then(function(response) {
-                let display = response.data.products.reduce(
-                    function (disp, value, ind) {
-                        if (ind === 0) {
-                            return value;
-                        } else {
-                            return disp + '\n' +  value;
-                        }
-                    }, '')
-                self.set('products',display);
+      saveReaction () {
+        let this_ = this;
+        let isNew = this.model.get('isNew');
+        this.set('chemDoodleJSONStatus', 'requested');
+        this_.model.save().then(function() {
+          this_.model.evaluateJson({data: this_.get('chemDoodleJSON')}).then(function() {
+            this_.set('chemDoodleJSONStatus', 'stop');
+            if (isNew) {
+              this_.model.set('user', this_.get('currentUser').user)
+              let id = this_.model.get('id');
+              this_.get('target').transitionTo('/reactions/'+ id);
+            }
+            this_.getImage();
+          })
+        });
+      },
+      editReaction() {
+        this.model.set('status_code', this.model.statusRef().EDIT.code)
+      },
+      runReaction() {
+          let self = this;
+          this.model.runReaction({smiles: this.reactants})
+              .then(function(response) {
+              let display = response.data.products.reduce(
+                  function (disp, value, ind) {
+                      if (ind === 0) {
+                          return value;
+                      } else {
+                          return disp + '\n' +  value;
+                      }
+                  }, '')
+              self.set('products',display);
 
-            });
-        },
+          });
+      },
     },
     getImage: function() {
         let self = this;
