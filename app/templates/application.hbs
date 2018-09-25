@@ -1,4 +1,5 @@
 <!-- Application -->
+{{apiStatusUpdate}}
 {{#bs-navbar type=(if inverse 'inverse') position='fixed-top' onCollapse=(action (mut collapsed) true) onExpand=(action (mut collapsed) false) as |navbar|}}
   {{#link-to "index" class="navbar-brand"}} <img src="/assets/images/logo_metwork_inline.png" height=40 /> {{/link-to}}
 
@@ -6,7 +7,7 @@
 
   {{#navbar.content}}
     {{#navbar.nav class="mr-auto" as |nav|}}
-        {{#if session.isAuthenticated}}
+        {{#if (and apiAvailable session.isAuthenticated)}}
           {{#nav.item}}{{#nav.link-to "projects"}} My Projects {{/nav.link-to}}{{/nav.item}}
           {{#nav.item}}{{#nav.link-to "fragsamples"}} My Data {{/nav.link-to}}{{/nav.item}}
           {{#nav.item}}{{#nav.link-to "reactions"}} Reactions {{/nav.link-to}}{{/nav.item}}
@@ -14,18 +15,24 @@
       {{#nav.item}}{{#nav.link-to "documentation"}} Documentation {{/nav.link-to}}{{/nav.item}}
     {{/navbar.nav}}
         <div>
-          {{#if session.isAuthenticated}}
-            {{#bs-button type="secondary" onClick=(action 'invalidateSession')}} Logout {{/bs-button}}
-            {{# if (not currentUser.isGuest)}}
-              {{#link-to "users.show" currentUser.user class="btn-like"}}
-                {{#bs-button type="primary" }}
-                  My account
-                {{/bs-button}}
-              {{/link-to}}
+          {{#if apiAvailable}}
+            {{#if session.isAuthenticated}}
+              {{#bs-button type="secondary" onClick=(action 'invalidateSession')}} Logout {{/bs-button}}
+              {{# if (not currentUser.isGuest)}}
+                {{#link-to "users.show" currentUser.user class="btn-like"}}
+                  {{#bs-button type="primary" }}
+                    My account
+                  {{/bs-button}}
+                {{/link-to}}
+              {{/if}}
+            {{else}}
+              {{#link-to "register" class="btn-like"}} {{#bs-button type="success" }}
+                New user
+              {{/bs-button}} {{/link-to}}
+              {{#link-to "login" class="btn-like"}} {{#bs-button type="primary" }}
+                Login
+              {{/bs-button}} {{/link-to}}
             {{/if}}
-          {{else}}
-              {{#link-to "register" class="btn-like"}} {{#bs-button type="success" }} New user {{/bs-button}} {{/link-to}}
-            {{#link-to "login" class="btn-like"}} {{#bs-button type="primary" }}Login {{/bs-button}} {{/link-to}}
           {{/if}}
         </div>
   {{/navbar.content}}

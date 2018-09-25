@@ -1,43 +1,45 @@
 <!-- Login -->
-<div class="card login-form">
+{{#if apiAvailable}}
+  <div class="card login-form">
 
-  <div class="card-body">
-    <h3 class="card-title">Login</h3>
+    <div class="card-body">
+      <h3 class="card-title">Login</h3>
 
-    {{#user-form
-      formType='login'
-      model=model
-      error=error
-      signupComplete=signupComplete
-      submitText='Login'
-      authenticate=(action 'authenticate')}}
+      {{#user-form
+        formType='login'
+        model=model
+        error=error
+        signupComplete=signupComplete
+        submitText='Login'
+        authenticate=(action 'authenticate')}}
 
-        {{bs-button type="secondary"
-          defaultText="Reset password"
-          onClick=(action 'resetPassword') }}
+          {{bs-button type="secondary"
+            defaultText="Reset password"
+            onClick=(action 'resetPassword') }}
 
-    {{/user-form}}
+      {{/user-form}}
 
-    {{#if success }}
-        <div class="alert alert-success m-2" role="success">
-          {{success}}
-        </div>
-    {{/if}}
+      {{#if success }}
+          <div class="alert alert-success m-2" role="success">
+            {{success}}
+          </div>
+      {{/if}}
 
-    <br />
+      <br />
 
-    <h3 class="card-title">Guest login</h3>
+      <h3 class="card-title">Guest login</h3>
 
-    {{user-form
-      formType='guestLogin'
-      model=model
-      error=guestError
-      buttonColor="warning"
-      submitText='Login as a guest'
-      needCertifyCheck=true
-      certifyCheck=certifyCheck
-      authenticateGuest=(action 'authenticateGuest')}}
+      {{user-form
+        formType='guestLogin'
+        model=model
+        error=guestError
+        buttonColor="warning"
+        submitText='Login as a guest'
+        needCertifyCheck=true
+        certifyCheck=certifyCheck
+        authenticateGuest=(action 'authenticateGuest')}}
+
+    </div>
 
   </div>
-
-</div>
+{{/if}}

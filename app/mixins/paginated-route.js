@@ -1,13 +1,15 @@
 import Mixin from '@ember/object/mixin';
+import { inject as service } from '@ember/service';
 
 export default Mixin.create({
 
-    model(params) {
-        return this.store.query(this.routeLabel, {
-            page_size: params.page_size,
-            page: params.page,
-        });
+  apiStatus: service('api-status'),
 
+    model(params) {
+      return this.store.query(this.routeLabel, {
+          page_size: params.page_size,
+          page: params.page,
+      })
     },
 
     queryParams: {
@@ -46,10 +48,14 @@ export default Mixin.create({
     },
 
     actions: {
-        updateDataPage: function ( dataLabel, page ) {
-            this.controller.dataComponents[dataLabel].params.page = page;
-            this.updateData(dataLabel);
-        },
+      error(/*error, transition*/) {
+        this.set('apiStatus.status','error')
+        this.transitionTo('index');
+      },
+      updateDataPage: function ( dataLabel, page ) {
+          this.controller.dataComponents[dataLabel].params.page = page;
+          this.updateData(dataLabel);
+      },
     },
 
     addData: function( dataLabel, values ) {
@@ -74,12 +80,10 @@ export default Mixin.create({
         let self = this;
         let routeLabel = this.controller.dataComponents[dataLabel].routeLabel
         let params = this.controller.dataComponents[dataLabel].params;
-        this.store.query(routeLabel,
-                params)
-            .then(function(data) {
-                data.set('dataLabel', dataLabel);
-                self.controller.set(dataLabel, data);
-                //self.controller.get(dataLabel).reload();
-        });
+        this.store.query(routeLabel, params)
+          .then(function(data) {
+            data.set('dataLabel', dataLabel);
+            self.controller.set(dataLabel, data);
+          });
     },
 });

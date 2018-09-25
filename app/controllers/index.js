@@ -6,6 +6,7 @@ import ENV from '../config/environment'
 
 export default Controller.extend( FileDownloadMixin, CytoscapeMixin, {
   session: service('session'),
+  apiStatus: service('api-status'),
   version: ENV.version,
 
 	actions: {
@@ -13,5 +14,5 @@ export default Controller.extend( FileDownloadMixin, CytoscapeMixin, {
        this.send('downloadFile', request, "text/plain;charset=utf-8", fileName);
     },
   },
-  
+
 });
