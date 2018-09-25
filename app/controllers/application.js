@@ -5,6 +5,13 @@ import { computed } from '@ember/object';
 export default Controller.extend({
   session: service('session'),
   currentUser: service('current-user'),
+  apiStatus: service('api-status'),
+
+  apiAvailable: computed(
+    'apiStatus.status',
+    function() {
+      return this.get('apiStatus.status') === 'available'
+  }),
 
   userFirstLetter: computed('currentUser.user', function() {
     let currentUser = this.get('currentUser');
