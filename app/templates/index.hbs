@@ -2,9 +2,18 @@
 <h2 class="text-center"><i>a web server for natural products anticipation</i></h2>
 <p class="text-center"><i>Currently running beta version {{version}}</i></p>
 <div class="d-flex justify-content-center m-3">
+  {{#if (eq apiStatus.status 'error')}}
+    <div class="alert alert-danger" role="alert">
+      MetWork is under maintenance. <br />
+      Services are currently unavailable and will be back soon.
+    </div>
+  {{/if}}
+  {{#if (eq apiStatus.status 'available')}}
     {{bs-button type="primary"
-        defaultText="Download all molecules generated"
-        onClick=(action 'getFile' 'download_all_molecules' 'metwork_all_molecules.csv') }}
+      defaultText="Download all molecules generated"
+      onClick=(action 'getFile' 'download_all_molecules' 'metwork_all_molecules.csv') }}
+  {{/if}}
+
 </div>
 
   <div id="news">

@@ -3,12 +3,20 @@ import ENV from 'metwork-frontend/config/environment';
 import { inject as service } from '@ember/service';
 import $ from 'jquery';
 import { run } from '@ember/runloop';
+import { computed } from '@ember/object';
 
 export default Controller.extend({
   session: service('session'),
   success: false,
   error: false,
   guestError: false,
+  apiStatus: service('api-status'),
+
+  apiAvailable: computed(
+    'apiStatus.status',
+    function() {
+      return this.get('apiStatus.status') === 'available'
+  }),
 
 	authenticate_ : function(email, password) {
     this.get('session').authenticate('authenticator:drf-token-authenticator', email, password).catch((reason) => {
