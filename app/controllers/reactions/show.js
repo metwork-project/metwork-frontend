@@ -8,7 +8,8 @@ export default Controller.extend({
     image: "",
     currentUser: service('current-user'),
     editReaction: false,
-    chemDoodleJSONStatus: 'stop',
+    evaluateJSONStatus: 'wait',
+    getJSONStatus: 'wait',
 
     editMode: computed('model.status_code', 'editReaction', function() {
       return this.model.get('isReadyToActive') && this.get('editReaction')
@@ -28,7 +29,7 @@ export default Controller.extend({
         return {
           btnType: 'success',
           label: 'Create Reaction',
-          action: this.saveReaction}
+          action: 'saveReaction'}
       } else if ( this.model.get('isEditing') || this.model.get('isActive') ) {
         return {
           btnType: 'primary',
@@ -38,7 +39,7 @@ export default Controller.extend({
         return {
           btnType: 'warning',
           label: 'Edit Reaction',
-          action: this.editReaction}
+          action: 'editReaction'}
       }
     }),
 
@@ -47,24 +48,19 @@ export default Controller.extend({
         let this_ = this;
         let isNew = this.model.get('isNew');
         this_.model.save().then(function() {
-          this_.set('chemDoodleJSONStatus', 'requested');
+          this_.set('evaluateJSONStatus', 'requested');
           if (isNew) {
             this_.model.set('user', this_.get('currentUser').user)
             let id = this_.model.get('id');
             this_.get('target').transitionTo('/reactions/'+ id);
           }
           this_.getImage();
+          this_.getJSON()
         });
-      },
-      updateChemDoodleJSON(molJson) {
-        let this_ = this;
-        this_.model.evaluateJson( molJson ).then(function() {
-          this_.set('chemDoodleJSONStatus', 'stop');
-          this_.model.reload();
-        })
       },
       editReaction() {
         this.model.set('status_code', this.model.statusRef().EDIT.code)
+        this.model.save()
       },
       runReaction() {
           let self = this;
@@ -93,5 +89,7 @@ export default Controller.extend({
               });
         }
     },
-
+    getJSON: function() {
+      this.set('getJSONStatus','requested')
+    }
 });

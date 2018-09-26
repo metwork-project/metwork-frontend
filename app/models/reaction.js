@@ -62,9 +62,11 @@ export default DS.Model.extend({
 
     runReaction: memberAction({ path: 'run_reaction', type: 'get' }),
 
+    getJSON: memberAction({ path: 'get_chemdoodle_json', type: 'get' }),
+
     getImage: memberAction({ path: 'get_image', type: 'get' }),
 
-    evaluateJson: memberAction({ path: 'evaluate_json', type: 'patch' }), 
+    evaluateJson: memberAction({ path: 'evaluate_json', type: 'patch' }),
 
     display: computed('name', function() {
         return this.get('name');
