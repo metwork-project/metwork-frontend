@@ -35,7 +35,6 @@
                             {{textarea value=model.description model=model class='form-control' rows='3'}}
 
                             <p><b>Number of reactants :</b> {{model.reactants_number}} </p>
-                            {{chemDoodleJSON}}
                         </div>
                         <div class="form-group col-lg-8">
                             {{{image}}}
@@ -43,8 +42,8 @@
                               {{molecule-editor
                                 model=model
                                 skecthId='sketcher-reaction'
-                                chemDoodleJSON=chemDoodleJSON
-                                chemDoodleJSONStatus=chemDoodleJSONStatus}}
+                                chemDoodleJSONStatus=chemDoodleJSONStatus
+                                updateChemDoodleJSON='updateChemDoodleJSON'}}
                             {{/if}}
                         </div>
                     </div></div>

@@ -8,7 +8,6 @@ export default Controller.extend({
     image: "",
     currentUser: service('current-user'),
     editReaction: false,
-    chemDoodleJSON: '',
     chemDoodleJSONStatus: 'stop',
 
     editMode: computed('model.status_code', 'editReaction', function() {
@@ -47,18 +46,22 @@ export default Controller.extend({
       saveReaction () {
         let this_ = this;
         let isNew = this.model.get('isNew');
-        this.set('chemDoodleJSONStatus', 'requested');
         this_.model.save().then(function() {
-          this_.model.evaluateJson({data: this_.get('chemDoodleJSON')}).then(function() {
-            this_.set('chemDoodleJSONStatus', 'stop');
-            if (isNew) {
-              this_.model.set('user', this_.get('currentUser').user)
-              let id = this_.model.get('id');
-              this_.get('target').transitionTo('/reactions/'+ id);
-            }
-            this_.getImage();
-          })
+          this_.set('chemDoodleJSONStatus', 'requested');
+          if (isNew) {
+            this_.model.set('user', this_.get('currentUser').user)
+            let id = this_.model.get('id');
+            this_.get('target').transitionTo('/reactions/'+ id);
+          }
+          this_.getImage();
         });
+      },
+      updateChemDoodleJSON(molJson) {
+        let this_ = this;
+        this_.model.evaluateJson( molJson ).then(function() {
+          this_.set('chemDoodleJSONStatus', 'stop');
+          this_.model.reload();
+        })
       },
       editReaction() {
         this.model.set('status_code', this.model.statusRef().EDIT.code)

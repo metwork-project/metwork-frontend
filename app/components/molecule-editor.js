@@ -23,13 +23,13 @@ export default Component.extend({
     return this.get('skecthId') + '-modal'
   }),
 
-  udpdateChemDoodleJSON: computed('chemDoodleJSONStatus', function() {
-    if (this.get('sketcher')) {
+  udpdateChemDoodleJSONStatus: computed('chemDoodleJSONStatus', function() {
+    if ( this.get('chemDoodleJSONStatus') === 'requested' && this.get('sketcher') ) {
       var mols = this.get('sketcher').getMolecules();
       var shapes = this.get('sketcher').shapes;
       // this line converts the Molecule data structure to the JSON protocol Javascript object
       var molJSON = new ChemDoodle.io.JSONInterpreter().contentTo(mols, shapes);
-      // this.set('chemDoodleJSON', JSON.stringify(molJSON) )
+      this.sendAction('updateChemDoodleJSON', molJSON)
     }
   }),
 
@@ -54,7 +54,6 @@ export default Component.extend({
     loadSmarts() {
       var this_ = this
       var smarts = $('.modal.' + this.get('modalId') + ' .smarts-value')[0].value
-      // var smarts = $('#' + this.elementId + ' smarts-value').value()
       this.model.loadSmarts({smarts: smarts})
         .then(function(response) {
           this_.set('smartsModal', false);
@@ -85,7 +84,6 @@ export default Component.extend({
       // console.log(viewACS);
       //viewACS.loadMolecule(caffeine);
       var target = jsi.contentFrom(JSON.parse(jsonstr));
-      console.log(target);
       this.get('sketcher').loadContent(target.molecules, target.shapes);
       // var s = JSON.stringify(new ChemDoodle.io.JSONInterpreter().contentTo(this.get('sketcher').molecules, this.get('sketcher').shapes));console.log(s);alert(s);
     },
@@ -103,13 +101,13 @@ export default Component.extend({
       var caffeineMolFile = '\n     RDKit          2D\n\n  3  2  0  0  0  0  0  0  0  0999 V2000\n    0.0000    0.0000    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    1.2990    0.7500    0.0000 C   0  0  0  0  0  0  0  0  0  0  0  0\n    2.5981   -0.0000    0.0000 O   0  0  0  0  0  0  0  0  0  0  0  0\n  1  2  1  0\n  2  3  1  0\nM  END';
       var cafJSON = '{"m":[{"a":[{"x":290.3398,"y":146,"i":"a0"},{"x":307.6602,"y":156,"i":"a1"}],"b":[{"b":0,"e":1,"i":"b0"}]}]}'
       // var caffeine = ChemDoodle.readMOL(caffeineMolFile);
-      console.log(JSON.parse(cafJSON).m[0]);
+      // console.log(JSON.parse(cafJSON).m[0]);
       var jsi = new ChemDoodle.io.JSONInterpreter();
-      console.log(jsi);
+      // console.log(jsi);
       // var caffeine = jsi.molFrom(JSON.parse(cafJSON).m[0]);
       // var caffeine = jsi.contentFrom(JSON.parse(cafJSON));
       //caffeine.scaleToAverageBondLength(14.4);
-      console.log(viewACS);
+      // console.log(viewACS);
       //viewACS.loadMolecule(caffeine);
       viewACS.loadContent(caffeine);
     },
