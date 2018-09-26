@@ -8,11 +8,6 @@
       Services are currently unavailable and will be back soon.
     </div>
   {{/if}}
-  {{#if (eq apiStatus.status 'available')}}
-    {{bs-button type="primary"
-      defaultText="Download all molecules generated"
-      onClick=(action 'getFile' 'download_all_molecules' 'metwork_all_molecules.csv') }}
-  {{/if}}
 
 </div>
 
