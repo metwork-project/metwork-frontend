@@ -4,6 +4,7 @@ import { computed } from '@ember/object';
 export default Component.extend({
 
   sketcher: null,
+  sketcherReady: false,
 
   didRender() {
     this._super(...arguments);
@@ -28,35 +29,40 @@ export default Component.extend({
   // }),
 
   udpdateEvaluateJSONStatus: computed('evaluateJSONStatus', function() {
-    if ( this.get('evaluateJSONStatus') === 'requested' && this.get('sketcher') ) {
-      var mols = this.get('sketcher').getMolecules();
-      var shapes = this.get('sketcher').shapes;
-      // this line converts the Molecule data structure to the JSON protocol Javascript object
-      var molJSON = new ChemDoodle.io.JSONInterpreter().contentTo(mols, shapes);
-      this.updateJSON(molJSON)
-    }
+      if ( this.get('sketcher') ) {
+        var mols = this.get('sketcher').getMolecules();
+        var shapes = this.get('sketcher').shapes;
+        // this line converts the Molecule data structure to the JSON protocol Javascript object
+        var molJSON = new ChemDoodle.io.JSONInterpreter().contentTo(mols, shapes);
+        // this.updateJSON(molJSON)
+        this.model.set('chemdoodle_json', molJSON)
+        this.sendAction('saveModel', true)
+      }
   }),
 
   loadEditor: function() {
     ChemDoodle.default_atoms_useJMOLColors = true;
     var sketcher = new ChemDoodle.SketcherCanvas(
       this.get('canvasId'), 600, 350, {useServices:false, includeQuery: true})
+    this.set('sketcher', sketcher);
+    if (! this.model.get('sketcherReady')) {
+      this.model.reload()
+      this.model.set('sketcherReady', true)
+    }
     let this_=this
-    this_.set('sketcher', sketcher);
-    this_.model.getJSON()
     setTimeout(function(){
       $('#' + this_.elementId + ' .molecule-editor-loader').hide()
       $('#' + this_.elementId + ' .molecule-editor-sketcher').show()
        }, 500);
   },
 
-  loadJSON: computed('model.dataJSON', function() {
-    var dataJSON = this.model.dataJSON
+  loadJSON: computed('model.chemdoodle_json', function() {
+    var dataJSON = this.model.get('chemdoodle_json')
     if (dataJSON) {
       var jsi = new ChemDoodle.io.JSONInterpreter();
       var target = jsi.contentFrom(dataJSON);
       var sketcher = this.get('sketcher')
-      if (sketcher) {
+      if (sketcher && target.molecules.length > 0) {
           sketcher.loadContent(target.molecules, target.shapes);
           // sketcher.historyManager.pushUndo(
           //   new ChemDoodle.uis.actions.SwitchContentAction(
@@ -65,13 +71,12 @@ export default Component.extend({
     }
   }),
 
-  updateJSON(molJson) {
-    let this_ = this;
-    this_.model.evaluateJson( molJson ).then(function() {
-      this_.set('evaluateJSONStatus', 'wait');
-      this_.model.reload();
-    })
-  },
+  // updateJSON(molJson) {
+  //   let this_ = this;
+  //   this_.model.evaluateJson( molJson ).then(function() {
+  //     this_.model.reload();
+  //   })
+  // },
 
   actions: {
     loadSmarts() {
@@ -81,13 +86,10 @@ export default Component.extend({
         .then(function(response) {
           this_.set('smartsModal', false);
           if (response.data.success) {
-            this_.loadJSON(response.data.success);
+            this_.model.set('dataJSON', response.data.success);
         }
       })
     },
-    getJSONAction() {
-      this.model.getJSON()
-    }
   },
 
 });

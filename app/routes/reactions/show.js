@@ -10,7 +10,6 @@ export default Route.extend(AuthenticatedRouteMixin, {
     setupController(controller, model) {
         this._super(...arguments);
         controller.getImage();
-        model.getJSON();
     },
 
 });

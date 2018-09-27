@@ -1,5 +1,6 @@
 import Mixin from '@ember/object/mixin';
 import { inject as service } from '@ember/service';
+import Inflector from 'ember-inflector';
 
 export default Mixin.create({
 

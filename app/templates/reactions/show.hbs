@@ -26,7 +26,15 @@
                             <label>Description</label>
                             {{textarea value=model.description model=model class='form-control' rows='3'}}
 
-                            <p><b>Number of reactants :</b> {{model.reactants_number}} </p>
+                            <div>
+                              {{#if model.isEditing}}
+                                {{bs-button type="primary" class="m-1"
+                                  defaultText="Load Smarts"
+                                  onClick=(action (mut smartsModal) true) }}
+                              {{else}}
+                                <p><b>Number of reactants :</b> {{model.reactants_number}} </p>
+                              {{/if}}
+                            </div>
                         </div>
                         <div class="form-group col-lg-8">
                             {{{image}}}
@@ -34,15 +42,16 @@
                               {{molecule-editor
                                 model=model
                                 skecthId='sketcher-reaction'
+                                saveModel=(action 'saveReaction')
                                 getJSONStatus=getJSONStatus
-                                evaluateJSONStatus=evaluateJSONStatus}}
+                                evaluateJSONStatus=evaluateJSONStatus
+                                smartsModal=smartsModal}}
                             {{else}}
                               {{display-chemical
                                 canvasId='canvas-reaction'
                                 model=model
                               }}
                             {{/if}}
-                            {{molJSON}}
                         </div>
                     </div></div>
                 </form>

@@ -8,9 +8,9 @@ export default Controller.extend({
     image: "",
     currentUser: service('current-user'),
     editReaction: false,
-    evaluateJSONStatus: 'wait',
-    getJSONStatus: 'wait',
-    molJSON: null,
+    evaluateJSONStatus: 0,
+    // getJSONStatus: 'wait',
+    // molJSON: null,
 
     editMode: computed('model.status_code', 'editReaction', function() {
       return this.model.get('isReadyToActive') && this.get('editReaction')
@@ -45,19 +45,24 @@ export default Controller.extend({
     }),
 
     actions: {
-      saveReaction () {
-        let this_ = this;
-        let isNew = this.model.get('isNew');
-        this_.model.save().then(function() {
-          this_.set('evaluateJSONStatus', 'requested');
+      saveReaction (JSONUpdated) {
+        if (JSONUpdated) {
+          // this.set('evaluateJSONStatus', 'wait');
+          let this_ = this;
+          let isNew = this.model.get('isNew');
           if (isNew) {
             this_.model.set('user', this_.get('currentUser').user)
-            let id = this_.model.get('id');
-            this_.get('target').transitionTo('/reactions/'+ id);
           }
-          this_.getImage();
-          this_.model.getJSON()
-        });
+          this_.model.save().then(function() {
+            if (isNew) {
+              let id = this_.model.get('id');
+              this_.get('target').transitionTo('/reactions/'+ id);
+            }
+            this_.getImage();
+          });
+        } else {
+          this.set('evaluateJSONStatus', this.get('evaluateJSONStatus') + 1);
+        }
       },
       editReaction() {
         this.model.set('status_code', this.model.statusRef().EDIT.code)
@@ -90,7 +95,5 @@ export default Controller.extend({
               });
         }
     },
-    // getJSON: function() {
-    //   this.set('getJSONStatus','requested')
-    // }
+
 });

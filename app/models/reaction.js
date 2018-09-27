@@ -1,10 +1,8 @@
 import DS from 'ember-data';
 import {memberAction/*, collectionAction*/} from 'ember-api-actions';
 import { computed } from '@ember/object';
-import ChemDoodleMixin from 'metwork-frontend/mixins/chem-doodle';
 
-export default DS.Model.extend(
-    ChemDoodleMixin, {
+export default DS.Model.extend({
 
     name: DS.attr('string', {defaultValue: 'New reaction'}),
     description: DS.attr('string'),
@@ -14,6 +12,7 @@ export default DS.Model.extend(
     has_no_project: DS.attr('boolean'),
     status_code: DS.attr('number', {defaultValue: 0}),
     is_reactor: DS.attr('boolean'),
+    chemdoodle_json: DS.attr(),
 
     statusRef: function() {
       return {
@@ -65,8 +64,6 @@ export default DS.Model.extend(
     runReaction: memberAction({ path: 'run_reaction', type: 'get' }),
 
     getImage: memberAction({ path: 'get_image', type: 'get' }),
-
-    evaluateJson: memberAction({ path: 'evaluate_json', type: 'patch' }),
 
     display: computed('name', function() {
         return this.get('name');
