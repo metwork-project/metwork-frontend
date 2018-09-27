@@ -9,6 +9,7 @@ export default Controller.extend({
     currentUser: service('current-user'),
     editReaction: false,
     evaluateJSONStatus: 0,
+    sketcherReady: false,
     // getJSONStatus: 'wait',
     // molJSON: null,
 

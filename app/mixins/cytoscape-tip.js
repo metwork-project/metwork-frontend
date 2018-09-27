@@ -87,14 +87,15 @@ export default Mixin.create({
 
   displayMolecule: function(node) {
 
-    var viewACS = new ChemDoodle.ViewerCanvas(node.data('id'), 200, 200);
+    var viewACS = new ChemDoodle.TransformCanvas(node.data('id'), 200, 200);
     viewACS.specs.bonds_width_2D = .6;
     viewACS.specs.bonds_saturationWidthAbs_2D = 2.6;
     viewACS.specs.bonds_hashSpacing_2D = 2.5;
     viewACS.specs.atoms_font_size_2D = 10;
     viewACS.specs.atoms_font_families_2D = ['Helvetica', 'Arial', 'sans-serif'];
     viewACS.specs.atoms_displayTerminalCarbonLabels_2D = true;
-    var moltarget = ChemDoodle.readMOL(node.data('molFile'));
+    var jsi = new ChemDoodle.io.JSONInterpreter();
+    var moltarget = jsi.molFrom(node.data('molJSON'))
     moltarget.scaleToAverageBondLength(14.4);
     viewACS.loadMolecule(moltarget);
     $('#' + node.tip.popper.id + ' .smiles-display .btn').click( function (/*event*/) {

@@ -49,8 +49,7 @@
               <thead>
                 <tr>
                   <th scope="col">Ion ID</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Smiles</th>
+                  <th scope="col">Molecule</th>
                   <th scope="col">Annotation source</th>
                   <th scope="col">Source ID</th>
                   <th scope="col" width="30px"></th>
@@ -60,8 +59,12 @@
                 {{#each frag-annotation as |annotation|}}
                     <tr>
                         <td>{{annotation.ion_id}}</td>
-                        <td>{{annotation.name}}</td>
-                        <td>{{annotation.smiles}}</td>
+                        <td>
+                          {{display-chemical
+                            model = annotation
+                            canvasId = annotation.canvasId
+                            chemType = 'molecule'}}
+                          {{annotation.name}}</td>
                         <td>{{annotation.db_source}}</td>
                         <td>{{annotation.db_id}}</td>
                         <td>{{#if annotation.has_no_project}}

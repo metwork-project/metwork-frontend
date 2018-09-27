@@ -22,12 +22,6 @@ export default Component.extend({
     return this.get('skecthId') + '-modal'
   }),
 
-  // udpdateGetJSONStatus: computed('getJSONStatus', function() {
-  //   if ( this.get('getJSONStatus') === 'requested' && this.get('sketcher') ) {
-  //     this.getJSON()
-  //   }
-  // }),
-
   udpdateEvaluateJSONStatus: computed('evaluateJSONStatus', function() {
       if ( this.get('sketcher') ) {
         var mols = this.get('sketcher').getMolecules();
@@ -44,10 +38,11 @@ export default Component.extend({
     ChemDoodle.default_atoms_useJMOLColors = true;
     var sketcher = new ChemDoodle.SketcherCanvas(
       this.get('canvasId'), 600, 350, {useServices:false, includeQuery: true})
+    // sketcher.checksOnAction()
     this.set('sketcher', sketcher);
-    if (! this.model.get('sketcherReady')) {
+    if (! this.get('sketcherReady')) {
       this.model.reload()
-      this.model.set('sketcherReady', true)
+      this.set('sketcherReady', true)
     }
     let this_=this
     setTimeout(function(){
@@ -63,20 +58,13 @@ export default Component.extend({
       var target = jsi.contentFrom(dataJSON);
       var sketcher = this.get('sketcher')
       if (sketcher && target.molecules.length > 0) {
-          sketcher.loadContent(target.molecules, target.shapes);
-          // sketcher.historyManager.pushUndo(
-          //   new ChemDoodle.uis.actions.SwitchContentAction(
-          //     sketcher, target.molecules, target.shapes) );
+          // sketcher.loadContent(target.molecules, target.shapes);
+          sketcher.historyManager.pushUndo(
+            new ChemDoodle.uis.actions.SwitchContentAction(
+              sketcher, target.molecules, target.shapes) );
       }
     }
   }),
-
-  // updateJSON(molJson) {
-  //   let this_ = this;
-  //   this_.model.evaluateJson( molJson ).then(function() {
-  //     this_.model.reload();
-  //   })
-  // },
 
   actions: {
     loadSmarts() {

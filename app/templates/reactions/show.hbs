@@ -45,11 +45,13 @@
                                 saveModel=(action 'saveReaction')
                                 getJSONStatus=getJSONStatus
                                 evaluateJSONStatus=evaluateJSONStatus
-                                smartsModal=smartsModal}}
+                                smartsModal=smartsModal
+                                sketcherReady=sketcherReady}}
                             {{else}}
                               {{display-chemical
                                 canvasId='canvas-reaction'
                                 model=model
+                                chemType='reaction'
                               }}
                             {{/if}}
                         </div>
