@@ -4,6 +4,7 @@ import $ from 'jquery';
 export default Mixin.create({
 
   loadTipContent: function(node) {
+    ChemDoodle.default_atoms_useJMOLColors = true;
     switch (node.data('nodeType')) {
       case 'molecule':
         this.tipAnnotation(node);
@@ -37,21 +38,60 @@ export default Mixin.create({
 
   tipReaction: function(node) {
     let this_ = this;
-    this_.get('store').findRecord(
-      'reaction', node.data('reactionId'), { reload: true })
-      .then( function (response) {
-        response.getImage().then(function(response) {
-           let newContent =`
-             <div>
-               ${response.data.image}
-             </div>
-             <p>${ node.data('name')}</p>
-           `;
-           this_.updateTipContent(node.tip, newContent);
-           $('#' + node.tip.popper.id + ' svg').attr('width',200).attr('height',100).attr('viewBox', '0 0 400 200');
+    let canvasId =   node.data('id')
+    let dataJSON = node.data('reactJSON')
+    if (dataJSON) {
+      var newContent = `<canvas
+        class="ChemDoodleWebComponent molecule"
+        id="${canvasId}" width="300" height="200"
+        alt="ChemDoodle Web Component"
+        style="width: 300px; height: 200px; background-color: rgb(255, 255, 255);">
+          This browser does not support HTML5/Canvas.
+      </canvas>`
+      this.updateTipContent(node.tip, newContent);
+      this.noLabel = true
+      var viewACS = new ChemDoodle.ViewerCanvas(
+        canvasId,
+        300,
+        200);
+      if (this.noLabel) {
+        let line = {}
+        dataJSON.s.map(function(shape, index) {
+          if (shape.t === 'Line') {
+            line = shape
+          }
         });
+        dataJSON.s = [line]
       }
-    );
+      var jsi = new ChemDoodle.io.JSONInterpreter();
+      var target = jsi.contentFrom(dataJSON)
+      if (! this.noLabel) {
+        var l = 0
+        target.shapes.map(function(shape, index) {
+          shape.label = l
+          shape.error = true
+          l += 1
+        })
+      }
+      viewACS.loadContent(target.molecules, target.shapes);
+    } else {
+      this_.get('store').findRecord(
+        'reaction', node.data('reactionId'), { reload: true })
+        .then( function (response) {
+          response.getImage().then(function(response) {
+             let newContent =`
+               <div>
+                 ${response.data.image}
+               </div>
+             `;
+             //<p>${ node.data('name')}</p>
+             this_.updateTipContent(node.tip, newContent);
+             $('#' + node.tip.popper.id + ' svg').attr('width',200).attr('height',100).attr('viewBox', '0 0 400 200');
+          });
+        }
+      );
+    }
+
   },
 
   tipIon: function(node) {

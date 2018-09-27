@@ -14,7 +14,6 @@ export default Component.extend({
   displayChemical: computed('model.chemdoodle_json', function() {
     ChemDoodle.default_atoms_useJMOLColors = true;
 
-
     var dataJSON = this.get('model.chemdoodle_json')
     if (dataJSON) {
       var jsi = new ChemDoodle.io.JSONInterpreter();

@@ -15,9 +15,6 @@ export default DS.Model.extend({
     }),
 
     canvasId: computed(function() {
-      console.log('canvasId')
-      console.log('canvas-annotation-' + this.id)
-      console.log('canvas-annotation-' + this.get('id'))
       return 'canvas-annotation-' + this.id
     })
 
