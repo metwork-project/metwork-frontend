@@ -21,11 +21,11 @@ export default Component.extend({
     return this.get('skecthId') + '-modal'
   }),
 
-  udpdateGetJSONStatus: computed('getJSONStatus', function() {
-    if ( this.get('getJSONStatus') === 'requested' && this.get('sketcher') ) {
-      this.getJSON()
-    }
-  }),
+  // udpdateGetJSONStatus: computed('getJSONStatus', function() {
+  //   if ( this.get('getJSONStatus') === 'requested' && this.get('sketcher') ) {
+  //     this.getJSON()
+  //   }
+  // }),
 
   udpdateEvaluateJSONStatus: computed('evaluateJSONStatus', function() {
     if ( this.get('evaluateJSONStatus') === 'requested' && this.get('sketcher') ) {
@@ -39,30 +39,31 @@ export default Component.extend({
 
   loadEditor: function() {
     ChemDoodle.default_atoms_useJMOLColors = true;
-    var sketcher = new ChemDoodle.SketcherCanvas(this.get('canvasId'), 500, 300, {useServices:false, includeQuery: true})
+    var sketcher = new ChemDoodle.SketcherCanvas(
+      this.get('canvasId'), 600, 350, {useServices:false, includeQuery: true})
     let this_=this
     this_.set('sketcher', sketcher);
-    this_.getJSON()
+    this_.model.getJSON()
     setTimeout(function(){
       $('#' + this_.elementId + ' .molecule-editor-loader').hide()
       $('#' + this_.elementId + ' .molecule-editor-sketcher').show()
        }, 500);
   },
 
-  loadJSON(jsonData) {
-    var jsi = new ChemDoodle.io.JSONInterpreter();
-    var target = jsi.contentFrom(jsonData);
-    var sketcher = this.get('sketcher')
-    sketcher.historyManager.pushUndo( new ChemDoodle.uis.actions.SwitchContentAction(sketcher, target.molecules, target.shapes) );
-  },
-
-  getJSON: function() {
-    let this_ = this
-    this.model.getJSON().then( function(response) {
-      this_.loadJSON(response.data)
-      this_.set('getJSONStatus','wait')
-    })
-  },
+  loadJSON: computed('model.dataJSON', function() {
+    var dataJSON = this.model.dataJSON
+    if (dataJSON) {
+      var jsi = new ChemDoodle.io.JSONInterpreter();
+      var target = jsi.contentFrom(dataJSON);
+      var sketcher = this.get('sketcher')
+      if (sketcher) {
+          sketcher.loadContent(target.molecules, target.shapes);
+          // sketcher.historyManager.pushUndo(
+          //   new ChemDoodle.uis.actions.SwitchContentAction(
+          //     sketcher, target.molecules, target.shapes) );
+      }
+    }
+  }),
 
   updateJSON(molJson) {
     let this_ = this;
@@ -85,7 +86,7 @@ export default Component.extend({
       })
     },
     getJSONAction() {
-      this.getJSON()
+      this.model.getJSON()
     }
   },
 

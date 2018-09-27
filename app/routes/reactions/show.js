@@ -7,10 +7,10 @@ export default Route.extend(AuthenticatedRouteMixin, {
         return this.get('store').findRecord('reaction', params.reaction_id, { reload: true });
     },
 
-    setupController(controller/*, model*/) {
+    setupController(controller, model) {
         this._super(...arguments);
         controller.getImage();
-        controller.getJSON();
+        model.getJSON();
     },
 
 });

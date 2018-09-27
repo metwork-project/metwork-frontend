@@ -10,6 +10,7 @@ export default Controller.extend({
     editReaction: false,
     evaluateJSONStatus: 'wait',
     getJSONStatus: 'wait',
+    molJSON: null,
 
     editMode: computed('model.status_code', 'editReaction', function() {
       return this.model.get('isReadyToActive') && this.get('editReaction')
@@ -55,7 +56,7 @@ export default Controller.extend({
             this_.get('target').transitionTo('/reactions/'+ id);
           }
           this_.getImage();
-          this_.getJSON()
+          this_.model.getJSON()
         });
       },
       editReaction() {
@@ -89,7 +90,7 @@ export default Controller.extend({
               });
         }
     },
-    getJSON: function() {
-      this.set('getJSONStatus','requested')
-    }
+    // getJSON: function() {
+    //   this.set('getJSONStatus','requested')
+    // }
 });

@@ -36,7 +36,13 @@
                                 skecthId='sketcher-reaction'
                                 getJSONStatus=getJSONStatus
                                 evaluateJSONStatus=evaluateJSONStatus}}
+                            {{else}}
+                              {{display-chemical
+                                canvasId='canvas-reaction'
+                                model=model
+                              }}
                             {{/if}}
+                            {{molJSON}}
                         </div>
                     </div></div>
                 </form>
