@@ -8,8 +8,8 @@ export default Controller.extend({
     image: "",
     currentUser: service('current-user'),
     editReaction: false,
-    evaluateReactionJSONStatus: 0,
-    evaluateReactantsJSONStatus: 0,
+    saveReactionComponent: 0,
+    saveReactantsComponent: 0,
     sketcherReady: false,
     // getJSONStatus: 'wait',
     // molJSON: null,
@@ -71,7 +71,7 @@ export default Controller.extend({
             this_.set('errorSaveMessage', echec.errors[0].detail)
           });
         } else {
-          this.set('evaluateReactionJSONStatus', this.get('evaluateReactionJSONStatus') + 1);
+          this.set('saveReactionComponent', this.get('saveReactionComponent') + 1);
         }
       },
       editReaction() {
@@ -79,22 +79,18 @@ export default Controller.extend({
         this.model.save()
       },
       runReaction(JSONUpdated) {
-        let self = this;
+        let this_ = this;
         if (JSONUpdated) {
           this.model.runReaction({reactants: this.reactants})
             .then(function(response) {
-            let display = response.data.products.reduce(
-              function (disp, value, ind) {
-                  if (ind === 0) {
-                      return value;
-                  } else {
-                      return disp + '\n' +  value;
-                  }
-              }, '')
-            self.set('products',display);
+              if (response.data.products) {
+                this_.set('products', response.data.products)
+                var reactants = this_.reactants.get('chemdoodle_json').m
+                this_.set('reactantsJSON', reactants)
+              }
           });
         } else {
-          this.set('evaluateReactantsJSONStatus', this.get('evaluateReactantsJSONStatus') + 1);
+          this.set('saveReactantsComponent', this.get('saveReactantsComponent') + 1);
         }
       },
     },

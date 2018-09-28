@@ -44,8 +44,8 @@
                     model=model
                     chemType='reaction'
                     skecthId='sketcher-reaction'
-                    saveModel=(action 'saveReaction')
-                    evaluateJSONStatus=evaluateReactionJSONStatus
+                    evaluateAction=(action 'saveReaction')
+                    saveModelComponent=saveReactionComponent
                     smartsModal=smartsReactionModal
                     sketcherReady=sketcherReady}}
                 {{else}}
@@ -68,42 +68,47 @@
         <form>
           <div class="container">
             <div class="row">
-              <div class="form-group col-lg-6">
+              <div class="form-group col-md-6">
                 <h5>Reactant(s)</h5>
                 {{#if products}}
-                  {{chemical-display
-                    canvasId='canvas-reactants'
-                    model=reactants
-                    chemType='molecule'
-                  }}
+                  {{#each reactantsJSON as |reactant index|}}
+                    {{chemical-display
+                      canvasId='canvas-reactant-'
+                      index=index
+                      dataJSON=reactant
+                      chemType='molecule'
+                    }}
+                  {{/each}}
                 {{else}}
                   {{chemical-editor
                     model=reactants
                     chemType='molecule'
                     skecthId='sketcher-reactants'
-                    saveModel=(action 'saveReaction')
-                    evaluateJSONStatus=evaluateReactantsJSONStatus
+                    evaluateAction=(action 'runReaction')
+                    saveModelComponent=saveReactantsComponent
                     smartsModal=smartsReactantsModal
                     sketcherReady=sketcherReady}}
+                    {{bs-button type="primary" class="m-1"
+                      defaultText="Load SMILES"
+                      onClick=(action (mut smartsReactantsModal) true) }}
                   {{/if}}
-                  {{bs-button type="primary" class="m-1"
-                    defaultText="Load SMILES"
-                    onClick=(action (mut smartsReactantsModal) true) }}
+
               </div>
-              <div class="form-group col-lg-6">
+              <div class="form-group col-md-6">
                 {{#if products}}
-                  <h5>Products smiles</h5>
-                  {{#each products as |product|}}
+                  <h5>Products</h5>
+                  {{#each products as |product index|}}
                     {{chemical-display
-                      canvasId='canvas-products'
-                      model=product
+                      canvasId='canvas-product-'
+                      index=index
+                      dataJSON=product
                       chemType='molecule'
                     }}
                   {{/each}}
                 {{else}}
                   <button type="button"
                       class="btn reaction-reactants m-2 btn-primary"
-                      onClick={{action 'runReaction'}}>
+                      onClick={{action 'runReaction' false}}>
                         Run reaction
                   </button>
                 {{/if}}

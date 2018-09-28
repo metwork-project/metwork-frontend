@@ -11,15 +11,24 @@ export default Component.extend({
     return dic[this.chemType]
   },
 
-  displayChemical: computed('model.chemdoodle_json', function() {
-    ChemDoodle.default_atoms_useJMOLColors = true;
+  getCanvasIdIndex: computed('index', function() {
+    if (this.get('index')) {
+      this.set('canvasId', this.get('canvasId') + this.get('index'))
+    }
+  }),
 
-    var dataJSON = this.get('model.chemdoodle_json')
+  displayChemical: computed('model.chemdoodle_json', 'dataJSON', function() {
+    ChemDoodle.default_atoms_useJMOLColors = true;
+    if (this.get('model.chemdoodle_json')) {
+      var dataJSON = this.get('model.chemdoodle_json')
+    } else {
+      var dataJSON = this.get('dataJSON')
+    }
     if (dataJSON) {
       var jsi = new ChemDoodle.io.JSONInterpreter();
       if (this.chemType === 'reaction') {
         var viewACS = new ChemDoodle.ViewerCanvas(
-          this.canvasId,
+          this.get('canvasId'),
           this.canvasDim()[0],
           this.canvasDim()[1]);
         if (this.noLabel) {
@@ -43,10 +52,9 @@ export default Component.extend({
         viewACS.loadContent(target.molecules, target.shapes);
       } else if (this.chemType === 'molecule') {
         var viewACS = new ChemDoodle.TransformCanvas(
-          this.canvasId,
+          this.get('canvasId'),
           this.canvasDim()[0],
           this.canvasDim()[1]);
-
         var target = jsi.molFrom(dataJSON)
         viewACS.loadMolecule(target);
       }

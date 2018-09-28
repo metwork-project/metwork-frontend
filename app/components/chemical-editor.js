@@ -30,18 +30,6 @@ export default Component.extend({
     return this.get('skecthId') + '-modal'
   }),
 
-  udpdateEvaluateJSONStatus: computed('evaluateJSONStatus', function() {
-      if ( this.get('sketcher') ) {
-        var mols = this.get('sketcher').getMolecules();
-        var shapes = this.get('sketcher').shapes;
-        // this line converts the Molecule data structure to the JSON protocol Javascript object
-        var molJSON = new ChemDoodle.io.JSONInterpreter().contentTo(mols, shapes);
-        // this.updateJSON(molJSON)
-        this.model.set('chemdoodle_json', molJSON)
-        this.sendAction('saveModel', true)
-      }
-  }),
-
   loadEditor: function() {
     ChemDoodle.default_atoms_useJMOLColors = true;
     let includeQuery = this.chemType === 'reaction'
@@ -62,6 +50,18 @@ export default Component.extend({
       $('#' + this_.elementId + ' .molecule-editor-sketcher').show()
        }, 500);
   },
+
+  saveModelTrigger: computed('saveModelComponent', function() {
+    if ( this.get('sketcher') ) {
+      var mols = this.get('sketcher').getMolecules();
+      var shapes = this.get('sketcher').shapes;
+      // this line converts the Molecule data structure to the JSON protocol Javascript object
+      var molJSON = new ChemDoodle.io.JSONInterpreter().contentTo(mols, shapes);
+      // this.updateJSON(molJSON)
+      this.model.set('chemdoodle_json', molJSON)
+      this.sendAction('evaluateAction', true)
+    }
+  }),
 
   loadJSON: computed('model.chemdoodle_json', function() {
     var dataJSON = this.model.get('chemdoodle_json')

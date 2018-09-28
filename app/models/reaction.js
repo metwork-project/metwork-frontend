@@ -14,7 +14,7 @@ export default DS.Model.extend({
     is_reactor: DS.attr('boolean'),
     chemdoodle_json: DS.attr(),
     chemdoodle_json_error: DS.attr('string'),
-    
+
     statusRef: function() {
       return {
         INIT:   {code: 0, libelle: 'Initialized', class: 'secondary'},
@@ -66,7 +66,7 @@ export default DS.Model.extend({
 
     loadSmarts: memberAction({ path: 'load_smarts', type: 'patch' }),
 
-    runReaction: memberAction({ path: 'run_reaction', type: 'get' }),
+    runReaction: memberAction({ path: 'run_reaction', type: 'post' }),
 
     getImage: memberAction({ path: 'get_image', type: 'get' }),
 
