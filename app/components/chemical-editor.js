@@ -6,6 +6,14 @@ export default Component.extend({
   sketcher: null,
   sketcherReady: false,
 
+  canvasDim: function() {
+    var dic = {
+      molecule: [400, 300],
+      reaction: [600,350]
+    }
+    return dic[this.chemType]
+  },
+
   didRender() {
     this._super(...arguments);
     if (! this.get('editorLoaded')) {
@@ -36,12 +44,16 @@ export default Component.extend({
 
   loadEditor: function() {
     ChemDoodle.default_atoms_useJMOLColors = true;
+    let includeQuery = this.chemType === 'reaction'
     var sketcher = new ChemDoodle.SketcherCanvas(
-      this.get('canvasId'), 600, 350, {useServices:false, includeQuery: true})
-    // sketcher.checksOnAction()
+      this.get('canvasId'),
+        this.canvasDim()[0],
+        this.canvasDim()[1],
+        {useServices:false, includeQuery: includeQuery})
     this.set('sketcher', sketcher);
     if (! this.get('sketcherReady')) {
-      this.model.reload()
+      this.model.chemdoodle_json = this.model.chemdoodle_json
+      // this.model.reload()
       this.set('sketcherReady', true)
     }
     let this_=this
@@ -54,14 +66,21 @@ export default Component.extend({
   loadJSON: computed('model.chemdoodle_json', function() {
     var dataJSON = this.model.get('chemdoodle_json')
     if (dataJSON) {
+      if ( this.chemType == 'molecule') {
+        dataJSON = { m:dataJSON, s:[] }
+      }
       var jsi = new ChemDoodle.io.JSONInterpreter();
       var target = jsi.contentFrom(dataJSON);
       var sketcher = this.get('sketcher')
       if (sketcher && target.molecules.length > 0) {
+        if ( this.chemType == 'reaction') {
           // sketcher.loadContent(target.molecules, target.shapes);
           sketcher.historyManager.pushUndo(
             new ChemDoodle.uis.actions.SwitchContentAction(
               sketcher, target.molecules, target.shapes) );
+        } else if ( this.chemType == 'molecule') {
+          sketcher.loadContent(target.molecules, target.shapes);
+        }
       }
     }
   }),
@@ -70,13 +89,24 @@ export default Component.extend({
     loadSmarts() {
       var this_ = this
       var smarts = $('.modal.' + this.get('modalId') + ' .smarts-value')[0].value
-      this.model.loadSmarts({smarts: smarts})
-        .then(function(response) {
-          this_.set('smartsModal', false);
-          if (response.data.success) {
-            this_.model.set('dataJSON', response.data.success);
-        }
-      })
+      if (this.chemType === 'molecule') {
+        this.model.loadSmiles({smiles: smarts})
+          .then(function(response) {
+            if (response.success) {
+              this_.model.set('chemdoodle_json', response.success);
+              this_.set('smartsModal', false)
+            }
+          })
+      } else if (this.chemType === 'reaction') {
+        this.model.loadSmarts({smarts: smarts})
+          .then(function(response) {
+            this_.set('smartsModal', false);
+            if (response.data.success) {
+              this_.model.set('chemdoodle_json', response.data.success);
+              this_.set('smartsModal', false)
+          }
+        })
+      }
     },
   },
 

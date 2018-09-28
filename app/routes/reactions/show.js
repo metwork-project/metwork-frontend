@@ -11,6 +11,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
         this._super(...arguments);
         controller.getImage();
         controller.set('sketcherReady', false)
+        // products = model.store.createRecord('molecule')
+        controller.set('reactants', model.store.createRecord('molecule'))
     },
 
 });

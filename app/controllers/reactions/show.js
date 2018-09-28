@@ -8,7 +8,8 @@ export default Controller.extend({
     image: "",
     currentUser: service('current-user'),
     editReaction: false,
-    evaluateJSONStatus: 0,
+    evaluateReactionJSONStatus: 0,
+    evaluateReactantsJSONStatus: 0,
     sketcherReady: false,
     // getJSONStatus: 'wait',
     // molJSON: null,
@@ -48,7 +49,6 @@ export default Controller.extend({
     actions: {
       saveReaction (JSONUpdated) {
         if (JSONUpdated) {
-          // this.set('evaluateJSONStatus', 'wait');
           let this_ = this;
           let isNew = this.model.get('isNew');
           if (isNew) {
@@ -60,30 +60,42 @@ export default Controller.extend({
               this_.get('target').transitionTo('/reactions/'+ id);
             }
             this_.getImage();
+            var chemdoodle_json_error = this_.model.get('chemdoodle_json_error')
+            if (chemdoodle_json_error) {
+              this_.set('errorSaveMessage',
+                `Error in drawing reaction : ${chemdoodle_json_error}`)
+            } else {
+              this_.set('errorSaveMessage',false)
+            }
+          }, function (echec) {
+            this_.set('errorSaveMessage', echec.errors[0].detail)
           });
         } else {
-          this.set('evaluateJSONStatus', this.get('evaluateJSONStatus') + 1);
+          this.set('evaluateReactionJSONStatus', this.get('evaluateReactionJSONStatus') + 1);
         }
       },
       editReaction() {
         this.model.set('status_code', this.model.statusRef().EDIT.code)
         this.model.save()
       },
-      runReaction() {
-          let self = this;
-          this.model.runReaction({smiles: this.reactants})
-              .then(function(response) {
-              let display = response.data.products.reduce(
-                  function (disp, value, ind) {
-                      if (ind === 0) {
-                          return value;
-                      } else {
-                          return disp + '\n' +  value;
-                      }
-                  }, '')
-              self.set('products',display);
-
+      runReaction(JSONUpdated) {
+        let self = this;
+        if (JSONUpdated) {
+          this.model.runReaction({reactants: this.reactants})
+            .then(function(response) {
+            let display = response.data.products.reduce(
+              function (disp, value, ind) {
+                  if (ind === 0) {
+                      return value;
+                  } else {
+                      return disp + '\n' +  value;
+                  }
+              }, '')
+            self.set('products',display);
           });
+        } else {
+          this.set('evaluateReactantsJSONStatus', this.get('evaluateReactantsJSONStatus') + 1);
+        }
       },
     },
     getImage: function() {

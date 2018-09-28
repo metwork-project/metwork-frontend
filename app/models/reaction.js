@@ -13,7 +13,8 @@ export default DS.Model.extend({
     status_code: DS.attr('number', {defaultValue: 0}),
     is_reactor: DS.attr('boolean'),
     chemdoodle_json: DS.attr(),
-
+    chemdoodle_json_error: DS.attr('string'),
+    
     statusRef: function() {
       return {
         INIT:   {code: 0, libelle: 'Initialized', class: 'secondary'},
@@ -41,6 +42,10 @@ export default DS.Model.extend({
 
     isActive: computed('status_code', function() {
         return this.get('status_code') == this.statusRef().ACTIVE.code;
+    }),
+
+    isAtLeastValid: computed('status_code', function() {
+        return this.get('status_code') >= this.statusRef().VALID.code;
     }),
 
     isReadyToActive: computed('status_code', function() {
