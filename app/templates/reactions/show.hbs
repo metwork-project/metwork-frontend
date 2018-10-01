@@ -79,8 +79,14 @@
                       chemType='molecule'
                     }}
                   {{/each}}
-                {{else}}
+                  {{bs-button type="primary" class="m-1"
+                    defaultText="New test"
+                    onClick=(action (mut products) false) }}
+                {{/if}}
+                {{!-- {{else}} --}}
+                <div class={{if products 'd-none'}} >
                   {{chemical-editor
+                    visible=(eq products false)
                     model=reactants
                     chemType='molecule'
                     skecthId='sketcher-reactants'
@@ -88,10 +94,11 @@
                     saveModelComponent=saveReactantsComponent
                     smartsModal=smartsReactantsModal
                     sketcherReady=sketcherReady}}
+
                     {{bs-button type="primary" class="m-1"
                       defaultText="Load SMILES"
                       onClick=(action (mut smartsReactantsModal) true) }}
-                  {{/if}}
+                </div>
 
               </div>
               <div class="form-group col-md-6">
@@ -112,6 +119,9 @@
                         Run reaction
                   </button>
                 {{/if}}
+                {{alert-generic
+                  alertType="danger"
+                  message=errorReactionMessage}}
               </div>
             </div>
           </div>

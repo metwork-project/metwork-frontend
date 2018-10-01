@@ -11,8 +11,6 @@ export default Controller.extend({
     saveReactionComponent: 0,
     saveReactantsComponent: 0,
     sketcherReady: false,
-    // getJSONStatus: 'wait',
-    // molJSON: null,
 
     editMode: computed('model.status_code', 'editReaction', function() {
       return this.model.get('isReadyToActive') && this.get('editReaction')
@@ -28,6 +26,7 @@ export default Controller.extend({
     }),
 
     mainBtnInfo: computed('model.status_code', 'editReaction', function() {
+      this.set('errorReactionMessage', false)
       if (this.model.get('isNew')) {
         return {
           btnType: 'success',
@@ -49,6 +48,7 @@ export default Controller.extend({
     actions: {
       saveReaction (JSONUpdated) {
         if (JSONUpdated) {
+          this.set('products', false)
           let this_ = this;
           let isNew = this.model.get('isNew');
           if (isNew) {
@@ -81,14 +81,23 @@ export default Controller.extend({
       runReaction(JSONUpdated) {
         let this_ = this;
         if (JSONUpdated) {
-          this.model.runReaction({reactants: this.reactants})
-            .then(function(response) {
-              if (response.data.products) {
-                this_.set('products', response.data.products)
-                var reactants = this_.reactants.get('chemdoodle_json').m
-                this_.set('reactantsJSON', reactants)
-              }
-          });
+          if (this.reactants.get('chemdoodle_json').m) {
+            this.model.runReaction({reactants: this.reactants})
+              .then(function(response) {
+                var products = response.data.products
+                if (products.length === 0) {
+                  this_.set('errorReactionMessage', 'no products with this(those) reactant(s)')
+                } else {
+                  this_.set('products', products)
+                  var reactants = this_.reactants.get('chemdoodle_json').m
+                  this_.set('reactantsJSON', reactants)
+                  this_.set('errorReactionMessage', false)
+                }
+            })
+          } else {
+            this_.set('errorReactionMessage', 'no reactant')
+          }
+
         } else {
           this.set('saveReactantsComponent', this.get('saveReactantsComponent') + 1);
         }

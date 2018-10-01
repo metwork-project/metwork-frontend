@@ -63,7 +63,7 @@ export default Component.extend({
     }
   }),
 
-  loadJSON: computed('model.chemdoodle_json', function() {
+  loadJSON: computed('model.chemdoodle_json', 'sketcherReady', function() {
     var dataJSON = this.model.get('chemdoodle_json')
     if (dataJSON) {
       if ( this.chemType == 'molecule') {
