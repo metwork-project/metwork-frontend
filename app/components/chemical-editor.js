@@ -93,17 +93,23 @@ export default Component.extend({
         this.model.loadSmiles({smiles: smarts})
           .then(function(response) {
             if (response.success) {
-              this_.model.set('chemdoodle_json', response.success);
+              this_.model.set(
+                'chemdoodle_json',
+                response.success);
               this_.set('smartsModal', false)
+              // this_.model.reload()
             }
           })
       } else if (this.chemType === 'reaction') {
         this.model.loadSmarts({smarts: smarts})
           .then(function(response) {
             this_.set('smartsModal', false);
-            if (response.data.success) {
-              this_.model.set('chemdoodle_json', response.data.success);
+            if (response.success) {
+              this_.model.set(
+                'chemdoodle_json',
+                response.success);
               this_.set('smartsModal', false)
+              this_.model.reload()
           }
         })
       }

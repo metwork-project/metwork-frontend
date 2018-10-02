@@ -6,6 +6,6 @@ export default DS.Model.extend({
   smiles: DS.attr('string'),
   chemdoodle_json: DS.attr(),
 
-  loadSmiles: collectionAction({ path: 'load_smiles', type: 'post' }),
+  loadSmiles: collectionAction({ path: 'load_smiles', type: 'patch' }),
 
 });

@@ -27,6 +27,7 @@ export default Controller.extend({
 
     mainBtnInfo: computed('model.status_code', 'editReaction', function() {
       this.set('errorReactionMessage', false)
+      this.set('products', false)
       if (this.model.get('isNew')) {
         return {
           btnType: 'success',
@@ -84,12 +85,12 @@ export default Controller.extend({
           if (this.reactants.get('chemdoodle_json').m) {
             this.model.runReaction({reactants: this.reactants})
               .then(function(response) {
-                var products = response.data.products
+                var products = response.products
+                var reactants = response.reactants
                 if (products.length === 0) {
                   this_.set('errorReactionMessage', 'no products with this(those) reactant(s)')
                 } else {
                   this_.set('products', products)
-                  var reactants = this_.reactants.get('chemdoodle_json').m
                   this_.set('reactantsJSON', reactants)
                   this_.set('errorReactionMessage', false)
                 }
