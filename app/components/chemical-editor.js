@@ -57,7 +57,6 @@ export default Component.extend({
       var shapes = this.get('sketcher').shapes;
       // this line converts the Molecule data structure to the JSON protocol Javascript object
       var molJSON = new ChemDoodle.io.JSONInterpreter().contentTo(mols, shapes);
-      // this.updateJSON(molJSON)
       this.model.set('chemdoodle_json', molJSON)
       this.sendAction('evaluateAction', true)
     }
@@ -97,7 +96,6 @@ export default Component.extend({
                 'chemdoodle_json',
                 response.success);
               this_.set('smartsModal', false)
-              // this_.model.reload()
             }
           })
       } else if (this.chemType === 'reaction') {
