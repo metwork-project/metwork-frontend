@@ -49,6 +49,7 @@
     "ember-export-application-global": "^2.0.0",
     "ember-inspector": "^3.3.0",
     "ember-load-initializers": "^1.0.0",
+    "ember-material-icons": "^1.1.0",
     "ember-moment": "^7.7.0",
     "ember-octicons": "^0.10.0",
     "ember-resolver": "^4.5.5",
