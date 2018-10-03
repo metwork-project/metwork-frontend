@@ -5,7 +5,7 @@ import { computed } from '@ember/object';
 
 export default Controller.extend(PaginatedControllerMixin, {
 
-    // filter: 'not_obsolete',
+    filter: 'not_obsolete',
 
     triggerFilter: computed('filter', function() {
       if (this.filter === 'not_obsolete') {
@@ -23,8 +23,8 @@ export default Controller.extend(PaginatedControllerMixin, {
 
     actions: {
       changeFilter(filter) {
-        this.set('filter', filter);
-        this.send('updateDataFilter', 'model', filter)
+        this.set('filter', filter)
+        this.send('updateDataPage', 'model', 1, filter)
       }
     },
 

@@ -57,11 +57,8 @@ export default Mixin.create({
         this.set('apiStatus.status','error')
         this.transitionTo('index');
       },
-      updateDataPage: function ( dataLabel, page ) {
+      updateDataPage: function ( dataLabel, page, filter ) {
           this.controller.dataComponents[dataLabel].params.page = page;
-          this.updateData(dataLabel);
-      },
-      updateDataFilter: function ( dataLabel, filter ) {
           this.controller.dataComponents[dataLabel].params.filter = filter;
           this.updateData(dataLabel);
       },
