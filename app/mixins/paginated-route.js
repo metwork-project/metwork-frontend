@@ -10,6 +10,7 @@ export default Mixin.create({
       return this.store.query(this.routeLabel, {
           page_size: params.page_size,
           page: params.page,
+          filter: params.filter,
       })
     },
 
@@ -45,7 +46,10 @@ export default Mixin.create({
 
         controller.dataComponents['model'] = {
             routeLabel: this.routeLabel,
-            params : {page: controller.page, page_size: controller.page_size }};
+            params : {
+              page: controller.page,
+              page_size: controller.page_size,
+              filter: controller.filter }};
     },
 
     actions: {
@@ -55,6 +59,10 @@ export default Mixin.create({
       },
       updateDataPage: function ( dataLabel, page ) {
           this.controller.dataComponents[dataLabel].params.page = page;
+          this.updateData(dataLabel);
+      },
+      updateDataFilter: function ( dataLabel, filter ) {
+          this.controller.dataComponents[dataLabel].params.filter = filter;
           this.updateData(dataLabel);
       },
       refreshCurrentRoute(){

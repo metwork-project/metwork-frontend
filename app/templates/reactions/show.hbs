@@ -11,9 +11,13 @@
         {{status-badge model=model class="d-inline"}}
       </h3>
       <div class="m-1">
-        {{#if model.notObsolete}}
+        {{#if mainBtnInfo}}
           {{#bs-button type=mainBtnInfo.btnType onClick=(action mainBtnInfo.action) class="m-1"}}
-            {{mainBtnInfo.label}}
+            {{#if mainBtnInfo.icon}}
+              {{material-icon mainBtnInfo.icon}}
+            {{else}}
+              {{mainBtnInfo.label}}
+            {{/if}}
           {{/bs-button}}
         {{/if}}
       </div>
@@ -21,115 +25,158 @@
       <div>
         <form>
           <div class="container"><div class="row">
-              <div class="form-group col-lg-4">
-                <label>Name</label>
-                {{input value=model.name model=model class='form-control'}}
-                <label>Description</label>
-                {{textarea value=model.description model=model class='form-control' rows='3'}}
-
-                <div>
-                  {{#if model.isEditing}}
-                    {{bs-button type="primary" class="m-1"
-                      defaultText="Load SMARTS"
-                      onClick=(action (mut smartsReactionModal) true) }}
-                  {{else}}
-                    <p><b>Number of reactants :</b> {{model.reactants_number}} </p>
-                  {{/if}}
+            <div class="col-lg-4">
+              {{#if model.isEditing}}
+                <div class="form-group">
+                  <label>Name</label>
+                  {{input
+                    value=model.name
+                    model=model
+                    class='form-control'}}
+                  <label>Description</label>
+                  {{textarea
+                    value=model.description
+                    model=model
+                    class='form-control'
+                    rows='3'}}
                 </div>
-              </div>
-              <div class="form-group col-lg-8">
-                {{{image}}}
-                {{#if model.isEditing}}
-                  {{chemical-editor
-                    model=model
-                    chemType='reaction'
-                    skecthId='sketcher-reaction'
-                    evaluateAction=(action 'saveReaction')
-                    saveModelComponent=saveReactionComponent
-                    smartsModal=smartsReactionModal
-                    sketcherReady=sketcherReady}}
-                {{else}}
-                  {{chemical-display
-                    canvasId='canvas-reaction'
-                    model=model
-                    chemType='reaction'
-                  }}
+                {{bs-button type="primary" class="m-1"
+                  defaultText="Load SMARTS"
+                  onClick=(action (mut smartsReactionModal) true) }}
+              {{else}}
+                {{#if model.description}}
+                  <p>{{model.description}}</p>
                 {{/if}}
-              </div>
+                <p><b>Number of reactants :</b> {{model.reactants_number}} </p>
+                <p><b>SMARTS :</b> <br />{{model.smarts}} </p>
+              {{/if}}
+            </div>
+            <div class="form-group col-lg-8">
+              {{{image}}}
+              {{#if model.isEditing}}
+                {{chemical-editor
+                  model=model
+                  chemType='reaction'
+                  skecthId='sketcher-reaction'
+                  evaluateAction=(action 'saveReaction')
+                  saveModelComponent=saveReactionComponent
+                  smartsModal=smartsReactionModal
+                  sketcherReady=sketcherReady}}
+              {{else}}
+                {{chemical-display
+                  canvasId='canvas-reaction'
+                  model=model
+                  chemType='reaction'
+                }}
+              {{/if}}
             </div>
           </div>
-        </form>
-      </div>
+        </div>
+      </form>
+    </div>
   <!-- Test Reaction -->
-      {{#if model.isAtLeastValid}}
+    {{#if model.isAtLeastValid}}
+      <div class="d-flex">
         <h4 class="mr-auto">
             Test reaction
         </h4>
-        <form>
-          <div class="container">
-            <div class="row">
-              <div class="form-group col-md-6">
-                <h5>Reactant(s)</h5>
-                {{#if products}}
-                  {{#each reactantsJSON as |reactant index|}}
-                    {{chemical-display
-                      canvasId='canvas-reactant-'
-                      index=index
-                      dataJSON=reactant
-                      chemType='molecule'
-                    }}
-                  {{/each}}
-                  {{bs-button type="primary" class="m-1"
-                    defaultText="New test"
-                    onClick=(action (mut products) false) }}
-                {{/if}}
-                {{!-- {{else}} --}}
-                <div class={{if products 'd-none'}} >
-                  {{chemical-editor
-                    visible=(eq products false)
-                    model=reactants
-                    chemType='molecule'
-                    skecthId='sketcher-reactants'
-                    evaluateAction=(action 'runReaction')
-                    saveModelComponent=saveReactantsComponent
-                    smartsModal=smartsReactantsModal
-                    sketcherReady=sketcherReady}}
+        <div class='m-1'>
+          {{#if products}}
+            {{bs-button type="warning" class="m-1"
+              defaultText="New test"
+              onClick=(action (mut products) false) }}
+          {{else}}
+            <button type="button"
+                class="btn reaction-reactants m-2 btn-primary"
+                onClick={{action 'runReaction' false}}>
+                  Run reaction
+            </button>
+          {{/if}}
+        </div>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="form-group col-md-6">
+            <h5>Reactant(s)</h5>
+            {{#if products}}
+              {{#each reactantsJSON as |reactant index|}}
+                {{chemical-display
+                  canvasId='canvas-reactant-'
+                  index=index
+                  dataJSON=reactant
+                  chemType='molecule'
+                }}
+              {{/each}}
+            {{/if}}
+            {{!-- {{else}} --}}
+            <div class={{if products 'd-none'}} >
+              {{chemical-editor
+                visible=(eq products false)
+                model=reactants
+                chemType='molecule'
+                skecthId='sketcher-reactants'
+                evaluateAction=(action 'runReaction')
+                saveModelComponent=saveReactantsComponent
+                smartsModal=smartsReactantsModal
+                sketcherReady=sketcherReady}}
 
-                    {{bs-button type="primary" class="m-1"
-                      defaultText="Load SMILES"
-                      onClick=(action (mut smartsReactantsModal) true) }}
-                </div>
-
-              </div>
-              <div class="form-group col-md-6">
-                {{#if products}}
-                  <h5>Products</h5>
-                  {{#each products as |product index|}}
-                    {{chemical-display
-                      canvasId='canvas-product-'
-                      index=index
-                      dataJSON=product
-                      chemType='molecule'
-                    }}
-                  {{/each}}
-                {{else}}
-                  <button type="button"
-                      class="btn reaction-reactants m-2 btn-primary"
-                      onClick={{action 'runReaction' false}}>
-                        Run reaction
-                  </button>
-                {{/if}}
-                {{alert-generic
-                  alertType="danger"
-                  message=errorReactionMessage}}
-              </div>
+                {{bs-button type="primary" class="m-1"
+                  defaultText="Load SMILES"
+                  onClick=(action (mut smartsReactantsModal) true) }}
             </div>
-          </div>
-          <div class="d-flex justify-content-center">
 
           </div>
-        </form>
-      {{/if}}
+          <div class="form-group col-md-6">
+            {{#if products}}
+              <h5>Products</h5>
+              {{#each products as |product index|}}
+                {{chemical-display
+                  canvasId='canvas-product-'
+                  index=index
+                  dataJSON=product
+                  chemType='molecule'
+                }}
+              {{/each}}
+            {{/if}}
+
+            {{alert-generic
+              alertType="danger"
+              message=errorReactionMessage}}
+          </div>
+        </div>
+      </div>
+    {{/if}}
+    {{#if (or
+        model.isObsolete
+        (and products model.isReadyToActive) ) }}
+      <h4 class="mr-auto">
+          Activation
+      </h4>
+      <div>
+        <p><i>
+          By clicking on "Activate Reaction",
+          this reaction will be available for projects
+          and <b>you'll not be able to modifiy it</b>.
+        </i></p>
+        {{bs-button type="success" class="m-1"
+          defaultText="Activate Reaction"
+          onClick=(action 'validateReaction') }}
+      </div>
+    {{/if}}
+    {{#if model.isActive}}
+      <h4 class="mr-auto">
+          Make obsolete
+      </h4>
+      <div>
+        <p><i>
+          By clicking on "Make Reaction Obsolete",
+          this reaction <b>will not be available for new projects</b>.
+        </i></p>
+        {{bs-button type="danger" class="m-1"
+          defaultText="Make Reaction Obsolete"
+          onClick=(action 'obsoleteReaction') }}
+      </div>
+    {{/if}}
   </div>
   {{#if model.is_reactor}}
     <div class="card-footer">

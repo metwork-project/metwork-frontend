@@ -12,6 +12,7 @@ export default DS.Model.extend({
     has_no_project: DS.attr('boolean'),
     status_code: DS.attr('number', {defaultValue: 0}),
     is_reactor: DS.attr('boolean'),
+    smarts: DS.attr('string'),
     chemdoodle_json: DS.attr(),
     chemdoodle_json_error: DS.attr('string'),
 
@@ -21,7 +22,7 @@ export default DS.Model.extend({
         EDIT:  {code: 10, libelle: 'Editing' , class: 'warning'},
         VALID: {code: 20, libelle: 'Ready to active', class: 'info'},
         ACTIVE:  {code: 30, libelle: 'Active' , class: 'success'},
-        OBSOLETE: {code: 40, libelle: 'Obsolete', class: 'secondary'},
+        OBSOLETE: {code: 40, libelle: 'Obsolete', class: 'danger'},
         ERROR:   {code: 90, libelle: 'Error', class: 'danger'},
       }
     },
@@ -41,7 +42,7 @@ export default DS.Model.extend({
   	}),
 
     isActive: computed('status_code', function() {
-        return this.get('status_code') == this.statusRef().ACTIVE.code;
+        return this.get('status_code') === this.statusRef().ACTIVE.code;
     }),
 
     isAtLeastValid: computed('status_code', function() {
@@ -49,7 +50,7 @@ export default DS.Model.extend({
     }),
 
     isReadyToActive: computed('status_code', function() {
-        return this.get('status_code') == this.statusRef().VALID.code;
+        return this.get('status_code') === this.statusRef().VALID.code;
     }),
 
     isEditing: computed('status_code', function() {
@@ -62,6 +63,10 @@ export default DS.Model.extend({
 
     notObsolete: computed('status_code', function() {
       return this.get('status_code') < this.statusRef().OBSOLETE.code
+    }),
+
+    isObsolete: computed('status_code', function() {
+      return this.get('status_code') === this.statusRef().OBSOLETE.code
     }),
 
     loadSmarts: memberAction({ path: 'load_smarts', type: 'patch' }),

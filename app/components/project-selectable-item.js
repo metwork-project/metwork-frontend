@@ -5,7 +5,11 @@ export default Component.extend({
 
   buttonType: computed( 'frame', function() {
     if (this.get('frame') == "selected") {
-      return "btn-primary"
+      if (this.dangerColor && this.item.get(this.dangerColor )){
+        return "btn-danger"
+      } else {
+        return "btn-primary"
+      }
     } else {
       return "btn-secondary"
     }

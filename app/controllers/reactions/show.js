@@ -32,17 +32,22 @@ export default Controller.extend({
         return {
           btnType: 'success',
           label: 'Create Reaction',
-          action: 'saveReaction'}
-      } else if ( this.model.get('isEditing') || this.model.get('isActive') ) {
+          action: 'saveReaction',
+          icon: 'save'}
+      } else if ( this.model.get('isEditing') /*|| this.model.get('isActive') */) {
         return {
           btnType: 'primary',
           label: 'Save Reaction',
-          action: 'saveReaction'}
+          action: 'saveReaction',
+          icon: 'save'}
       } else if ( this.model.get('isReadyToActive') ) {
         return {
           btnType: 'warning',
           label: 'Edit Reaction',
-          action: 'editReaction'}
+          action: 'editReaction',
+          icon: 'create'}
+      } else {
+        return false
       }
     }),
 
@@ -102,6 +107,20 @@ export default Controller.extend({
         } else {
           this.set('saveReactantsComponent', this.get('saveReactantsComponent') + 1);
         }
+      },
+      validateReaction() {
+        var this_ = this
+        this.model.set('status_code', this.model.statusRef().ACTIVE.code)
+        this.model.save().then(function() {
+          this_.model.reload()
+        })
+      },
+      obsoleteReaction() {
+        var this_ = this
+        this.model.set('status_code', this.model.statusRef().OBSOLETE.code)
+        this.model.save().then(function() {
+          this_.model.reload()
+        })
       },
     },
     getImage: function() {

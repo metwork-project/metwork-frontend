@@ -8,11 +8,13 @@
                 Reactions
             </h3>
             <div>
-              {{#bs-button onClick=(action "changeFilter" "all")}}
-                All
-              {{/bs-button}}
+              {{#if triggerFilter}}
+                {{#bs-button onClick=(action "changeFilter" triggerFilter.filter)}}
+                  {{triggerFilter.label}}
+                {{/bs-button}}
+              {{/if}}
               <button type="button" class="btn btn-success" {{action "newItem" "reaction" model}}>
-                {{svg-jar "plus" class="octicon"}} New reaction
+                {{svg-jar "plus" class="octicon"}}
               </button>
             </div>
         </div>

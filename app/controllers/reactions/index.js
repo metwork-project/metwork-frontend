@@ -5,16 +5,26 @@ import { computed } from '@ember/object';
 
 export default Controller.extend(PaginatedControllerMixin, {
 
-    filter: 'is_active',
+    // filter: 'not_obsolete',
+
+    triggerFilter: computed('filter', function() {
+      if (this.filter === 'not_obsolete') {
+        return {
+          filter: 'all',
+          label: 'All Reactions'
+        }
+      } else if (this.filter === 'all') {
+        return {
+          filter: 'not_obsolete',
+          label: 'Not obsolete'
+        }
+      }
+    }),
 
     actions: {
       changeFilter(filter) {
-        let this_ = this;
         this.set('filter', filter);
-        this.store.query('reaction',this.queryParams)
-                .then( function (model) {
-                  this_.set('model',model  )
-                });
+        this.send('updateDataFilter', 'model', filter)
       }
     },
 
