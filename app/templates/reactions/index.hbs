@@ -11,7 +11,7 @@
               {{#if triggerFilter}}
                 <a href="#"
                   {{action "changeFilter" triggerFilter.filter}}
-                  class='m-1 text-secondary align-bottom'>
+                  class='mr-2 text-secondary align-bottom'>
                     {{triggerFilter.label}}
                 </a>
               {{/if}}
@@ -24,10 +24,10 @@
             <table class="table table-sm table-hover table-striped">
               <thead>
                 <tr>
-                  <th scope="col">Name</th>
                   <th scope="col">Status</th>
-                  <th scope="col">User</th>
+                  <th scope="col">Name</th>
                   <th scope="col">Reactants</th>
+                  <th scope="col">User</th>
                   <th scope="col" width="30px"></th>
                 </tr>
               </thead>
@@ -35,10 +35,10 @@
             <!-- <div class="list-group"> -->
               {{#each model as |reaction|}}
                     <tr >
-                        <td>{{#link-to 'reactions.show' reaction}} {{reaction.name}} {{/link-to }}</td>
                         <td>{{status-badge model=reaction}}</td>
-                        <td>{{reaction.user_name}}</td>
+                        <td>{{#link-to 'reactions.show' reaction}} {{reaction.name}} {{/link-to }}</td>
                         <td>{{reaction.reactants_number}}</td>
+                        <td>{{reaction.user_name}}</td>
                         <td>{{#if reaction.has_no_project}}
                         {{#bs-button class="btn-sm" type="danger" onClick=(action (mut dataToDelete) reaction )}}{{svg-jar "trashcan" class="octicon"}}{{/bs-button}}
                         {{/if}}</td>

@@ -20,7 +20,7 @@ export default DS.Model.extend({
       return {
         INIT:   {code: 0, libelle: 'Initialized', class: 'secondary'},
         EDIT:  {code: 10, libelle: 'Editing' , class: 'warning'},
-        VALID: {code: 20, libelle: 'Ready to active', class: 'info'},
+        VALID: {code: 20, libelle: 'Ready', class: 'info'},
         ACTIVE:  {code: 30, libelle: 'Active' , class: 'success'},
         OBSOLETE: {code: 40, libelle: 'Obsolete', class: 'danger'},
         ERROR:   {code: 90, libelle: 'Error', class: 'danger'},
