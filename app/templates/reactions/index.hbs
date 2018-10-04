@@ -9,9 +9,11 @@
             </h3>
             <div>
               {{#if triggerFilter}}
-                {{#bs-button onClick=(action "changeFilter" triggerFilter.filter)}}
-                  {{triggerFilter.label}}
-                {{/bs-button}}
+                <a href="#"
+                  {{action "changeFilter" triggerFilter.filter}}
+                  class='m-1 text-secondary align-bottom'>
+                    {{triggerFilter.label}}
+                </a>
               {{/if}}
               <button type="button" class="btn btn-success" {{action "newItem" "reaction" model}}>
                 {{svg-jar "plus" class="octicon"}}

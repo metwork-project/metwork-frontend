@@ -134,12 +134,12 @@ a.list-group-item.item-sm {
 	height: 1.5rem;
 }
 
-@import "ember-bootstrap/bootstrap";
-
 label.ui-button {
   margin-bottom: 0;
 }
 
-.molecule-editor-sketcher {
-  display: none;
-}
+// .m-auto {
+//   margin: auto
+// }
+
+@import "ember-bootstrap/bootstrap";

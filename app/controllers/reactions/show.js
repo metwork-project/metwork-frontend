@@ -1,6 +1,7 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
 import { computed } from '@ember/object';
+import $ from 'jquery';
 
 export default Controller.extend({
 
@@ -76,6 +77,11 @@ export default Controller.extend({
                   `Error in drawing reaction : ${chemdoodle_json_error}`)
               } else {
                 this_.set('errorSaveMessage',false)
+                 setTimeout( function() {
+                   $('html, body').animate({
+                       scrollTop: $('.test-reaction').offset().top  - 50
+                   }, 1000);
+                 }, 1000)
               }
             }
           }, function (echec) {
@@ -103,6 +109,12 @@ export default Controller.extend({
                   this_.set('products', products)
                   this_.set('reactantsJSON', reactants)
                   this_.set('errorReactionMessage', false)
+                  this_.set('errorSaveMessage',false)
+                   setTimeout( function() {
+                     $('html, body').animate({
+                         scrollTop: $('.test-reaction').offset().top - 50
+                     }, 1000);
+                   }, 100)
                 }
             })
           } else {

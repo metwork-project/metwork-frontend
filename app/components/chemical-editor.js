@@ -1,11 +1,13 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
 import $ from 'jquery';
+import ENV from '../config/environment'
 
 export default Component.extend({
 
   sketcher: null,
   sketcherReady: false,
+  colors: ENV.colors,
 
   canvasDim: function() {
     var dic = {

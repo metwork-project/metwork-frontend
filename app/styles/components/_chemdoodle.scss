@@ -10,3 +10,16 @@ canvas.ChemDoodleWebComponent {
 #sketcher-reactants-canvas_button_save {
   display: none;
 }
+
+.molecule-editor-sketcher {
+  display: none;
+  // text-align:center;
+}
+
+.molecule-editor,  {
+  min-height: 200px;
+}
+
+// .molecule-editor-loader {
+//   margin: auto;
+// }

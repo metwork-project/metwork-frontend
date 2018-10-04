@@ -11,12 +11,12 @@ export default Controller.extend(PaginatedControllerMixin, {
       if (this.filter === 'not_obsolete') {
         return {
           filter: 'all',
-          label: 'All Reactions'
+          label: 'show obsolete'
         }
       } else if (this.filter === 'all') {
         return {
           filter: 'not_obsolete',
-          label: 'Not obsolete'
+          label: 'hide obsolete'
         }
       }
     }),
