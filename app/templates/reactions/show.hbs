@@ -40,9 +40,11 @@
                     class='form-control'
                     rows='3'}}
                 </div>
-                {{bs-button type="primary" class="m-1"
-                  defaultText="Load SMARTS"
-                  onClick=(action (mut smartsReactionModal) true) }}
+                {{#if model.isNotInit}}
+                  {{bs-button type="primary" class="m-1"
+                    defaultText="Load SMARTS"
+                    onClick=(action (mut smartsReactionModal) true) }}
+                {{/if}}
               {{else}}
                 {{#if model.description}}
                   <p>{{model.description}}</p>
@@ -53,7 +55,7 @@
             </div>
             <div class="form-group col-lg-8">
               {{{image}}}
-              {{#if model.isEditing}}
+              {{#if (and model.isEditing model.isNotInit)}}
                 {{chemical-editor
                   model=model
                   chemType='reaction'
@@ -62,7 +64,7 @@
                   saveModelComponent=saveReactionComponent
                   smartsModal=smartsReactionModal
                   sketcherReady=sketcherReady}}
-              {{else}}
+              {{else if model.isNotInit}}
                 {{chemical-display
                   canvasId='canvas-reaction'
                   model=model

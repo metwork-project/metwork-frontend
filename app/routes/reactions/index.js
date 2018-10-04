@@ -10,7 +10,7 @@ export default Route.extend(
 
     routeLabel: 'reaction',
 
-    setupController(controller, model) {
+    setupController(controller/*, model*/) {
       this._super(...arguments);
       controller.set('filter', 'not_obsolete');
     },

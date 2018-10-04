@@ -29,17 +29,17 @@ export default DS.Model.extend({
 
     statusCodesRef: function() {
       let statusRef = this.statusRef()
-  		return Object.keys(statusRef).reduce( function (total, status) {
+        return Object.keys(statusRef).reduce( function (total, status) {
         total[statusRef[status].code] = status
         return total
       }, {} )
-  	},
+    },
 
     statusInfo: computed('status_code', function() {
-  			return this.statusRef()[
-  							this.statusCodesRef() [this.get('status_code')]
+      return this.statusRef()[
+        this.statusCodesRef() [this.get('status_code')]
         ] ;
-  	}),
+    }),
 
     isActive: computed('status_code', function() {
         return this.get('status_code') === this.statusRef().ACTIVE.code;
@@ -51,6 +51,10 @@ export default DS.Model.extend({
 
     isReadyToActive: computed('status_code', function() {
         return this.get('status_code') === this.statusRef().VALID.code;
+    }),
+
+    isNotInit: computed('status_code', function() {
+      return this.get('status_code') > this.statusRef().INIT.code
     }),
 
     isEditing: computed('status_code', function() {

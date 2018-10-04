@@ -1,6 +1,5 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import $ from 'jquery';
 import { computed } from '@ember/object';
 
 export default Controller.extend({
@@ -25,9 +24,13 @@ export default Controller.extend({
       }
     }),
 
-    mainBtnInfo: computed('model.status_code', 'editReaction', function() {
+    resetInfo: function() {
       this.set('errorReactionMessage', false)
       this.set('products', false)
+    },
+
+    mainBtnInfo: computed('model.status_code', 'editReaction', function() {
+      this.resetInfo()
       if (this.model.get('isNew')) {
         return {
           btnType: 'success',
@@ -53,25 +56,27 @@ export default Controller.extend({
 
     actions: {
       saveReaction (JSONUpdated) {
-        if (JSONUpdated) {
+        let isNew = this.model.get('isNew')
+        if (JSONUpdated || isNew) {
           this.set('products', false)
           let this_ = this;
-          let isNew = this.model.get('isNew');
           if (isNew) {
             this_.model.set('user', this_.get('currentUser').user)
+            this_.model.set('chemdoodle_json', {})
           }
           this_.model.save().then(function() {
             if (isNew) {
               let id = this_.model.get('id');
               this_.get('target').transitionTo('/reactions/'+ id);
-            }
-            this_.getImage();
-            var chemdoodle_json_error = this_.model.get('chemdoodle_json_error')
-            if (chemdoodle_json_error) {
-              this_.set('errorSaveMessage',
-                `Error in drawing reaction : ${chemdoodle_json_error}`)
             } else {
-              this_.set('errorSaveMessage',false)
+              this_.getImage();
+              var chemdoodle_json_error = this_.model.get('chemdoodle_json_error')
+              if (chemdoodle_json_error) {
+                this_.set('errorSaveMessage',
+                  `Error in drawing reaction : ${chemdoodle_json_error}`)
+              } else {
+                this_.set('errorSaveMessage',false)
+              }
             }
           }, function (echec) {
             this_.set('errorSaveMessage', echec.errors[0].detail)

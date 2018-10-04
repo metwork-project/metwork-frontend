@@ -56,7 +56,7 @@ export default Mixin.create({
         200);
       if (this.noLabel) {
         let line = {}
-        dataJSON.s.map(function(shape, index) {
+        dataJSON.s.map(function(shape) {
           if (shape.t === 'Line') {
             line = shape
           }
@@ -67,7 +67,7 @@ export default Mixin.create({
       var target = jsi.contentFrom(dataJSON)
       if (! this.noLabel) {
         var l = 0
-        target.shapes.map(function(shape, index) {
+        target.shapes.map(function(shape) {
           shape.label = l
           shape.error = true
           l += 1

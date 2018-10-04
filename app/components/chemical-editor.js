@@ -1,5 +1,6 @@
 import Component from '@ember/component';
 import { computed } from '@ember/object';
+import $ from 'jquery';
 
 export default Component.extend({
 
@@ -58,7 +59,7 @@ export default Component.extend({
       // this line converts the Molecule data structure to the JSON protocol Javascript object
       var molJSON = new ChemDoodle.io.JSONInterpreter().contentTo(mols, shapes);
       this.model.set('chemdoodle_json', molJSON)
-      this.sendAction('evaluateAction', true)
+      this.evaluateAction(true)
     }
   }),
 

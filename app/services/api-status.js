@@ -8,8 +8,8 @@ export default Service.extend({
   status: 'waiting',
 
   init() {
+    this._super(...arguments);
     let this_ = this;
-    this_._super(...arguments);
     let base_url = ENV.host;
       if(ENV.APInameSpace != '') {
           base_url += '/' + ENV.APInameSpace
