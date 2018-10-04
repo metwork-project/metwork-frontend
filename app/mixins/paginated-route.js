@@ -59,7 +59,9 @@ export default Mixin.create({
       },
       updateDataPage: function ( dataLabel, page, filter ) {
           this.controller.dataComponents[dataLabel].params.page = page;
-          this.controller.dataComponents[dataLabel].params.filter = filter;
+          if (filter) {
+            this.controller.dataComponents[dataLabel].params.filter = filter;
+          }
           this.updateData(dataLabel);
       },
       refreshCurrentRoute(){
