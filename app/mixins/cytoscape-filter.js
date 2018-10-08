@@ -51,7 +51,7 @@ export default Mixin.create({
             }
           })
         }),
-        cy.nodes().on('mouseout', function(evt) {
+        cy.nodes().on('mouseout tap taphold', function(evt) {
           let node = evt.target;
           node.mouseOver = false;
           if (node.filterInfosTip) {

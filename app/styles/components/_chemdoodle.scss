@@ -1,0 +1,25 @@
+@import "../base/colors";
+
+canvas.ChemDoodleWebComponent {
+  border: 1px solid rgba(0, 0, 0, 0.125);
+}
+
+#sketcher-reaction-canvas_button_open,
+#sketcher-reaction-canvas_button_save,
+#sketcher-reactants-canvas_button_open,
+#sketcher-reactants-canvas_button_save {
+  display: none;
+}
+
+.molecule-editor-sketcher {
+  display: none;
+  // text-align:center;
+}
+
+.molecule-editor,  {
+  min-height: 200px;
+}
+
+// .molecule-editor-loader {
+//   margin: auto;
+// }

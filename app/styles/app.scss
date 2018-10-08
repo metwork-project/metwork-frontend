@@ -5,6 +5,7 @@
 @import "components/project-selectable";
 @import "components/cytoscape";
 @import "components/graph";
+@import "components/chemdoodle";
 
 html {
     overflow-y: scroll;
@@ -132,5 +133,13 @@ a.list-group-item.item-sm {
 	font-weight: 400;
 	height: 1.5rem;
 }
+
+label.ui-button {
+  margin-bottom: 0;
+}
+
+// .m-auto {
+//   margin: auto
+// }
 
 @import "ember-bootstrap/bootstrap";

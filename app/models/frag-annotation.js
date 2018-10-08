@@ -8,9 +8,14 @@ export default DS.Model.extend({
     db_source: DS.attr('string'),
     db_id: DS.attr('string'),
     has_no_project: DS.attr(),
+    chemdoodle_json: DS.attr(),
 
     display: computed('ion_id', 'smiles', function() {
         return this.get('ion_id') + " | " + this.get('name');
     }),
+
+    canvasId: computed(function() {
+      return 'canvas-annotation-' + this.id
+    })
 
 });

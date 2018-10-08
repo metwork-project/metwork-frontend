@@ -1,5 +1,4 @@
 <!-- project-selectable-->
-
 {{#if freeze}}
 <div class="row project-selectable">
 	<div class="col-6">
@@ -9,6 +8,7 @@
 					project=project field=field item=i ids=model.reaction_ids
 					display=i.display
 					frame="selected"
+					dangerColor=dangerColor
 					dataLabel1=dataLabel1 dataLabel2=dataLabel2
 					updateDataComponentItem=(action 'updateDataComponentAction')}}
 			{{/each}}
@@ -28,6 +28,7 @@
 					{{project-selectable-item
 						project=project field=field item=i ids=model.reaction_ids
 						display=i.display
+						dangerColor=dangerColor
 						frame="selected"
 						dataLabel1=dataLabel1 dataLabel2=dataLabel2
 						updateDataComponentItem=(action 'updateDataComponentAction')}}

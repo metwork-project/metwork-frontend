@@ -4,6 +4,7 @@ import $ from 'jquery';
 export default Mixin.create({
 
   loadTipContent: function(node) {
+    ChemDoodle.default_atoms_useJMOLColors = true;
     switch (node.data('nodeType')) {
       case 'molecule':
         this.tipAnnotation(node);
@@ -37,21 +38,60 @@ export default Mixin.create({
 
   tipReaction: function(node) {
     let this_ = this;
-    this_.get('store').findRecord(
-      'reaction', node.data('reactionId'), { reload: true })
-      .then( function (response) {
-        response.getImage().then(function(response) {
-           let newContent =`
-             <div>
-               ${response.data.image}
-             </div>
-             <p>${ node.data('name')}</p>
-           `;
-           this_.updateTipContent(node.tip, newContent);
-           $('#' + node.tip.popper.id + ' svg').attr('width',200).attr('height',100).attr('viewBox', '0 0 400 200');
+    let canvasId =   node.data('id')
+    let dataJSON = node.data('reactJSON')
+    if (dataJSON) {
+      var newContent = `<canvas
+        class="ChemDoodleWebComponent molecule"
+        id="${canvasId}" width="300" height="200"
+        alt="ChemDoodle Web Component"
+        style="width: 300px; height: 200px; background-color: rgb(255, 255, 255);">
+          This browser does not support HTML5/Canvas.
+      </canvas>`
+      this.updateTipContent(node.tip, newContent);
+      this.noLabel = true
+      var viewACS = new ChemDoodle.ViewerCanvas(
+        canvasId,
+        300,
+        200);
+      if (this.noLabel) {
+        let line = {}
+        dataJSON.s.map(function(shape) {
+          if (shape.t === 'Line') {
+            line = shape
+          }
         });
+        dataJSON.s = [line]
       }
-    );
+      var jsi = new ChemDoodle.io.JSONInterpreter();
+      var target = jsi.contentFrom(dataJSON)
+      if (! this.noLabel) {
+        var l = 0
+        target.shapes.map(function(shape) {
+          shape.label = l
+          shape.error = true
+          l += 1
+        })
+      }
+      viewACS.loadContent(target.molecules, target.shapes);
+    } else {
+      this_.get('store').findRecord(
+        'reaction', node.data('reactionId'), { reload: true })
+        .then( function (response) {
+          response.getImage().then(function(response) {
+             let newContent =`
+               <div>
+                 ${response.data.image}
+               </div>
+             `;
+             //<p>${ node.data('name')}</p>
+             this_.updateTipContent(node.tip, newContent);
+             $('#' + node.tip.popper.id + ' svg').attr('width',200).attr('height',100).attr('viewBox', '0 0 400 200');
+          });
+        }
+      );
+    }
+
   },
 
   tipIon: function(node) {
@@ -87,14 +127,15 @@ export default Mixin.create({
 
   displayMolecule: function(node) {
 
-    var viewACS = new ChemDoodle.ViewerCanvas(node.data('id'), 200, 200);
+    var viewACS = new ChemDoodle.TransformCanvas(node.data('id'), 200, 200);
     viewACS.specs.bonds_width_2D = .6;
     viewACS.specs.bonds_saturationWidthAbs_2D = 2.6;
     viewACS.specs.bonds_hashSpacing_2D = 2.5;
     viewACS.specs.atoms_font_size_2D = 10;
     viewACS.specs.atoms_font_families_2D = ['Helvetica', 'Arial', 'sans-serif'];
     viewACS.specs.atoms_displayTerminalCarbonLabels_2D = true;
-    var moltarget = ChemDoodle.readMOL(node.data('molFile'));
+    var jsi = new ChemDoodle.io.JSONInterpreter();
+    var moltarget = jsi.molFrom(node.data('molJSON'))
     moltarget.scaleToAverageBondLength(14.4);
     viewACS.loadMolecule(moltarget);
     $('#' + node.tip.popper.id + ' .smiles-display .btn').click( function (/*event*/) {
@@ -113,18 +154,20 @@ export default Mixin.create({
         </p>`;
     }
     return `
-      <canvas
-        class="ChemDoodleWebComponent"
-        id="${id}" width="200" height="200"
-        alt="ChemDoodle Web Component"
-        style="width: 100px; height: 100px; background-color: rgb(255, 255, 255);">
-          This browser does not support HTML5/Canvas.
-      </canvas>
-      <div class='smiles-display'>
-        <input class='value' type="text" value=${smiles} id="smiles-${id}">
-        <button type="button" class="btn btn-light btn-sm">Copy</button>
-      </div>
-      ${cosineDisplay}`;
+      <div class="molecule">
+        <canvas
+          class="ChemDoodleWebComponent molecule"
+          id="${id}" width="200" height="200"
+          alt="ChemDoodle Web Component"
+          style="width: 100px; height: 100px; background-color: rgb(255, 255, 255);">
+            This browser does not support HTML5/Canvas.
+        </canvas>
+        <div class='smiles-display'>
+          <input class='value' type="text" value=${smiles} id="smiles-${id}">
+          <button type="button" class="btn btn-light btn-sm">Copy</button>
+        </div>
+        ${cosineDisplay}
+      </div>`;
   },
 
 });

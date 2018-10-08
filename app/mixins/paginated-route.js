@@ -1,5 +1,6 @@
 import Mixin from '@ember/object/mixin';
 import { inject as service } from '@ember/service';
+import Inflector from 'ember-inflector';
 
 export default Mixin.create({
 
@@ -9,6 +10,7 @@ export default Mixin.create({
       return this.store.query(this.routeLabel, {
           page_size: params.page_size,
           page: params.page,
+          filter: params.filter,
       })
     },
 
@@ -44,7 +46,10 @@ export default Mixin.create({
 
         controller.dataComponents['model'] = {
             routeLabel: this.routeLabel,
-            params : {page: controller.page, page_size: controller.page_size }};
+            params : {
+              page: controller.page,
+              page_size: controller.page_size,
+              filter: controller.filter }};
     },
 
     actions: {
@@ -52,9 +57,20 @@ export default Mixin.create({
         this.set('apiStatus.status','error')
         this.transitionTo('index');
       },
-      updateDataPage: function ( dataLabel, page ) {
+      updateDataPage: function ( dataLabel, page, filter ) {
           this.controller.dataComponents[dataLabel].params.page = page;
+          if (filter) {
+            this.controller.dataComponents[dataLabel].params.filter = filter;
+          }
           this.updateData(dataLabel);
+      },
+      refreshCurrentRoute(){
+       this.refresh();
+      },
+      newItem(routeLabel, model) {
+        var inflector = new Inflector(Inflector.defaultRules);
+        let mr = model.store.createRecord(routeLabel);
+        this.transitionTo(inflector.pluralize(routeLabel) + '.show', mr);
       },
     },
 
