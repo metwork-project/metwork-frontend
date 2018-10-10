@@ -1,0 +1,52 @@
+<h4>
+  Spectrum filter
+</h4>
+<!-- {{compareConfFields}} -->
+{{#each compareConfFields.filter as |f|}}
+  {{ frag-compare-conf-field
+    fragCompareConf=fragCompareConf
+    f=f
+    disabled=(not model.editable) }}
+{{/each}}
+<h4>
+  Cosine score
+</h4>
+<!-- {{compareConfFields}} -->
+{{#each compareConfFields.cosine as |f|}}
+  {{ frag-compare-conf-field
+    fragCompareConf=fragCompareConf
+    f=f
+    disabled=(not model.editable) }}
+{{/each}}
+{{#if (and model.editable model.okDepth)}}
+  {{bs-button type=model.saveOrCreate.class
+    class="mb-2 mr-sm-2"
+    defaultText='Save'
+    onClick=(action "fragCompareConfSave" model) }}
+{{/if}}
+
+{{#bs-modal class=modalId open=selectFragModal onHidden=(action (mut selectFragModal) false) as |modal|}}
+ {{#modal.header}}
+  <h4 class="modal-title">
+   Select fragmentation data
+  </h4>
+ {{/modal.header}}
+ {{#modal.body}}
+    <ul class="list-group">
+     {{#each fragsample as |fs|}}
+				{{#if fs.importFinish}}
+		      <a href="#" class="list-group-item list-group-item-action d-flex" {{action 'setFragSample' fs}}>
+		        <div class="mr-auto">
+		        {{fs.name}}
+		        </div>
+		        <div>
+		          <span class="badge badge-primary">{{fs.ions_count}} ions</span>
+		          <span class="badge badge-secondary ">{{fs.annotations_count}} annotations</span>
+		        </div>
+		      </a>
+				{{/if}}
+     {{/each}}
+    </ul>
+    {{pagination-handler data=fragsample}}
+ {{/modal.body}}
+{{/bs-modal}}

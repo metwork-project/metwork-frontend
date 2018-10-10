@@ -14,11 +14,20 @@ Router.map(function() {
 
 
   this.route('projects', function() {
-    this.route('show', { path: '/:project_id' }, function() {});
+    this.route('show', { path: '/:project_id' }, function() {
+      this.route('data');
+      this.route('info');
+      this.route('metabolization');
+      this.route('fragmentation');
+    });
   });
 
   this.route('fragsamples', function() {
-    this.route('show', { path: '/:fragsample_id' }, function() {});
+    this.route('show', { path: '/:fragsample_id' }, function() {
+      this.route('info');
+      this.route('annotations');
+      this.route('network');
+    });
   });
   this.route('frag-annotations');
   this.route('reactions', function() {
@@ -30,7 +39,7 @@ Router.map(function() {
   this.route('users', function() {
     this.route('show', { path: '/:user_id' });
   });
-  
+
 });
 
 export default Router;

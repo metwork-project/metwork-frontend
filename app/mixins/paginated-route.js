@@ -7,11 +7,15 @@ export default Mixin.create({
   apiStatus: service('api-status'),
 
     model(params) {
-      return this.store.query(this.routeLabel, {
-          page_size: params.page_size,
-          page: params.page,
-          filter: params.filter,
-      })
+      if (this.routeLabel) {
+        return this.store.query(this.routeLabel, {
+            page_size: params.page_size,
+            page: params.page,
+            filter: params.filter,
+        })
+      } else {
+        return this.get('model')
+      }
     },
 
     queryParams: {

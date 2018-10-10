@@ -1,0 +1,30 @@
+<div class="d-flex">
+  <h3 class="mr-auto">Fragmentation data</h3>
+    {{#if model.editable}}
+      <div>
+        {{bs-button type="primary"
+          defaultText="Select data"
+          onClick=(action (mut selectFragModal) true) }}
+      </div>
+    {{/if}}
+  </div>
+{{#if model.hasSample}}
+    <p><b>Sample name : </b> {{#link-to 'fragsamples.show' model.frag_sample}} {{model.frag_sample.name}} {{/link-to }}</p>
+    <p><b>Total ions : </b> {{model.frag_sample.ions_count}}</p>
+    <p><b>Annotated ions : </b> {{model.frag_sample.annotations_count}}</p>
+  <h4 class="mr-auto">
+    Selected annotations
+  </h4>
+    {{project-selectable
+      project=model
+      list-available=annotations-available
+      list-selected=annotations-selected
+      dataLabel1='annotations-available'
+      dataLabel2='annotations-selected'
+      field="frag-annotation"
+      freeze=model.runOrFinish
+      updateDataComponent=(action 'updateDataController')
+    }}
+{{else}}
+  <div>No data selected</div>
+{{/if}}
