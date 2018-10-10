@@ -49,7 +49,7 @@
   {{#if model.editable}}
     {{bs-button type=model.saveOrCreate.class
       defaultText=model.saveOrCreate.libelle
-      onClick=(route-action "save_p" model) }}
+      onClick=(route-action "saveProject" model) }}
   {{/if}}
   {{#unless model.isNew}}
       {{!bs-button type="danger"

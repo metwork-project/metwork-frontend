@@ -73,8 +73,7 @@ export default Mixin.create({
       },
       newItem(routeLabel, model) {
         var inflector = new Inflector(Inflector.defaultRules);
-        let mr = model.store.createRecord(routeLabel);
-        this.transitionTo(inflector.pluralize(routeLabel) + '.show', mr);
+        this.transitionTo(inflector.pluralize(routeLabel) + '.new');
       },
     },
 

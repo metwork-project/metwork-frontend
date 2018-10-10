@@ -5,21 +5,6 @@ import $ from 'jquery';
 export default Controller.extend({
 
   actions: {
-    setFragSample(fragSample) {
-        let self = this;
-        this.model.updateFragSample({
-                frag_sample_id: fragSample.id ,
-            }).then(function(/*response*/)  {
-
-                //self.dataComponents['frag-annotation'].params.frag_sample_id = fragSample.id;
-                self.model.reload().then( function() {
-									self.genDataComponents();
-									self.send('updateDataPage', 'annotations-available', 1);
-									self.send('updateDataPage', 'annotations-selected', 1);
-									self.set('selectFragModal', false);
-								});
-        });
-    },
     fragCompareConfSave() {
       let params = {}
       $('.frag-compare-conf-field > input').each(function( /*index*/ ) {

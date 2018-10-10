@@ -16,20 +16,6 @@ export default Route.extend(
   },
 
   actions: {
-      save_p(model) {
-          let self=this;
-          let isNew = model.get('isNew');
-
-          model.save().then(function() {
-              if (isNew) {
-                let id = model.get('id');
-                self.controller.genDataComponents();
-                self.controller.getFragCompareConf();
-                self.transitionTo('/projects/'+ id);
-              }
-          }, function() {
-          });
-      },
       cancel_create(model) {
           if(!model.get('id')){
               model.deleteRecord();

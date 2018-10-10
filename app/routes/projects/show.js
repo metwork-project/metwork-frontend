@@ -13,4 +13,10 @@ export default Route.extend(
         this.transitionTo('projects.show.info',model);
       }
     },
+
+    actions: {
+      saveProject(model) {
+        model.save()
+      },
+    }
 });

@@ -94,7 +94,7 @@ export default DS.Model.extend({
 	}),
 
 	hasSample: computed('frag_sample', function() {
-			return this.get('frag_sample.id') > 0;
+			return this.get('frag_sample') ;
 	}),
 
 	editable: computed('status_code', function() {

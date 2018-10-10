@@ -1,0 +1,8 @@
+{{#each list-selected as |item index| }}
+  {{chemical-select-item
+    item=item
+    index=index
+    canvasId=canvasId
+    chemType=chemType
+    class="d-inline-block annotation-select position-relative"}}
+{{/each}}

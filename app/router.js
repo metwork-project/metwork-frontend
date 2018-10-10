@@ -20,6 +20,7 @@ Router.map(function() {
       this.route('metabolization');
       this.route('fragmentation');
     });
+    this.route('new');
   });
 
   this.route('fragsamples', function() {
