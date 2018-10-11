@@ -1,0 +1,25 @@
+@import "../base/colors";
+
+.chemical-select-item {
+  width: 204px;
+  padding: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  text-align: center;
+  canvas.ChemDoodleWebComponent {
+    border: none;
+  }
+  .delete-icon {
+    display: none;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    cursor: pointer;
+    color: $danger-color;
+  }
+  &:hover {
+    // border: 1px solid $primary-color;
+    .delete-icon {
+      display: inherit;
+    }
+  }
+}

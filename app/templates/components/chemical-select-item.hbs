@@ -1,4 +1,6 @@
-<p class="delete-icon"> Remove </p>
+<p class="delete-icon" {{action "removeItem" item}}>
+  {{material-icon "highlight_off"}}
+</p>
 {{chemical-display
   canvasId='canvas-reactant-'
   index=index

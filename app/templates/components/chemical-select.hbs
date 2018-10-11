@@ -1,8 +1,24 @@
-{{#each list-selected as |item index| }}
+<div class="d-flex">
+  <h4 class="mr-auto">{{title}}</h4>
+    <div>
+      {{bs-button
+        type="danger"
+        defaultText="Remove all"
+        onClick=(action "removeAll")
+        size="sm"
+        class="m-1"}}
+    </div>
+</div>
+{{#each list-selected as |item| }}
   {{chemical-select-item
+    project=project
+    field=field
     item=item
-    index=index
+    index=item.id
     canvasId=canvasId
     chemType=chemType
-    class="d-inline-block annotation-select position-relative"}}
+    updateDataComponentItem=(action 'updateDataComponentAction')
+    dataLabel1=dataLabel1 dataLabel2=dataLabel2
+    class="d-inline-block chemical-select-item position-relative"}}
 {{/each}}
+{{pagination-handler data=list-selected}}

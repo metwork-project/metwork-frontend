@@ -6,6 +6,7 @@
 @import "components/cytoscape";
 @import "components/graph";
 @import "components/chemdoodle";
+@import "components/chemical-select";
 
 html {
     overflow-y: scroll;
@@ -137,33 +138,6 @@ a.list-group-item.item-sm {
 label.ui-button {
   margin-bottom: 0;
 }
-
-// .m-auto {
-//   margin: auto
-// }
-
-.annotation-select {
-  width: 204px;
-  padding: 2px;
-  border: 1px solid rgba(0, 0, 0, 0.125);
-  text-align: center;
-  canvas.ChemDoodleWebComponent {
-    border: none;
-  }
-  .delete-icon {
-    display: none;
-    position: absolute;
-    top: 0;
-    right: 0;
-  }
-  &:hover {
-    border: 1px solid $primary-color;
-    .delete-icon {
-      display: inherit;
-    }
-  }
-}
-
 
 
 @import "ember-bootstrap/bootstrap";

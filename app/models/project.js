@@ -136,7 +136,9 @@ export default DS.Model.extend({
 
 	cloneProject: memberAction({ path: 'clone_project', type: 'post' }),
 
-	toggleItem: memberAction({ path: 'toggle_item', type: 'patch' }),
+	removeAll: memberAction({ path: 'remove_all', type: 'patch' }),
+
+	removeItem: memberAction({ path: 'remove_item', type: 'patch' }),
 
 	updateFragCompareConf: memberAction({ path: 'update_frag_compare_conf', type: 'patch' }),
 
