@@ -12,16 +12,6 @@
     <p><b>Sample name : </b> {{#link-to 'fragsamples.show' model.frag_sample}} {{model.frag_sample.name}} {{/link-to }}</p>
     <p><b>Total ions : </b> {{model.frag_sample.ions_count}}</p>
     <p><b>Annotated ions : </b> {{model.frag_sample.annotations_count}}</p>
-    {{!-- {{project-selectable
-      project=model
-      list-available=annotations-available
-      list-selected=annotations-selected
-      dataLabel1='annotations-available'
-      dataLabel2='annotations-selected'
-      field="frag-annotation"
-      freeze=model.runOrFinish
-      updateDataComponent=(action 'updateDataController')
-    }} --}}
     {{chemical-select
       title="Selected annotations"
       project=model
@@ -32,7 +22,7 @@
       dataLabel1='annotations-available'
       dataLabel2='annotations-selected'
       field="frag-annotation"
-      freeze=model.runOrFinish
+      editable=(not model.runOrFinish)
       updateDataComponent=(action 'updateDataController')
     }}
 {{else}}

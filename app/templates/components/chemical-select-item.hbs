@@ -1,4 +1,4 @@
-{{#if (eq mode "selected")}}
+{{#if (and editable (eq mode "selected"))}}
   <p class="delete-icon" {{action "removeItem" item}}>
     {{material-icon "highlight_off"}}
   </p>
