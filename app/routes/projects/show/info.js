@@ -6,7 +6,7 @@ export default Route.extend(
   AuthenticatedRouteMixin,
   FileDownloadMixin, {
 
-  model(params) {
+  model() {
       return this.modelFor('projects.show')
   },
 

@@ -4,7 +4,7 @@ import PaginatedRouteMixin from 'metwork-frontend/mixins/paginated-route';
 export default Route.extend(
   PaginatedRouteMixin, {
 
-  model(params) {
+  model() {
       return this.modelFor('projects.show')
   },
 

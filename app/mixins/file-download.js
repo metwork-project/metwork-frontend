@@ -11,12 +11,7 @@ export default Mixin.create({
 			if (ENV.APInameSpace != '') {
 					url += '/' + ENV.APInameSpace;
 			}
-			// if (this.get('router.url')) {
-			// 	url += this.get('router.url')
-			// }
-			console.log(this.router.generate(route, model))
 			url += this.router.generate(route, model)
-			// console.log(this.get('router.url'))
 
 			url += '/' + request;
 			let access_token = this.get('session.data.authenticated.token');

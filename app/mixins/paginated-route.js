@@ -71,7 +71,7 @@ export default Mixin.create({
       refreshCurrentRoute(){
        this.refresh();
       },
-      newItem(routeLabel, model) {
+      newItem(routeLabel) {
         var inflector = new Inflector(Inflector.defaultRules);
         this.transitionTo(inflector.pluralize(routeLabel) + '.new');
       },
