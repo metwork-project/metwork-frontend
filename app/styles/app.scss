@@ -7,6 +7,7 @@
 @import "components/graph";
 @import "components/chemdoodle";
 @import "components/chemical-select";
+@import "components/pagination";
 
 html {
     overflow-y: scroll;
@@ -17,26 +18,44 @@ html {
     align: center;
 }
 
-a.ember-view {
-    color: $primary-color;
-}
+// a.ember-view {
+//     color: $primary-color;
+// }
+//
+// a.ember-view.btn, a.ember-view.btn:hover{
+//     color: white;
+// }
+//
+//
+// a.ember-view:hover {
+//     color: $info-color;
+// }
+//
+// a.ember-view.btn-like {
+//     text-decoration: none;
+// }
+//
+// li.page-item.active > a {
+//     color: white !important,
+// }
 
-a.ember-view.btn, a.ember-view.btn:hover{
-    color: white;
-}
 
+// a.list-group-item.active {
+//     background-color: $primary-color;
+//     border-color: $primary-color;
+// }
+//
+// a.list-group-item.item-sm {
+//     padding: 6px 10px 6px 10px;
+// }
 
-a.ember-view:hover {
-    color: $info-color;
-}
-
-li.page-item.active > a {
-    color: white !important,
-}
-
-
-a.ember-view.btn-like {
-    text-decoration: none;
+.nav.nav-tabs>li.nav-item{
+    >a {
+        color: $secondary-color;
+    }
+    >a.active {
+        color: $primary-color;
+    }
 }
 
 .login-form {
@@ -89,39 +108,10 @@ a.ember-view.btn-like {
     }
 }
 
-.pagination>li>a,
-.pagination>li>a:hover,
-.pagination>li>span {
-  color: $primary-color;
-}
-.pagination>li.page-item.active>a {
-  border: 1px solid $primary-color;
-  background: $primary-color;
-  color: #fff;
-}
-
 .card.card-tabs {
     border-top: 0;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
-}
-
-.nav.nav-tabs>li.nav-item{
-    >a {
-        color: $secondary-color;
-    }
-    >a.active {
-        color: $primary-color;
-    }
-}
-
-a.list-group-item.active {
-    background-color: $primary-color;
-    border-color: $primary-color;
-}
-
-a.list-group-item.item-sm {
-    padding: 6px 10px 6px 10px;
 }
 
 .import-alert {

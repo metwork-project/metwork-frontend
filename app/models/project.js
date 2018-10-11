@@ -136,6 +136,10 @@ export default DS.Model.extend({
 
 	cloneProject: memberAction({ path: 'clone_project', type: 'post' }),
 
+	addAll: memberAction({ path: 'add_all', type: 'patch' }),
+
+	addItems: memberAction({ path: 'add_items', type: 'patch' }),
+
 	removeAll: memberAction({ path: 'remove_all', type: 'patch' }),
 
 	removeItem: memberAction({ path: 'remove_item', type: 'patch' }),

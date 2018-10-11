@@ -2,7 +2,7 @@
   <h3 class="mr-auto">Fragmentation data</h3>
     {{#if model.editable}}
       <div>
-        {{bs-button type="primary"
+        {{bs-button type="info"
           defaultText="Select data"
           onClick=(action (mut selectFragModal) true) }}
       </div>
@@ -27,8 +27,8 @@
       project=model
       chemType='molecule'
       canvasId='canvas-annotation-'
-      list-available=annotations-available
-      list-selected=annotations-selected
+      listAvailable=annotations-available
+      listSelected=annotations-selected
       dataLabel1='annotations-available'
       dataLabel2='annotations-selected'
       field="frag-annotation"

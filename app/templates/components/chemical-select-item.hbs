@@ -1,6 +1,20 @@
-<p class="delete-icon" {{action "removeItem" item}}>
-  {{material-icon "highlight_off"}}
-</p>
+{{#if (eq mode "selected")}}
+  <p class="delete-icon" {{action "removeItem" item}}>
+    {{material-icon "highlight_off"}}
+  </p>
+{{else if (eq mode "available")}}
+  {{#if isSelected}}
+    <p class="select-icon" {{action 'toggleItem'}}>
+      {{material-icon "check_box"}}
+    </p>
+  {{else}}
+    <p class="select-icon"
+      {{action 'toggleItem'}}>
+      {{material-icon "check_box_outline_blank"}}
+    </p>
+  {{/if}}
+{{/if}}
+
 {{chemical-display
   canvasId='canvas-reactant-'
   index=index
@@ -8,3 +22,5 @@
   chemType=chemType
 }}
 <p class="text-truncate"> {{item.name}} </p>
+
+{{toAddList}}

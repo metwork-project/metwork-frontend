@@ -1,15 +1,39 @@
 <div class="d-flex">
   <h4 class="mr-auto">{{title}}</h4>
     <div>
-      {{bs-button
-        type="danger"
-        defaultText="Remove all"
-        onClick=(action "removeAll")
-        size="sm"
-        class="m-1"}}
+        {{#bs-dropdown
+          class='chemical-select-action' as |dd| }}
+          {{#dd.toggle class="text-primary"}}Change <span class="caret"></span>{{/dd.toggle}}
+          {{#dd.menu align="right" as |menu|}}
+            {{#menu.item}}
+              <a href="#"
+                {{action "addAll"}}
+                class="dropdown-item text-success">
+                Add all</a>
+            {{/menu.item}}
+            {{menu.divider}}
+            {{#menu.item}}
+              <a href="#"
+                {{action 'displayAvailable'}}
+                class="dropdown-item text-info">
+                Select</a>
+            {{/menu.item}}
+            {{menu.divider}}
+            {{#menu.item}}
+              <a href="#"
+                {{action "removeAll"}}
+                class="dropdown-item text-danger">
+                Remove all
+              </a>
+            {{/menu.item}}
+          {{/dd.menu}}
+        {{/bs-dropdown}}
     </div>
 </div>
-{{#each list-selected as |item| }}
+{{#if (eq listSelected.length 0)}}
+<p><i>No annotations selected</i></p>
+{{/if}}
+{{#each listSelected as |item| }}
   {{chemical-select-item
     project=project
     field=field
@@ -17,8 +41,47 @@
     index=item.id
     canvasId=canvasId
     chemType=chemType
+    mode="selected"
     updateDataComponentItem=(action 'updateDataComponentAction')
-    dataLabel1=dataLabel1 dataLabel2=dataLabel2
-    class="d-inline-block chemical-select-item position-relative"}}
+    dataLabel1=dataLabel1 dataLabel2=dataLabel2}}
 {{/each}}
-{{pagination-handler data=list-selected}}
+{{pagination-handler data=listSelected}}
+
+{{#bs-modal
+  class=modalId
+  open=selectAnotModal
+  size="lg"
+  onHidden=(action (mut selectAnotModal) false) as |modal|}}
+ {{#modal.header}}
+  <h4 class="modal-title">
+   Select annotations
+  </h4>
+ {{/modal.header}}
+ {{#modal.body}}
+   {{#each listAvailable as |item| }}
+     {{chemical-select-item
+       project=project
+       field=field
+       item=item
+       index=item.id
+       canvasId=canvasId
+       chemType=chemType
+       mode="available"
+       display=i.display
+       frame="available"
+       toAddList=toAddList
+       toggleItemComponent=(action 'toggleItemList')
+       dataLabel1=dataLabel1 dataLabel2=dataLabel2
+       updateDataComponentItem=(action 'updateDataComponentAction')}}
+   {{/each}}
+   {{pagination-handler data=listAvailable}}
+ {{/modal.body}}
+ {{#modal.footer}}
+    {{#bs-button
+      type="info"
+      disabled=(eq toAddCount 0)
+      onClick=(action 'addItems') }}
+      Add
+      {{/bs-button}}
+ {{/modal.footer}}
+{{/bs-modal}}

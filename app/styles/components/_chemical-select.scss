@@ -1,5 +1,9 @@
 @import "../base/colors";
 
+.chemical-select-action a.dropdown-item:active {
+  background-color: #f8f9fa;
+}
+
 .chemical-select-item {
   width: 204px;
   padding: 2px;
@@ -8,17 +12,31 @@
   canvas.ChemDoodleWebComponent {
     border: none;
   }
-  .delete-icon {
+  .delete-icon, .select-icon {
     display: none;
     position: absolute;
     top: 6px;
     right: 6px;
     cursor: pointer;
+  }
+  .delete-icon {
     color: $danger-color;
+  }
+  .select-icon {
+    color: $info-color;
   }
   &:hover {
     // border: 1px solid $primary-color;
     .delete-icon {
+      display: inherit;
+    }
+    .select-icon {
+      display: inherit;
+    }
+  }
+  &.selected {
+    border: 1px solid $info-color;
+    .select-icon {
       display: inherit;
     }
   }
