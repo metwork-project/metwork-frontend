@@ -3,9 +3,11 @@ import $ from 'jquery';
 import ENV from 'metwork-frontend/config/environment';
 import { run } from '@ember/runloop';
 import PaginatedRouteMixin from 'metwork-frontend/mixins/paginated-route';
+import FileUploadRouteMixin from 'metwork-frontend/mixins/file-upload-route';
 
 export default Route.extend(
-  PaginatedRouteMixin, {
+  PaginatedRouteMixin,
+  FileUploadRouteMixin, {
 
   model() {
       return this.modelFor('fragsamples.show')

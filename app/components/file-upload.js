@@ -37,7 +37,7 @@ export default Component.extend({
         this.set("modalDisplay",true);
 				this.send('getFormat');
       },
-      preloadFile() { 
+      preloadFile() {
           this.set('self', this);
          let $this = this.getModal();
          let $input = $this.find('.file-input');

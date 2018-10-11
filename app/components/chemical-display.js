@@ -16,7 +16,7 @@ export default Component.extend({
       }
     }
     if (! this.size) {
-      this.size = 'lg'
+      this.size = 'sm'
     }
     return dic[this.chemType][this.size]
   },
