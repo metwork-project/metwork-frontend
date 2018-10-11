@@ -5,20 +5,22 @@
           class='chemical-select-action' as |dd| }}
           {{#dd.toggle class="text-info"}}modifiy <span class="caret"></span>{{/dd.toggle}}
           {{#dd.menu align="left" as |menu|}}
-            {{#menu.item}}
-              <a href="#"
-                {{action "addAll"}}
-                class="dropdown-item text-info">
-                Add all</a>
-            {{/menu.item}}
-            {{menu.divider}}
-            {{#menu.item}}
-              <a href="#"
-                {{action 'displayAvailable'}}
-                class="dropdown-item text-info">
-                Select</a>
-            {{/menu.item}}
-            {{menu.divider}}
+            {{#if (gt listAvailable.length 0)}}
+              {{#menu.item}}
+                <a href="#"
+                  {{action "addAll"}}
+                  class="dropdown-item text-info">
+                  Add all</a>
+              {{/menu.item}}
+              {{menu.divider}}
+              {{#menu.item}}
+                <a href="#"
+                  {{action 'displayAvailable'}}
+                  class="dropdown-item text-info">
+                  Select</a>
+              {{/menu.item}}
+              {{menu.divider}}
+            {{/if}}
             {{#menu.item}}
               <a href="#"
                 {{action "removeAll"}}
@@ -36,20 +38,18 @@
 {{#each listSelected as |item| }}
   {{chemical-select-item
     project=project
-    field=field
     item=item
-    index=item.id
-    canvasId=canvasId
     chemType=chemType
     mode="selected"
-    editable=editable
+    dataLabel=dataLabel
     updateDataComponentItem=(action 'updateDataComponentAction')
-    dataLabel1=dataLabel1 dataLabel2=dataLabel2}}
+    editable=editable
+    reloadListsAction=(action 'reloadListsAction')}}
 {{/each}}
 {{pagination-handler data=listSelected}}
 
 {{#bs-modal
-  class=modalId
+  class="project-item-select"
   open=selectAnotModal
   size="lg"
   onHidden=(action (mut selectAnotModal) false) as |modal|}}
@@ -62,18 +62,12 @@
    {{#each listAvailable as |item| }}
      {{chemical-select-item
        project=project
-       field=field
        item=item
-       index=item.id
-       canvasId=canvasId
        chemType=chemType
        mode="available"
-       display=i.display
-       frame="available"
-       toAddList=toAddList
-       toggleItemComponent=(action 'toggleItemList')
-       dataLabel1=dataLabel1 dataLabel2=dataLabel2
-       updateDataComponentItem=(action 'updateDataComponentAction')}}
+       dataLabel=dataLabel
+       updateDataComponentItem=(action 'updateDataComponentAction')
+       toggleItemComponent=(action 'toggleItemList')}}
    {{/each}}
    {{pagination-handler data=listAvailable}}
  {{/modal.body}}

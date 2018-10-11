@@ -12,6 +12,10 @@ export default Component.extend({
     }
   }),
 
+  canvasIdRoot: computed('dataLabel', function() {
+    return 'select-' + this.dataLabel
+  }),
+
   isSelected: computed('toggleAction', function() {
     return this.selectedPos() > -1
   }),
@@ -31,14 +35,14 @@ export default Component.extend({
     },
     removeItem() {
       if (this.project.get('editable')) {
-        let self = this;
+        let this_ = this;
         let itemId = this.item.get('id');
         this.project
-          .removeItem({field: this.field ,id: parseInt(itemId)})
+          .removeItem({
+            dataLabel: this.dataLabel,
+            item_ids: [ parseInt(itemId) ]})
             .then(function(/*response*/) {
-							self.updateDataComponentItem(self.dataLabel1);
-							self.updateDataComponentItem(self.dataLabel2);
-              self.project.reload();
+              this_.reloadListsAction()
             });
       }
     },

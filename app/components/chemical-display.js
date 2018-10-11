@@ -14,7 +14,7 @@ export default Component.extend({
 
   getCanvasIdIndex: computed('index', function() {
     if (this.get('index')) {
-      this.set('canvasId', this.get('canvasId') + this.get('index'))
+      this.set('canvasId', 'chemdoodle-' + this.get('canvasIdRoot') + this.get('index'))
     }
   }),
 

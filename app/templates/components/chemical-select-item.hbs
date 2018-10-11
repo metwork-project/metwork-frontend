@@ -14,13 +14,10 @@
     </p>
   {{/if}}
 {{/if}}
-
 {{chemical-display
-  canvasId='canvas-reactant-'
-  index=index
+  canvasIdRoot=canvasIdRoot
+  index=item.id
   model=item
   chemType=chemType
 }}
 <p class="text-truncate"> {{item.name}} </p>
-
-{{toAddList}}

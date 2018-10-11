@@ -16,12 +16,9 @@
       title="Selected annotations"
       project=model
       chemType='molecule'
-      canvasId='canvas-annotation-'
       listAvailable=annotations-available
       listSelected=annotations-selected
-      dataLabel1='annotations-available'
-      dataLabel2='annotations-selected'
-      field="frag-annotation"
+      dataLabel="annotations"
       editable=(not model.runOrFinish)
       updateDataComponent=(action 'updateDataController')
     }}

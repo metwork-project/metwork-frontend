@@ -10,7 +10,7 @@ export default Component.extend({
         if (this.project.get('editable')) {
           let this_ = this;
           this.project
-            .addAll({field: this.field })
+            .addAll({dataLabel: this.dataLabel })
               .then(function(/*response*/) {
                 this_.reloadLists()
               });
@@ -20,7 +20,7 @@ export default Component.extend({
         if (this.project.get('editable')) {
           let this_ = this;
           this.project
-            .removeAll({field: this.field })
+            .removeAll({dataLabel: this.dataLabel })
               .then(function(/*response*/) {
                 this_.reloadLists()
               });
@@ -47,7 +47,7 @@ export default Component.extend({
       addItems() {
         var this_ = this
         this.project.addItems({
-          field: this.field,
+          dataLabel: this.dataLabel,
           item_ids: this.project.get('toAddList')})
           .then(function(/*response*/) {
             this_.project.set('toAddList', [])
@@ -56,11 +56,14 @@ export default Component.extend({
             this_.set('selectAnotModal', false)
           });
       },
+      reloadListsAction() {
+        this.reloadLists()
+      },
   },
-
+//this.dataComponents['annotations
   reloadLists: function() {
-    this.updateDataComponent(this.dataLabel1);
-    this.updateDataComponent(this.dataLabel2);
+    this.updateDataComponent(this.dataLabel + '-selected');
+    this.updateDataComponent(this.dataLabel + '-available');
     this.project.reload();
   },
 
