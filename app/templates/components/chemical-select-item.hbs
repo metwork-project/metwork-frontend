@@ -27,5 +27,10 @@
     <p class="text-truncate mb-0">{{item.name}}</p>
   {{/link-to }}
 {{else}}
-  <p class="text-truncate mb-0">{{item.name}}</p>
+  <p class="text-truncate mb-0">
+    {{#if item.ion_id}}
+      <b>#{{item.ion_id}}: </b>
+    {{/if}}
+    {{item.name}}
+  </p>
 {{/if}}
