@@ -6,10 +6,19 @@ export default Component.extend({
 
   canvasDim: function() {
     var dic = {
-      molecule: [200, 200],
-      reaction: [600,350]
+      molecule: {
+        'sm': [200, 200],
+        'lg': [400, 400]
+      },
+      reaction: {
+        'sm': [200,150],
+        'lg': [600,350]
+      }
     }
-    return dic[this.chemType]
+    if (! this.size) {
+      this.size = 'lg'
+    }
+    return dic[this.chemType][this.size]
   },
 
   getCanvasIdIndex: computed('index', function() {

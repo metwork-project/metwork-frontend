@@ -51,19 +51,18 @@
         onClick=(route-action "saveProject" model) }}
     {{/if}}
 </form>
-<h4>
-  Select reactions ({{model.REACTIONS_LIMIT}} max)
-</h4>
-  {{project-selectable
+
+  {{chemical-select
+    title="Select reactions"
     project=model
-    list-available=reactions-available
-    list-selected=reactions-selected
-    dataLabel1='reactions-available'
-    dataLabel2='reactions-selected'
-    field="reaction"
-    dangerColor='isObsolete'
-    freeze=model.runOrFinish
+    chemType='reaction'
+    listAvailable=reactions-available
+    listSelected=reactions-selected
+    dataLabel="reactions"
+    editable=(not model.runOrFinish)
     updateDataComponent=(action 'updateDataController')
+    additionalActions=additionalActions
+    itemLink=true
   }}
 
   {{!-- <div class="card-footer">

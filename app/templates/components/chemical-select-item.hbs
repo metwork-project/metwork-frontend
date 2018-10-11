@@ -19,5 +19,13 @@
   index=item.id
   model=item
   chemType=chemType
+  noLabel=true
+  size='sm'
 }}
-<p class="text-truncate"> {{item.name}} </p>
+{{#if itemLink}}
+  {{#link-to routeToItem item }}
+    <p class="text-truncate mb-0">{{item.name}}</p>
+  {{/link-to }}
+{{else}}
+  <p class="text-truncate mb-0">{{item.name}}</p>
+{{/if}}

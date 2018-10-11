@@ -20,6 +20,10 @@ export default Component.extend({
     return this.selectedPos() > -1
   }),
 
+  routeToItem: computed('dataLabel', function() {
+    return this.dataLabel + '.show'
+  }),
+  
   selectedPos: function() {
     if (this.project.toAddList) {
       return this.project.toAddList.indexOf(this.item.id)

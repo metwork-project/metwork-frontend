@@ -46,6 +46,15 @@ export default Controller.extend(
     },
   },
 
+  additionalActions: computed(function() {
+    return [
+      {
+        call: 'selectReactionsByMass',
+        label: 'Select by mass'
+      }
+    ]
+  }),
+
   hasReaction: function(reactionId) {
       return reactionId in this.get('model.reactions_ids');
   },

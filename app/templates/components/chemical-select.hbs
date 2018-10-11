@@ -21,6 +21,15 @@
               {{/menu.item}}
               {{menu.divider}}
             {{/if}}
+            {{#each additionalActions as |action|}}
+              {{#menu.item}}
+                <a href="#"
+                  {{action action.call}}
+                  class="dropdown-item text-info">
+                  {{action.label}}</a>
+              {{/menu.item}}
+              {{menu.divider}}
+            {{/each}}
             {{#menu.item}}
               <a href="#"
                 {{action "removeAll"}}
@@ -43,6 +52,7 @@
     mode="selected"
     dataLabel=dataLabel
     updateDataComponentItem=(action 'updateDataComponentAction')
+    itemLink=itemLink
     editable=editable
     reloadListsAction=(action 'reloadListsAction')}}
 {{/each}}
@@ -67,6 +77,7 @@
        mode="available"
        dataLabel=dataLabel
        updateDataComponentItem=(action 'updateDataComponentAction')
+       itemLink=itemLink
        toggleItemComponent=(action 'toggleItemList')}}
    {{/each}}
    {{pagination-handler data=listAvailable}}

@@ -2,6 +2,8 @@ import Component from '@ember/component';
 import { computed } from '@ember/object';
 export default Component.extend({
 
+  itemLink: false,
+
   actions: {
       updateDataComponentAction(dataLabel) {
         this.updateDataComponent(dataLabel);
@@ -30,6 +32,16 @@ export default Component.extend({
         this.project.set('toAddList', [])
         this.set('toAddCount', 0)
         this.set('selectAnotModal', true)
+      },
+      selectReactionsByMass() {
+        if (this.project.get('editable')) {
+          let this_ = this;
+          this.project
+            .selectReactionsByMass()
+              .then(function(/*response*/) {
+                this_.reloadLists()
+              });
+        }
       },
       toggleItemList(itemId) {
         if (! this.project.get('toAddList')) {
