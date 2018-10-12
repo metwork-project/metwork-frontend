@@ -10,29 +10,12 @@ export default Service.extend({
   init() {
     this._super(...arguments);
     var this_=this
+      this_.set('loading', true)
     this.get('store').findRecord('api-status', 1).then( function(response) {
+      // response.available = false;
       this_.set('status', response)
+      this_.set('loading', false)
     })
-    // this.set('status', {available: true})
-
-    // let this_ = this;
-    // let base_url = ENV.host;
-    //   if(ENV.APInameSpace != '') {
-    //       base_url += '/' + ENV.APInameSpace
-    //   }
-    // $.ajax({
-    //   url: base_url + '/api-status/',
-    //   type: 'GET',
-    //   // data: JSON.stringify({
-    //   //   email: email,
-    //   // }),
-    //   contentType: 'application/json;charset=utf-8',
-    //   dataType: 'json'
-    // }).then( function () {
-    //     this_.set('status','available')
-    //   }, function () {
-    //     this_.set('status','error')
-    //   })
   },
 
 });

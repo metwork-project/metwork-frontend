@@ -1,0 +1,14 @@
+@import "../base/colors";
+
+.spinner-display {
+  height: 120px;
+  position: relative;
+  .spinner {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    & > div > div {
+      background: $primary-color none repeat scroll 0% 0% !important ;
+    }
+  }
+}
