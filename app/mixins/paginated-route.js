@@ -58,7 +58,9 @@ export default Mixin.create({
 
     actions: {
       error(/*error, transition*/) {
-        this.set('apiStatus.status','error')
+        console.log('error')
+        var status = this.get('apiStatus.status')
+        status.set('available',false)
         this.transitionTo('index');
       },
       updateDataPage: function ( dataLabel, page, filter ) {

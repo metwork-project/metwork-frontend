@@ -7,7 +7,7 @@ export default DS.JSONAPIAdapter.extend(DataAdapterMixin, {
 
     host: ENV.host,
     namespace: ENV.APInameSpace,
-    session: service('session'), 
+    session: service('session'),
 
     authorize(xhr) {
         let access_token = this.get('session.data.authenticated.token');

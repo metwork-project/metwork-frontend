@@ -40,7 +40,6 @@ Router.map(function() {
   this.route('users', function() {
     this.route('show', { path: '/:user_id' });
   });
-
 });
 
 export default Router;

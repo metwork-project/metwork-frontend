@@ -10,7 +10,7 @@ export default Controller.extend({
   apiAvailable: computed(
     'apiStatus.status',
     function() {
-      return this.get('apiStatus.status') === 'available'
+      return this.get('apiStatus.status').available
   }),
 
   userFirstLetter: computed('currentUser.user', function() {

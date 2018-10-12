@@ -12,11 +12,11 @@ export default Controller.extend({
   guestError: false,
   apiStatus: service('api-status'),
 
-  apiAvailable: computed(
-    'apiStatus.status',
-    function() {
-      return this.get('apiStatus.status') === 'available'
-  }),
+  // apiAvailable: computed(
+  //   'apiStatus.status',
+  //   function() {
+  //     return this.get('apiStatus.status') === 'available'
+  // }),
 
 	authenticate_ : function(email, password) {
     this.get('session').authenticate('authenticator:drf-token-authenticator', email, password).catch((reason) => {
