@@ -58,7 +58,6 @@ export default Mixin.create({
 
     actions: {
       error(/*error, transition*/) {
-        console.log('error')
         var status = this.get('apiStatus.status')
         status.set('available',false)
         this.transitionTo('index');

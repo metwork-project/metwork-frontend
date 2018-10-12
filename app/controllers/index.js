@@ -8,8 +8,6 @@ export default Controller.extend( CytoscapeMixin, {
   session: service('session'),
   apiStatus: service('api-status'),
   version: ENV.version,
-  apiStatus: service('api-status'),
-  colors: ENV.colors,
 
   statusColor: computed( 'apiStatus.status.available', function() {
     if (this.get('apiStatus').loading) {

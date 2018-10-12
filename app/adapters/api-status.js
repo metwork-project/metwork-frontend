@@ -9,7 +9,7 @@ export default ApplicationAdapter.extend(DataAdapterMixin,{
   namespace: ENV.APInameSpace,
   session: service('session'),
 
-  authorize(xhr) {
+  authorize() {
   }
 
 });
