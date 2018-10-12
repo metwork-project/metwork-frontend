@@ -9,15 +9,23 @@ export default DS.Model.extend({
   running_projects_count: DS.attr('number'),
 
   didLoad: function(){
-		this.poll();
-	},
+    this.poll();
+  },
 
-	poll: function() {
-		var _this = this;
-		later( function() {
-			_this.reload();
-			_this.poll();
-		}, 3000);
-	},
+  poll: function() {
+    var this_ = this;
+    later( function() {
+      this_.reload().then(
+        function() {
+          console.log('success')
+        },
+        function() {
+          console.log('error')
+          this_.set('available', false)
+        }
+      );
+      this_.poll();
+    }, 3000);
+  },
 
 });
