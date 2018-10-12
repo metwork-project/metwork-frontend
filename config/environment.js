@@ -75,7 +75,7 @@ module.exports = function(environment) {
     ENV.APP.autoboot = false;
   }
 
-  if (environment === 'docker') {
+  if (environment === 'docker-stage') {
     //ENV.host = 'http://backend_api';
     ENV.serverName = 'http://194.168.0.1';
     ENV.host = 'http://194.168.0.1';
