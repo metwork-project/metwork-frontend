@@ -58,9 +58,7 @@ export default Mixin.create({
 
     actions: {
       error(/*error, transition*/) {
-        var status = this.get('apiStatus.status')
-        status.set('available',false)
-        this.transitionTo('index');
+        this.errorTransition()
       },
       updateDataPage: function ( dataLabel, page, filter ) {
           this.controller.dataComponents[dataLabel].params.page = page;
@@ -104,6 +102,15 @@ export default Mixin.create({
           .then(function(data) {
             data.set('dataLabel', dataLabel);
             self.controller.set(dataLabel, data);
+          }, function() {
+            this.errorTransition()
           });
     },
+
+    errorTransition: function() {
+      var status = this.get('apiStatus.status')
+      status.set('available',false)
+      this.transitionTo('index');
+    }
+
 });

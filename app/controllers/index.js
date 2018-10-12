@@ -9,10 +9,10 @@ export default Controller.extend( CytoscapeMixin, {
   apiStatus: service('api-status'),
   version: ENV.version,
 
-  statusColor: computed( 'apiStatus.{loading,status}', function() {
+  statusColor: computed( 'apiStatus.{loading,status.available}', function() {
     if (this.get('apiStatus').loading) {
       return 'primary'
-    }else if (this.get('apiStatus').status.available) {
+    } else if (this.get('apiStatus.status.available')) {
       return 'success'
     } else {
       return 'danger'
