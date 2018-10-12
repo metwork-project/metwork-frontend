@@ -17,10 +17,8 @@ export default DS.Model.extend({
     later( function() {
       this_.reload().then(
         function() {
-          console.log('success')
         },
         function() {
-          console.log('error')
           this_.set('available', false)
         }
       );
