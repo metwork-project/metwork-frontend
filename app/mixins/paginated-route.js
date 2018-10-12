@@ -4,8 +4,6 @@ import Inflector from 'ember-inflector';
 
 export default Mixin.create({
 
-  apiStatus: service('api-status'),
-
     model(params) {
       if (this.routeLabel) {
         return this.store.query(this.routeLabel, {
@@ -58,7 +56,7 @@ export default Mixin.create({
 
     actions: {
       error(/*error, transition*/) {
-        this.errorTransition()
+        this.transitionTo('index');
       },
       updateDataPage: function ( dataLabel, page, filter ) {
           this.controller.dataComponents[dataLabel].params.page = page;
@@ -103,14 +101,8 @@ export default Mixin.create({
             data.set('dataLabel', dataLabel);
             self.controller.set(dataLabel, data);
           }, function() {
-            this.errorTransition()
+            this.transitionTo('index');
           });
     },
-
-    errorTransition: function() {
-      var status = this.get('apiStatus.status')
-      status.set('available',false)
-      this.transitionTo('index');
-    }
 
 });
