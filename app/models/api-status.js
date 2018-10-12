@@ -16,7 +16,8 @@ export default DS.Model.extend({
     var this_ = this;
     later( function() {
       this_.reload().then(
-        function() {
+        function(model) {
+          model.set('available', true)
         },
         function() {
           this_.set('available', false)
