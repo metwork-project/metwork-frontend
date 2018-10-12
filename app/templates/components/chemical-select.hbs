@@ -1,45 +1,47 @@
 <div class="d-flex">
   <h4 >{{title}}</h4>
-    <div class='m-1 ml-3'>
-        {{#bs-dropdown
-          class='chemical-select-action' as |dd| }}
-          {{#dd.toggle class="text-info"}}modifiy <span class="caret"></span>{{/dd.toggle}}
-          {{#dd.menu align="left" as |menu|}}
-            {{#if (gt listAvailable.length 0)}}
+    {{#if editable}}
+      <div class='m-1 ml-3'>
+          {{#bs-dropdown
+            class='chemical-select-action' as |dd| }}
+            {{#dd.toggle class="text-info"}}modifiy <span class="caret"></span>{{/dd.toggle}}
+            {{#dd.menu align="left" as |menu|}}
+              {{#if (gt listAvailable.length 0)}}
+                {{#menu.item}}
+                  <a href="#"
+                    {{action "addAll"}}
+                    class="dropdown-item text-info">
+                    Add all</a>
+                {{/menu.item}}
+                {{menu.divider}}
+                {{#menu.item}}
+                  <a href="#"
+                    {{action 'displayAvailable'}}
+                    class="dropdown-item text-info">
+                    Select</a>
+                {{/menu.item}}
+                {{menu.divider}}
+              {{/if}}
+              {{#each additionalActions as |action|}}
+                {{#menu.item}}
+                  <a href="#"
+                    {{action action.call}}
+                    class="dropdown-item text-info">
+                    {{action.label}}</a>
+                {{/menu.item}}
+                {{menu.divider}}
+              {{/each}}
               {{#menu.item}}
                 <a href="#"
-                  {{action "addAll"}}
-                  class="dropdown-item text-info">
-                  Add all</a>
+                  {{action "removeAll"}}
+                  class="dropdown-item text-secondary">
+                  Remove all
+                </a>
               {{/menu.item}}
-              {{menu.divider}}
-              {{#menu.item}}
-                <a href="#"
-                  {{action 'displayAvailable'}}
-                  class="dropdown-item text-info">
-                  Select</a>
-              {{/menu.item}}
-              {{menu.divider}}
-            {{/if}}
-            {{#each additionalActions as |action|}}
-              {{#menu.item}}
-                <a href="#"
-                  {{action action.call}}
-                  class="dropdown-item text-info">
-                  {{action.label}}</a>
-              {{/menu.item}}
-              {{menu.divider}}
-            {{/each}}
-            {{#menu.item}}
-              <a href="#"
-                {{action "removeAll"}}
-                class="dropdown-item text-secondary">
-                Remove all
-              </a>
-            {{/menu.item}}
-          {{/dd.menu}}
-        {{/bs-dropdown}}
-    </div>
+            {{/dd.menu}}
+          {{/bs-dropdown}}
+      </div>
+    {{/if}}
 </div>
 {{#if (eq listSelected.length 0)}}
 <p><i>No annotations selected</i></p>
