@@ -1,0 +1,70 @@
+{{#if model.runFinish}}
+  <div class="d-flex">
+    <div class="mr-auto">
+      <h4 class="d-inline">
+          Metabolization Network
+      </h4>
+    </div>
+    <div>
+      {{#bs-button type="info"
+          class="m-1"
+
+          onClick=(action 'toggleDisplayNodeName') }}
+        Display
+        {{#if (eq displayNodeName 'parent_mass')}}
+          cosines
+        {{else}}
+          mass
+        {{/if}}
+      {{/bs-button}}
+      {{#bs-button type="secondary"
+          class="m-1"
+          onClick=(action 'reloadMetabolizationNetwork') }}
+        {{svg-jar "sync" class="octicon"}}
+      {{/bs-button}}
+    </div>
+  </div>
+  <div class='graph-content'>
+    {{graph-loader
+      spinnerStatus=spinnerStatus
+      loadNetwork=(action 'reloadMetabolizationNetwork')
+      class="h-100"}}
+    <div id="cy"></div>
+  </div>
+{{/if}}
+<h4>
+  Depth limit
+</h4>
+<form class="form-inline">
+    <label class="mb-2 mr-sm-2">Total ({{model.depthLimits.depth_total}} max)</label>
+    {{input type="number" min=0 max=10 value=model.depth_total model=model class='form-control mb-2 mr-sm-2' disabled=(not model.editable)}}
+
+    {{#if false}}
+      <label class="mb-2 mr-sm-2">Ghost metabolites ({{model.depthLimits.depth_last_match}} max)</label>
+      {{input type="number" min=0 max=1 value=model.depth_last_match model=model class='form-control mb-2 mr-sm-2' disabled=(not model.editable)}}
+    {{/if}}
+
+    {{#if (and model.editable model.okDepth)}}
+      {{bs-button type=model.saveOrCreate.class
+        class="mb-2 mr-sm-2"
+        defaultText='Save'
+        onClick=(route-action "saveProject" model) }}
+    {{/if}}
+</form>
+
+  {{chemical-select
+    title="Select reactions"
+    project=model
+    chemType='reaction'
+    listAvailable=reactions-available
+    listSelected=reactions-selected
+    dataLabel="reactions"
+    editable=(not model.runOrFinish)
+    updateDataComponent=(action 'updateDataController')
+    additionalActions=additionalActions
+    itemLink=true
+  }}
+
+  {{!-- <div class="card-footer">
+    <img src="/assets/images/powered_by_chemaxon_GOLD_M.png" class="mx-auto d-block" height=40 />
+  </div> --}}

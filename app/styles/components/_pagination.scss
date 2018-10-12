@@ -1,0 +1,12 @@
+@import "../base/colors";
+
+.pagination>li>a,
+.pagination>li>a:hover,
+.pagination>li>span {
+  color: $primary-color;
+}
+.pagination>li.page-item.active>a {
+  border: 1px solid $primary-color;
+  background: $primary-color;
+  color: #fff;
+}

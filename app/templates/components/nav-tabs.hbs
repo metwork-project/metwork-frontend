@@ -3,7 +3,7 @@
 <ul class="nav nav-tabs">
     {{#each navDisplays as |nav| }}
       <li class="nav-item">
-        <a class="nav-link {{if (eq activeNav nav.toggle) 'active'}}" {{ action (mut activeNav) nav.toggle }} href="#">{{nav.libelle}}</a>
+        <a class="nav-link {{if (eq model.activeNav nav.toggle) 'active'}}" {{ action 'navigateTo' nav.toggle }} href="#">{{nav.libelle}}</a>
       </li>
     {{/each}}
 </ul>

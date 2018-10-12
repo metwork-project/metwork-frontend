@@ -1,0 +1,43 @@
+@import "../base/colors";
+
+.chemical-select-action a.dropdown-item:active {
+  background-color: #f8f9fa;
+}
+
+.chemical-select-item {
+  width: 204px;
+  padding: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  text-align: center;
+  canvas.ChemDoodleWebComponent {
+    border: none;
+  }
+  .delete-icon, .select-icon {
+    display: none;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    cursor: pointer;
+  }
+  .delete-icon {
+    color: $secondary-color;
+  }
+  .select-icon {
+    color: $info-color;
+  }
+  &:hover {
+    // border: 1px solid $primary-color;
+    .delete-icon {
+      display: inherit;
+    }
+    .select-icon {
+      display: inherit;
+    }
+  }
+  &.selected {
+    border: 1px solid $info-color;
+    .select-icon {
+      display: inherit;
+    }
+  }
+}

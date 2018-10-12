@@ -1,17 +1,18 @@
 import Mixin from '@ember/object/mixin';
-import { inject as service } from '@ember/service';
 import Inflector from 'ember-inflector';
 
 export default Mixin.create({
 
-  apiStatus: service('api-status'),
-
     model(params) {
-      return this.store.query(this.routeLabel, {
-          page_size: params.page_size,
-          page: params.page,
-          filter: params.filter,
-      })
+      if (this.routeLabel) {
+        return this.store.query(this.routeLabel, {
+            page_size: params.page_size,
+            page: params.page,
+            filter: params.filter,
+        })
+      } else {
+        return this.get('model')
+      }
     },
 
     queryParams: {
@@ -54,7 +55,6 @@ export default Mixin.create({
 
     actions: {
       error(/*error, transition*/) {
-        this.set('apiStatus.status','error')
         this.transitionTo('index');
       },
       updateDataPage: function ( dataLabel, page, filter ) {
@@ -67,10 +67,9 @@ export default Mixin.create({
       refreshCurrentRoute(){
        this.refresh();
       },
-      newItem(routeLabel, model) {
+      newItem(routeLabel) {
         var inflector = new Inflector(Inflector.defaultRules);
-        let mr = model.store.createRecord(routeLabel);
-        this.transitionTo(inflector.pluralize(routeLabel) + '.show', mr);
+        this.transitionTo(inflector.pluralize(routeLabel) + '.new');
       },
     },
 
@@ -100,6 +99,9 @@ export default Mixin.create({
           .then(function(data) {
             data.set('dataLabel', dataLabel);
             self.controller.set(dataLabel, data);
+          }, function() {
+            this.transitionTo('index');
           });
     },
+
 });

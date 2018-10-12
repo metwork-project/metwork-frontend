@@ -7,10 +7,11 @@ export default Controller.extend({
   currentUser: service('current-user'),
   apiStatus: service('api-status'),
 
-  apiAvailable: computed(
-    'apiStatus.status',
-    function() {
-      return this.get('apiStatus.status') === 'available'
+  apiStatusUpdate: computed(
+    'apiStatus.status.available', function() {
+      if ( ! this.get('apiStatus.status.available') ) {
+        this.get('target').transitionTo('index');
+      }
   }),
 
   userFirstLetter: computed('currentUser.user', function() {

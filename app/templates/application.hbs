@@ -7,7 +7,7 @@
 
   {{#navbar.content}}
     {{#navbar.nav class="mr-auto" as |nav|}}
-        {{#if (and apiAvailable session.isAuthenticated)}}
+        {{#if (and apiStatus.status.available session.isAuthenticated)}}
           {{#nav.item}}{{#nav.link-to "projects"}} My Projects {{/nav.link-to}}{{/nav.item}}
           {{#nav.item}}{{#nav.link-to "fragsamples"}} My Data {{/nav.link-to}}{{/nav.item}}
           {{#nav.item}}{{#nav.link-to "reactions"}} Reactions {{/nav.link-to}}{{/nav.item}}
@@ -15,7 +15,7 @@
       {{#nav.item}}{{#nav.link-to "documentation"}} Documentation {{/nav.link-to}}{{/nav.item}}
     {{/navbar.nav}}
         <div>
-          {{#if apiAvailable}}
+          {{#if apiStatus.status.available}}
             {{#if session.isAuthenticated}}
               {{#bs-button type="secondary" onClick=(action 'invalidateSession')}} Logout {{/bs-button}}
               {{# if (not currentUser.isGuest)}}

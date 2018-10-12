@@ -1,34 +1,22 @@
 import Controller from '@ember/controller';
 import { inject as service } from '@ember/service';
-import FileDownloadMixin from 'metwork-frontend/mixins/file-download';
 import CytoscapeMixin from 'metwork-frontend/mixins/cytoscape';
 import ENV from '../config/environment'
+import { computed } from '@ember/object';
 
-export default Controller.extend( FileDownloadMixin, CytoscapeMixin, {
+export default Controller.extend( CytoscapeMixin, {
   session: service('session'),
   apiStatus: service('api-status'),
   version: ENV.version,
 
-	data: function() {
-
-		return [ // list of graph elements to start with
-					{ // node a
-						data: { id: 'a' , shape: 'roundrectangle'}
-					},
-					{ // node b
-						data: { id: 'b' , shape: 'triangle',}
-					},
-					{ // edge ab
-						data: { id: 'ab', source: 'a', target: 'b' }
-					}
-				]
-
-	},
-
-	actions: {
-    getFile(request, fileName) {
-       this.send('downloadFile', request, "text/plain;charset=utf-8", fileName);
-    },
-  },
+  statusColor: computed( 'apiStatus.{loading,status.available}', function() {
+    if (this.get('apiStatus').loading) {
+      return 'primary'
+    } else if (this.get('apiStatus.status.available')) {
+      return 'success'
+    } else {
+      return 'danger'
+    }
+  })
 
 });

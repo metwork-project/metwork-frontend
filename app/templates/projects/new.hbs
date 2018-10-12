@@ -1,0 +1,27 @@
+<div class="card">
+  <div class="card-body">
+    <div class="d-flex">
+      <div class="mr-auto">
+        <h3 class="d-inline">
+            Create Project
+        </h3>
+      </div>
+        <div>
+          {{bs-button type="success"
+            defaultText="Create"
+            onClick=(route-action "createProject" model) }}
+        </div>
+    </div>
+    <form>
+      <div class="form-group" >
+        <label>Name</label>
+        {{input value=model.name model=model class='form-control'}}
+      </div>
+      <div class="form-group">
+        <label>Description</label>
+        {{textarea value=model.description model=model
+          class='form-control' rows='3'}}
+      </div>
+    </form>
+  </div>
+</div>

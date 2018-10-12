@@ -94,7 +94,7 @@ export default DS.Model.extend({
 	}),
 
 	hasSample: computed('frag_sample', function() {
-			return this.get('frag_sample.id') > 0;
+			return this.get('frag_sample') ;
 	}),
 
 	editable: computed('status_code', function() {
@@ -136,7 +136,15 @@ export default DS.Model.extend({
 
 	cloneProject: memberAction({ path: 'clone_project', type: 'post' }),
 
-	toggleItem: memberAction({ path: 'toggle_item', type: 'patch' }),
+	addAll: memberAction({ path: 'add_all', type: 'patch' }),
+
+	addItems: memberAction({ path: 'add_items', type: 'patch' }),
+
+	removeAll: memberAction({ path: 'remove_all', type: 'patch' }),
+
+	removeItem: memberAction({ path: 'remove_item', type: 'patch' }),
+
+	selectReactionsByMass: memberAction({ path: 'select_reactions_by_mass', type: 'patch' }),
 
 	updateFragCompareConf: memberAction({ path: 'update_frag_compare_conf', type: 'patch' }),
 

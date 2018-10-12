@@ -55,7 +55,10 @@
     {{#if editing }}
         {{#bs-button onClick=(action modal.close)}}Cancel{{/bs-button}}
         {{#if fileReady }}
-            {{#bs-button type="success" onClick=(action (route-action 'uploadFile' self) ) }}Upload{{/bs-button}}
+            {{#bs-button
+              type="success"
+              onClick=(action (route-action 'uploadFile' self) ) }}
+              Upload{{/bs-button}}
         {{/if}}
     {{/if}}
     {{#if uploading }}

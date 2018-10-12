@@ -1,0 +1,78 @@
+<div class="d-flex">
+  <div class="mr-auto">
+    <h3 class="d-inline">
+      {{#if (not model.isNew)}}
+        {{model.name}}
+        {{project-status-badge project=model class="d-inline"}}
+      {{else}}
+        Create Project
+      {{/if}}
+    </h3>
+  </div>
+  {{#if model.readyToRun}}
+    <div>
+      {{bs-button type="warning"
+        class = "btn-lg"
+        defaultText="Start run"
+        onClick=(action 'startRun') }}
+    </div>
+  {{/if}}
+  {{#if model.runFinish}}
+    <div>
+      {{bs-button type="success"
+        class = "btn"
+        defaultText="Clone project"
+        onClick=(action 'cloneProject') }}
+    </div>
+  {{/if}}
+</div>
+<form>
+  <div class="form-group" >
+    <label>Name</label>
+    {{input value=model.name model=model class='form-control' disabled=(not model.editable)}}
+  </div>
+  <div class="form-group">
+    <label>Description</label>
+    {{textarea value=model.description model=model
+      class='form-control' rows='3' disabled=(not model.editable)}}
+  </div>
+</form>
+{{# if model.runOrFinish}}
+  <div>
+    <h4> Results </h4>
+    <p> Total molecules : {{model.molecules_all_count}} </p>
+    <p> Annotations proposal : {{model.molecules_matching_count}} </p>
+  </div>
+{{/if}}
+<div class="d-flex">
+  <div class="mr-auto">
+  {{#if model.editable}}
+    {{bs-button type=model.saveOrCreate.class
+      defaultText=model.saveOrCreate.libelle
+      onClick=(route-action "saveProject" model) }}
+  {{/if}}
+  {{#unless model.isNew}}
+      {{!bs-button type="danger"
+        defaultText="Delete"
+        onClick=(route-action "delete_p" model) }}
+  {{else}}
+      {{bs-button type="secondary"
+        defaultText="Cancel"
+        onClick=(route-action "cancel_create" model) }}
+  {{/unless}}
+  {{#if model.runFinish}}
+    {{bs-button type="secondary"
+      defaultText="Annotations"
+      onClick=(action 'getFile' 'download_annotations' 'metwork_annotations.csv') }}
+    {{bs-button type="secondary"
+      defaultText="Annotations details"
+      onClick=(action 'getFile' 'download_annotations_details' 'metwork_annotations_details.csv') }}
+    {{bs-button type="secondary"
+      defaultText="MetExplore"
+      onClick=(action 'getFile' 'download_metexplore' 'metwork_metexplore.json') }}
+    {{bs-button type="secondary"
+      defaultText="All molecules"
+      onClick=(action 'getFile' 'download_all_molecules' 'metwork_all_molecules.csv') }}
+  {{/if}}
+  </div>
+</div>
