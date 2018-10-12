@@ -15,22 +15,20 @@
           <div class="card-body text-primary text-center">
               {{ember-spinner }}
           </div>
+        {{else if apiStatus.status.available}}
+          <div class="card-body">
+            <h5 class="card-title text-success mb-0 text-center">Service available</h5>
+          </div>
+          <ul class="list-group list-group-flush bg-danger">
+            <li class="list-group-item">Molecules generated : {{apiStatus.status.molecules_count}}</li>
+            <li class="list-group-item">Projects achieved : {{apiStatus.status.achieved_projects_count}}</li>
+            <li class="list-group-item">Projects running : {{apiStatus.status.running_projects_count}}</li>
+          </ul>
         {{else}}
-          {{#if apiStatus.status.available}}
-            <div class="card-body">
-              <h5 class="card-title text-success mb-0 text-center">Service available</h5>
-            </div>
-            <ul class="list-group list-group-flush bg-danger">
-              <li class="list-group-item">Molecules generated : {{apiStatus.status.molecules_count}}</li>
-              <li class="list-group-item">Projects achieved : {{apiStatus.status.achieved_projects_count}}</li>
-              <li class="list-group-item">Projects running : {{apiStatus.status.running_projects_count}}</li>
-            </ul>
-          {{else}}
-            <div class="card-body text-danger text-center">
-              <h5 class="card-title">Under maintenance</h5>
-              Service is currently unavailable and will be back soon.
-            </div>
-          {{/if}}
+          <div class="card-body text-danger text-center">
+            <h5 class="card-title">Under maintenance</h5>
+            Service is currently unavailable and will be back soon.
+          </div>
         {{/if}}
       </div>
     </div>
