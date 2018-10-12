@@ -33,6 +33,7 @@ Router.map(function() {
   this.route('frag-annotations');
   this.route('reactions', function() {
     this.route('show', { path: '/:reaction_id' });
+    this.route('new');
   });
 
   this.route('documentation');
