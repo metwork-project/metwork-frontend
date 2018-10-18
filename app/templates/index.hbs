@@ -1,72 +1,69 @@
-<h1 class="text-center">Welcome to MetWork </h1>
-<h2 class="text-center"><i>a web server for natural products anticipation</i></h2>
-<p class="text-center"><i>Currently running beta version {{version}}</i></p>
+<div class='row'>
+  <div id="news" class='col-lg-9'>
+    <h1 class="text-center">Welcome to MetWork </h1>
+    <h2 class="text-center"><i>a web server for natural products anticipation</i></h2>
+    <p class="text-center"><i>Currently running beta version {{version}}</i></p>
+    <h3 class="text-center">Latest News</h3>
+    {{#latest-news
+      date="20th September 2018"
+      title="Networks visualizations available !"}}
 
-<div class='container'>
-  <div class='row'>
-    <div id="api-status" class='col-md-4 order-md-2'>
-      <div class="card border-{{statusColor}}">
-        <div class="card-header text-white bg-{{statusColor}} text-center">
-          API Status
-        </div>
-        {{#if apiStatus.loading}}
-          <div class="card-body text-primary text-center">
-              {{ember-spinner }}
-          </div>
-        {{else if apiStatus.status.available}}
-          <div class="card-body">
-            <h5 class="card-title text-success mb-0 text-center">Service available</h5>
-          </div>
-          <ul class="list-group list-group-flush bg-danger">
-            <li class="list-group-item">Molecules generated : {{apiStatus.status.molecules_count}}</li>
-            <li class="list-group-item">Projects achieved : {{apiStatus.status.achieved_projects_count}}</li>
-            <li class="list-group-item">Projects running : {{apiStatus.status.running_projects_count}}</li>
-          </ul>
-        {{else}}
-          <div class="card-body text-danger text-center">
-            <h5 class="card-title">Under maintenance</h5>
-            Service is currently unavailable and will be back soon.
-          </div>
-        {{/if}}
+      You can see molecular network of your frag sample data and metabolization network for finished project.
+      <br />
+      Click on graph nodes to display info.
+     <img class="card-img-bottom mt-2 border" src="/assets/images/metabolization_network_screenshot.png"
+     alt="metabolization_network_screenshot">
+     <img class="card-img-bottom mt-1 border" src="/assets/images/molecular_network_screenshot.png"
+     alt="molecular_network_screenshot">
+    {{/latest-news }}
+
+    {{#latest-news
+      date="10th August 2018"
+      title="New beta version"}}
+
+      Those new features have been introduced :
+      <ul>
+        <li> Improvement of cosine score calculation with Metgem algorithm ( https://github.com/metgem/metgem ) </li>
+        <li> Availability to directly import GNPS .tsv annotation files </li>
+        <li> Clone achieved project </li>
+        <li> Download all molecules generated </li>
+        <li> New design to select reactions and ion annotations on a project </li>
+        <li>  Speed improvement to import fragmentation data </li>
+      </ul>
+    {{/latest-news }}
+
+    {{#latest-news
+      date="1st August 2018"
+      title="Source code on GitHub"}}
+
+      The code of MetWork is available on GitHub :
+      <a href="https://github.com/metwork-project" target="_blank"> https://github.com/metwork-project </a>
+    {{/latest-news }}
+  </div>
+  <div id="api-status" class='col-lg-3'>
+    <div class="card border-{{statusColor}}">
+      <div class="card-header text-white bg-{{statusColor}} text-center">
+        API Status
       </div>
-    </div>
-    <div id="news" class='col-md-8 order-md-1'>
-      <h3 class="text-center">Latest News</h3>
-      {{#latest-news
-        date="20th September 2018"
-        title="Networks visualizations available !"}}
-
-        You can see molecular network of your frag sample data and metabolization network for finished project.
-        <br />
-        Click on graph nodes to display info.
-       <img class="card-img-bottom mt-2 border" src="/assets/images/metabolization_network_screenshot.png"
-       alt="metabolization_network_screenshot">
-       <img class="card-img-bottom mt-1 border" src="/assets/images/molecular_network_screenshot.png"
-       alt="molecular_network_screenshot">
-      {{/latest-news }}
-
-      {{#latest-news
-        date="10th August 2018"
-        title="New beta version"}}
-
-        Those new features have been introduced :
-        <ul>
-          <li> Improvement of cosine score calculation with Metgem algorithm ( https://github.com/metgem/metgem ) </li>
-          <li> Availability to directly import GNPS .tsv annotation files </li>
-          <li> Clone achieved project </li>
-          <li> Download all molecules generated </li>
-          <li> New design to select reactions and ion annotations on a project </li>
-          <li>  Speed improvement to import fragmentation data </li>
+      {{#if apiStatus.loading}}
+        <div class="card-body text-primary text-center">
+            {{ember-spinner }}
+        </div>
+      {{else if apiStatus.status.available}}
+        <div class="card-body">
+          <h5 class="card-title text-success mb-0 text-center">Service available</h5>
+        </div>
+        <ul class="list-group list-group-flush bg-danger">
+          <li class="list-group-item">Molecules generated : {{apiStatus.status.molecules_count}}</li>
+          <li class="list-group-item">Projects achieved : {{apiStatus.status.achieved_projects_count}}</li>
+          <li class="list-group-item">Projects running : {{apiStatus.status.running_projects_count}}</li>
         </ul>
-      {{/latest-news }}
-
-      {{#latest-news
-        date="1st August 2018"
-        title="Source code on GitHub"}}
-
-        The code of MetWork is available on GitHub :
-        <a href="https://github.com/metwork-project" target="_blank"> https://github.com/metwork-project </a>
-      {{/latest-news }}
+      {{else}}
+        <div class="card-body text-danger text-center">
+          <h5 class="card-title">Under maintenance</h5>
+          Service is currently unavailable and will be back soon.
+        </div>
+      {{/if}}
     </div>
   </div>
 </div>
