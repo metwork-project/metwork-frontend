@@ -78,7 +78,7 @@
       </form>
     </div>
   <!-- Test Reaction -->
-    {{#if model.isAtLeastValid}}
+    {{#if (and model.isAtLeastValid (not  model.isObsolete))}}
       <h4 class="w-100 text-center test-reaction">
           Test the reaction
       </h4>
@@ -160,7 +160,7 @@
       </div>
     {{/if}}
     {{#if (or
-        model.isObsolete
+        (and (not model.is_reactor) model.isObsolete)
         (and products model.isReadyToActive) ) }}
       <h4 class="w-100 text-center mt-3">
           Activation
