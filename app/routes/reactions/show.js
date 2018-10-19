@@ -13,6 +13,8 @@ export default Route.extend(AuthenticatedRouteMixin, {
         controller.set('sketcherReady', false)
         // products = model.store.createRecord('molecule')
         controller.set('reactants', model.store.createRecord('molecule'))
+        controller.set('errorSaveMessage', null)
+        controller.set('errorReactionMessage', null)
     },
 
 });
