@@ -59,6 +59,10 @@ a.ember-view {
     }
 }
 
+.container.container-main {
+  max-width: none;
+}
+
 .login-form {
     max-width: 500px;
     margin: auto;

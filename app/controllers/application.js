@@ -9,7 +9,9 @@ export default Controller.extend({
 
   apiStatusUpdate: computed(
     'apiStatus.status.available', function() {
-      if ( ! this.get('apiStatus.status.available') ) {
+      if ( !
+        (this.get('apiStatus.status.available')
+        || this.get('apiStatus.loading') ) ) {
         this.get('target').transitionTo('index');
       }
   }),

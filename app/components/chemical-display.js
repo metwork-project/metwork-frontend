@@ -37,7 +37,7 @@ export default Component.extend({
     } else {
       dataJSON = this.get('dataJSON')
     }
-    if (dataJSON) {
+    if (dataJSON['m'] || dataJSON['a']) {
       var jsi = new ChemDoodle.io.JSONInterpreter();
       var viewACS = null
       var target = null
