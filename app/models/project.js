@@ -152,4 +152,9 @@ export default DS.Model.extend({
 
 	metabolizationNetwork: memberAction({ path: 'metabolization_network', type: 'get' }),
 
+	downloadFile: memberAction({
+		path: 'download_file',
+		type: 'get'
+	}),
+
 });
