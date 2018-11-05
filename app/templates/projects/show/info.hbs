@@ -63,16 +63,16 @@
   {{#if model.runFinish}}
     {{bs-button type="secondary"
       defaultText="Annotations"
-      onClick=(action 'getFile' 'download_annotations' 'metwork_annotations.csv') }}
+      onClick=(action 'getFile' 'annotations' 'metwork_annotations.csv') }}
     {{bs-button type="secondary"
       defaultText="Annotations details"
-      onClick=(action 'getFile' 'download_annotations_details' 'metwork_annotations_details.csv') }}
+      onClick=(action 'getFile' 'annotations_details' 'metwork_annotations_details.csv') }}
     {{bs-button type="secondary"
       defaultText="MetExplore"
-      onClick=(action 'getFile' 'download_metexplore' 'metwork_metexplore.json') }}
+      onClick=(action 'getFile' 'metexplore' 'metwork_metexplore.json') }}
     {{bs-button type="secondary"
       defaultText="All molecules"
-      onClick=(action 'getFile' 'download_all_molecules' 'metwork_all_molecules.csv') }}
+      onClick=(action 'getFile' 'all_molecules' 'metwork_all_molecules.csv') }}
   {{/if}}
   </div>
 </div>

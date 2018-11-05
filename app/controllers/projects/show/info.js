@@ -32,7 +32,6 @@ export default Controller.extend({
        this.send(
         'downloadFile',
         this.model,
-        'projects.show',
         request,
         "text/plain;charset=utf-8",
         fileName);
