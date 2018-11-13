@@ -53,14 +53,9 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
     // ENV.APP.API_HOST = 'http://127.0.0.1:8000';
-    //ENV.host = 'http://0.0.0.0:8000';
     ENV.serverName = 'http://194.168.0.1';
     ENV.host = 'http://194.168.0.1:8000';
     ENV.APInameSpace = '';
-    //ENV.APInameSpace = 'metwork-api';
-
-    //ENV.host = 'http://172.28.203.217:80';
-    //ENV.APInameSpace = 'metwork-backend/api';
   }
 
   if (environment === 'test') {
@@ -76,35 +71,24 @@ module.exports = function(environment) {
   }
 
   if (environment === 'docker-stage') {
-    //ENV.host = 'http://backend_api';
     ENV.serverName = 'http://194.168.0.1';
     ENV.host = 'http://194.168.0.1';
     ENV.APInameSpace = 'metwork-api';
-    //ENV.rootURL = '/metwork/';
     ENV.rootURL = '/';
-// https://stackoverflow.com/questions/24621812/ember-cli-running-in-an-application-context-on-tomcat
-    ENV.locationType = 'hash';
   }
 
   if (environment === 'docker-standalone') {
-    //ENV.host = 'http://backend_api';
     ENV.serverName = 'http://localhost';
     ENV.host = 'http://localhost';
     ENV.APInameSpace = 'metwork-api';
-    //ENV.rootURL = '/metwork/';
     ENV.rootURL = '/';
-// https://stackoverflow.com/questions/24621812/ember-cli-running-in-an-application-context-on-tomcat
-    ENV.locationType = 'hash';
   }
 
   if (environment === 'production') {
     ENV.serverName = 'https://metwork.pharmacie.parisdescartes.fr';
     ENV.host = 'https://metwork.pharmacie.parisdescartes.fr';
     ENV.APInameSpace = 'metwork-api';
-    //ENV.rootURL = '/metwork/';
     ENV.rootURL = '/';
-// https://stackoverflow.com/questions/24621812/ember-cli-running-in-an-application-context-on-tomcat
-    ENV.locationType = 'hash';
   }
 
   return ENV;
