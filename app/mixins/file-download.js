@@ -1,7 +1,5 @@
 import Mixin from '@ember/object/mixin';
-import ENV from 'metwork-frontend/config/environment';
 import FileSaver from 'file-saver';
-import $ from 'jquery';
 
 export default Mixin.create({
 
