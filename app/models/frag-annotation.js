@@ -9,6 +9,7 @@ export default DS.Model.extend({
     db_id: DS.attr('string'),
     has_no_project: DS.attr(),
     chemdoodle_json: DS.attr(),
+    adduct: DS.attr('string'),
 
     display: computed('ion_id', 'smiles', function() {
         return this.get('ion_id') + " | " + this.get('name');
