@@ -92,7 +92,7 @@
             {{#if products}}
               {{#each reactantsJSON as |reactant index|}}
                 {{chemical-display
-                  canvasId='canvas-reactant-'
+                  canvasIdRoot='canvas-reactant-'
                   index=index
                   dataJSON=reactant
                   chemType='molecule'
@@ -127,7 +127,7 @@
               <div>
                 {{#each products as |product index|}}
                   {{chemical-display
-                    canvasId='canvas-product-'
+                    canvasIdRoot='canvas-product-'
                     index=index
                     dataJSON=product
                     chemType='molecule'
