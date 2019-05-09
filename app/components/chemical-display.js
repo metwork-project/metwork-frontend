@@ -22,7 +22,7 @@ export default Component.extend({
   },
 
   getCanvasIdIndex: computed('index', function() {
-    if (this.get('index')) {
+    if (this.get('index') != null) {
       this.set('canvasId', 'chemdoodle-' + this.get('canvasIdRoot') + this.get('index'))
     }
   }),
