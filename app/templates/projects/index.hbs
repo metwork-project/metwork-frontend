@@ -1,6 +1,21 @@
 <!-- index -->
+{{triggerFilter}}
 <div class="card">
     <div class="card-body">
+      {{#bs-nav type="pills"  as |nav|}}
+        {{#nav.item class="primary-color"}}
+          {{nav-link-project 
+            label="My Projects"
+            item="private"
+            activeList=filter}}
+        {{/nav.item}}
+        {{#nav.item}}
+          {{nav-link-project
+            label="Public Projects"
+            item="public"
+            activeList=filter}}
+          {{/nav.item}}
+      {{/bs-nav}}
         <div class="d-flex">
             <h3 class="mr-auto">
                 My projects list
@@ -16,6 +31,9 @@
                   <th scope="col">Name</th>
                   <th scope="col">Status</th>
                   <th scope="col">Fragmentation sample</th>
+                  {{#if isPublic}}
+                    <th scope="col">Owner</th>
+                  {{/if}}
                   <th scope="col" width="30px"></th>
                 </tr>
               </thead>
@@ -26,6 +44,9 @@
                         <td>{{#link-to 'projects.show' project}} {{project.name}} {{/link-to }}</td>
                         <td>{{project-status-badge project=project class="d-inline"}}</td>
                         <td>{{#if project.frag_sample}} {{project.frag_sample.name}} {{/if}}</td>
+                        {{#if isPublic}}
+                          <td>{{project.user_name}}</td>
+                        {{/if}}
                         <td>{{#bs-button class="btn-sm" type="danger" onClick=(action (mut dataToDelete) project )}}{{svg-jar "trashcan" class="octicon"}}{{/bs-button}}</td>
                     </tr>
               {{/each}}
