@@ -14,6 +14,7 @@ export default DS.Model.extend({
 			}
 	}),
 	description: DS.attr('string'),
+	public: DS.attr('boolean'),
 	frag_sample: DS.belongsTo('fragsample'),
 	status_code: DS.attr('number',
 			{defaultValue: 0}),
