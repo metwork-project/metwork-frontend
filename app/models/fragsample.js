@@ -73,4 +73,9 @@ export default DS.Model.extend({
 
 	molecularNetwork: memberAction({ path: 'molecular_network', type: 'get' }),
 
+	downloadFile: memberAction({
+		path: 'download_mgf',
+		type: 'get'
+	}),
+
 });

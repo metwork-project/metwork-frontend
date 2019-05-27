@@ -49,9 +49,6 @@
                         {{#if isPublic}}
                           <td>{{project.user_name}}</td>
                         {{/if}}
-                                                <td>{{#if reaction.has_no_project}}
-                        {{#bs-button class="btn-sm" type="danger" onClick=(action (mut dataToDelete) reaction )}}{{svg-jar "trashcan" class="octicon"}}{{/bs-button}}
-                        {{/if}}</td>
                         {{#if (not isPublic)}}
                           <td>{{#if (not project.public)}}
                             {{#bs-button class="btn-sm" type="danger" onClick=(action (mut dataToDelete) project )}}
