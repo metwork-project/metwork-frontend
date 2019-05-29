@@ -5,6 +5,23 @@
     <p class="text-center"><i>Currently running beta version {{version}}</i></p>
     <h3 class="text-center">Latest News</h3>
     {{#latest-news
+      date="29th May 2019"
+      title="New adducts features"}}
+      Those new features have been introduced :
+      <ul>
+        <li> Handling other adducts ([M+], [M+Na]+, [M+K]+ and [M+NH4]+ for in silico fragmentation</li>
+        <li> Automated recognition of adducts type from raw data</li>
+        </ul>
+    {{/latest-news }}
+    {{#latest-news
+      date="15th May 2019"
+      title="MetWork Paper online"}}
+      The MetWork paper published in the Bioinformatics journal is available on
+      <a href="https://academic.oup.com/bioinformatics/article/35/10/1795/5116145" target="_blank">
+      this link</a>.
+    {{/latest-news }}
+
+    {{#latest-news
       date="19th October 2018"
       title="Reaction edition online"}}
       The beta version 0.3 is online with the possibility to edit new reaction online.
@@ -47,30 +64,54 @@
       <a href="https://github.com/metwork-project" target="_blank"> https://github.com/metwork-project </a>
     {{/latest-news }}
   </div>
-  <div id="api-status" class='col-lg-3'>
-    <div class="card border-{{statusColor}}">
-      <div class="card-header text-white bg-{{statusColor}} text-center">
-        API Status
+  <div class='col-lg-3'>
+    <div id="api-status" >
+      <div class="card border-{{statusColor}}">
+        <div class="card-header text-white bg-{{statusColor}} text-center">
+          API Status
+        </div>
+        {{#if apiStatus.loading}}
+          <div class="card-body text-primary text-center">
+              {{ember-spinner }}
+          </div>
+        {{else if apiStatus.status.available}}
+          <div class="card-body">
+            <h5 class="card-title text-success mb-0 text-center">Service available</h5>
+          </div>
+          <ul class="list-group list-group-flush bg-danger">
+            <li class="list-group-item">Molecules generated : {{apiStatus.status.molecules_count}}</li>
+            <li class="list-group-item">Projects achieved : {{apiStatus.status.achieved_projects_count}}</li>
+            <li class="list-group-item">Projects running : {{apiStatus.status.running_projects_count}}</li>
+          </ul>
+        {{else}}
+          <div class="card-body text-danger text-center">
+            <h5 class="card-title">Under maintenance</h5>
+            Service is currently unavailable and will be back soon.
+          </div>
+        {{/if}}
+
       </div>
-      {{#if apiStatus.loading}}
+      <div class="card border-primary mt-2">
+        <div class="card-header text-white bg-primary text-center">
+          MetWork Main Paper
+        </div>
         <div class="card-body text-primary text-center">
-            {{ember-spinner }}
+          <p class="text-left">If you use MetWork please cite:</p>
+          <a href="https://academic.oup.com/bioinformatics/article/35/10/1795/5116145" target="_blank">
+          <img class="mt-1 border" src="https://oup.silverchair-cdn.com/oup/backfile/Content_public/Journal/bioinformatics/Issue/35/10/1/m_bioinfo_35_10cover.png?Expires=1559234153&Signature=vInlvQOUgU-~FooasMwYgm1ez5YAwhGDkcv06KLP0~HqlBXCL7Z-DPrW0fuElhHzeMW8WXlI-LDpkRHa8J3prxRIP6hkytrg4Oer-mhX4hIJX56Ab2-g7QF0bo0NP24Uxe1-QtnFVNLNVuwbjafwvU8T~~UOPGKzaVHfWxAVfUS1Ytao0-tcSDQwVRhUVJrwmNUwbRedv31W4eZCpCsbkOiHC2SdmysyBVHs~Gq4VjFJ9riHGT-yMs6GdFP14UoRnXvgIhE6RRGVnXeJYoD2AYjhU2z~6p3qQchojbT2BmDdw670FkO6q12zg2jXDVxnU2gddVe2-ZF5q88bVNhgtQ__&Key-Pair-Id=APKAIE5G5CRDK6RD3PGA"
+            alt="bioinformatics-journal" height="180" >
+          </a>
+          <p>
+            Yann Beauxis and Grégory Genta-Jouve
+            <br />
+            Bioinformatics, Volume 35, Issue 10, 15 May 2019, Pages 1795–1796, 
+            <br />
+            <a href="https://doi.org/10.1093/bioinformatics/bty864" target="_blank">
+              https://doi.org/10.1093/bioinformatics/bty864
+            </a>
+          </p>
         </div>
-      {{else if apiStatus.status.available}}
-        <div class="card-body">
-          <h5 class="card-title text-success mb-0 text-center">Service available</h5>
-        </div>
-        <ul class="list-group list-group-flush bg-danger">
-          <li class="list-group-item">Molecules generated : {{apiStatus.status.molecules_count}}</li>
-          <li class="list-group-item">Projects achieved : {{apiStatus.status.achieved_projects_count}}</li>
-          <li class="list-group-item">Projects running : {{apiStatus.status.running_projects_count}}</li>
-        </ul>
-      {{else}}
-        <div class="card-body text-danger text-center">
-          <h5 class="card-title">Under maintenance</h5>
-          Service is currently unavailable and will be back soon.
-        </div>
-      {{/if}}
+      </div>
     </div>
   </div>
 </div>
