@@ -24,7 +24,7 @@ export default DS.Model.extend({
         }
       );
       this_.poll();
-    }, 3000);
+    }, 300000);
   },
 
 });
