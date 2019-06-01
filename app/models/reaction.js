@@ -6,6 +6,7 @@ export default DS.Model.extend({
 
     name: DS.attr('string', {defaultValue: 'New reaction'}),
     description: DS.attr('string'),
+    tags_list: DS.attr(),
     user: DS.belongsTo('user'),
     user_name: DS.attr('string'),
     reactants_number: DS.attr('number', {defaultValue: 0}),
@@ -78,6 +79,10 @@ export default DS.Model.extend({
     runReaction: memberAction({ path: 'run_reaction', type: 'post' }),
 
     getImage: memberAction({ path: 'get_image', type: 'get' }),
+
+    addTag: memberAction({ path: 'add_tag', type: 'patch' }),
+
+    removeTag: memberAction({ path: 'remove_tag', type: 'patch' }),
 
     display: computed('name', function() {
         return this.get('name');

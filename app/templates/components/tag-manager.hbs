@@ -7,10 +7,10 @@
 </li>
 {{~/each~}}
 {{#if isEditing}}
-    {{aupac-typeahead 
+    {{aupac-ember-data-typeahead
     action='addTag'
     class='form-control'
-    source=existingTags
+    modelClass='tag'
     placeholder='Add a tag'
     allowFreeInput=true
     transformSelection=removeSelection}}

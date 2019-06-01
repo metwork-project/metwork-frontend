@@ -2,6 +2,13 @@ import Component from '@ember/component';
 
 const tagLengthMin = 3
 
+var convertTag = function(tag) {
+  if (tag && !(typeof(tag)=='string')) {
+    tag = tag.get('name')
+  }
+  return tag
+}
+
 export default Component.extend({
 
     classNames: ['tag-manager emberTagInput ember-view'],
@@ -9,16 +16,11 @@ export default Component.extend({
 
     init() {
       this._super(...arguments);
-      this.set('tags', [])
-    },
-  
-    existingTags: function(query, syncResults) {
-      var names = ['Stefan', 'Miguel', 'Tomster', 'Pluto'];
-      syncResults(names)
+      this.set('tags', this.model.get('tags_list'))
     },
 
-          
-    removeSelection: function(tag) {
+    removeSelection: function(tagInput) {
+        var tag = convertTag(tagInput)
         if (tag && tag.length >= tagLengthMin) {
             return ''
         } else {
@@ -27,12 +29,16 @@ export default Component.extend({
     },
 
     actions: {
-        addTag(tag) {
-            if (tag && tag.length >= tagLengthMin) {
-                this.get('tags').pushObject(tag)}
+        addTag(tagInput) {
+          var tag = convertTag(tagInput)
+          if (tag && tag.length >= tagLengthMin) {
+              this.get('tags').pushObject(tag)
+              this.model.addTag(tag)
+              }
           },
        
           removeTagAtIndex(index) {
+            this.model.removeTag(this.get('tags')[index])
             this.get('tags').removeAt(index);
           },
         },
