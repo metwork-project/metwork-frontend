@@ -1,7 +1,9 @@
+@import "../base/colors";
+
 .emberTagInput {
     margin: 0;
     padding: 5px 5px 2px 5px;
-    border: 1px solid lightgray;
+    border: 0px solid lightgray;
     cursor: text;
   }
 
@@ -22,7 +24,7 @@
 }
 
 .emberTagInput-tag {
-    background: cornflowerblue;
+    background: $info-color;
     border-radius: 20px;
     margin-right: 5px;
     color: white;
