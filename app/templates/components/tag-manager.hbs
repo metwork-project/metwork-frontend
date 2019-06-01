@@ -1,0 +1,13 @@
+{{#each tags as |tag index|~}}
+<li class="emberTagInput-tag">
+    {{tag}}
+    <a class="emberTagInput-remove" {{action 'removeTagAtIndex' index}}></a>
+</li>
+{{~/each~}}
+{{aupac-typeahead 
+action='addTag'
+class='form-control'
+source=existingTags
+placeholder='Add a tag'
+allowFreeInput=true
+transformSelection=removeSelection}}
