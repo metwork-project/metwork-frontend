@@ -1,6 +1,8 @@
 import Route from '@ember/routing/route';
+import FileDownloadMixin from 'metwork-frontend/mixins/file-download';
 
-export default Route.extend({
+export default Route.extend(
+  FileDownloadMixin, {
 
   model() {
       return this.modelFor('fragsamples.show')

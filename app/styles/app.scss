@@ -9,6 +9,7 @@
 @import "components/chemical-select";
 @import "components/pagination";
 @import "components/spinner";
+@import "components/tag_manager";
 
 html {
     overflow-y: scroll;
@@ -17,6 +18,9 @@ html {
 #body {
     margin-top: 74px;
     align: center;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 a.ember-view {
@@ -141,4 +145,8 @@ label.ui-button {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.fragsampe-info-btn {
+    width: 120px;
 }

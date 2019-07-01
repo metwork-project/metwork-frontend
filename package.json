@@ -24,6 +24,7 @@
     "cytoscape-popper": "^1.0.2",
     "ember-ajax": "^3.1.0",
     "ember-api-actions": "^0.1.8",
+    "ember-aupac-typeahead": "^3.1.0",
     "ember-auto-import": "^1.2.13",
     "ember-bootstrap": "^2.0.0",
     "ember-bootstrap-cp-validations": "^1.0.0",

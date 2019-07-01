@@ -41,8 +41,11 @@
 									</div>
 								</div>
 							{{/if}} </td>
-                        <td>{{#if (and sample.has_no_project sample.importFinish)}}
-                        {{#bs-button class="btn-sm" type="danger" onClick=(action (mut dataToDelete) sample )}}{{svg-jar "trashcan" class="octicon"}}{{/bs-button}}
+
+                        <td>{{#if sample.has_no_project}}
+
+                          {{#bs-button class="btn-sm" type="danger" onClick=(action (mut dataToDelete) sample )}}
+                          {{svg-jar "trashcan" class="octicon"}}{{/bs-button}}
                         {{/if}}</td>
                     </tr>
               {{/each}}

@@ -6,6 +6,14 @@ export default Controller.extend({
     save_fragsample () {
         this.model.save();
     },
+    getFile(request) {
+        this.send(
+          'downloadFile',
+          this.model,
+          request,
+          "text/plain;charset=utf-8",
+          this.model.get('file_name'));
+      },
   }
 
 });

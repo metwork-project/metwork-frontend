@@ -9,6 +9,7 @@ export default DS.Model.extend({
 	name: DS.attr(),
 	file_name: DS.attr(),
 	description: DS.attr(),
+    tags_list: DS.attr(),
 	//project: DS.belongsTo('project'),
 	ions_count: DS.attr('number'),
 	ions_total: DS.attr('number'),
@@ -72,5 +73,14 @@ export default DS.Model.extend({
 	}),
 
 	molecularNetwork: memberAction({ path: 'molecular_network', type: 'get' }),
+
+	downloadFile: memberAction({
+		path: 'download_mgf',
+		type: 'get'
+	}),
+
+    addTag: memberAction({ path: 'add_tag', type: 'patch' }),
+
+    removeTag: memberAction({ path: 'remove_tag', type: 'patch' }),
 
 });
