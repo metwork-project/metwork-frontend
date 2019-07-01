@@ -8,6 +8,7 @@ export default DS.Model.extend({
     description: DS.attr('string'),
     tags_list: DS.attr(),
     user: DS.belongsTo('user'),
+    user_id: DS.attr('number'),
     user_name: DS.attr('string'),
     reactants_number: DS.attr('number', {defaultValue: 0}),
     has_no_project: DS.attr('boolean'),

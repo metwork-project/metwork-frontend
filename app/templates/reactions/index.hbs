@@ -36,7 +36,14 @@
               {{#each model as |reaction|}}
                     <tr >
                         <td>{{status-badge model=reaction}}</td>
-                        <td>{{#link-to 'reactions.show' reaction}} {{reaction.name}} {{/link-to }}</td>
+                        <td>
+                          {{#link-to 'reactions.show' reaction}} {{reaction.name}} {{/link-to }}
+                          {{#each reaction.tags_list as |tag|}}
+                            <span class="badge badge-info d-inline-block d-inline">
+                              {{tag}}
+                            </span>
+                          {{/each}}
+                        </td>
                         <td>{{reaction.reactants_number}}</td>
                         <td>{{reaction.user_name}}</td>
                         <td>{{#if reaction.has_no_project}}
