@@ -5,11 +5,15 @@
       {{alert-generic
         alertType="danger"
         message=errorSaveMessage}}
-    <div class="d-flex">
-      <h3  class="mr-auto">
-        {{model.name}}
-        {{status-badge model=model class="d-inline"}}
-      </h3>
+    <div class="d-flex mb-4">
+      <div class="w-100">
+        <h3>
+          {{model.name}}
+          {{status-badge model=model class="d-inline"}}
+        </h3>
+        {{tag-manager model=model isEditing=isOwner}}
+      </div>
+
       <div class="m-1">
         {{#if mainBtnInfo}}
           {{#bs-button type=mainBtnInfo.btnType onClick=(action mainBtnInfo.action) class="m-1"}}
@@ -22,9 +26,11 @@
         {{/if}}
       </div>
     </div>
-      <div>
-        <form>
-          <div class="container"><div class="row">
+
+    <div>
+      <form>
+        <div class="container">
+          <div class="row">
             <div class="col-lg-4">
               {{#if model.isEditing}}
                 <div class="form-group">
@@ -33,12 +39,6 @@
                     value=model.name
                     model=model
                     class='form-control'}}
-                  <label>Description</label>
-                  {{textarea
-                    value=model.description
-                    model=model
-                    class='form-control'
-                    rows='3'}}
                 </div>
                 {{#if model.isNotInit}}
                   {{bs-button type="primary" class="m-1"

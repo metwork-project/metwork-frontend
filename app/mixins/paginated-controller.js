@@ -4,7 +4,7 @@ export default Mixin.create({
 
     queryParams: ['page', 'page_size', 'filter'],
     page: 1,
-    page_size: 10,
+    page_size: 30,
 
     actions: {
       updateDataController: function ( dataLabel ) {

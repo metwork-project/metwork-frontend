@@ -12,6 +12,10 @@ export default Controller.extend({
     saveReactantsComponent: 0,
     sketcherReady: false,
 
+    isOwner: computed('currentUser.user.id', function() {
+      return this.model.get('user_id') == this.get('currentUser').getId()
+    }),
+
     editMode: computed('model.status_code', 'editReaction', function() {
       return this.model.get('isReadyToActive') && this.get('editReaction')
         || this.model.get('isEditable') && ! this.model.get('isReadyToActive')

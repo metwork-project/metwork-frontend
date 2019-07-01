@@ -18,5 +18,10 @@ export default Service.extend({
     } else {
       return RSVP.resolve();
     }
-}
+  },
+
+  getId() {
+    return this.get('user.id')
+  },
+
 });
