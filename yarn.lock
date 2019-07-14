@@ -3252,7 +3252,7 @@ broccoli-plugin@^2.0.0:
     rimraf "^2.3.4"
     symlink-or-copy "^1.1.8"
 
-broccoli-rollup@^2.0.0, broccoli-rollup@^2.1.1:
+broccoli-rollup@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/broccoli-rollup/-/broccoli-rollup-2.1.1.tgz#0b77dc4b7560a53e998ea85f3b56772612d4988d"
   integrity sha512-aky/Ovg5DbsrsJEx2QCXxHLA6ZR+9u1TNVTf85soP4gL8CjGGKQ/JU8R3BZ2ntkWzo6/83RCKzX6O+nlNKR5MQ==
@@ -5194,7 +5194,7 @@ ember-aupac-typeahead@^3.1.0:
     ember-cli-babel "^6.6.0"
     ember-cli-htmlbars "^2.0.1"
 
-ember-auto-import@^1.2.13:
+ember-auto-import@^1.2.13, ember-auto-import@^1.2.15:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/ember-auto-import/-/ember-auto-import-1.5.2.tgz#e97ed96b600caa6090ffed83e4611c3e7ec9bad7"
   integrity sha512-skVQpfdc6G5OVRsyemDn3vI1nj/iBBgnoqRLRka0ZbDT2GqelmyJ86bp+Bd/ztJe45Le3we+LXbR7T54RU5A9w==
@@ -5304,7 +5304,7 @@ ember-cli-babel@^6.0.0, ember-cli-babel@^6.0.0-beta.4, ember-cli-babel@^6.0.0-be
     ember-cli-version-checker "^2.1.2"
     semver "^5.5.0"
 
-ember-cli-babel@^7.1.0, ember-cli-babel@^7.7.3, ember-cli-babel@^7.8.0:
+ember-cli-babel@^7.1.0, ember-cli-babel@^7.1.2, ember-cli-babel@^7.7.3, ember-cli-babel@^7.8.0:
   version "7.8.0"
   resolved "https://registry.yarnpkg.com/ember-cli-babel/-/ember-cli-babel-7.8.0.tgz#e596500eca0f5a7c9aaee755f803d1542f578acf"
   integrity sha512-xUBgJQ81fqd7k/KIiGU+pjpoXhrmmRf9pUrqLenNSU5N+yeNFT5a1+w0b+p1F7oBphfXVwuxApdZxrmAHOdA3Q==
@@ -5373,13 +5373,6 @@ ember-cli-dependency-checker@^2.0.0:
     is-git-url "^1.0.0"
     resolve "^1.5.0"
     semver "^5.3.0"
-
-ember-cli-es6-transform@^0.0.3:
-  version "0.0.3"
-  resolved "https://registry.yarnpkg.com/ember-cli-es6-transform/-/ember-cli-es6-transform-0.0.3.tgz#99238305c72f533cc1cd3c85b15c6d7a842b8fdf"
-  integrity sha1-mSODBccvUzzBzTyFsVxteoQrj98=
-  dependencies:
-    ember-cli-babel "^6.6.0"
 
 ember-cli-eslint@^4.2.1:
   version "4.2.3"
@@ -5569,16 +5562,17 @@ ember-cli-shims@^1.2.0:
     ember-rfc176-data "^0.3.1"
     silent-error "^1.0.1"
 
-ember-cli-spinjs@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/ember-cli-spinjs/-/ember-cli-spinjs-1.4.2.tgz#177fb8d2d73c2ccc6c7154cfc4ec465d444fd96f"
-  integrity sha512-AmTx4rcWGErftKu9yo4gDcxwXY+9TOJLRdFjrRSPPYwNldyTcyElMLjU8+lcyQ+FQyDweS9xmPz7BfwDM0QEQw==
+ember-cli-spinjs@^2.1.1:
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/ember-cli-spinjs/-/ember-cli-spinjs-2.1.1.tgz#96d7f34412f267aa5a1116c7979e4d9fb99602af"
+  integrity sha512-uiusC1HtCfuu1BdG7Wv3rtlXrb/7IB32RhaZPBbP5CRjgIVuHto4CDscPYBfF5QnfgVg6wu0sRsYOXuIgIE7gQ==
   dependencies:
-    broccoli-merge-trees "^2.0.0"
-    broccoli-rollup "^2.0.0"
-    ember-cli-babel "^6.6.0"
-    ember-cli-es6-transform "^0.0.3"
-    spin.js "^3.0.0"
+    broccoli-funnel "^2.0.1"
+    broccoli-merge-trees "^3.0.1"
+    ember-auto-import "^1.2.15"
+    ember-cli-babel "^7.1.2"
+    resolve "^1.8.1"
+    spin.js "^4.0.0"
 
 ember-cli-sri@^2.1.0:
   version "2.1.1"
@@ -7500,7 +7494,7 @@ growly@^1.3.0:
   resolved "https://registry.yarnpkg.com/growly/-/growly-1.3.0.tgz#f10748cbe76af964b7c96c93c6bcc28af120c081"
   integrity sha1-8QdIy+dq+WS3yWyTxrzCivEgwIE=
 
-handlebars@^4.0.11, handlebars@^4.0.4, handlebars@^4.1.0, handlebars@~4.1.2, "handlebars@~> 4.1.0":
+handlebars@^4.0.11, handlebars@^4.0.4, handlebars@^4.1.0, handlebars@~4.1.2:
   version "4.1.2"
   resolved "https://registry.yarnpkg.com/handlebars/-/handlebars-4.1.2.tgz#b6b37c1ced0306b221e094fc7aca3ec23b131b67"
   integrity sha512-nvfrjqvt9xQ8Z/w0ijewdD/vvWDTOweBUm96NTr66Wfvo1mJenBLwcYmPs3TIBP5ruzYGD7Hx/DaM9RmhroGPw==
@@ -9296,7 +9290,7 @@ lodash@^3.10.0, lodash@^3.9.3:
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
   integrity sha1-W/Rejkm6QYnhfUgnid/RW9FAt7Y=
 
-lodash@^4.0.0, lodash@^4.13.1, lodash@^4.16.1, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.13, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.5.1, lodash@~4.17.10:
+lodash@^4.0.0, lodash@^4.13.1, lodash@^4.16.1, lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.12, lodash@^4.17.2, lodash@^4.17.4, lodash@^4.2.1, lodash@^4.3.0, lodash@^4.5.1, lodash@~4.17.10:
   version "4.17.14"
   resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.17.14.tgz#9ce487ae66c96254fe20b599f21b6816028078ba"
   integrity sha512-mmKYbW3GLuJeX+iGP+Y7Gp1AiGHGbXHCOh/jZmrawMmsE7MS4znI3RL2FsjbqOyMayHInjOeykW7PEajUk1/xw==
@@ -12703,10 +12697,10 @@ spdx-license-ids@^3.0.0:
   resolved "https://registry.yarnpkg.com/spdx-license-ids/-/spdx-license-ids-3.0.5.tgz#3694b5804567a458d3c8045842a6358632f62654"
   integrity sha512-J+FWzZoynJEXGphVIS+XEh3kFSjZX/1i9gFBaWQcB+/tmpe2qUsSBABpcxqxnAxFdiUFEgAX1bjYGQvIZmoz9Q==
 
-spin.js@^3.0.0:
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/spin.js/-/spin.js-3.1.0.tgz#c2d2a4ba83dd6a81e01e0a61b125292b34807128"
-  integrity sha512-FzuM8aiM8W1Ao/u3u5dQYwcArdKFKd5Zjz9zRaLLI5Y1AAVkbWg7OqMI1IZvpEAh1T59yTKZoFpDL9j9TNTuuA==
+spin.js@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/spin.js/-/spin.js-4.0.0.tgz#d6643232cc20b8d2c1b3ab6f0661178145b4dde8"
+  integrity sha512-uJN9Q4/I4I7PRZAp1c5reoY89thAfvFB5thbJncAwkPjPhqCfUrCooJc8GMN8q8WKFGIMy+JMf477RW7deCInA==
 
 split-on-first@^1.0.0:
   version "1.1.0"

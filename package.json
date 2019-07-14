@@ -41,7 +41,7 @@
     "ember-cli-qunit": "^4.3.2",
     "ember-cli-sass": "^7.2.0",
     "ember-cli-shims": "^1.2.0",
-    "ember-cli-spinjs": "^1.4.2",
+    "ember-cli-spinjs": "^2.1.1",
     "ember-cli-sri": "^2.1.0",
     "ember-cli-uglify": "^2.1.0",
     "ember-cli-underscore": "0.0.3",
@@ -76,8 +76,6 @@
     "@bower_components/underscore": "jashkenas/underscore#^1.9.0",
     "bower": "^1.8.4",
     "cytoscape": "cytoscape/cytoscape.js#^3.2.15",
-    "underscore": "jashkenas/underscore#^1.9.0",
-    "handlebars": "~> 4.1.0",
-    "lodash": "^4.17.13"
+    "underscore": "jashkenas/underscore#^1.9.0"
   }
 }
