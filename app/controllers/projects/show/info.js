@@ -1,6 +1,14 @@
 import Controller from '@ember/controller';
+import { inject as service } from '@ember/service';
+import { computed } from '@ember/object';
 
 export default Controller.extend({
+
+  currentUser: service('current-user'),
+
+  isOwner: computed('currentUser.user.id', function() {
+    return this.model.get('user_id') == this.get('currentUser').getId()
+  }),
 
   actions: {
     startRun() {

@@ -15,6 +15,7 @@ export default DS.Model.extend({
 	}),
 	description: DS.attr('string'),
 	user_name: DS.attr('string'),
+	user_id: DS.attr('number'),
 	public: DS.attr('boolean'),
 	frag_sample: DS.belongsTo('fragsample'),
 	status_code: DS.attr('number',
