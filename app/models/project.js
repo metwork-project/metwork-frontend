@@ -147,7 +147,7 @@ export default DS.Model.extend({
 
 	removeItem: memberAction({ path: 'remove_item', type: 'patch' }),
 
-	selectReactionsByMass: memberAction({ path: 'select_reactions_by_mass', type: 'patch' }),
+	selectReactionsByTag: memberAction({ path: 'select_reactions_by_tag', type: 'patch' }),
 
 	updateFragCompareConf: memberAction({ path: 'update_frag_compare_conf', type: 'patch' }),
 

@@ -49,8 +49,8 @@ export default Controller.extend(
   additionalActions: computed(function() {
     return [
       {
-        call: 'selectReactionsByMass',
-        label: 'Select by mass'
+        call: 'selectReactionsByTag',
+        label: 'Auto select by tag'
       }
     ]
   }),
