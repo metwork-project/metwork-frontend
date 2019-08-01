@@ -3,7 +3,7 @@
 module.exports = function(environment) {
     let ENV = {
     modulePrefix: 'metwork-frontend',
-    version: '0.4.0',
+    version: '0.4.1',
     environment,
     host: 'https://somehost.com',
     rootURL: '/',

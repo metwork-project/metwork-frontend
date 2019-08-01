@@ -32,11 +32,11 @@ export default Component.extend({
         this.set('toAddCount', 0)
         this.set('selectAnotModal', true)
       },
-      selectReactionsByMass() {
+      selectReactionsByTag() {
         if (this.project.get('editable')) {
           let this_ = this;
           this.project
-            .selectReactionsByMass()
+            .selectReactionsByTag()
               .then(function(/*response*/) {
                 this_.reloadLists()
               });

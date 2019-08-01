@@ -29,12 +29,12 @@
 <form class="mb-3">
   <div class="form-group" >
     <label>Name</label>
-    {{input value=model.name model=model class='form-control' disabled=(not model.editable)}}
+    {{input value=model.name model=model class='form-control' readonly=(not isOwner)}}
   </div>
   <div class="form-group">
     <label>Description</label>
     {{textarea value=model.description model=model
-      class='form-control' rows='3' disabled=(not model.editable)}}
+      class='form-control' rows='3' readonly=(not isOwner)}}
   </div>
   <div class="form-check" >
     {{input 
@@ -42,7 +42,7 @@
       checked=model.public
       model=model 
       class="form-check-input"
-      disabled=(not model.editable)}}
+      disabled=(not isOwner)}}
     <label class="form-check-label">Visible to all users</label>
   </div>
 </form>
@@ -55,7 +55,7 @@
 {{/if}}
 <div class="d-flex">
   <div class="mr-auto">
-  {{#if model.editable}}
+  {{#if isOwner}}
     {{bs-button type=model.saveOrCreate.class
       defaultText=model.saveOrCreate.libelle
       onClick=(route-action "saveProject" model) }}
@@ -69,6 +69,10 @@
         defaultText="Cancel"
         onClick=(route-action "cancel_create" model) }}
   {{/unless}}
+  </div>
+</div>
+<div class="d-flex mt-2">
+  <div class="mr-auto">
   {{#if model.runFinish}}
     {{bs-button type="secondary"
       defaultText="Annotations"
