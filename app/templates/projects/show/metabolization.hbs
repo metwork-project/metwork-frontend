@@ -22,6 +22,11 @@
           onClick=(action 'reloadMetabolizationNetwork') }}
         {{svg-jar "sync" class="octicon"}}
       {{/bs-button}}
+      {{#bs-button type="warning"
+          class="m-1"
+          onClick=(action 'downloadSVG') }}
+          {{svg-jar "cloud-download" class="octicon"}} .svg
+      {{/bs-button}}
     </div>
   </div>
   <div class='graph-content'>
