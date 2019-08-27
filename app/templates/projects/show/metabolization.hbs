@@ -42,7 +42,7 @@
 </h4>
 <form class="form-inline">
     <label class="mb-2 mr-sm-2">Total ({{model.depthLimits.depth_total}} max)</label>
-    {{input type="number" min=0 max=10 value=model.depth_total model=model class='form-control mb-2 mr-sm-2' disabled=(not model.editable)}}
+    {{input type="number" min=0 max=model.depthLimits.depth_total value=model.depth_total model=model class='form-control mb-2 mr-sm-2' disabled=(not model.editable)}}
 
     {{#if false}}
       <label class="mb-2 mr-sm-2">Ghost metabolites ({{model.depthLimits.depth_last_match}} max)</label>
