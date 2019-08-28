@@ -9,6 +9,7 @@ export default DS.Model.extend({
 	name: DS.attr(),
 	file_name: DS.attr(),
 	description: DS.attr(),
+	ion_charge: DS.attr(),
     tags_list: DS.attr(),
 	//project: DS.belongsTo('project'),
 	ions_count: DS.attr('number'),

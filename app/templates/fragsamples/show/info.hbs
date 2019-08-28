@@ -7,13 +7,15 @@
     {{tag-manager model=model isEditing=true}}
     </div>
     <div class='fragsampe-info-btn'>
-        {{#bs-button class="btn-sm" type="info" onClick=(action 'getFile' 'mgf')}}
-        {{svg-jar "cloud-download" class="octicon"}}{{/bs-button}}
-        {{#bs-button type="primary" onClick=(action 'save_fragsample')}}Save info{{/bs-button}}
+        {{#bs-button class="btn mb-1" type="primary" onClick=(action 'save_fragsample')}}Save info{{/bs-button}}
+        {{#bs-button class="btn mb-1" type="warning" onClick=(action 'getFile' 'mgf')}}
+        {{svg-jar "cloud-download" class="octicon"}} .mgf
+        {{/bs-button}} 
     </div>
 </div>
 <p><b>File Name :</b> {{model.file_name}}</p>
 <p><b>Number of ions in sample :</b> {{model.ions_count}}</p>
+<p><b>Ion charge :</b> {{model.ion_charge}}</p>
 <form>
     <div class="form-group">
         <label>Name</label>

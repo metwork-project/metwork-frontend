@@ -1,5 +1,6 @@
 import Controller from '@ember/controller';
 import { computed } from '@ember/object';
+import svg from 'cytoscape-svg';
 import CytoscapeMixin from 'metwork-frontend/mixins/cytoscape';
 import CytoscapeFilterMixin from 'metwork-frontend/mixins/cytoscape-filter';
 import PaginatedControllerMixin from 'metwork-frontend/mixins/paginated-controller';
@@ -44,6 +45,14 @@ export default Controller.extend(
       }
       this.loadMetabolizationNetwork();
     },
+    downloadSVG() {
+      var cy = this.get('cy');
+      if (cy) {
+        var svgContent = cy.svg({scale: 1, full: true});
+        var blob = new Blob([svgContent], {type:"image/svg+xml;charset=utf-8"});
+        saveAs(blob, "demo.svg");
+      }
+    }
   },
 
   additionalActions: computed(function() {

@@ -21,6 +21,11 @@ module.exports = function(defaults) {
   });
 
   app.import('bower_components/cytoscape/dist/cytoscape.js');
+  app.import('node_modules/cytoscape-svg/cytoscape-svg.js', {
+    using: [
+      { transformation: 'amd', as: 'cytoscapeSvg' }
+    ]
+  });
   app.import('vendor/chemdoodleweb/ChemDoodleWeb.js');
   app.import('vendor/chemdoodleweb/uis/ChemDoodleWeb-uis.js');
   app.import('vendor/chemdoodleweb/ChemDoodleWeb.css');

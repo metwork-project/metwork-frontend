@@ -28,6 +28,7 @@ export default DS.Model.extend({
 			{defaultValue: 0}),
 	molecules_matching_count: DS.attr('number'),
 	molecules_all_count: DS.attr('number'),
+	DEPTH_LIMIT: DS.attr('number'),
 	REACTIONS_LIMIT: DS.attr('number'),
 	frag_compare_conf_id: DS.attr('number'),
 
@@ -73,21 +74,21 @@ export default DS.Model.extend({
 		}
 	},
 
-	depthLimits: function() {
+	depthLimits: computed( 'DEPTH_LIMIT', function() {
 		return {
-			depth_total: 10,
+			depth_total: this.get('DEPTH_LIMIT'),
 			depth_last_match: 0,
 		}
-	},
+	}),
 
 	okDepth: computed('depth_total', 'depth_last_match', function() {
 			return (0 <= this.get('depth_total'))
 					&&
-					(this.get('depth_total') <= this.depthLimits().depth_total)
+					(this.get('depth_total') <= this.get('depthLimits').depth_total)
 					&&
 					(0 <= this.get('depth_last_match'))
 					&&
-					(this.get('depth_last_match') <= this.depthLimits().depth_last_match);
+					(this.get('depth_last_match') <= this.get('depthLimits').depth_last_match);
 	}),
 
 	statusInfo: computed('status_code', function() {

@@ -2796,6 +2796,11 @@ cytoscape-popper@^1.0.2:
   dependencies:
     popper.js "^1.0.0"
 
+cytoscape-svg@^0.2.0:
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/cytoscape-svg/-/cytoscape-svg-0.2.0.tgz#802d196e97e419a891af1beee568c3a0ce6cab3f"
+  integrity sha512-IFTLBf03o2/XmtMG7X73tNuKafjnlSQHyAqGJCBq8sZO2lXoaXePciKCg78x8F8a1H1+dt+45carDHThNU6kfQ==
+
 d@1:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/d/-/d-1.0.0.tgz#754bb5bfe55451da69a58b94d45f4c5b0462d58f"
@@ -4532,9 +4537,10 @@ file-saver@1.3.3:
   version "1.3.3"
   resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-1.3.3.tgz#cdd4c44d3aa264eac2f68ec165bc791c34af1232"
 
-file-saver@^1.3.8:
-  version "1.3.8"
-  resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-1.3.8.tgz#e68a30c7cb044e2fb362b428469feb291c2e09d8"
+file-saver@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-2.0.2.tgz#06d6e728a9ea2df2cce2f8d9e84dfcdc338ec17a"
+  integrity sha512-Wz3c3XQ5xroCxd1G8b7yL0Ehkf0TC9oYC6buPFkNnU9EnaPlifeAFCyCh+iewXTyFRcg0a6j3J7FmJsIhlhBdw==
 
 filename-regex@^2.0.0:
   version "2.0.1"

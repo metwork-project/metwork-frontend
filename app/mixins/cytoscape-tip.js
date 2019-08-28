@@ -30,7 +30,8 @@ export default Mixin.create({
     var newContent = this.moleculeElement(
       node.data('id'),
       node.data('smiles'),
-      node.data('cosine'));
+      node.data('cosine'),
+      node.data('public_projects'));
     this.updateTipContent(node.tip, newContent);
 
     this.displayMolecule(node);
@@ -145,13 +146,36 @@ export default Mixin.create({
     })
   },
 
-  moleculeElement: function(id, smiles, cosine) {
+  moleculeElement: function(id, smiles, cosine, publicProjects) {
     var cosineDisplay = '';
     if (cosine) {
       cosineDisplay = `
         <p>
           cosine: ${cosine}
         </p>`;
+    }
+    var publicProjectsDisplay = '';
+    if (publicProjects) {
+      let self = this
+      let separator = ''
+      publicProjectsDisplay = publicProjects.reduce( 
+        function(total, currentValue) {
+            let projectLink = `
+            ${separator}         
+            <a href=
+              "${
+                document.location.origin 
+                + self.get('target').generate('projects.show',currentValue)
+              }"
+              target="_blank">
+              ${currentValue} 
+            </a>`
+            separator = ', '
+          return total += projectLink
+        },
+        `<p>
+          public_projects: `)
+      publicProjectsDisplay += `</p>`;
     }
     return `
       <div class="molecule">
@@ -167,6 +191,7 @@ export default Mixin.create({
           <button type="button" class="btn btn-light btn-sm">Copy</button>
         </div>
         ${cosineDisplay}
+        ${publicProjectsDisplay}
       </div>`;
   },
 

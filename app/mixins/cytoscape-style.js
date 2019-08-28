@@ -35,12 +35,18 @@ export default Mixin.create({
           'background-color': colors.success,
           'text-outline-color':  colors.success,
         })
-        .selector(`node[nodeType = "molecule"][annotationType = "proposal"],
-                  node[nodeType = "ion"][annotationType = "proposal"]`)
-          .css({
-            'background-color': colors.warning,
-            'text-outline-color':  colors.warning,
-          })
+      .selector(`node[nodeType = "molecule"][annotationType = "proposal"],
+                node[nodeType = "ion"][annotationType = "proposal"]`)
+        .css({
+          'background-color': colors.warning,
+          'text-outline-color':  colors.warning,
+        })
+      .selector(`node[nodeType = "molecule"][annotationType = "public"],
+      node[nodeType = "ion"][annotationType = "public"]`)
+        .css({
+          'background-color': colors.info,
+          'text-outline-color':  colors.info,
+        })
       .selector('.node-select')
         .css({
           'border-width': '4px',

@@ -4,83 +4,18 @@
     <h1 class="text-center">Welcome to MetWork </h1>
     <h2 class="text-center"><i>a web server for natural products anticipation</i></h2>
     <p class="text-center"><i>Currently running beta version {{version}}</i></p>
+
+    {{getAllNews}}
+
     <h3 class="text-center">Latest News</h3>
-    {{#latest-news
-      date="11th August 2019"
-      title='"Essence is a function of the relationship." Bachelard 1929'}}
-      <p>New sarpagine-like <i>N</i>-oxide alkaloids have been targeted and isolated from the leaves of <i>Alstonia balansae</i>. This study constitutes the first example of non-peptidic molecular networking-based natural product discovery workflow, in which
-the targeted structures were initially generated, and therefore anticipated by a computer prior to their isolation. For more information please see:</p>
-      <p>Alexander E. Fox Ramos, Coralie Pavesi, Marc Litaudon, Vincent Dumontet, Erwan Poupon, Pierre Champy, Grégory Genta-Jouve and Mehdi A. Beniddir</p>
-      <p>Anal. Chem. <b>2019</b> just accepted article; <a href="https://doi.org/10.1021/acs.analchem.9b02216" target="_blanc">https://doi.org/10.1021/acs.analchem.9b02216</a></p>
-    {{/latest-news }}
+    {{#each allNews as |news|}}
+      {{#latest-news
+        date=news.date
+        title=news.title}}
+        {{{news.content}}}
+      {{/latest-news }}
+    {{/each}}
 
-    {{#latest-news
-      date="30th May 2019"
-      title="MetWork used for the identification of bromotryptamine derivatives"}}
-      <p>Bromotryptamine and Bromotyramine Derivatives from the Tropical Southwestern Pacific Sponge <i>Narrabeena nigra</i></p>
-      <p>Maria Miguel-Gordo, Sandra Gegunde, Kévin Calabro, Laurence K. Jennings, Amparo Alfonso, Grégory Genta-Jouve, Jean Vacelet, Luis M. Botana and Olivier P. Thomas</p>
-      <p>Mar. Drugs <b>2019</b>, 17(6), 319; <a href="https://doi.org/10.3390/md17060319" target="_blanc">https://doi.org/10.3390/md17060319</a></p>
-    {{/latest-news }}
-
-    {{#latest-news
-      date="29th May 2019"
-      title="New adducts features"}}
-      Those new features have been introduced :
-      <ul>
-        <li> Handling other adducts ([M+], [M+Na]+, [M+K]+ and [M+NH4]+ for in silico fragmentation</li>
-        <li> Automated recognition of adducts type from raw data</li>
-        </ul>
-    {{/latest-news }}
-    {{#latest-news
-      date="15th May 2019"
-      title="MetWork Paper online"}}
-      The MetWork paper published in the Bioinformatics journal is available on
-      <a href="https://academic.oup.com/bioinformatics/article/35/10/1795/5116145" target="_blank">
-      this link</a>.
-    {{/latest-news }}
-
-    {{#latest-news
-      date="19th October 2018"
-      title="Reaction edition online"}}
-      The beta version 0.3 is online with the possibility to edit new reaction online.
-      For compatbility reason, previous reaction have been made obsolete and new ones will be created.
-    {{/latest-news }}
-
-    {{#latest-news
-      date="20th September 2018"
-      title="Networks visualizations available !"}}
-
-      You can see molecular network of your frag sample data and metabolization network for finished project.
-      <br />
-      Click on graph nodes to display info.
-     <img class="card-img-bottom mt-2 border" src="/assets/images/metabolization_network_screenshot.png"
-     alt="metabolization_network_screenshot">
-     <img class="card-img-bottom mt-1 border" src="/assets/images/molecular_network_screenshot.png"
-     alt="molecular_network_screenshot">
-    {{/latest-news }}
-
-    {{#latest-news
-      date="10th August 2018"
-      title="New beta version"}}
-
-      Those new features have been introduced :
-      <ul>
-        <li> Improvement of cosine score calculation with Metgem algorithm ( https://github.com/metgem/metgem ) </li>
-        <li> Availability to directly import GNPS .tsv annotation files </li>
-        <li> Clone achieved project </li>
-        <li> Download all molecules generated </li>
-        <li> New design to select reactions and ion annotations on a project </li>
-        <li>  Speed improvement to import fragmentation data </li>
-      </ul>
-    {{/latest-news }}
-
-    {{#latest-news
-      date="1st August 2018"
-      title="Source code on GitHub"}}
-
-      The code of MetWork is available on GitHub :
-      <a href="https://github.com/metwork-project" target="_blank"> https://github.com/metwork-project </a>
-    {{/latest-news }}
   </div>
   <div class='col-lg-3'>
     <div id="api-status" >
