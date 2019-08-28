@@ -45,6 +45,13 @@
                         {{#if (eq meta.type 'textarea') }}
                             <textarea class="form-control {{meta.field}}" rows="3" />
                         {{/if}}
+                        {{#if (eq meta.type 'select') }}
+                          <select class="form-control {{meta.field}}">
+                            {{#each meta.values as |v|}}
+                              <option value={{v.value}}>{{v.label}}</option>
+                            {{/each}}
+                          </select>
+                        {{/if}}
                     {{/each }}
                   </div>
             </div>

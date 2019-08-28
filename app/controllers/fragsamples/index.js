@@ -8,6 +8,21 @@ export default Controller.extend(PaginatedControllerMixin, {
         this.uploadMetaDatas = [
             {type: 'text', label: 'Sample name', field: 'name', bindFilename: true},
             {type: 'textarea', label: 'Description', field: 'description'},
+            {
+                type: 'select',
+                label:'Ion charge',
+                field: 'ion_charge',
+                values: [
+                    {
+                        value: 'positive', 
+                        label: 'positive'
+                    },
+                    {
+                        value: 'negative', 
+                        label: 'negative'
+                    },
+                ]
+            },
         ];
     },
 
