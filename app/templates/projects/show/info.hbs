@@ -17,6 +17,14 @@
         onClick=(action 'startRun') }}
     </div>
   {{/if}}
+  {{#if model.running}}
+    <div>
+      {{bs-button type="danger"
+        class = "btn-lg"
+        defaultText="Force stop"
+        onClick=(action 'stopRun') }}
+    </div>
+  {{/if}}
   {{#if model.runFinish}}
     <div>
       {{bs-button type="success"

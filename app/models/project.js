@@ -154,6 +154,8 @@ export default DS.Model.extend({
 
 	startRun: memberAction({ path: 'start_run', type: 'post' }),
 
+	stopRun: memberAction({ path: 'stop_run', type: 'post' }),
+
 	metabolizationNetwork: memberAction({ path: 'metabolization_network', type: 'get' }),
 
 	downloadFile: memberAction({
