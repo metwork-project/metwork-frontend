@@ -20,7 +20,7 @@ module.exports = function(defaults) {
     },
   });
 
-  app.import('bower_components/cytoscape/dist/cytoscape.js');
+  // app.import('bower_components/cytoscape/dist/cytoscape.js');
   app.import('node_modules/cytoscape-svg/cytoscape-svg.js', {
     using: [
       { transformation: 'amd', as: 'cytoscapeSvg' }
