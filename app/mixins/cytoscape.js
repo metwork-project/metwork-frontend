@@ -19,7 +19,7 @@ export default Mixin.create(
         nodeRepulsion: 40000,
         // nodeOverlap: 20,
         // gravity: 2,
-        // animate: true,
+        animate: false,
         componentSpacing: 100,
       };
       this.set('layout', cose);

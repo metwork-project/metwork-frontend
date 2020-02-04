@@ -124,7 +124,7 @@ export function  activateOption(cy, option) {
           var l = elementsToShow.layout({
                   name: 'cose',
                   nodeRepulsion: 400000,
-                  animate: true,
+                  animate: false,
           })
 
           l.on('layoutstop', function() {
