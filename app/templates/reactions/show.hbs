@@ -18,7 +18,7 @@
         {{#if mainBtnInfo}}
           {{#bs-button type=mainBtnInfo.btnType onClick=(action mainBtnInfo.action) class="m-1"}}
             {{#if mainBtnInfo.icon}}
-              {{material-icon mainBtnInfo.icon}}
+              {{!-- {{material-icon mainBtnInfo.icon}} --}}
             {{else}}
               {{mainBtnInfo.label}}
             {{/if}}
