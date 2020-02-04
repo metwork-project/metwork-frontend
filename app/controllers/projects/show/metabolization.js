@@ -2,13 +2,11 @@ import Controller from '@ember/controller';
 import { computed } from '@ember/object';
 import svg from 'cytoscape-svg';
 import CytoscapeMixin from 'metwork-frontend/mixins/cytoscape';
-import CytoscapeFilterMixin from 'metwork-frontend/mixins/cytoscape-filter';
 import PaginatedControllerMixin from 'metwork-frontend/mixins/paginated-controller';
 
 export default Controller.extend(
-  CytoscapeMixin,
-  CytoscapeFilterMixin,
-  PaginatedControllerMixin,{
+  PaginatedControllerMixin,
+  CytoscapeMixin, {
 
   cosineDisplayed: false,
   spinnerStatus: 'waiting',
@@ -86,5 +84,6 @@ export default Controller.extend(
     } else if (this.get('cy')) {
       this.get('cy').destroy()
     }
+    return 0
   }),
 });
