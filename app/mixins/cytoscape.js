@@ -64,6 +64,7 @@ export default Mixin.create(
                 multiple: false,
                 // sticky: true,
                 duration: 0,
+                maxWidth: 400
               } ); //.tooltips[0];
               node.tippy = tip;
               resolve(tip);
