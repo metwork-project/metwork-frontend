@@ -3,7 +3,7 @@
 </h4>
 <!-- {{compareConfFields}} -->
 {{#each compareConfFields.filter as |f|}}
-  {{ frag-compare-conf-field
+{{ frag-compare-conf-field
     fragCompareConf=fragCompareConf
     f=f
     disabled=(not model.editable) }}
@@ -13,14 +13,30 @@
 </h4>
 <!-- {{compareConfFields}} -->
 {{#each compareConfFields.cosine as |f|}}
-  {{ frag-compare-conf-field
+{{ frag-compare-conf-field
     fragCompareConf=fragCompareConf
     f=f
     disabled=(not model.editable) }}
 {{/each}}
 {{#if (and model.editable model.okDepth)}}
-  {{bs-button type=model.saveOrCreate.class
+{{bs-button type=model.saveOrCreate.class
     class="mb-2 mr-sm-2"
     defaultText='Save'
     onClick=(action "fragCompareConfSave" model) }}
 {{/if}}
+
+
+<h4>
+  Custom fragmentation params files
+</h4>
+{{#each-in model.list_custom_frag_param_files as |fileType path|}}
+<p>
+  {{fileType}} : {{path}}
+</p>
+{{/each-in}}
+{{file-upload
+    class="m-1"
+    modalId="training-file-upload-modal"
+    title="Import training model file"
+    routeLabel=uploadCustomFragFile
+    formatSelect=model.CustomFragFileTypes}}
