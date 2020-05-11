@@ -31,12 +31,19 @@
 </h4>
 {{#each-in model.list_custom_frag_param_files as |fileType path|}}
 <p>
-  {{fileType}} : {{path}}
+  {{fileType}}
+  {{#bs-button 
+              type='danger'
+              class="btn-sm"
+              onClick=(action "DeleteCustomFragFile" fileType) }}
+  {{svg-jar "trashcan" class="octicon"}}
+  {{/bs-button}}
 </p>
 {{/each-in}}
 {{file-upload
     class="m-1"
     modalId="training-file-upload-modal"
     title="Import training model file"
+    model=model
     routeLabel=uploadCustomFragFile
     formatSelect=model.CustomFragFileTypes}}

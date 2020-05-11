@@ -157,7 +157,7 @@ export default DS.Model.extend({
 
 	removeItem: memberAction({ path: 'remove_item', type: 'patch' }),
 
-	// loadCustomFragFile: memberAction({ path: 'load_custom_frag_file', type: 'post' }),
+	DeleteCustomFragFile: memberAction({ path: 'delete_custom_frag_param_files', type: 'post' }),
 
 	selectReactionsByTag: memberAction({ path: 'select_reactions_by_tag', type: 'patch' }),
 

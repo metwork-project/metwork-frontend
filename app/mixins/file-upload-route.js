@@ -48,6 +48,9 @@ export default Mixin.create({
                         self.updateData(component.dataLabel);
                     }
                     self.refresh();
+                    if (component.model) {
+                        component.model.reload()
+                    }
                     let resp = JSON.parse(response);
                     if (resp.data.error) {
                         $('.import-alert').text(resp.data.error).toggle(true);
@@ -56,6 +59,7 @@ export default Mixin.create({
                     } else {
                         component.set("modalDisplay", false);
                     }
+
                 });
             }, (/*xhr, status, error*/) => {
                 //var response = xhr.responseText;
