@@ -4,6 +4,9 @@ import $ from 'jquery';
 
 export default Controller.extend({
 
+
+
+
   actions: {
     fragCompareConfSave() {
       let params = {}
@@ -25,7 +28,18 @@ export default Controller.extend({
     }
   },
 
+  CustomFragFileTypesDescription: computed('model.CustomFragFileTypes', function () {
+    let decriptionDic = this.model.get("CustomFragFileTypes").reduce(function (typeDic, typeRow) {
+      typeDic[typeRow.label] = typeRow.description
+      return typeDic
+    }, {})
+    return decriptionDic
+  }),
 
+  canUploadFileTypes: computed('model.list_custom_frag_param_files', function () {
+    let custom_files = this.model.get('list_custom_frag_param_files')
+    return Object.keys(custom_files).length < 2
+  }),
 
   compareConfFields: computed('fragCompareConf', function () {
     return {

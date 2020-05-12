@@ -77,8 +77,8 @@ export default DS.Model.extend({
 
 	CustomFragFileTypes: computed(function () {
 		return [
-			{ label: 'param', description: 'trained model as "param_output0.log"' },
-			{ label: 'conf', description: 'configuration file as "param_config.txt"' },
+			{ label: 'param', description: 'Trained model file, as "param_output0.log"' },
+			{ label: 'conf', description: 'Configuration file, as "param_config.txt"' },
 		];
 	}),
 
