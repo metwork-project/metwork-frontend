@@ -41,21 +41,21 @@ export default Controller.extend({
         btnType: 'success',
         label: 'Create Reaction',
         action: 'saveReaction',
-        icon: 'save'
+        icon: 'plus'
       }
     } else if (this.model.get('isEditing') /*|| this.model.get('isActive') */) {
       return {
         btnType: 'primary',
         label: 'Save Reaction',
         action: 'saveReaction',
-        icon: 'save'
+        icon: 'check'
       }
     } else if (this.model.get('isReadyToActive')) {
       return {
         btnType: 'warning',
         label: 'Edit Reaction',
         action: 'editReaction',
-        icon: 'create'
+        icon: 'pencil'
       }
     } else {
       return false
