@@ -38,7 +38,7 @@ export default Controller.extend({
 
   canUploadFileTypes: computed('model.list_custom_frag_param_files', function () {
     let custom_files = this.model.get('list_custom_frag_param_files')
-    return Object.keys(custom_files).length < 2
+    return Object.keys(custom_files).length < 2 && this.model.get("editable")
   }),
 
   compareConfFields: computed('fragCompareConf', function () {
