@@ -1,26 +1,61 @@
-<h4>
-  Spectrum filter
-</h4>
-<!-- {{compareConfFields}} -->
-{{#each compareConfFields.filter as |f|}}
-  {{ frag-compare-conf-field
+<div class="container">
+  <div class="row">
+    <div class="col-lg-6">
+      <h4>
+        Spectrum filter
+      </h4>
+      <!-- {{compareConfFields}} -->
+      {{#each compareConfFields.filter as |f|}}
+      {{ frag-compare-conf-field
     fragCompareConf=fragCompareConf
     f=f
     disabled=(not model.editable) }}
-{{/each}}
-<h4>
-  Cosine score
-</h4>
-<!-- {{compareConfFields}} -->
-{{#each compareConfFields.cosine as |f|}}
-  {{ frag-compare-conf-field
+      {{/each}}
+      <h4>
+        Cosine score
+      </h4>
+      <!-- {{compareConfFields}} -->
+      {{#each compareConfFields.cosine as |f|}}
+      {{ frag-compare-conf-field
     fragCompareConf=fragCompareConf
     f=f
     disabled=(not model.editable) }}
-{{/each}}
-{{#if (and model.editable model.okDepth)}}
-  {{bs-button type=model.saveOrCreate.class
+      {{/each}}
+      {{#if (and model.editable model.okDepth)}}
+      {{bs-button type=model.saveOrCreate.class
     class="mb-2 mr-sm-2"
     defaultText='Save'
     onClick=(action "fragCompareConfSave" model) }}
-{{/if}}
+      {{/if}}
+    </div>
+    <div class="col-lg-6">
+      <h4>
+        Custom fragmentation params files
+      </h4>
+      <p>You can here upload custom parameters files for CFM-ID fragmentation.</p>
+      <ul class="list-group">
+        {{#each-in model.list_custom_frag_param_files as |fileType path|}}
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <p>{{{get CustomFragFileTypesDescription fileType}}}</p>
+          {{#bs-button 
+              type='danger'
+              class="btn-sm m2"
+              onClick=(action "DeleteCustomFragFile" fileType) }}
+          {{svg-jar "trashcan" class="octicon"}}
+          {{/bs-button}}
+        </li>
+        {{/each-in}}
+      </ul>
+      {{#if canUploadFileTypes}}
+      {{file-upload
+          class="m-1"
+          modalId="training-file-upload-modal"
+          title="Import training model file"
+          model=model
+          routeLabel=uploadCustomFragFile
+          formatSelect=model.CustomFragFileTypes}}
+      {{/if}}
+
+    </div>
+  </div>
+</div>

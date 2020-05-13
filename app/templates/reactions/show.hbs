@@ -2,7 +2,7 @@
 
 <div class="card">
   <div class="card-body">
-      {{alert-generic
+    {{alert-generic
         alertType="danger"
         message=errorSaveMessage}}
     <div class="d-flex mb-4">
@@ -16,13 +16,13 @@
 
       <div class="m-1">
         {{#if mainBtnInfo}}
-          {{#bs-button type=mainBtnInfo.btnType onClick=(action mainBtnInfo.action) class="m-1"}}
-            {{#if mainBtnInfo.icon}}
-              {{material-icon mainBtnInfo.icon}}
-            {{else}}
-              {{mainBtnInfo.label}}
-            {{/if}}
-          {{/bs-button}}
+        {{#bs-button type=mainBtnInfo.btnType onClick=(action mainBtnInfo.action) class="m-1"}}
+        {{#if mainBtnInfo.icon}}
+        {{svg-jar mainBtnInfo.icon class="octicon"}}
+        {{else}}
+        {{mainBtnInfo.label}}
+        {{/if}}
+        {{/bs-button}}
         {{/if}}
       </div>
     </div>
@@ -33,30 +33,30 @@
           <div class="row">
             <div class="col-lg-4">
               {{#if model.isEditing}}
-                <div class="form-group">
-                  <label>Name</label>
-                  {{input
+              <div class="form-group">
+                <label>Name</label>
+                {{input
                     value=model.name
                     model=model
                     class='form-control'}}
-                </div>
-                {{#if model.isNotInit}}
-                  {{bs-button type="primary" class="m-1"
+              </div>
+              {{#if model.isNotInit}}
+              {{bs-button type="primary" class="m-1"
                     defaultText="Load SMARTS"
                     onClick=(action (mut smartsReactionModal) true) }}
-                {{/if}}
+              {{/if}}
               {{else}}
-                {{#if model.description}}
-                  <p>{{model.description}}</p>
-                {{/if}}
-                <p><b>Number of reactants :</b> {{model.reactants_number}} </p>
-                <p><b>SMARTS :</b> <br />{{model.smarts}} </p>
+              {{#if model.description}}
+              <p>{{model.description}}</p>
+              {{/if}}
+              <p><b>Number of reactants :</b> {{model.reactants_number}} </p>
+              <p><b>SMARTS :</b> <br />{{model.smarts}} </p>
               {{/if}}
             </div>
             <div class="form-group col-lg-8">
               {{{image}}}
               {{#if (and model.isEditing model.isNotInit)}}
-                {{chemical-editor
+              {{chemical-editor
                   model=model
                   chemType='reaction'
                   skecthId='sketcher-reaction'
@@ -65,7 +65,7 @@
                   smartsModal=smartsReactionModal
                   sketcherReady=sketcherReady}}
               {{else if model.isNotInit}}
-                {{chemical-display
+              {{chemical-display
                   canvasId='canvas-reaction'
                   model=model
                   chemType='reaction'
@@ -77,31 +77,31 @@
         </div>
       </form>
     </div>
-  <!-- Test Reaction -->
+    <!-- Test Reaction -->
     {{#if (and model.isAtLeastValid (not  model.isObsolete))}}
-      <h4 class="w-100 text-center test-reaction">
-          Test the reaction
-      </h4>
-      <div class="container">
-        <div class="row {{if (not products)'align-items-center'}}">
-          <div class="form-group col-lg-6  w-100 text-center">
-            <h5>
-              {{if (not products) 'Draw'}}
-              Reactant{{if (eq model.reactants_number 2) 's'}}
-            </h5>
-            {{#if products}}
-              {{#each reactantsJSON as |reactant index|}}
-                {{chemical-display
+    <h4 class="w-100 text-center test-reaction">
+      Test the reaction
+    </h4>
+    <div class="container">
+      <div class="row {{if (not products)'align-items-center'}}">
+        <div class="form-group col-lg-6  w-100 text-center">
+          <h5>
+            {{if (not products) 'Draw'}}
+            Reactant{{if (eq model.reactants_number 2) 's'}}
+          </h5>
+          {{#if products}}
+          {{#each reactantsJSON as |reactant index|}}
+          {{chemical-display
                   canvasIdRoot='canvas-reactant-'
                   index=index
                   dataJSON=reactant
                   chemType='molecule'
                   class="d-inline"
                 }}
-              {{/each}}
-            {{/if}}
-            <div class={{if products 'd-none'}} >
-              {{#chemical-editor
+          {{/each}}
+          {{/if}}
+          <div class={{if products 'd-none'}}>
+            {{#chemical-editor
                 visible=(eq products false)
                 model=reactants
                 chemType='molecule'
@@ -110,98 +110,98 @@
                 saveModelComponent=saveReactantsComponent
                 smartsModal=smartsReactantsModal
                 sketcherReady=sketcherReady}}
-                  <div class="w-100">
-                  {{bs-button type="primary" class="m-1 m-auto"
+            <div class="w-100">
+              {{bs-button type="primary" class="m-1 m-auto"
                     defaultText="Load SMILES"
                     onClick=(action (mut smartsReactantsModal) true) }}
-                  </div>
-                {{/chemical-editor}}
             </div>
-
+            {{/chemical-editor}}
           </div>
-          <div class="form-group col-lg-6 w-100
+
+        </div>
+        <div class="form-group col-lg-6 w-100
                   text-center reaction-products
                   ">
-            {{#if products}}
-              <h5>Products</h5>
-              <div>
-                {{#each products as |product index|}}
-                  {{chemical-display
+          {{#if products}}
+          <h5>Products</h5>
+          <div>
+            {{#each products as |product index|}}
+            {{chemical-display
                     canvasIdRoot='canvas-product-'
                     index=index
                     dataJSON=product
                     chemType='molecule'
                     class="d-inline"
                   }}
-              {{/each}}
-              </div>
-            {{/if}}
-            <div >
-              {{#if (not products)}}
-                {{bs-button type="warning" class="m-1"
+            {{/each}}
+          </div>
+          {{/if}}
+          <div>
+            {{#if (not products)}}
+            {{bs-button type="warning" class="m-1"
                   defaultText="Run reaction"
                 onClick=(action 'runReaction' false) }}
-              {{/if}}
-            </div>
-            {{alert-generic
+            {{/if}}
+          </div>
+          {{alert-generic
               alertType="danger"
               message=errorReactionMessage}}
-          </div>
         </div>
-        {{#if products}}
-          <div class='row'>
-            <div class='col-md-12 w-100 text-center'>
-              {{bs-button type="primary" class="m-1"
+      </div>
+      {{#if products}}
+      <div class='row'>
+        <div class='col-md-12 w-100 text-center'>
+          {{bs-button type="primary" class="m-1"
                 defaultText="New test"
                 onClick=(action (mut products) false) }}
-            </div>
-          </div>
-        {{/if}}
+        </div>
       </div>
+      {{/if}}
+    </div>
     {{/if}}
-    {{#if (or
+    {{#if (and isOwner (or
         (and (not model.is_reactor) model.isObsolete)
-        (and products model.isReadyToActive) ) }}
-      <h4 class="w-100 text-center mt-3">
-          Activation
-      </h4>
-      <div class="container w-100 text-center">
-        <div class="row w-75 m-auto">
-          <p class="col-md-8 text-left"><i>
+        (and products model.isReadyToActive) )) }}
+    <h4 class="w-100 text-center mt-3">
+      Activation
+    </h4>
+    <div class="container w-100 text-center">
+      <div class="row w-75 m-auto">
+        <p class="col-md-8 text-left"><i>
             By clicking on "Activate Reaction",
             this reaction will be available for projects
             and <b>you'll not be able to modifiy it</b>.
           </i></p>
-          <div class="col-md-4">
-            {{bs-button type="success" class="m-1"
+        <div class="col-md-4">
+          {{bs-button type="success" class="m-1"
               defaultText="Activate Reaction"
               onClick=(action 'validateReaction') }}
-          </div>
         </div>
       </div>
+    </div>
     {{/if}}
-    {{#if model.isActive}}
-      <h4 class="w-100 text-center mt-3">
-          Make obsolete
-      </h4>
-      <div class="container w-100 text-center">
-        <div class="row w-75 m-auto">
-          <p class="col-md-8 text-left"><i>
+    {{#if (and isOwner model.isActive) }}
+    <h4 class="w-100 text-center mt-3">
+      Make obsolete
+    </h4>
+    <div class="container w-100 text-center">
+      <div class="row w-75 m-auto">
+        <p class="col-md-8 text-left"><i>
             By clicking on "Make Reaction Obsolete",
             this reaction <b>will not be available for new projects</b>.
           </i></p>
-          <div class="col-md-4">
-            {{bs-button type="danger" class="m-1"
+        <div class="col-md-4">
+          {{bs-button type="danger" class="m-1"
               defaultText="Make Reaction Obsolete"
               onClick=(action 'obsoleteReaction') }}
-          </div>
         </div>
       </div>
+    </div>
     {{/if}}
   </div>
   {{#if model.is_reactor}}
-    <div class="card-footer">
-      <img src="/assets/images/powered_by_chemaxon_GOLD_M.png" class="mx-auto d-block" height=40 />
-    </div>
+  <div class="card-footer">
+    <img src="/assets/images/powered_by_chemaxon_GOLD_M.png" class="mx-auto d-block" height=40 />
+  </div>
   {{/if}}
 </div>

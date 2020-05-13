@@ -1,16 +1,16 @@
 {{#if (and editable (eq mode "selected"))}}
   <p class="delete-icon" {{action "removeItem" item}}>
-    {{material-icon "highlight_off"}}
+    {{svg-jar "clear"}}
   </p>
 {{else if (eq mode "available")}}
   {{#if isSelected}}
     <p class="select-icon" {{action 'toggleItem'}}>
-      {{material-icon "check_box"}}
+      {{svg-jar "check_box"}}
     </p>
   {{else}}
     <p class="select-icon"
       {{action 'toggleItem'}}>
-      {{material-icon "check_box_outline_blank"}}
+      {{svg-jar "check_box_outline_blank"}}
     </p>
   {{/if}}
 {{/if}}

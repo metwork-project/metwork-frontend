@@ -18,7 +18,7 @@ export default Mixin.create({
   },
 
   updateTipContent: function(tip, newContent) {
-    var tipContent =  $('#' + tip.popper.id + ' .content');
+    var tipContent =  $('#' + tip.popper.firstChild.id + ' .tippy-content');
     tip.hide();
     tipContent.html(newContent);
     tip.show();
@@ -87,7 +87,7 @@ export default Mixin.create({
              `;
              //<p>${ node.data('name')}</p>
              this_.updateTipContent(node.tip, newContent);
-             $('#' + node.tip.popper.id + ' svg').attr('width',200).attr('height',100).attr('viewBox', '0 0 400 200');
+             $('#' + node.tip.popper.firstChild.id + ' svg').attr('width',200).attr('height',100).attr('viewBox', '0 0 400 200');
           });
         }
       );
@@ -139,7 +139,7 @@ export default Mixin.create({
     var moltarget = jsi.molFrom(node.data('molJSON'))
     moltarget.scaleToAverageBondLength(14.4);
     viewACS.loadMolecule(moltarget);
-    $('#' + node.tip.popper.id + ' .smiles-display .btn').click( function (/*event*/) {
+    $('#' + node.tip.popper.firstChild.id + ' .smiles-display .btn').click( function (/*event*/) {
       var target = document.getElementById(`smiles-${node.data('id')}`);
       target.select();
       document.execCommand("copy");

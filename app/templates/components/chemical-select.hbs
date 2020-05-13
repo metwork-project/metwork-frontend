@@ -22,10 +22,10 @@
                 {{/menu.item}}
                 {{menu.divider}}
               {{/if}}
-              {{#each additionalActions as |action|}}
+              {{#each additionalActions as |act|}}
                 {{#menu.item}}
                   <a href="#"
-                    {{action action.call}}
+                    {{action act.call}}
                     class="dropdown-item text-info">
                     {{action.label}}</a>
                 {{/menu.item}}

@@ -2,16 +2,16 @@ import DS from 'ember-data';
 //import { computed } from '@ember/object';
 import moment from 'moment';
 import { computed } from '@ember/object';
-import {memberAction/*, collectionAction*/} from 'ember-api-actions';
+import { memberAction/*, collectionAction*/ } from 'ember-api-actions';
 import _ from 'underscore';
 import { later } from '@ember/runloop'
 
 export default DS.Model.extend({
 
 	name: DS.attr('string', {
-			defaultValue() {
-					return `New project ${moment().format("MMM Do YY, hh:mm:ss")}`
-			}
+		defaultValue() {
+			return `New project ${moment().format("MMM Do YY, hh:mm:ss")}`
+		}
 	}),
 	description: DS.attr('string'),
 	user_name: DS.attr('string'),
@@ -19,29 +19,29 @@ export default DS.Model.extend({
 	public: DS.attr('boolean'),
 	frag_sample: DS.belongsTo('fragsample'),
 	status_code: DS.attr('number',
-			{defaultValue: 0}),
+		{ defaultValue: 0 }),
 	reaction_ids: DS.attr(),
 	annotation_init_ids: DS.attr(),
 	depth_total: DS.attr('number',
-			{defaultValue: 0}),
+		{ defaultValue: 0 }),
 	depth_last_match: DS.attr('number',
-			{defaultValue: 0}),
+		{ defaultValue: 0 }),
 	molecules_matching_count: DS.attr('number'),
 	molecules_all_count: DS.attr('number'),
 	DEPTH_LIMIT: DS.attr('number'),
 	REACTIONS_LIMIT: DS.attr('number'),
 	frag_compare_conf_id: DS.attr('number'),
+	list_custom_frag_param_files: DS.attr(),
+	reactions: DS.hasMany('reactions', { async: true }),
 
-  reactions: DS.hasMany('reactions', {async: true}),
-
-	didLoad: function(){
+	didLoad: function () {
 		this.poll();
 	},
 
-	poll: function() {
-			var _this = this;
+	poll: function () {
+		var _this = this;
 		if (this.get('runningOrQueue')) {
-			later( function() {
+			later(function () {
 				_this.reload();
 				_this.poll();
 			}, 2000);
@@ -49,10 +49,11 @@ export default DS.Model.extend({
 	},
 
 	updateFragSample: memberAction({
-			path: 'update_frag_sample',
-			type: 'patch' }),
+		path: 'update_frag_sample',
+		type: 'patch'
+	}),
 
-	statusRef: function() {
+	statusRef: function () {
 		return {
 			0: 'INIT',
 			1: 'READY',
@@ -63,79 +64,87 @@ export default DS.Model.extend({
 		}
 	},
 
-	allStatusInfo: function() {
+	allStatusInfo: function () {
 		return {
-			INIT:	 {libelle: 'Initialized', class: 'secondary'},
-			READY:	{libelle: 'Ready to run' , class: 'info'},
-			QUEUE:	{libelle: 'Queued' , class: 'warning'},
-			RUNNING: {libelle: 'Running', class: 'warning'},
-			DONE:		{libelle: 'Run finished', class: 'primary'},
-			ERROR:	 {libelle: 'Error', class: 'danger'},
+			INIT: { libelle: 'Initialized', class: 'secondary' },
+			READY: { libelle: 'Ready to run', class: 'info' },
+			QUEUE: { libelle: 'Queued', class: 'warning' },
+			RUNNING: { libelle: 'Running', class: 'warning' },
+			DONE: { libelle: 'Run finished', class: 'primary' },
+			ERROR: { libelle: 'Error', class: 'danger' },
 		}
 	},
 
-	depthLimits: computed( 'DEPTH_LIMIT', function() {
+	CustomFragFileTypes: computed(function () {
+		return [
+			{ label: 'param', description: 'Trained model file, as "param_output0.log"' },
+			{ label: 'conf', description: 'Configuration file, as "param_config.txt"' },
+		];
+	}),
+
+
+	depthLimits: computed('DEPTH_LIMIT', function () {
 		return {
 			depth_total: this.get('DEPTH_LIMIT'),
 			depth_last_match: 0,
 		}
 	}),
 
-	okDepth: computed('depth_total', 'depth_last_match', function() {
-			return (0 <= this.get('depth_total'))
-					&&
-					(this.get('depth_total') <= this.get('depthLimits').depth_total)
-					&&
-					(0 <= this.get('depth_last_match'))
-					&&
-					(this.get('depth_last_match') <= this.get('depthLimits').depth_last_match);
+	okDepth: computed('depth_total', 'depth_last_match', function () {
+		return (0 <= this.get('depth_total'))
+			&&
+			(this.get('depth_total') <= this.get('depthLimits').depth_total)
+			&&
+			(0 <= this.get('depth_last_match'))
+			&&
+			(this.get('depth_last_match') <= this.get('depthLimits').depth_last_match);
 	}),
 
-	statusInfo: computed('status_code', function() {
-			return this.allStatusInfo()[
-					this.statusRef()[
-							this.get('status_code') ] ];
+	statusInfo: computed('status_code', function () {
+		return this.allStatusInfo()[
+			this.statusRef()[
+			this.get('status_code')]];
 	}),
 
-	hasSample: computed('frag_sample', function() {
-			return this.get('frag_sample') ;
+	hasSample: computed('frag_sample', function () {
+		return this.get('frag_sample');
 	}),
 
-	editable: computed('status_code', function() {
-			return this.get('status_code') < (_.invert(this.statusRef())).RUNNING;
+	editable: computed('status_code', function () {
+		return this.get('status_code') < (_.invert(this.statusRef())).RUNNING;
 	}),
 
-	saved: computed('isNew', function() {
-			return !this.get('isNew');
+	saved: computed('isNew', function () {
+		return !this.get('isNew');
 	}),
 
-	saveOrCreate: computed('isNew', function() {
-			if (this.get('isNew')) {
-					return {libelle: 'Create Project', class:'success'};
-			} else {
-					return {libelle: 'Save Info', class:'primary'};
-			}
+	saveOrCreate: computed('isNew', function () {
+		if (this.get('isNew')) {
+			return { libelle: 'Create Project', class: 'success' };
+		} else {
+			return { libelle: 'Save Info', class: 'primary' };
+		}
 	}),
 
-	readyToRun: computed('status_code', function() {
-			return this.get('status_code') == (_.invert( this.statusRef() )).READY;
+	readyToRun: computed('status_code', function () {
+		return this.get('status_code') == (_.invert(this.statusRef())).READY;
 	}),
 
-	running: computed('status_code', function() {
-			return this.get('status_code') == (_.invert( this.statusRef() )).RUNNING
+	running: computed('status_code', function () {
+		return this.get('status_code') == (_.invert(this.statusRef())).RUNNING
 	}),
 
-	runningOrQueue: computed('status_code', function() {
-			return this.get('status_code') == (_.invert( this.statusRef() )).RUNNING ||
+	runningOrQueue: computed('status_code', function () {
+		return this.get('status_code') == (_.invert(this.statusRef())).RUNNING ||
 			this.get('status_code') == (_.invert(this.statusRef())).QUEUE;
 	}),
 
-	runFinish: computed('status_code', function() {
-			return this.get('status_code') == (_.invert( this.statusRef() )).DONE;
+	runFinish: computed('status_code', function () {
+		return this.get('status_code') == (_.invert(this.statusRef())).DONE;
 	}),
 
-	runOrFinish: computed('status_code', function() {
-			return this.get('status_code') >= (_.invert( this.statusRef() )).RUNNING;
+	runOrFinish: computed('status_code', function () {
+		return this.get('status_code') >= (_.invert(this.statusRef())).RUNNING;
 	}),
 
 	cloneProject: memberAction({ path: 'clone_project', type: 'post' }),
@@ -148,11 +157,15 @@ export default DS.Model.extend({
 
 	removeItem: memberAction({ path: 'remove_item', type: 'patch' }),
 
+	DeleteCustomFragFile: memberAction({ path: 'delete_custom_frag_param_files', type: 'post' }),
+
 	selectReactionsByTag: memberAction({ path: 'select_reactions_by_tag', type: 'patch' }),
 
 	updateFragCompareConf: memberAction({ path: 'update_frag_compare_conf', type: 'patch' }),
 
 	startRun: memberAction({ path: 'start_run', type: 'post' }),
+
+	stopRun: memberAction({ path: 'stop_run', type: 'post' }),
 
 	metabolizationNetwork: memberAction({ path: 'metabolization_network', type: 'get' }),
 

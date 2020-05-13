@@ -1,10 +1,8 @@
 import Controller from '@ember/controller';
 import CytoscapeMixin from 'metwork-frontend/mixins/cytoscape';
-import CytoscapeFilterMixin from 'metwork-frontend/mixins/cytoscape-filter';
 
 export default Controller.extend(
-  CytoscapeMixin,
-  CytoscapeFilterMixin, {
+  CytoscapeMixin, {
 
   spinnerStatus: 'waiting',
 

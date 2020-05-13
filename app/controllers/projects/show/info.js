@@ -23,6 +23,14 @@ export default Controller.extend({
               });
             });
     },
+    stopRun() {
+      let self = this;
+      this.model
+          .stopRun()
+          .then(function(/*response*/) {
+            self.model.reload()
+          });
+    },
     cloneProject() {
         let self = this;
         this.model

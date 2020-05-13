@@ -5,12 +5,11 @@ import tippy from 'tippy.js';
 import $ from 'jquery';
 import CytoscapeStyleMixin from 'metwork-frontend/mixins/cytoscape-style';
 import CytoscapeTipMixin from 'metwork-frontend/mixins/cytoscape-tip';
-import CytoscapeFilterMixin from 'metwork-frontend/mixins/cytoscape-filter';
+import { activateOption } from 'metwork-frontend/mixins/cytoscape-filter';
 
 export default Mixin.create(
   CytoscapeStyleMixin,
-  CytoscapeTipMixin,
-  CytoscapeFilterMixin, {
+  CytoscapeTipMixin, {
 
   actions: {
     startCytoscape(data, graphStyle, activateOptions) {
@@ -20,7 +19,7 @@ export default Mixin.create(
         nodeRepulsion: 40000,
         // nodeOverlap: 20,
         // gravity: 2,
-        // animate: true,
+        animate: false,
         componentSpacing: 100,
       };
       this.set('layout', cose);
@@ -44,22 +43,29 @@ export default Mixin.create(
       var makeTip = function(node/*, loadContent*/) {
         // return new Promise(function(resolve /*, reject */) {
           var _makeTip = function(node) {
+            let ref = node.popperRef();
+            let dummyDomEle = document.createElement('div');
             return new Promise(function(resolve /*, reject */) {
-              let tip = tippy( node.popperRef(), {
-                html: (function(){
-                  var div = document.createElement('div');
-                  div.innerHTML = '<div class="content">Loading data ...</div>';
-                  return div;
-                })(),
+
+              let tip = tippy( dummyDomEle, {
                 trigger: 'manual',
+                lazy: false,
+                onCreate: instance => { instance.popperInstance.reference = ref; },
+                content: () => {
+                  var div = document.createElement('div');
+                  div.innerHTML = '<div class="contentt">Loading data ...</div>';
+                  return div;
+                },
+
                 arrow: true,
                 // placement: 'bottom',
                 theme: 'light',
                 hideOnClick: false,
                 multiple: false,
-                sticky: true,
-                stickyDuration: 0,
-              } ).tooltips[0];
+                // sticky: true,
+                duration: 0,
+                maxWidth: 400
+              } ); //.tooltips[0];
               node.tippy = tip;
               resolve(tip);
             });
@@ -93,7 +99,7 @@ export default Mixin.create(
       });
 
       activateOptions.map( function(optionName) {
-        _this.activateOption(cy, optionName);
+        activateOption(cy, optionName);
       });
 
       this.set('spinnerStatus', 'stop');
