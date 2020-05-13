@@ -3,44 +3,44 @@
   <div id="news" class='col-lg-9'>
     <h1 class="text-center">Welcome to MetWork </h1>
     <h2 class="text-center"><i>a web server for natural products anticipation</i></h2>
-    <p class="text-center"><i>Currently running beta version {{version}}</i></p>
+    <p class="text-center"><i>Currently running version {{version}}</i></p>
 
     {{getAllNews}}
 
     <h3 class="text-center">Latest News</h3>
     {{#each allNews as |news|}}
-      {{#latest-news
+    {{#latest-news
         date=news.date
         title=news.title}}
-        {{{news.content}}}
-      {{/latest-news }}
+    {{{news.content}}}
+    {{/latest-news }}
     {{/each}}
 
   </div>
   <div class='col-lg-3'>
-    <div id="api-status" >
+    <div id="api-status">
       <div class="card border-{{statusColor}}">
         <div class="card-header text-white bg-{{statusColor}} text-center">
           API Status
         </div>
         {{#if apiStatus.loading}}
-          <div class="card-body text-primary text-center">
-              {{ember-spinner }}
-          </div>
+        <div class="card-body text-primary text-center">
+          {{ember-spinner }}
+        </div>
         {{else if apiStatus.status.available}}
-          <div class="card-body">
-            <h5 class="card-title text-success mb-0 text-center">Service available</h5>
-          </div>
-          <ul class="list-group list-group-flush bg-danger">
-            <li class="list-group-item">Molecules generated : {{apiStatus.status.molecules_count}}</li>
-            <li class="list-group-item">Projects achieved : {{apiStatus.status.achieved_projects_count}}</li>
-            <li class="list-group-item">Projects running : {{apiStatus.status.running_projects_count}}</li>
-          </ul>
+        <div class="card-body">
+          <h5 class="card-title text-success mb-0 text-center">Service available</h5>
+        </div>
+        <ul class="list-group list-group-flush bg-danger">
+          <li class="list-group-item">Molecules generated : {{apiStatus.status.molecules_count}}</li>
+          <li class="list-group-item">Projects achieved : {{apiStatus.status.achieved_projects_count}}</li>
+          <li class="list-group-item">Projects running : {{apiStatus.status.running_projects_count}}</li>
+        </ul>
         {{else}}
-          <div class="card-body text-danger text-center">
-            <h5 class="card-title">Under maintenance</h5>
-            Service is currently unavailable and will be back soon.
-          </div>
+        <div class="card-body text-danger text-center">
+          <h5 class="card-title">Under maintenance</h5>
+          Service is currently unavailable and will be back soon.
+        </div>
         {{/if}}
 
       </div>
@@ -51,8 +51,7 @@
         <div class="card-body text-primary text-center">
           <p class="text-left">If you use MetWork please cite:</p>
           <a href="https://academic.oup.com/bioinformatics/article/35/10/1795/5116145" target="_blank">
-          <img class="mt-1 border" src="/assets/images/bioinfo.png"
-            alt="bioinformatics-journal" height="180" >
+            <img class="mt-1 border" src="/assets/images/bioinfo.png" alt="bioinformatics-journal" height="180">
           </a>
           <p>
             Yann Beauxis and Grégory Genta-Jouve

@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = function(environment) {
-    let ENV = {
+module.exports = function (environment) {
+  let ENV = {
     modulePrefix: 'metwork-frontend',
-    version: '0.4.3',
+    version: '0.4.4',
     environment,
     host: 'https://somehost.com',
     rootURL: '/',
@@ -35,16 +35,16 @@ module.exports = function(environment) {
       // Here you can pass flags/options to your application instance
       // when it is created
     }
-    };
+  };
 
-    // behaviour of Ember Simple Auth:
-    // https://www.smallsurething.com/making-ember-and-django-play-nicely-together-a-todo-mvc-walkthrough/
-    ENV['ember-simple-auth'] = {
-        //authenticationRoute: 'login',
-        //baseURL: '/metwork/',
-        //routeAfterAuthentication: 'metruns',
-        //routeIfAlreadyAuthenticated: 'metruns',
-    };
+  // behaviour of Ember Simple Auth:
+  // https://www.smallsurething.com/making-ember-and-django-play-nicely-together-a-todo-mvc-walkthrough/
+  ENV['ember-simple-auth'] = {
+    //authenticationRoute: 'login',
+    //baseURL: '/metwork/',
+    //routeAfterAuthentication: 'metruns',
+    //routeIfAlreadyAuthenticated: 'metruns',
+  };
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
