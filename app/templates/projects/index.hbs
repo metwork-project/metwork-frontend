@@ -1,67 +1,72 @@
 <!-- index -->
 {{triggerFilter}}
 <div class="card">
-    <div class="card-body">
-      {{#bs-nav type="pills"  as |nav|}}
-        {{#nav.item class="primary-color"}}
-          {{nav-link-project 
+  <div class="card-body">
+    {{#bs-nav type="pills"  as |nav|}}
+    {{#nav.item class="primary-color"}}
+    {{nav-link-project 
             label="My Projects"
             item="private"
             activeList=filter}}
-        {{/nav.item}}
-        {{#nav.item}}
-          {{nav-link-project
+    {{/nav.item}}
+    {{#nav.item}}
+    {{nav-link-project
             label="Public Projects"
             item="public"
             activeList=filter}}
-          {{/nav.item}}
-      {{/bs-nav}}
-        <div class="d-flex">
-            <h3 class="mr-auto">
-                My projects list
-            </h3>
-            <div>
-                <button type="button" class="btn btn-success" {{action "newItem" "project" model}}>{{svg-jar "plus" class="octicon"}} New project</button>
-            </div>
-        </div>
-        <div class="card-text">
-            <table class="table table-sm table-hover table-striped">
-              <thead>
-                <tr>
-                  <th scope="col">Name</th>
-                  <th scope="col">Status</th>
-                  <th scope="col">Fragmentation sample</th>
-                  {{#if isPublic}}
-                    <th scope="col">Owner</th>
-                  {{/if}}
-                  {{#if (not isPublic)}}
-                  <th scope="col" width="30px"></th>
-                  {{/if}}
-                </tr>
-              </thead>
-              <tbody>
-            <!-- <div class="list-group"> -->
-              {{#each model as |project|}}
-                    <tr>
-                        <td>{{#link-to 'projects.show' project}} {{project.name}} {{/link-to }}</td>
-                        <td>{{project-status-badge project=project class="d-inline"}}</td>
-                        <td>{{#if project.frag_sample}} {{project.frag_sample.name}} {{/if}}</td>
-                        {{#if isPublic}}
-                          <td>{{project.user_name}}</td>
-                        {{/if}}
-                        {{#if (not isPublic)}}
-                          <td>{{#if (not project.public)}}
-                            {{#bs-button class="btn-sm" type="danger" onClick=(action (mut dataToDelete) project )}}
-                            {{svg-jar "trashcan" class="octicon"}}{{/bs-button}}
-                          {{/if}}</td>
-                        {{/if}}
-                    </tr>
-              {{/each}}
-              </tbody>
-            </table>
-            {{pagination-handler data=model}}
-        </div>
+    {{/nav.item}}
+    {{/bs-nav}}
+    <div class="d-flex">
+      <h3 class="mr-auto">
+        My projects list
+      </h3>
+      <div>
+        <button type="button" class="btn btn-success"
+          {{action "newItem" "project" model}}>{{svg-jar "plus" class="octicon"}} New project</button>
+      </div>
     </div>
+    <div class="card-text">
+      <table class="table table-sm table-hover table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Status</th>
+            <th scope="col">Fragmentation sample</th>
+            <th scope="col">Ions number</th>
+            <th scope="col">Annotation proposals</th>
+            {{#if isPublic}}
+            <th scope="col">Owner</th>
+            {{/if}}
+            {{#if (not isPublic)}}
+            <th scope="col" width="30px"></th>
+            {{/if}}
+          </tr>
+        </thead>
+        <tbody>
+          <!-- <div class="list-group"> -->
+          {{#each model as |project|}}
+          <tr>
+            <td>{{#link-to 'projects.show' project}} {{project.name}} {{/link-to }}</td>
+            <td>{{project-status-badge project=project class="d-inline"}}</td>
+            <td>{{#if project.frag_sample}} {{project.frag_sample.name}} {{/if}}</td>
+            <td>{{#if project.frag_sample}} {{project.frag_sample.ions_count}} {{/if}}</td>
+            <td>{{#if project.frag_sample}} {{project.molecules_matching_count}} {{/if}}</td>
+            {{#if isPublic}}
+            <td>{{project.user_name}}</td>
+            {{/if}}
+            {{#if (not isPublic)}}
+            <td>{{#if (not project.public)}}
+              {{#bs-button class="btn-sm" type="danger" onClick=(action (mut dataToDelete) project )}}
+              {{svg-jar "trashcan" class="octicon"}}{{/bs-button}}
+              {{/if}}</td>
+            {{/if}}
+          </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      {{pagination-handler data=model}}
+    </div>
+  </div>
 </div>
 
 {{delete-modal title="Delete project" dataToDelete=dataToDelete dataLabel=model.dataLabel updateDataController='updateDataController'}}
