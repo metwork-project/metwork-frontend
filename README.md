@@ -7,11 +7,13 @@ This code corespond to the frontend part of [MetWork](https://metwork.pharmacie.
 You must install [nvm](https://github.com/nvm-sh/nvm#install-script) and use node version 12.14.1
 
 ```
+nvm install 12.14.1
 nvm use 12.14.1
 npm i npm@latest -g
 npm i yarn -g
 npm install -g ember-cli
 yarn
+cp -R node_modules/underscore bower_components/
 ```
 
 ## Run dev environment
