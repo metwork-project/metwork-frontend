@@ -3,7 +3,7 @@ import $ from 'jquery';
 
 export default Mixin.create({
 
-  loadTipContent: function(node) {
+  loadTipContent: function (node) {
     ChemDoodle.default_atoms_useJMOLColors = true;
     switch (node.data('nodeType')) {
       case 'molecule':
@@ -17,15 +17,15 @@ export default Mixin.create({
     }
   },
 
-  updateTipContent: function(tip, newContent) {
-    var tipContent =  $('#' + tip.popper.firstChild.id + ' .tippy-content');
+  updateTipContent: function (tip, newContent) {
+    var tipContent = $('#' + tip.popper.firstChild.id + ' .tippy-content');
     tip.hide();
     tipContent.html(newContent);
     tip.show();
     return tipContent;
   },
 
-  tipAnnotation: function(node) {
+  tipAnnotation: function (node) {
 
     var newContent = this.moleculeElement(
       node.data('id'),
@@ -37,9 +37,9 @@ export default Mixin.create({
     this.displayMolecule(node);
   },
 
-  tipReaction: function(node) {
+  tipReaction: function (node) {
     let this_ = this;
-    let canvasId =   node.data('id')
+    let canvasId = node.data('id')
     let dataJSON = node.data('reactJSON')
     if (dataJSON) {
       var newContent = `<canvas
@@ -57,7 +57,7 @@ export default Mixin.create({
         200);
       if (this.noLabel) {
         let line = {}
-        dataJSON.s.map(function(shape) {
+        dataJSON.s.map(function (shape) {
           if (shape.t === 'Line') {
             line = shape
           }
@@ -66,9 +66,9 @@ export default Mixin.create({
       }
       var jsi = new ChemDoodle.io.JSONInterpreter();
       var target = jsi.contentFrom(dataJSON)
-      if (! this.noLabel) {
+      if (!this.noLabel) {
         var l = 0
-        target.shapes.map(function(shape) {
+        target.shapes.map(function (shape) {
           shape.label = l
           shape.error = true
           l += 1
@@ -78,24 +78,24 @@ export default Mixin.create({
     } else {
       this_.get('store').findRecord(
         'reaction', node.data('reactionId'), { reload: true })
-        .then( function (response) {
-          response.getImage().then(function(response) {
-             let newContent =`
+        .then(function (response) {
+          response.getImage().then(function (response) {
+            let newContent = `
                <div>
                  ${response.data.image}
                </div>
              `;
-             //<p>${ node.data('name')}</p>
-             this_.updateTipContent(node.tip, newContent);
-             $('#' + node.tip.popper.firstChild.id + ' svg').attr('width',200).attr('height',100).attr('viewBox', '0 0 400 200');
+            //<p>${ node.data('name')}</p>
+            this_.updateTipContent(node.tip, newContent);
+            $('#' + node.tip.popper.firstChild.id + ' svg').attr('width', 200).attr('height', 100).attr('viewBox', '0 0 400 200');
           });
         }
-      );
+        );
     }
 
   },
 
-  tipIon: function(node) {
+  tipIon: function (node) {
     var info = node.data('info');
     var bestAnnotation = node.data('bestAnnotation');
     var newContent = ''
@@ -104,9 +104,9 @@ export default Mixin.create({
         <div class='row'>
           <div class='col-6'>
             ${this.moleculeElement(
-              node.data('id'),
-              bestAnnotation.smiles,
-              bestAnnotation.cosine)}
+        node.data('id'),
+        bestAnnotation.smiles,
+        bestAnnotation.cosine)}
           </div>
           <div class='col-6'>
             ${info}
@@ -126,7 +126,7 @@ export default Mixin.create({
     }
   },
 
-  displayMolecule: function(node) {
+  displayMolecule: function (node) {
 
     var viewACS = new ChemDoodle.TransformCanvas(node.data('id'), 200, 200);
     viewACS.specs.bonds_width_2D = .6;
@@ -139,38 +139,47 @@ export default Mixin.create({
     var moltarget = jsi.molFrom(node.data('molJSON'))
     moltarget.scaleToAverageBondLength(14.4);
     viewACS.loadMolecule(moltarget);
-    $('#' + node.tip.popper.firstChild.id + ' .smiles-display .btn').click( function (/*event*/) {
+    $('#' + node.tip.popper.firstChild.id + ' .smiles-display .btn').click(function (/*event*/) {
       var target = document.getElementById(`smiles-${node.data('id')}`);
       target.select();
       document.execCommand("copy");
     })
   },
 
-  moleculeElement: function(id, smiles, cosine, publicProjects) {
+  moleculeElement: function (id, smiles, cosine, publicProjects) {
     var cosineDisplay = '';
     if (cosine) {
+      let cosineArray = cosine.split(" | ").map(x => x.split(" : "));
+      cosineArray = cosineArray.map(
+        line =>
+          "<td>" +
+          line.join("</td><td>") +
+          "</td><td><button class='btn btn-sm btn-success'>Annotate</button></td>")
+      cosineArray = "<tr>" + cosineArray.join("</tr><tr>") + "</tr>"
       cosineDisplay = `
         <p>
-          cosine: ${cosine}
+          <table class="table">
+            <th>Ion ID</th><th>Cosine</th><th>Annotate</th>
+            ${cosineArray}
+          </table>
         </p>`;
     }
     var publicProjectsDisplay = '';
     if (publicProjects) {
       let self = this
       let separator = ''
-      publicProjectsDisplay = publicProjects.reduce( 
-        function(total, currentValue) {
-            let projectLink = `
+      publicProjectsDisplay = publicProjects.reduce(
+        function (total, currentValue) {
+          let projectLink = `
             ${separator}         
             <a href=
-              "${
-                document.location.origin 
-                + self.get('target').generate('projects.show',currentValue)
-              }"
+              "${document.location.origin
+            + self.get('target').generate('projects.show', currentValue)
+            }"
               target="_blank">
               ${currentValue} 
             </a>`
-            separator = ', '
+          separator = ', '
           return total += projectLink
         },
         `<p>

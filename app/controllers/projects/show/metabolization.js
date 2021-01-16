@@ -12,11 +12,11 @@ export default Controller.extend(
   spinnerStatus: 'waiting',
   displayNodeName: 'parent_mass',
 
-  genDataComponents:  function () {
-      this.dataComponents['reactions-available'] =
-          { routeLabel: 'reaction', params : {project_id: this.model.id, page: 1, page_size: 10, selected: false} };
-      this.dataComponents['reactions-selected'] =
-          { routeLabel: 'reaction', params : {project_id: this.model.id, page: 1, page_size: 10, selected: true} };
+  genDataComponents: function () {
+    this.dataComponents['reactions-available'] =
+      { routeLabel: 'reaction', params: { project_id: this.model.id, page: 1, page_size: 10, selected: false } };
+    this.dataComponents['reactions-selected'] =
+      { routeLabel: 'reaction', params: { project_id: this.model.id, page: 1, page_size: 10, selected: true } };
   },
 
   actions: {
@@ -27,8 +27,8 @@ export default Controller.extend(
       } else {
         field = 'parent_mass';
       }
-      this.get('cy').nodes('[nodeType = "molecule"]').forEach( function(node) {
-        if (node.data(field)){
+      this.get('cy').nodes('[nodeType = "molecule"]').forEach(function (node) {
+        if (node.data(field)) {
           node.data('name', node.data(field));
         } else {
           node.data('name', '');
@@ -46,14 +46,14 @@ export default Controller.extend(
     downloadSVG() {
       var cy = this.get('cy');
       if (cy) {
-        var svgContent = cy.svg({scale: 1, full: true});
-        var blob = new Blob([svgContent], {type:"image/svg+xml;charset=utf-8"});
+        var svgContent = cy.svg({ scale: 1, full: true });
+        var blob = new Blob([svgContent], { type: "image/svg+xml;charset=utf-8" });
         saveAs(blob, "demo.svg");
       }
     }
   },
 
-  additionalActions: computed(function() {
+  additionalActions: computed(function () {
     return [
       {
         call: 'selectReactionsByTag',
@@ -62,23 +62,23 @@ export default Controller.extend(
     ]
   }),
 
-  hasReaction: function(reactionId) {
-      return reactionId in this.get('model.reactions_ids');
+  hasReaction: function (reactionId) {
+    return reactionId in this.get('model.reactions_ids');
   },
 
-  loadMetabolizationNetwork: function() {
+  loadMetabolizationNetwork: function () {
     let _this = this
     this.set('spinnerStatus', 'loading');
-    this.model.metabolizationNetwork().then( function(response) {
+    this.model.metabolizationNetwork().then(function (response) {
       _this.send(
         'startCytoscape',
         response,
         'metabolization',
-        ['filter', 'highlight', 'tip'] );
-    }) ;
+        ['filter', 'highlight', 'tip']);
+    });
   },
 
-  manageMetabolizationNetwork: computed('model.activeNav', function() {
+  manageMetabolizationNetwork: computed('model.activeNav', function () {
     if (this.get('model').activeNav == 'metabolization') {
       this.loadMetabolizationNetwork();
     } else if (this.get('cy')) {

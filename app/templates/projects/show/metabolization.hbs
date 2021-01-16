@@ -5,6 +5,7 @@
       Metabolization Network
     </h4>
   </div>
+
   <div>
     {{#bs-button type="info"
           class="m-1"
@@ -29,12 +30,19 @@
     {{/bs-button}}
   </div>
 </div>
-<div class='graph-content'>
-  {{graph-loader
+<div class="row">
+  <div class="col-md-8 graph-content">
+    {{graph-loader
       spinnerStatus=spinnerStatus
       loadNetwork=(action 'reloadMetabolizationNetwork')
       class="h-100"}}
-  <div id="cy"></div>
+    <div id="cy"></div>
+  </div>
+  <div class="col-md-4">
+    {{metabo-graph-node
+      nodeData=nodeData}}
+  </div>
+
 </div>
 {{/if}}
 

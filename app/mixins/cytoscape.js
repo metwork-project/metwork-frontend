@@ -11,10 +11,12 @@ export default Mixin.create(
   CytoscapeStyleMixin,
   CytoscapeTipMixin, {
 
+  nodeData: "",
+
   actions: {
     startCytoscape(data, graphStyle, activateOptions) {
       let _this = this;
-      let cose =  {
+      let cose = {
         name: 'cose',
         nodeRepulsion: 40000,
         // nodeOverlap: 20,
@@ -36,76 +38,84 @@ export default Mixin.create(
       });
 
       cy.graphStyle = graphStyle;
-      cy.fit({padding: 20});
+      cy.fit({ padding: 20 });
 
-      this.set('cy',cy);
+      this.set('cy', cy);
 
-      var makeTip = function(node/*, loadContent*/) {
+      var makeTip = function (node/*, loadContent*/) {
         // return new Promise(function(resolve /*, reject */) {
-          var _makeTip = function(node) {
-            let ref = node.popperRef();
-            let dummyDomEle = document.createElement('div');
-            return new Promise(function(resolve /*, reject */) {
+        var _makeTip = function (node) {
+          let ref = node.popperRef();
+          let dummyDomEle = document.createElement('div');
+          return new Promise(function (resolve /*, reject */) {
 
-              let tip = tippy( dummyDomEle, {
-                trigger: 'manual',
-                lazy: false,
-                onCreate: instance => { instance.popperInstance.reference = ref; },
-                content: () => {
-                  var div = document.createElement('div');
-                  div.innerHTML = '<div class="contentt">Loading data ...</div>';
-                  return div;
-                },
+            let tip = tippy(dummyDomEle, {
+              trigger: 'manual',
+              lazy: false,
+              onCreate: instance => { instance.popperInstance.reference = ref; },
+              content: () => {
+                var div = document.createElement('div');
+                div.innerHTML = '<div class="contentt">Loading data ...</div>';
+                return div;
+              },
 
-                arrow: true,
-                // placement: 'bottom',
-                theme: 'light',
-                hideOnClick: false,
-                multiple: false,
-                // sticky: true,
-                duration: 0,
-                maxWidth: 400
-              } ); //.tooltips[0];
-              node.tippy = tip;
-              resolve(tip);
-            });
-          }
-
-          _makeTip(node).then( function (tip) {
-            node.tip = tip;
-            node.hasTip = true;
-            tip.show();
-            _this.loadTipContent(node);
+              arrow: true,
+              // placement: 'bottom',
+              theme: 'light',
+              hideOnClick: false,
+              multiple: false,
+              // sticky: true,
+              duration: 0,
+              maxWidth: 400
+            }); //.tooltips[0];
+            node.tippy = tip;
+            resolve(tip);
           });
+        }
+
+        _makeTip(node).then(function (tip) {
+          node.tip = tip;
+          node.hasTip = true;
+          tip.show();
+          _this.loadTipContent(node);
+        });
       }
 
-      cy.nodes().on('mouseout', function(evt) {
+      cy.nodes().on('mouseout', function (evt) {
         let nodeTarget = evt.target;
         if (nodeTarget.hasTip) {
-            nodeTarget.tip.hide();
+          nodeTarget.tip.hide();
         }
       });
 
-      cy.nodes().on('tap', function(evt) {
+      cy.nodes().on('tap', function (evt) {
 
         let node = evt.target;
-        if (cy.tipActivated && !cy.onHold) {
-          if (node.hasTip) {
-            node.tip.show();
-          } else {
-            makeTip(node)
-          }
+        console.log(node.data('cosine'))
+        let nodeData = {
+          id: node.data('id'),
+          smiles: node.data('smiles'),
+          cosine: node.data('cosine'),
+          publicProjects: node.data('publicProjects'),
         }
+        _this.set("nodeData", nodeData)
+        // if (cy.tipActivated && !cy.onHold) {
+        //   if (node.hasTip) {
+        //     node.tip.show();
+        //   } else {
+        //     makeTip(node)
+        //   }
+        // }
       });
 
-      activateOptions.map( function(optionName) {
+      activateOptions.map(function (optionName) {
         activateOption(cy, optionName);
       });
 
       this.set('spinnerStatus', 'stop');
 
-      cy.on('destroy', function(/*evt*/) {
-        _this.set('spinnerStatus','waiting')
+      cy.on('destroy', function (/*evt*/) {
+        _this.set('spinnerStatus', 'waiting')
       })
     },
   },
