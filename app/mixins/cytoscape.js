@@ -91,12 +91,19 @@ export default Mixin.create(
       cy.nodes().on('tap', function (evt) {
 
         let node = evt.target;
-        console.log(node.data('cosine'))
+        cy.nodes('.node-select').removeClass('node-select');
+        node.addClass('node-select');
         let nodeData = {
           id: node.data('id'),
+          name: node.data('name'),
+          nodeType: node.data('nodeType'),
+          annotationType: node.data('annotationType'),
+          annotationId: node.data('annotationId'),
           smiles: node.data('smiles'),
           cosine: node.data('cosine'),
           publicProjects: node.data('publicProjects'),
+          molJSON: node.data("molJSON"),
+          reactJSON: node.data("reactJSON"),
         }
         _this.set("nodeData", nodeData)
         // if (cy.tipActivated && !cy.onHold) {

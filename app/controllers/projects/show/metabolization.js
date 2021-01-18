@@ -3,6 +3,7 @@ import { computed } from '@ember/object';
 import svg from 'cytoscape-svg';
 import CytoscapeMixin from 'metwork-frontend/mixins/cytoscape';
 import PaginatedControllerMixin from 'metwork-frontend/mixins/paginated-controller';
+import { inject as service } from '@ember/service';
 
 export default Controller.extend(
   PaginatedControllerMixin,
@@ -36,12 +37,13 @@ export default Controller.extend(
       })
       this.set('displayNodeName', field)
     },
-    reloadMetabolizationNetwork() {
+    reloadMetabolizationNetwork(force) {
+      this.set("nodeData", null)
       var cy = this.get('cy');
       if (cy) {
         cy.elements().remove();
       }
-      this.loadMetabolizationNetwork();
+      this.loadMetabolizationNetwork(force);
     },
     downloadSVG() {
       var cy = this.get('cy');
@@ -66,10 +68,10 @@ export default Controller.extend(
     return reactionId in this.get('model.reactions_ids');
   },
 
-  loadMetabolizationNetwork: function () {
+  loadMetabolizationNetwork: function (force) {
     let _this = this
     this.set('spinnerStatus', 'loading');
-    this.model.metabolizationNetwork().then(function (response) {
+    this.model.metabolizationNetwork({ force: force }).then(function (response) {
       _this.send(
         'startCytoscape',
         response,

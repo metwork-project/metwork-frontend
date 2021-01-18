@@ -3,68 +3,86 @@ import ENV from '../config/environment'
 
 export default Mixin.create({
 
-  cyStyle: function(graphStyle) {
+  cyStyle: function (graphStyle) {
 
     let colors = ENV.colors;
 
     let styleSheet = cytoscape.stylesheet()
       .selector('node')
-        .css({
-          'background-color': '#666',
-          'label': 'data(name)',
-          'text-valign':  'center',
-          'text-halign':  'center',
-          'text-outline-color':  '#666',
-          'text-outline-width':  '2px',
-          'color': '#fff',
-        })
+      .css({
+        'background-color': '#666',
+        'label': 'data(name)',
+        'text-valign': 'center',
+        'text-halign': 'center',
+        'text-outline-color': '#666',
+        'text-outline-width': '2px',
+        'color': '#fff',
+        'border-width': '4px',
+      })
       .selector('node[nodeType = "reaction"]')
-        .css({
-          'shape': 'roundrectangle',
-          'width': '60px',
-          'background-color': colors.primary,
-          'text-outline-color':  colors.primary,
-        })
+      .css({
+        'shape': 'roundrectangle',
+        'width': '60px',
+        'background-color': colors.primary,
+        'text-outline-color': colors.primary,
+        'border-color': colors.primary,
+      })
       .selector('node[nodeType = "molecule"]')
-        .css({
-          'shape': 'ellipse',
-        })
+      .css({
+        'shape': 'ellipse',
+      })
       .selector(`node[nodeType = "molecule"][annotationType = "init"],
                 node[nodeType = "ion"][annotationType = "init"]`)
-        .css({
-          'background-color': colors.success,
-          'text-outline-color':  colors.success,
-        })
+      .css({
+        'background-color': colors.success,
+        'text-outline-color': colors.success,
+        'border-color': colors.success,
+      })
+      .selector(`node[nodeType = "molecule"][annotationType = "annotated"],
+                node[nodeType = "ion"][annotationType = "annotated"]`)
+      .css({
+        'background-color': colors.warning,
+        'text-outline-color': colors.warning,
+        'border-color': colors.success,
+      })
       .selector(`node[nodeType = "molecule"][annotationType = "proposal"],
                 node[nodeType = "ion"][annotationType = "proposal"]`)
-        .css({
-          'background-color': colors.warning,
-          'text-outline-color':  colors.warning,
-        })
+      .css({
+        'background-color': colors.warning,
+        'text-outline-color': colors.warning,
+        'border-color': colors.warning,
+      })
       .selector(`node[nodeType = "molecule"][annotationType = "public"],
       node[nodeType = "ion"][annotationType = "public"]`)
-        .css({
-          'background-color': colors.info,
-          'text-outline-color':  colors.info,
-        })
+      .css({
+        'background-color': colors.info,
+        'text-outline-color': colors.info,
+      })
       .selector('.node-select')
-        .css({
-          'border-width': '4px',
-          'border-color':  colors.danger,
-          // 'text-outline-color':  colors.info,
-          // 'background-color': colors.info,
-        })
+      .css({
+        // 'border-width': '4px',
+        // 'border-color': 'yellow',
+        // 'text-outline-color':  colors.info,
+        'background-color': '#FFD700',
+      })
+      .selector('.node-filter')
+      .css({
+        'border-width': '4px',
+        'border-color': colors.danger,
+        // 'text-outline-color':  colors.info,
+        // 'background-color': colors.info,
+      })
       .selector('.highlight')
-        .css({
-          'line-color':  colors.info,
-          'background-color': colors.info,
-          'target-arrow-color': colors.info,
-          'text-outline-color':  colors.info,
-        })
+      .css({
+        'line-color': colors.info,
+        'background-color': colors.info,
+        'target-arrow-color': colors.info,
+        'text-outline-color': colors.info,
+      })
       .selector('.downlight')
-        .css({
-          'opacity':  0.2,
-        })
+      .css({
+        'opacity': 0.2,
+      })
 
 
     switch (graphStyle) {

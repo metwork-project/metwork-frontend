@@ -1,4 +1,68 @@
 {{#if nodeData}}
-<p>Id : {{nodeData.id}}</p>
-<p>Cosine : {{nodeData.cosine}}</p>
+
+<div class="card">
+
+
+    <div class="card-body">
+
+        <h4 class="card-title"><span class="text-capitalize">{{nodeData.nodeType}}</span> Info</h4>
+
+        <p>{{nodeName}}</p>
+
+        {{!-- <canvas
+          class="ChemDoodleWebComponent molecule"
+          id="${id}" width="200" height="200"
+          alt="ChemDoodle Web Component"
+          style="width: 100px; height: 100px; background-color: rgb(255, 255, 255);">
+            This browser does not support HTML5/Canvas.
+        </canvas> --}}
+        <div id="chem-draw">{{displayMolDraw}}</div>
+
+        {{#if nodeData.smiles }}
+        <h5 class="card-title">SMILES</h5>
+        <div class='smiles-display card-text m-2'>
+            <input class='value' type="text" value={{nodeData.smiles}} id="node-smiles">
+            <button type="button" class="btn btn-light btn-sm" {{action "copySmiles"}}>Copy</button>
+        </div>
+        {{/if}}
+
+        {{#if cosineData }}
+        <h5 class="card-title">Matching cosine(s)</h5>
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Ion ID</th>
+                    <th>Cosine</th>
+                    <th>Annotate</th>
+                </tr>
+            </thead>
+            <tbody> {{#each cosineData as |ionCosine| }}
+                <tr>
+                    <td>{{ionCosine.ionId}}</td>
+                    <td>{{ionCosine.cosine}}</td>
+                    <td>
+                        {{#if (not nodeData.annotationId)}}
+                        <button type="button" class="btn btn-success btn-sm"
+                            {{action "annotateIon" ionCosine.ionId}}>Annotate</button>
+                        {{else}}
+                        {{#if (eq nodeData.annotationId ionCosine.ionId)}}
+                        <i class="text-success">Annotated</i>
+                        {{/if}}
+                        {{/if}}
+                    </td>
+                </tr>{{/each}}
+            </tbody>
+        </table>
+        {{/if}}
+
+
+        {{#if publicProject }}
+        <h5 class="card-title">Matching in public projects</h5>
+        <p class="card-text">{{nodeData.publicProject}}</p>
+        {{/if}}
+
+    </div>
+</div>
+
 {{/if}}
