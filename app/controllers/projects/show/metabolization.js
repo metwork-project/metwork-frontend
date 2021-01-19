@@ -76,7 +76,7 @@ export default Controller.extend(
         'startCytoscape',
         response,
         'metabolization',
-        ['filter', 'highlight', 'tip']);
+        ['filter', 'highlight']);
     });
   },
 

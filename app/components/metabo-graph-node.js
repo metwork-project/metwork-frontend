@@ -65,6 +65,7 @@ export default Component.extend({
     }),
 
     displayMolecule: function (node) {
+        ChemDoodle.default_atoms_useJMOLColors = true;
         var viewACS = new ChemDoodle.TransformCanvas("chem-draw-" + node.id, 250, 250);
         viewACS.specs.bonds_width_2D = .6;
         viewACS.specs.bonds_saturationWidthAbs_2D = 2.6;

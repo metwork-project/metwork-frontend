@@ -1,5 +1,3 @@
-import tippy from 'tippy.js';
-
 export function activateOption(cy, option) {
 
   let getAllConnections = function (nodeTarget, graphStyle) {
@@ -17,49 +15,10 @@ export function activateOption(cy, option) {
       cy.nodes().on('mouseover', function (evt) {
         let node = evt.target;
         node.mouseOver = true;
-
-
-
-        setTimeout(function () {
-          if (node.mouseOver) {
-            if (!node.filterInfosTip) {
-              let dummyDomEle = document.createElement('div');
-              let tip = tippy(dummyDomEle, {
-                onCreate: instance => { instance.popperInstance.reference = node.popperRef(); },
-                content: (function () {
-                  var div = document.createElement('div');
-                  div.innerHTML = '<div class="content p-1">Long click to filter</div>';
-                  return div;
-                })(),
-                trigger: 'manual',
-                animateFill: false,
-                arrow: false,
-                placement: 'bottom',
-                // theme: 'light',
-                hideOnClick: false,
-                multiple: false,
-                // sticky: true,
-                duration: 0,
-              }).tooltips[0];
-              node.filterInfosTip = tip
-            }
-            node.filterInfosTip.show()
-          }
-        }, 3000);
       }),
-        cy.on('destroy', function (/*evt*/) {
-          cy.nodes().forEach(function (node) {
-            if (node.filterInfosTip) {
-              node.filterInfosTip.destroy();
-            }
-          })
-        }),
         cy.nodes().on('mouseout tap taphold', function (evt) {
           let node = evt.target;
           node.mouseOver = false;
-          if (node.filterInfosTip) {
-            node.filterInfosTip.hide();
-          }
         }),
         cy.nodes().on('taphold', function (evt) {
           cy.onHold = true;
@@ -67,9 +26,6 @@ export function activateOption(cy, option) {
           let nodeTarget = evt.target;
           let nodeTargetPosBegin = nodeTarget.position();
           nodeTarget.addClass('node-filter');
-          if (nodeTarget.hasTippy) {
-            nodeTarget.tippy.hide();
-          }
 
           cy.elements('.shown-init').removeClass('shown-init');
           cy.elements(':visible').addClass('shown-init');
@@ -188,7 +144,5 @@ export function activateOption(cy, option) {
         cy.elements().removeClass('downlight');
       });
       break;
-    case 'tip':
-      cy.tipActivated = true;
   }
 }

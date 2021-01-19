@@ -10,14 +10,14 @@ export default Controller.extend(
     loadMolecularNetwork() {
       this.set('spinnerStatus', 'loading');
       let _this = this
-      this.model.molecularNetwork().then( function(response) {
+      this.model.molecularNetwork().then(function (response) {
         _this.send(
           'startCytoscape',
           response,
           'molecular',
-          ['highlight', 'tip'] );
-          // ['filter', 'highlight', 'tippy'] );
-      }) ;
+          ['highlight']);
+        // ['filter', 'highlight', 'tippy'] );
+      });
     },
 
     stopLoading() {

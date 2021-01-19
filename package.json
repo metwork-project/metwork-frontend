@@ -20,7 +20,6 @@
   "devDependencies": {
     "bootstrap": "^4.0.0",
     "broccoli-asset-rev": "^3.0.0",
-    "cytoscape-popper": "^1.0.2",
     "ember-ajax": "^5.0.0",
     "ember-api-actions": "^0.2.8",
     "ember-aupac-typeahead": "^3.1.0",

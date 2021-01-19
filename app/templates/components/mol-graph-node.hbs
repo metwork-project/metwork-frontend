@@ -6,8 +6,6 @@
 
         <h4 class="card-title"><span class="text-capitalize">{{nodeData.nodeType}}</span> Info</h4>
 
-        <p>{{nodeName}}</p>
-
         {{!-- <canvas
           class="ChemDoodleWebComponent molecule"
           id="${id}" width="200" height="200"
@@ -15,15 +13,20 @@
           style="width: 100px; height: 100px; background-color: rgb(255, 255, 255);">
             This browser does not support HTML5/Canvas.
         </canvas> --}}
+        {{#if nodeData.molJSON }}
         <div id="chem-draw">{{displayMolDraw}}</div>
+        {{/if}}
 
-        {{#if nodeData.smiles }}
+        {{#if nodeData.bestAnnotation.smiles }}
         <h5 class="card-title">SMILES</h5>
         <div class='smiles-display card-text m-2'>
-            <input class='value' type="text" value={{nodeData.smiles}} id="node-smiles">
+            <input class='value' type="text" value={{nodeData.bestAnnotation.smiles}} id="node-smiles">
             <button type="button" class="btn btn-light btn-sm" {{action "copySmiles"}}>Copy</button>
         </div>
         {{/if}}
+
+
+        {{{nodeData.info}}}
 
         {{#if cosineData }}
         <h5 class="card-title">Matching cosine(s)</h5>

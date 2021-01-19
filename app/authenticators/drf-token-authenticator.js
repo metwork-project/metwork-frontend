@@ -19,9 +19,9 @@ export default Base.extend({
   authenticate(username, password) {
     return new Promise((resolve, reject) => {
       let base_url = ENV.host;
-        if(ENV.APInameSpace != '') {
-            base_url += '/' + ENV.APInameSpace
-        }
+      if (ENV.APInameSpace != '') {
+        base_url += '/' + ENV.APInameSpace
+      }
       $.ajax({
         url: base_url + '/api-auth-token/',
         type: 'POST',
@@ -35,14 +35,14 @@ export default Base.extend({
             xhr.setRequestHeader('X-CSRFToken', Cookies.get('csrftoken'))
         },*/
       }).then((response) => {
-        run(function() {
+        run(function () {
           resolve({
             token: response.token
           });
         });
       }, (xhr/*, status, error*/) => {
         var response = xhr.responseText;
-        run(function() {
+        run(function () {
           reject(response);
         });
       });

@@ -1,7 +1,15 @@
-<div class='graph-content'>
-  {{graph-loader
+<div class="row">
+  <div class="col-md-8 graph-content">
+    {{graph-loader
     spinnerStatus=spinnerStatus
     loadNetwork=(action 'loadMolecularNetwork')
     class="h-100"}}
-  <div id="cy"></div>
+    <div id="cy"></div>
+  </div>
+  <div class="col-md-4">
+    {{mol-graph-node
+      project=model
+      nodeData=nodeData
+      }}
+  </div>
 </div>

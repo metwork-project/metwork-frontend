@@ -5,13 +5,15 @@ export default Route.extend(
   PaginatedRouteMixin, {
 
   model() {
-      return this.modelFor('projects.show')
+    return this.modelFor('projects.show')
   },
 
   setupController(controller, model) {
     this._super(...arguments);
     model.set('activeNav', 'metabolization')
-    this.transitionTo('projects.show.metabolization',model);
+    controller.set('spinnerStatus', 'waiting');
+    controller.set('nodeData', null);
+    this.transitionTo('projects.show.metabolization', model);
   },
 
 });
