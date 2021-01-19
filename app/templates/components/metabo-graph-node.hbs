@@ -55,10 +55,15 @@
         </table>
         {{/if}}
 
-
-        {{#if publicProject }}
+        {{#if nodeData.publicProjects }}
         <h5 class="card-title">Matching in public projects</h5>
-        <p class="card-text">{{nodeData.publicProject}}</p>
+        <p class="card-text">{{publicProjects}}</p>
+        <ul class="list-group">
+            {{#each nodeData.publicProjects as |publicProject| }}
+            <LinkTo @route="projects.show" @model="{{publicProject.id}}" class="list-group-item list-group-item-action">
+                {{publicProject.name}}</LinkTo>
+            {{/each}}
+        </ul>
         {{/if}}
 
     </div>

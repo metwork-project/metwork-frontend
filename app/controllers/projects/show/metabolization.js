@@ -71,6 +71,9 @@ export default Controller.extend(
   loadMetabolizationNetwork: function (force) {
     let _this = this
     this.set('spinnerStatus', 'loading');
+    if (!force) {
+      force = false
+    }
     this.model.metabolizationNetwork({ force: force }).then(function (response) {
       _this.send(
         'startCytoscape',

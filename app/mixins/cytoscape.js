@@ -51,7 +51,7 @@ export default Mixin.create(
             annotationId: node.data('annotationId'),
             smiles: node.data('smiles'),
             cosine: node.data('cosine'),
-            publicProjects: node.data('publicProjects'),
+            publicProjects: node.data('public_projects'),
             molJSON: node.data("molJSON"),
             reactJSON: node.data("reactJSON"),
             bestAnnotation: node.data("bestAnnotation"),

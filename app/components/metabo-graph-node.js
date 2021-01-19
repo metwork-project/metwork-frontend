@@ -41,29 +41,6 @@ export default Component.extend({
 
     }),
 
-    publicProject: computed("", function () {
-        // return this.get("nodeData").cosine
-        // let separator = ''
-        // let self = this
-        // let publicProjectsDisplay = this.get("node").publicProjects.reduce(
-        //     function (total, currentValue) {
-        //         let projectLink = `
-        //       ${separator}         
-        //       <a href=
-        //         "${document.location.origin
-        //             + self.get('target').generate('projects.show', currentValue)
-        //             }"
-        //         target="_blank">
-        //         ${currentValue} 
-        //       </a>`
-        //         separator = ', '
-        //         return total += projectLink
-        //     },
-        //     `<p>
-        //     public_projects: `)
-        // publicProjectsDisplay += `</p>`;
-    }),
-
     displayMolecule: function (node) {
         ChemDoodle.default_atoms_useJMOLColors = true;
         var viewACS = new ChemDoodle.TransformCanvas("chem-draw-" + node.id, 250, 250);
