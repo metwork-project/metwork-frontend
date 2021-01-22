@@ -7,10 +7,18 @@ export default Mixin.create({
 
     let colors = ENV.colors;
 
+    let statusDict = {
+      'undefined': 0,
+      'explored': 10,
+      'putative': 20,
+      'validated': 30,
+    }
+
     let styleSheet = cytoscape.stylesheet()
       .selector('node')
       .css({
         'background-color': '#666',
+        'border-color': '#666',
         'label': 'data(name)',
         'text-valign': 'center',
         'text-halign': 'center',
@@ -26,51 +34,46 @@ export default Mixin.create({
         'background-color': colors.primary,
         'text-outline-color': colors.primary,
         'border-color': colors.primary,
+        'text-wrap': 'ellipsis',
+        'text-max-width': '90px',
       })
       .selector('node[nodeType = "molecule"]')
       .css({
         'shape': 'ellipse',
       })
-      .selector(`node[nodeType = "molecule"][annotationType = "init"],
-                node[nodeType = "ion"][annotationType = "init"]`)
+      .selector('node[nodeType = "molecule"][isSeed]')
+      .css({
+        // 'shape': 'round-diamond',
+        'shape': 'triangle',
+      })
+      .selector(`node[nodeType = "molecule"][annotationStatusId = ${statusDict["validated"]}],
+                node[nodeType = "ion"][annotationStatusId = ${statusDict["validated"]}]`)
       .css({
         'background-color': colors.success,
         'text-outline-color': colors.success,
         'border-color': colors.success,
       })
-      .selector(`node[nodeType = "molecule"][annotationType = "annotated"],
-                node[nodeType = "ion"][annotationType = "annotated"]`)
-      .css({
-        'background-color': colors.warning,
-        'text-outline-color': colors.warning,
-        'border-color': colors.success,
-      })
-      .selector(`node[nodeType = "molecule"][annotationType = "proposal"],
-                node[nodeType = "ion"][annotationType = "proposal"]`)
+      .selector(`node[nodeType = "molecule"][annotationStatusId = ${statusDict["putative"]}],
+                node[nodeType = "ion"][annotationStatusId = ${statusDict["putative"]}]`)
       .css({
         'background-color': colors.warning,
         'text-outline-color': colors.warning,
         'border-color': colors.warning,
       })
       .selector(`node[nodeType = "molecule"][annotationType = "public"],
-      node[nodeType = "ion"][annotationType = "public"]`)
+        node[nodeType = "ion"][annotationType = "public"]`)
       .css({
         'background-color': colors.info,
         'text-outline-color': colors.info,
       })
       .selector('.node-select')
       .css({
-        // 'border-width': '4px',
-        // 'border-color': 'yellow',
-        // 'text-outline-color':  colors.info,
         'background-color': '#FFD700',
       })
       .selector('.node-filter')
       .css({
         'border-width': '4px',
         'border-color': colors.danger,
-        // 'text-outline-color':  colors.info,
-        // 'background-color': colors.info,
       })
       .selector('.highlight')
       .css({

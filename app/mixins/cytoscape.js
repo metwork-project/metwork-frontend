@@ -47,7 +47,7 @@ export default Mixin.create(
             name: node.data('name'),
             info: node.data('info'),
             nodeType: node.data('nodeType'),
-            annotationType: node.data('annotationType'),
+            annotationStatusId: node.data('annotationStatusId'),
             annotationId: node.data('annotationId'),
             smiles: node.data('smiles'),
             cosine: node.data('cosine'),
