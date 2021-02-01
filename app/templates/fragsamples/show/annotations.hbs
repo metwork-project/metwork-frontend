@@ -46,10 +46,16 @@
       <td>{{annotation.adduct}}</td>
       <td>{{annotation.db_source}}</td>
       <td>{{annotation.db_id}}</td>
-      <td>{{#if annotation.has_no_project}}
-        {{#bs-button class="btn-sm" type="danger" onClick=(action (mut dataToDelete) annotation )}}
+      <td>
+        {{#bs-button class="btn-sm m-1" type="primary" onClick=(action (mut annotationToEdit) annotation )}}
+        {{svg-jar "pencil" class="octicon"}}
+        {{/bs-button}}
+        {{#if annotation.has_no_project}}
+        <br />
+        {{#bs-button class="btn-sm m-1" type="danger" onClick=(action (mut dataToDelete) annotation )}}
         {{svg-jar "trashcan" class="octicon"}}
         {{/bs-button}}
+
         {{/if}}</td>
     </tr>
     {{/each}}
@@ -96,5 +102,6 @@
 {{/modal.footer}}
 {{/bs-modal}}
 
+{{annotation-editor title="Edit annotation" annotation=annotationToEdit}}
 
 {{delete-modal title="Delete annotation" dataToDelete=dataToDelete dataLabel='frag-annotation' updateDataController='updateDataController'}}

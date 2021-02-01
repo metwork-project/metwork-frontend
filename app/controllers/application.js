@@ -8,17 +8,17 @@ export default Controller.extend({
   apiStatus: service('api-status'),
 
   apiStatusUpdate: computed(
-    'apiStatus.status.available', function() {
-      if ( !
+    'apiStatus.status.available', function () {
+      if (!
         (this.get('apiStatus.status.available')
-        || this.get('apiStatus.loading') ) ) {
+          || this.get('apiStatus.loading'))) {
         this.get('target').transitionTo('index');
       }
-  }),
+    }),
 
-  userFirstLetter: computed('currentUser.user', function() {
+  userFirstLetter: computed('currentUser.user', function () {
     let currentUser = this.get('currentUser');
-    if(currentUser.user){
+    if (currentUser.user) {
       return currentUser.user.get('username').charAt(0).toUpperCase();
     }
   }),

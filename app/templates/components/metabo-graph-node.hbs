@@ -35,7 +35,7 @@
                 <tr>
                     <th>Ion ID</th>
                     <th>Cosine</th>
-                    <th>Annotate</th>
+                    <th>Annotation</th>
                 </tr>
             </thead>
             <tbody> {{#each cosineData as |ionCosine| }}
@@ -44,11 +44,11 @@
                     <td>{{ionCosine.cosine}}</td>
                     <td>
                         {{#if (not nodeData.annotationId)}}
-                        <button type="button" class="btn btn-success btn-sm"
+                        <button type="button" class="btn btn-warning btn-sm"
                             {{action "annotateIon" ionCosine.ionId}}>Annotate</button>
                         {{else}}
                         {{#if (eq nodeData.annotationId ionCosine.ionId)}}
-                        <i class="text-success">Annotated</i>
+                        <i class="text-warning">Annotated</i>
                         {{/if}}
                         {{/if}}
                     </td>

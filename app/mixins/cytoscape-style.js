@@ -1,6 +1,8 @@
 import Mixin from '@ember/object/mixin';
 import ENV from '../config/environment'
 
+
+
 export default Mixin.create({
 
   cyStyle: function (graphStyle) {
@@ -9,7 +11,7 @@ export default Mixin.create({
 
     let statusDict = {
       'undefined': 0,
-      'explored': 10,
+      'unrated': 10,
       'putative': 20,
       'validated': 30,
     }
@@ -44,7 +46,6 @@ export default Mixin.create({
       .selector('node[nodeType = "molecule"][isSeed]')
       .css({
         // 'shape': 'round-diamond',
-        'shape': 'triangle',
       })
       .selector(`node[nodeType = "molecule"][annotationStatusId = ${statusDict["validated"]}],
                 node[nodeType = "ion"][annotationStatusId = ${statusDict["validated"]}]`)
@@ -53,11 +54,13 @@ export default Mixin.create({
         'text-outline-color': colors.success,
         'border-color': colors.success,
       })
-      .selector(`node[nodeType = "molecule"][annotationStatusId = ${statusDict["putative"]}],
-                node[nodeType = "ion"][annotationStatusId = ${statusDict["putative"]}]`)
+      .selector(`[annotationStatusId = ${statusDict["putative"]}]`)
       .css({
         'background-color': colors.warning,
         'text-outline-color': colors.warning,
+      })
+      .selector(`[annotationStatusId = ${statusDict["putative"]}][isSeed]`)
+      .css({
         'border-color': colors.warning,
       })
       .selector(`node[nodeType = "molecule"][annotationType = "public"],

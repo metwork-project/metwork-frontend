@@ -1,0 +1,51 @@
+<!-- Annotation editor modal -->
+
+
+{{#bs-modal open=annotation onHidden=(action 'closeModal') as |modal|}}
+{{#modal.header}}
+<h4 class="modal-title">
+    {{title}}
+</h4>
+{{/modal.header}}
+{{#modal.body}}
+
+{{#bs-form
+  formLayout='horizontal'
+  novalidate=true
+  model=annotation
+  as |form|}}
+
+
+{{#form.element label="Status" }}
+<select class="form-control" id="annotation_status_id" onchange={{action "setStatus" value="target.value"}}>
+    <option value=20 selected={{eq annotation.status_id 20}}>Putative</option>
+    <option value=30 selected={{eq annotation.status_id 30}}>Validated</option>
+</select>
+{{/form.element}}
+
+{{form.element
+    controlType="text"
+    label="Name"
+    placeholder="Name"
+    property="name"}}
+
+{{form.element
+    controlType="text"
+    label="DB Source"
+    placeholder="DB Source"
+    property="db_source"}}
+
+{{form.element
+    controlType="text"
+    label="DB Id"
+    placeholder="DB Id"
+    property="db_id"}}
+
+{{/bs-form}}
+
+{{/modal.body}}
+{{#modal.footer}}
+{{#bs-button onClick=(action 'closeModal')}}Cancel{{/bs-button}}
+{{#bs-button type="primary" onClick=(action 'updateData')}}Save{{/bs-button}}
+{{/modal.footer}}
+{{/bs-modal}}

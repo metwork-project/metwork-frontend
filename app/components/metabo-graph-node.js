@@ -103,11 +103,14 @@ export default Component.extend({
             let fragsample_id = project.get("frag_sample.id")
             let smiles = this.get("nodeData").smiles
             let access_token = this.get('session.data.authenticated.token');
+            let name = 'metwork_sample_' + fragsample_id + " - " + this.get("nodeData").parentMass;
             let form_data = new FormData();
             form_data.append('ion_id', ionId);
+            form_data.append('name', name);
             form_data.append('smiles', smiles);
-            form_data.append('db_source', 'MetWork project');
-            form_data.append('db_id', 'project_' + project_id);
+            form_data.append('status_id', 20);
+            form_data.append('db_source', 'metwork_project_' + project_id);
+            form_data.append('db_id', 'ion_' + ionId);
             $.ajax({
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', `Token ${access_token}`);

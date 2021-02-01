@@ -45,6 +45,7 @@ export default Mixin.create(
           let nodeData = {
             id: node.data('id'),
             name: node.data('name'),
+            parentMass: node.data('parent_mass'),
             info: node.data('info'),
             nodeType: node.data('nodeType'),
             annotationStatusId: node.data('annotationStatusId'),
