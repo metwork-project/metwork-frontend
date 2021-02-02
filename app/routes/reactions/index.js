@@ -4,15 +4,15 @@ import PaginatedRouteMixin from 'metwork-frontend/mixins/paginated-route';
 import FileUploadRouteMixin from 'metwork-frontend/mixins/file-upload-route';
 
 export default Route.extend(
-    AuthenticatedRouteMixin,
-    PaginatedRouteMixin,
-    FileUploadRouteMixin, {
+  AuthenticatedRouteMixin,
+  PaginatedRouteMixin,
+  FileUploadRouteMixin, {
 
-    routeLabel: 'reaction',
+  routeLabel: 'reaction',
 
-    setupController(controller/*, model*/) {
-      this._super(...arguments);
-      controller.set('filter', 'not_obsolete');
-    },
+  setupController(controller/*, model*/) {
+    this._super(...arguments);
+    controller.set('filter', 'not_obsolete');
+  },
 
 });

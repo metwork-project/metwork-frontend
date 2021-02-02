@@ -30,7 +30,8 @@
           {{chemical-display
                 model = annotation
                 canvasId = annotation.canvasId
-                chemType = 'molecule'}}
+                chemType = 'molecule'
+                customBorderWidth=0}}
           <div class="display-hover-item">
             {{#bs-button class="btn-sm m-1" type="primary" onClick=(action (mut annotationToEdit) annotation )}}
             {{svg-jar "pencil" class="octicon"}}
