@@ -27,6 +27,15 @@ export default Component.extend({
     }
   }),
 
+  borderWidth: computed('customBorderWidth', function () {
+    let customBorderWidth = this.get('customBorderWidth')
+    if (customBorderWidth != null) {
+      return customBorderWidth
+    } else {
+      return "1px"
+    }
+  }),
+
   viewACS: alias('displayChemical'),
 
   displayChemical: computed('model.chemdoodle_json', 'dataJSON', function () {

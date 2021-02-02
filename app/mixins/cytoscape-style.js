@@ -43,28 +43,29 @@ export default Mixin.create({
       .css({
         'shape': 'ellipse',
       })
-      .selector('node[nodeType = "molecule"][isSeed]')
-      .css({
-        // 'shape': 'round-diamond',
-      })
-      .selector(`node[nodeType = "molecule"][annotationStatusId = ${statusDict["validated"]}],
-                node[nodeType = "ion"][annotationStatusId = ${statusDict["validated"]}]`)
+      .selector(`[annotationStatusId = ${statusDict["validated"]}]`)
       .css({
         'background-color': colors.success,
         'text-outline-color': colors.success,
-        'border-color': colors.success,
       })
       .selector(`[annotationStatusId = ${statusDict["putative"]}]`)
       .css({
         'background-color': colors.warning,
         'text-outline-color': colors.warning,
       })
-      .selector(`[annotationStatusId = ${statusDict["putative"]}][isSeed]`)
+      .selector(
+        `node[nodeType = "ion"][annotationStatusId = ${statusDict["validated"]}],
+        [annotationStatusId = ${statusDict["validated"]}][isSeed]`)
+      .css({
+        'border-color': colors.success,
+      })
+      .selector(
+        `node[nodeType = "ion"][annotationStatusId = ${statusDict["putative"]}],
+        [annotationStatusId = ${statusDict["putative"]}][isSeed]`)
       .css({
         'border-color': colors.warning,
       })
-      .selector(`node[nodeType = "molecule"][annotationType = "public"],
-        node[nodeType = "ion"][annotationType = "public"]`)
+      .selector(`[annotationType = "public"]`)
       .css({
         'background-color': colors.info,
         'text-outline-color': colors.info,

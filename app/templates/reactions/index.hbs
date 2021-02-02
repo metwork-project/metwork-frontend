@@ -1,6 +1,5 @@
 <!-- Reactions index -->
 
-<!-- index -->
 <div class="card">
   <div class="card-body">
     <div class="d-flex">
@@ -19,7 +18,6 @@
       </div>
     </div>
     <div class="card-text">
-      <!-- <div class="list-group"> -->
       {{frag-annotations}}
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
 
@@ -35,21 +33,17 @@
 
             <div class="card-img-top text-center">
               <div class="d-inline-block position-relative w-100">
-                {{!-- {{status-badge model=reaction}} --}}
                 <p class="status-badge">{{status-badge model=reaction}}</p>
                 {{chemical-display
                   canvasId=reaction.canvasId
                   model=reaction
                   chemType='reaction'
+                  customBorderWidth=0
                 }}
                 <p class="absolute-br m-0 p-1 text-muted text-truncate font-italic"
                   style="font-size: smaller; width=20px;">
                   {{reaction.user_name}}
                 </p>
-                {{!-- {{chemical-display
-                model = reaction
-                canvasId = reaction.canvasId
-                chemType = 'reaction'}} --}}
                 {{#if reaction.has_no_project}}
                 <div class="display-hover-item">
                   {{#bs-button class="btn-sm" type="danger" onClick=(action (mut dataToDelete) reaction )}}
