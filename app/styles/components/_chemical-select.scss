@@ -21,9 +21,14 @@
   top: 6px;
   left: 6px;
 }
+.absolute-br {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+}
 .chemical-select-item {
-  width: 204px;
-  padding: 2px;
+  width: 222px;
+  padding: 0px;
   border: 1px solid rgba(0, 0, 0, 0.125);
   text-align: center;
   canvas.ChemDoodleWebComponent {

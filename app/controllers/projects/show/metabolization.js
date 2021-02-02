@@ -15,9 +15,9 @@ export default Controller.extend(
 
   genDataComponents: function () {
     this.dataComponents['reactions-available'] =
-      { routeLabel: 'reaction', params: { project_id: this.model.id, page: 1, page_size: 10, selected: false } };
+      { routeLabel: 'reaction', params: { project_id: this.model.id, page: 1, page_size: 15, selected: false } };
     this.dataComponents['reactions-selected'] =
-      { routeLabel: 'reaction', params: { project_id: this.model.id, page: 1, page_size: 10, selected: true } };
+      { routeLabel: 'reaction', params: { project_id: this.model.id, page: 1, page_size: 15, selected: true } };
   },
 
   actions: {

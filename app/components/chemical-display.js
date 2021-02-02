@@ -4,24 +4,24 @@ import { alias } from '@ember/object/computed';
 
 export default Component.extend({
 
-  canvasDim: function() {
+  canvasDim: function () {
     var dic = {
       molecule: {
         'sm': [200, 200],
         'lg': [400, 400]
       },
       reaction: {
-        'sm': [200,150],
-        'lg': [600,350]
+        'sm': [220, 115],
+        'lg': [600, 350]
       }
     }
-    if (! this.size) {
+    if (!this.size) {
       this.size = 'sm'
     }
     return dic[this.chemType][this.size]
   },
 
-  getCanvasIdIndex: computed('index', function() {
+  getCanvasIdIndex: computed('index', function () {
     if (this.get('index') != null) {
       this.set('canvasId', 'chemdoodle-' + this.get('canvasIdRoot') + this.get('index'))
     }
@@ -29,7 +29,7 @@ export default Component.extend({
 
   viewACS: alias('displayChemical'),
 
-  displayChemical: computed('model.chemdoodle_json', 'dataJSON', function() {
+  displayChemical: computed('model.chemdoodle_json', 'dataJSON', function () {
     ChemDoodle.default_atoms_useJMOLColors = true
     var dataJSON = false
     if (this.get('model.chemdoodle_json')) {
@@ -48,7 +48,7 @@ export default Component.extend({
           this.canvasDim()[1]);
         if (this.noLabel) {
           let line = {}
-          dataJSON.s.map(function(shape) {
+          dataJSON.s.map(function (shape) {
             if (shape.t === 'Line') {
               line = shape
             }
@@ -56,9 +56,9 @@ export default Component.extend({
           dataJSON.s = [line]
         }
         target = jsi.contentFrom(dataJSON)
-        if (! this.noLabel) {
+        if (!this.noLabel) {
           var l = 0
-          target.shapes.map(function(shape) {
+          target.shapes.map(function (shape) {
             shape.label = l
             shape.error = true
             l += 1
