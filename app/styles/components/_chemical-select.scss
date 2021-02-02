@@ -3,7 +3,24 @@
 .chemical-select-action a.dropdown-item:active {
   background-color: #f8f9fa;
 }
-
+.display-hover-group{
+  .display-hover-item {
+    display: none;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+  }
+  &:hover {
+    .display-hover-item {
+      display: inherit;
+    }
+  }
+}
+.status-badge {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+}
 .chemical-select-item {
   width: 204px;
   padding: 2px;

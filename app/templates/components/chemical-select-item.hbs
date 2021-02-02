@@ -1,18 +1,19 @@
+<p class="status-badge">{{annotation-status-badge statusId=item.status_id}}</p>
+
 {{#if (and editable (eq mode "selected"))}}
-  <p class="delete-icon" {{action "removeItem" item}}>
-    {{svg-jar "clear"}}
-  </p>
+<p class="delete-icon" {{action "removeItem" item}}>
+  {{svg-jar "clear"}}
+</p>
 {{else if (eq mode "available")}}
-  {{#if isSelected}}
-    <p class="select-icon" {{action 'toggleItem'}}>
-      {{svg-jar "check_box"}}
-    </p>
-  {{else}}
-    <p class="select-icon"
-      {{action 'toggleItem'}}>
-      {{svg-jar "check_box_outline_blank"}}
-    </p>
-  {{/if}}
+{{#if isSelected}}
+<p class="select-icon" {{action 'toggleItem'}}>
+  {{svg-jar "check_box"}}
+</p>
+{{else}}
+<p class="select-icon" {{action 'toggleItem'}}>
+  {{svg-jar "check_box_outline_blank"}}
+</p>
+{{/if}}
 {{/if}}
 {{chemical-display
   canvasIdRoot=canvasIdRoot
@@ -23,14 +24,14 @@
   size='sm'
 }}
 {{#if itemLink}}
-  {{#link-to routeToItem item }}
-    <p class="text-truncate mb-0">{{item.name}}</p>
-  {{/link-to }}
+{{#link-to routeToItem item }}
+<p class="text-truncate mb-0">{{item.name}}</p>
+{{/link-to }}
 {{else}}
-  <p class="text-truncate mb-0">
-    {{#if item.ion_id}}
-      <b>#{{item.ion_id}}: </b>
-    {{/if}}
-    {{item.name}}
-  </p>
+<p class="text-truncate mb-0">
+  {{#if item.ion_id}}
+  <b>#{{item.ion_id}}: </b>
+  {{/if}}
+  {{item.name}}
+</p>
 {{/if}}

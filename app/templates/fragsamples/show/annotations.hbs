@@ -17,50 +17,50 @@
   </div>
 </div>
 {{frag-annotations}}
-<table class="table table-hover table-striped">
-  <thead>
-    <tr>
-      <th scope="col">Ion ID</th>
-      <th scope="col">Status</th>
-      <th scope="col">m/z</th>
-      <th scope="col">Name</th>
-      <th scope="col">Molecule</th>
-      <th scope="col">Adduct</th>
-      <th scope="col">Annotation source</th>
-      <th scope="col">Source ID</th>
-      <th scope="col" width="30px"></th>
-    </tr>
-  </thead>
-  <tbody>
-    {{#each frag-annotation as |annotation|}}
-    <tr>
-      <td>{{annotation.ion_id}}</td>
-      <td>{{annotation-status-badge statusId=annotation.status_id}}</td>
-      <td>{{annotation.mz}}</td>
-      <td>{{annotation.name}}</td>
-      <td>
-        {{chemical-display
+<div class="row row-cols-1 row-cols-md-3">
+  {{#each frag-annotation as |annotation|}}
+  <div class="col mb-4">
+    <div class="card h-100 display-hover-group">
+      <div class="card-header font-weight-bold">
+        {{annotation.name}}
+      </div>
+      <div class="card-img-top text-center">
+        <div class="d-inline-block position-relative w-100">
+          <p class="status-badge">{{annotation-status-badge statusId=annotation.status_id}}</p>
+          {{chemical-display
                 model = annotation
                 canvasId = annotation.canvasId
-                chemType = 'molecule'}}</td>
-      <td>{{annotation.adduct}}</td>
-      <td>{{annotation.db_source}}</td>
-      <td>{{annotation.db_id}}</td>
-      <td>
-        {{#bs-button class="btn-sm m-1" type="primary" onClick=(action (mut annotationToEdit) annotation )}}
-        {{svg-jar "pencil" class="octicon"}}
-        {{/bs-button}}
-        {{#if annotation.has_no_project}}
-        <br />
-        {{#bs-button class="btn-sm m-1" type="danger" onClick=(action (mut dataToDelete) annotation )}}
-        {{svg-jar "trashcan" class="octicon"}}
-        {{/bs-button}}
-
-        {{/if}}</td>
-    </tr>
-    {{/each}}
-  </tbody>
-</table>
+                chemType = 'molecule'}}
+          <div class="display-hover-item">
+            {{#bs-button class="btn-sm m-1" type="primary" onClick=(action (mut annotationToEdit) annotation )}}
+            {{svg-jar "pencil" class="octicon"}}
+            {{/bs-button}}
+            {{#if annotation.has_no_project}}
+            <br />
+            {{#bs-button class="btn-sm m-1" type="danger" onClick=(action (mut dataToDelete) annotation )}}
+            {{svg-jar "trashcan" class="octicon"}}
+            {{/bs-button}}
+            {{/if}}
+          </div>
+        </div>
+      </div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <b>Id :</b> {{annotation.ion_id}}<br>
+          <b>m/z :</b>{{annotation.mz}}<br>
+          <b>Adduct :</b> {{annotation.adduct}}
+        </li>
+      </ul>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+          <b>Source DB :</b> {{annotation.db_source}}<br>
+          <b>Source Id :</b> {{annotation.db_id}}
+        </li>
+      </ul>
+    </div>
+  </div>
+  {{/each}}
+</div>
 
 {{pagination-handler data=frag-annotation}}
 
