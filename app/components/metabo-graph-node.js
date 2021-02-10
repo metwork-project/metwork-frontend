@@ -115,7 +115,7 @@ export default Component.extend({
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', `Token ${access_token}`);
                 },
-                url: ENV.host + '/fragsamples/' + fragsample_id + '/add_annotation',
+                url: ENV.host + '/' + ENV.APInameSpace + '/fragsamples/' + fragsample_id + '/add_annotation',
                 dataType: 'text',
                 cache: false,
                 contentType: false,
