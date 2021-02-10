@@ -111,11 +111,15 @@ export default Component.extend({
             form_data.append('status_id', 20);
             form_data.append('db_source', 'metwork_project_' + project_id);
             form_data.append('db_id', 'ion_' + ionId);
+            let APInameSpace = ""
+            if (ENV.APInameSpace) {
+                APInameSpace = '/' + ENV.APInameSpace
+            }
             $.ajax({
                 beforeSend: function (xhr) {
                     xhr.setRequestHeader('Authorization', `Token ${access_token}`);
                 },
-                url: ENV.host + '/' + ENV.APInameSpace + '/fragsamples/' + fragsample_id + '/add_annotation',
+                url: ENV.host + APInameSpace + '/fragsamples/' + fragsample_id + '/add_annotation',
                 dataType: 'text',
                 cache: false,
                 contentType: false,

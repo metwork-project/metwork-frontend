@@ -30,12 +30,16 @@
     {{/bs-button}}
   </div>
 </div>
-<div class="row">
+<div class="row graph {{if isGraphFullScreen "graph-full-screen"}}">
   <div class="col-md-8 graph-content">
     {{graph-loader
       spinnerStatus=spinnerStatus
       loadNetwork=(action 'reloadMetabolizationNetwork')
       class="h-100"}}
+    {{GraphFitFullScreen}}
+    {{#bs-button type="light" class="full-screen-button" onClick=(action (mut isGraphFullScreen) (not isGraphFullScreen))}}
+    {{svg-jar "screen-full" class="octicon"}}
+    {{/bs-button}}
     <div id="cy"></div>
   </div>
   <div class="col-md-4">

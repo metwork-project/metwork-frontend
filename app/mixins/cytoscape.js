@@ -1,4 +1,5 @@
 import Mixin from '@ember/object/mixin';
+import { computed } from '@ember/object';
 import $ from 'jquery';
 import CytoscapeStyleMixin from 'metwork-frontend/mixins/cytoscape-style';
 import { activateOption } from 'metwork-frontend/mixins/cytoscape-filter';
@@ -8,6 +9,22 @@ export default Mixin.create(
   {
 
     nodeData: "",
+    isGraphFullScreen: false,
+
+    GraphFitFullScreen: computed('isGraphFullScreen', function () {
+      let cy = this.get("cy")
+      let transitionTime = 200
+      if (this.get("isGraphFullScreen")) {
+        transitionTime += 300
+      }
+      if (cy) {
+        cy.elements().hide()
+        setTimeout(() => {
+          cy.elements().show()
+          cy.fit()
+        }, transitionTime)
+      }
+    }),
 
     actions: {
       startCytoscape(data, graphStyle, activateOptions) {
