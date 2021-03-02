@@ -1,16 +1,15 @@
-
 <div class="d-flex mb-4">
     <div class="w-100">
-    <h3  class="mr-auto"> 
-        Fragmentation sample info
-    </h3>
-    {{tag-manager model=model isEditing=true}}
+        <h3 class="mr-auto">
+            Fragmentation sample info
+        </h3>
+        {{tag-manager model=model isEditing=true}}
     </div>
     <div class='fragsampe-info-btn'>
-        {{#bs-button class="btn mb-1" type="primary" onClick=(action 'save_fragsample')}}Save info{{/bs-button}}
-        {{#bs-button class="btn mb-1" type="warning" onClick=(action 'getFile' 'mgf')}}
+        {{#bs-button class="btn mb-1" type="warning" onClick=(action 'save_fragsample')}}Save info{{/bs-button}}
+        {{#bs-button class="btn mb-1" type="primary" onClick=(action 'getFile' 'mgf' model.file_name)}}
         {{svg-jar "cloud-download" class="octicon"}} .mgf
-        {{/bs-button}} 
+        {{/bs-button}}
     </div>
 </div>
 <p><b>File Name :</b> {{model.file_name}}</p>

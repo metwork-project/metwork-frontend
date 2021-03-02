@@ -1,19 +1,11 @@
-import Controller from '@ember/controller';
+import FileManagerController from '../../file-manager-controller';
 
-export default Controller.extend({
+export default FileManagerController.extend({
 
   actions: {
-    save_fragsample () {
-        this.model.save();
+    save_fragsample() {
+      this.model.save();
     },
-    getFile(request) {
-        this.send(
-          'downloadFile',
-          this.model,
-          request,
-          "text/plain;charset=utf-8",
-          this.model.get('file_name'));
-      },
   }
 
 });

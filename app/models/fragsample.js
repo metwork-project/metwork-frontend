@@ -47,6 +47,7 @@ export default DS.Model.extend({
 	annotationFileFormats: computed(function () {
 		return [
 			{ label: 'default', description: '.csv file with format : nodeId,name,smiles,source,sourceId' },
+			{ label: 'level', description: '.csv file with format : nodeId,name,smiles,source,sourceId,level' },
 			{ label: 'GNPS', description: '.tsv file in "result_specnets_DB" folder of cytoscape data from GNPS' },
 		];
 	}),
@@ -76,7 +77,7 @@ export default DS.Model.extend({
 	molecularNetwork: memberAction({ path: 'molecular_network', type: 'get' }),
 
 	downloadFile: memberAction({
-		path: 'download_mgf',
+		path: 'download_file',
 		type: 'get'
 	}),
 

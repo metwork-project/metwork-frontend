@@ -3,8 +3,9 @@
   <div class='d-flex'>
     {{#if false}}
     <div class="m-1">
-      {{#bs-button type="success" onClick=(action 'openAddAnnotModal')}} {{svg-jar "plus" class="octicon"}} Add
-      annotation{{/bs-button}}
+      {{#bs-button type="success" onClick=(action 'openAddAnnotModal')}}
+      {{svg-jar "plus" class="octicon"}}Add annotation
+      {{/bs-button}}
     </div>
     {{/if}}
     {{file-upload
@@ -14,6 +15,9 @@
             routeLabel=uploadAnnotRouteLabel
             dataLabel=frag-annotation.dataLabel
             formatSelect=model.annotationFileFormats}}
+    {{#bs-button class="btn m-1" type="primary" onClick=(action 'getFile' 'annotations' 'annotations.csv')}}
+    {{svg-jar "cloud-download" class="octicon"}} Annotations
+    {{/bs-button}}
   </div>
 </div>
 {{frag-annotations}}

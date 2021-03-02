@@ -1,9 +1,9 @@
-import Controller from '@ember/controller';
 import $ from 'jquery';
 import { computed } from '@ember/object';
 import PaginatedControllerMixin from 'metwork-frontend/mixins/paginated-controller';
+import FileManagerController from '../../file-manager-controller';
 
-export default Controller.extend(
+export default FileManagerController.extend(
     PaginatedControllerMixin, {
 
     genDataComponents: function () {
