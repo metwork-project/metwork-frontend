@@ -3,15 +3,12 @@
 <div class='w-100 text-center'>
   <div class='molecule-editor'>
     <div class='molecule-editor-loader'>
-        {{ember-spinner  color=colors.primary}}
+      {{ember-spinner  color=colors.primary}}
     </div>
     <div class='molecule-editor-sketcher'>
-      <canvas
-        class="ChemDoodleWebComponent"
-        id={{canvasId}}
-        alt="ChemDoodle Web Component"
+      <canvas class="ChemDoodleWebComponent" id={{canvasId}} alt="ChemDoodle Web Component"
         style="width: 200px; height: 200px; background-color: rgb(255, 255, 255);">
-          This browser does not support HTML5/Canvas.
+        This browser does not support HTML5/Canvas.
       </canvas>
       {{yield}}
     </div>
@@ -22,32 +19,32 @@
   class=modalId
   open=smartsModal
   onHidden=(action (mut smartsModal) false) as |modal|}}
-  {{#modal.header}}
-    <h4 class="modal-title">
-      {{#if (eq chemType 'molecule')}}
-        Load molecule from SMILES
-      {{/if}}
-      {{#if (eq chemType 'reaction')}}
-        Load reaction from SMARTS
-      {{/if}}
-    </h4>
-  {{/modal.header}}
-  {{#modal.body}}
-    <form>
-        <div class="form-group">
-          {{textarea value=smarts class='form-control smarts-value' rows='3'}}
-        </div>
-    </form>
-  {{/modal.body}}
-  {{#modal.footer}}
-        {{#bs-button onClick=(action (mut smartsModal) false)}}Cancel{{/bs-button}}
-        {{#bs-button type="info" onClick=(action 'loadSmarts')}}
-          {{#if (eq chemType 'molecule')}}
-            Load SMILES
-          {{/if}}
-          {{#if (eq chemType 'reaction')}}
-            Load SMARTS
-          {{/if}}
-        {{/bs-button}}
-  {{/modal.footer}}
+{{#modal.header}}
+<h4 class="modal-title">
+  {{#if (eq chemType 'molecule')}}
+  Load molecule from SMILES
+  {{/if}}
+  {{#if (eq chemType 'reaction')}}
+  Load reaction from SMARTS
+  {{/if}}
+</h4>
+{{/modal.header}}
+{{#modal.body}}
+<form>
+  <div class="form-group">
+    {{textarea value=smarts class='form-control smarts-value' rows='3'}}
+  </div>
+</form>
+{{/modal.body}}
+{{#modal.footer}}
+{{#bs-button onClick=(action (mut smartsModal) false)}}Cancel{{/bs-button}}
+{{#bs-button type="info" onClick=(action 'loadSmarts')}}
+{{#if (eq chemType 'molecule')}}
+Load SMILES
+{{/if}}
+{{#if (eq chemType 'reaction')}}
+Load SMARTS
+{{/if}}
+{{/bs-button}}
+{{/modal.footer}}
 {{/bs-modal}}

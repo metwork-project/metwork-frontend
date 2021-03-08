@@ -64,6 +64,7 @@ export default Controller.extend({
 
   actions: {
     saveReaction(JSONUpdated) {
+      console.log("saveReaction")
       let isNew = this.model.get('isNew')
       if (JSONUpdated || isNew) {
         this.set('products', false)

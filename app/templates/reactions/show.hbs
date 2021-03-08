@@ -32,6 +32,7 @@
         <div class="container">
           <div class="row">
             <div class="col-lg-4">
+
               {{#if model.isEditing}}
               <div class="form-group">
                 <label>Name</label>
@@ -159,9 +160,13 @@
       {{/if}}
     </div>
     {{/if}}
-    {{#if (and isOwner (or
-        (and (not model.is_reactor) model.isObsolete)
-        (and products model.isReadyToActive) )) }}
+    {{#if (and 
+          isOwner 
+          (or
+            (and (not model.is_reactor) model.isObsolete)
+            (and products model.isReadyToActive)
+          )
+        ) }}
     <h4 class="w-100 text-center mt-3">
       Activation
     </h4>
