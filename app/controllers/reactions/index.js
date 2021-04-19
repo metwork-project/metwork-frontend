@@ -20,12 +20,13 @@ export default Controller.extend(PaginatedControllerMixin, {
         label: 'hide obsolete'
       }
     }
+    return null
   }),
 
   actions: {
     changeFilter(filter) {
       this.set('filter', filter)
-      this.send('updateDataPage', 'model', 1, filter)
+      this.send('updateDataPage', 'model', this.get("page"), filter)
     }
   },
 
