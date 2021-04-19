@@ -1,76 +1,83 @@
 <!-- Reactions index -->
+<div class="row">
 
-<div class="card">
-  <div class="card-body">
-    <div class="d-flex">
-      <h3 class="mr-auto">
-        Reactions
-      </h3>
-      <div>
-        {{#if triggerFilter}}
-        <a href="#" {{action "changeFilter" triggerFilter.filter}} class='mr-2 text-secondary align-bottom'>
-          {{triggerFilter.label}}
-        </a>
-        {{/if}}
-        <button type="button" class="btn btn-success" {{action "newItem" "reaction" model}}>
-          {{svg-jar "plus" class="octicon"}} New reaction
-        </button>
+
+  {{triggerStatus}}
+
+  <div class="col-lg-2">
+    {{reaction-index-menu filter=filter}}
+
+  </div>
+
+
+
+  <div class="card col-lg-10">
+    <div class="card-body">
+      <div class="d-flex">
+        <h3 class="mr-auto">
+          Reactions
+        </h3>
+        <div>
+          <button type="button" class="btn btn-success" {{action "newItem" "reaction" model}}>
+            {{svg-jar "plus" class="octicon"}} New reaction
+          </button>
+        </div>
       </div>
-    </div>
-    <div class="card-text">
-      {{frag-annotations}}
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4">
+      <div class="card-text">
+        {{frag-annotations}}
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3">
 
-        {{#each model as |reaction|}}
-        <div class="col my-1">
+          {{#each model as |reaction|}}
+          <div class="col my-1">
 
-          {{#link-to 'reactions.show' reaction style="text-decoration: none;"}}
-          <div class="card h-100 display-hover-group">
+            {{#link-to 'reactions.show' reaction style="text-decoration: none;"}}
+            <div class="card h-100 display-hover-group">
 
-            <div class="card-header font-weight-bold text-truncate px-2 py-1">
-              {{reaction.name}}
-            </div>
+              <div class="card-header font-weight-bold text-truncate px-2 py-1">
+                {{reaction.name}}
+              </div>
 
-            <div class="card-img-top text-center">
-              <div class="d-inline-block position-relative w-100">
-                <p class="status-badge">{{status-badge model=reaction}}</p>
-                {{chemical-display
+              <div class="card-img-top text-center">
+                <div class="d-inline-block position-relative w-100">
+                  <p class="status-badge">{{status-badge model=reaction}}</p>
+                  {{chemical-display
                   canvasId=reaction.canvasId
                   model=reaction
                   chemType='reaction'
                   customBorderWidth=0
                 }}
-                <p class="absolute-br m-0 p-1 text-muted text-truncate font-italic"
-                  style="font-size: smaller; width=20px;">
-                  {{reaction.user_name}}
-                </p>
-                {{#if reaction.has_no_project}}
-                <div class="display-hover-item">
-                  {{#bs-button class="btn-sm" type="danger" onClick=(action (mut dataToDelete) reaction )}}
-                  {{svg-jar "trashcan" class="octicon"}}
-                  {{/bs-button}}
+                  <p class="absolute-br m-0 p-1 text-muted text-truncate font-italic"
+                    style="font-size: smaller; width=20px;">
+                    {{reaction.user_name}}
+                  </p>
+                  {{#if reaction.has_no_project}}
+                  <div class="display-hover-item">
+                    {{#bs-button class="btn-sm" type="danger" onClick=(action (mut dataToDelete) reaction )}}
+                    {{svg-jar "trashcan" class="octicon"}}
+                    {{/bs-button}}
+                  </div>
+                  {{/if}}
                 </div>
-                {{/if}}
               </div>
+              {{#if reaction.hasTags}}
+              <div class=" card-body px-1 py-0" style="font-size: smaller;">
+                {{#each reaction.tags_list as |tag|}}
+                <span class=" badge badge-info d-inline-block d-inline">
+                  {{tag}}
+                </span>
+                {{/each}}
+              </div>
+              {{/if}}
             </div>
-            {{#if reaction.hasTags}}
-            <div class=" card-body px-1 py-0" style="font-size: smaller;">
-              {{#each reaction.tags_list as |tag|}}
-              <span class=" badge badge-info d-inline-block d-inline">
-                {{tag}}
-              </span>
-              {{/each}}
-            </div>
-            {{/if}}
+            {{/link-to }}
           </div>
-          {{/link-to }}
+          {{/each}}
         </div>
-        {{/each}}
-      </div>
 
-      {{pagination-handler data=model}}
+        {{pagination-handler data=model}}
+      </div>
     </div>
   </div>
-</div>
 
+</div>
 {{delete-modal title="Delete reaction" dataToDelete=dataToDelete dataLabel=model.dataLabel updateDataController='updateDataController'}}

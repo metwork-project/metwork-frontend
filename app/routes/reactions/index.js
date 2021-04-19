@@ -12,7 +12,7 @@ export default Route.extend(
 
   setupController(controller/*, model*/) {
     this._super(...arguments);
-    controller.set('filter', 'not_obsolete');
+    controller.set('filter', { 'status': [10, 20, 30] });
   },
 
 });

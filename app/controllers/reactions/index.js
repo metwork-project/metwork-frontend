@@ -5,30 +5,12 @@ import { computed } from '@ember/object';
 
 export default Controller.extend(PaginatedControllerMixin, {
 
-  filter: 'not_obsolete',
-  page_size: 16,
+  page_size: 18,
 
-  triggerFilter: computed('filter', function () {
-    if (this.filter === 'not_obsolete') {
-      return {
-        filter: 'all',
-        label: 'show obsolete'
-      }
-    } else if (this.filter === 'all') {
-      return {
-        filter: 'not_obsolete',
-        label: 'hide obsolete'
-      }
-    }
+  triggerStatus: computed('filter.status', function() {
+    this.send('updateDataPage', 'model', this.get("page"), this.get("filter"))
     return null
   }),
-
-  actions: {
-    changeFilter(filter) {
-      this.set('filter', filter)
-      this.send('updateDataPage', 'model', this.get("page"), filter)
-    }
-  },
 
   init() {
     this._super(...arguments);

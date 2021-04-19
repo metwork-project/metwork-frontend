@@ -9,6 +9,7 @@ export default Controller.extend(
 
     triggerFilter: computed('filter', function() {
         this.send('updateDataPage', 'model', 1, this.filter)
+        return null
     }),
 
     isPublic: computed('filter', function() {
