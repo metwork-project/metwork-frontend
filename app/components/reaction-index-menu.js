@@ -6,11 +6,15 @@ import { reactionStatus } from '../models/reaction'
 export default Component.extend({
 
     inputText: null,
+    inputMy: false,
+    inputUser: null,
     updateFilter: false,
 
     init() {
         this._super(...arguments);
         this.set('inputText', this.get('text'))
+        this.set('inputMy', this.get('my'))
+        this.set('inputUser', this.get('user'))
     },
 
     reactionStatus: computed('filter', function () {
@@ -40,6 +44,11 @@ export default Component.extend({
             });
             this.set("status", res)
             this.set("text", this.get('inputText'))
+            let my = this.get('inputMy')
+            this.set("my", my)
+            if (!my) {
+                this.set("user", this.get('inputUser'))
+            }
             this.set('TriggerUpdateFilter', true)
         }
     }

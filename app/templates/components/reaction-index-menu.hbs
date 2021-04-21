@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-body">
 
-        <h4>Filters</h4>
+        <h4>Filter</h4>
 
         <form>
             <h5>Status</h5>
@@ -13,9 +13,18 @@
                 </label>
             </div>
             {{/each}}
-            <h5>Contains</h5>
+            <h5>Text</h5>
             <label>
                 {{input value=inputText class='form-control'}}
+            </label>
+            <h5>User</h5>
+            <div class="checkbox">
+                <label>
+                    {{input type="checkbox" checked=inputMy }} My reactions
+                </label>
+            </div>
+            <label>
+                {{input value=inputUser class='form-control' disabled=inputMy}}
             </label>
             {{#bs-button type="primary" onClick=(action 'updateFilter')}}Apply{{/bs-button}}
         </form>

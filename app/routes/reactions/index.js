@@ -17,7 +17,7 @@ export default Route.extend(
 
   getFilter(params) {
     return {
-      text: params.text, status: params.status
+      text: params.text, status: params.status, my: params.my, user: params.user
     }
   }
 

@@ -5,11 +5,13 @@ import { computed } from '@ember/object';
 
 export default Controller.extend(PaginatedControllerMixin, {
 
-  queryParams: ['status', 'text'],
+  queryParams: ['status', 'text', 'my', 'user'],
 
   page_size: 18,
-  text: null,
   status: [10, 20, 30],
+  text: null,
+  my: false,
+  user: null,
 
 
   init() {
@@ -37,7 +39,7 @@ export default Controller.extend(PaginatedControllerMixin, {
 
   setFilter() {
     let filter = {
-      text: this.get('text'), status: this.get("status")
+      text: this.get('text'), status: this.get("status"), my: this.get('my'), user: this.get('user')
     }
     this.set('filter', filter)
   }
