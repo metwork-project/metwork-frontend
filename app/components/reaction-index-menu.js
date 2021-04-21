@@ -25,6 +25,7 @@ export default Component.extend({
                     res.push({
                         code: status.code,
                         libelle: status.libelle,
+                        class: status.class,
                         checked: this.get('status').includes(status.code)
                     })
                 }

@@ -9,7 +9,11 @@
 
             <div class="checkbox">
                 <label>
-                    {{input type="checkbox" checked=status.checked }} {{status.libelle}}
+                    {{input type="checkbox" checked=status.checked }}
+                    <span class="badge badge-{{status.class}}" style="vertical-align:top">
+                        {{status.libelle}}
+                    </span>
+
                 </label>
             </div>
             {{/each}}
