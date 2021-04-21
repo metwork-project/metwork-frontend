@@ -5,6 +5,14 @@ import { reactionStatus } from '../models/reaction'
 
 export default Component.extend({
 
+    inputText: null,
+    updateFilter: false,
+
+    init() {
+        this._super(...arguments);
+        this.set('inputText', this.get('text'))
+    },
+
     reactionStatus: computed('filter', function () {
         let availableStatus = [10, 20, 30, 40]
         let res = Object.values(reactionStatus).reduce(
@@ -13,7 +21,7 @@ export default Component.extend({
                     res.push({
                         code: status.code,
                         libelle: status.libelle,
-                        checked: this.filter.status.includes(status.code)
+                        checked: this.get('status').includes(status.code)
                     })
                 }
                 return res
@@ -30,7 +38,9 @@ export default Component.extend({
                     res.push(status.code)
                 }
             });
-            this.set("filter.status", res)
+            this.set("status", res)
+            this.set("text", this.get('inputText'))
+            this.set('TriggerUpdateFilter', true)
         }
     }
 

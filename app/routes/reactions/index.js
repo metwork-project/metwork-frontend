@@ -11,8 +11,14 @@ export default Route.extend(
   routeLabel: 'reaction',
 
   setupController(controller/*, model*/) {
+    controller.setFilter()
     this._super(...arguments);
-    controller.set('filter', { 'status': [10, 20, 30] });
   },
+
+  getFilter(params) {
+    return {
+      text: params.text, status: params.status
+    }
+  }
 
 });

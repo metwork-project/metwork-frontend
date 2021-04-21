@@ -4,11 +4,12 @@ import Inflector from 'ember-inflector';
 export default Mixin.create({
 
   model(params) {
+    let filter = this.getFilter(params)
     if (this.routeLabel) {
       return this.store.query(this.routeLabel, {
         page_size: params.page_size,
         page: params.page,
-        filter: params.filter,
+        filter: filter,
       })
     } else {
       return this.get('model')
@@ -22,7 +23,11 @@ export default Mixin.create({
     },
     size: {
       refreshModel: true
-    }
+    },
+  },
+
+  getFilter(params) {
+    return null
   },
 
   setupController(controller, model) {

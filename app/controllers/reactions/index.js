@@ -5,12 +5,12 @@ import { computed } from '@ember/object';
 
 export default Controller.extend(PaginatedControllerMixin, {
 
-  page_size: 18,
+  queryParams: ['status', 'text'],
 
-  triggerStatus: computed('filter.status', function () {
-    this.send('updateDataPage', 'model', this.get("page"), this.get("filter"))
-    return null
-  }),
+  page_size: 18,
+  text: null,
+  status: [10, 20, 30],
+
 
   init() {
     this._super(...arguments);
@@ -19,5 +19,27 @@ export default Controller.extend(PaginatedControllerMixin, {
       { type: 'textarea', label: 'Description', field: 'description' },
     ];
   },
+
+  WatchUpdateFilter: computed('TriggerUpdateFilter', function () {
+    if (this.get('TriggerUpdateFilter')) {
+      this.set('TriggerUpdateFilter', false)
+      this.send('updateDataFilter')
+    }
+  }),
+
+  actions: {
+    updateDataFilter() {
+      this.setFilter()
+      this.send('updateDataPage', 'model', 1, this.get('filter'))
+      return null
+    }
+  },
+
+  setFilter() {
+    let filter = {
+      text: this.get('text'), status: this.get("status")
+    }
+    this.set('filter', filter)
+  }
 
 });
