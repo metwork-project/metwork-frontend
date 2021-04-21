@@ -1,15 +1,7 @@
 <!-- Reactions index -->
 <div class="row">
 
-
   {{triggerStatus}}
-
-  <div class="col-lg-2">
-    {{reaction-index-menu filter=filter}}
-
-  </div>
-
-
 
   <div class="card col-lg-10">
     <div class="card-body">
@@ -45,7 +37,7 @@
                   model=reaction
                   chemType='reaction'
                   customBorderWidth=0
-                }}
+                  }}
                   <p class="absolute-br m-0 p-1 text-muted text-truncate font-italic"
                     style="font-size: smaller; width=20px;">
                     {{reaction.user_name}}
@@ -79,5 +71,11 @@
     </div>
   </div>
 
+  <div class="col-lg-2">
+    {{reaction-index-menu filter=filter}}
+
+  </div>
+
 </div>
-{{delete-modal title="Delete reaction" dataToDelete=dataToDelete dataLabel=model.dataLabel updateDataController='updateDataController'}}
+{{delete-modal title="Delete reaction" dataToDelete=dataToDelete dataLabel=model.dataLabel
+updateDataController='updateDataController'}}

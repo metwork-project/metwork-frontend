@@ -7,7 +7,7 @@ export default Controller.extend(PaginatedControllerMixin, {
 
   page_size: 18,
 
-  triggerStatus: computed('filter.status', function() {
+  triggerStatus: computed('filter.status', function () {
     this.send('updateDataPage', 'model', this.get("page"), this.get("filter"))
     return null
   }),

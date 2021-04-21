@@ -2,18 +2,23 @@
     <div class="card-body">
 
         <h4>Filters</h4>
-        <h5>Status</h5>
+
         <form>
+            <h5>Status</h5>
             {{#each reactionStatus as |status| }}
 
             <div class="checkbox">
                 <label>
                     {{input type="checkbox" checked=status.checked }} {{status.libelle}}
-                    {{!-- <input type="checkbox">  --}}
                 </label>
             </div>
             {{/each}}
+            <h5>Contains</h5>
+            <label>
+                {{input value=filter.text class='form-control'}}
+            </label>
+            {{#bs-button type="primary" onClick=(action 'updateFilter')}}Apply{{/bs-button}}
         </form>
-        {{#bs-button type="primary" onClick=(action 'updateFilter')}}Apply{{/bs-button}}
+
     </div>
 </div>
