@@ -52,10 +52,15 @@
 </div>
 {{/if}}
 
+{{WatchAddItems}}
+
 {{reaction-manager 
   model=reactions 
-  modelName="reactions" 
+  modelName="reactions"
+  updatedReactionIds=updatedReactionIds 
+  hasChanges=hasChanges
   updateDataPage=(route-action 'updateDataPage')
+  triggerAddItems=triggerAddItems
   newItem=(route-action 'newItem')
   status=status
   text=text
@@ -63,7 +68,7 @@
   user=user}}
 
 
-  {{!-- {{reaction-list model=reactions class="card-text"}} --}}
+{{!-- {{reaction-list model=reactions class="card-text"}} --}}
 {{!-- 
 {{chemical-select
     title="Selected reactions"

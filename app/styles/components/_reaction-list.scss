@@ -1,0 +1,39 @@
+@import "../base/colors";
+
+.display-hover-group{
+  .display-hover-item {
+      display: none;
+    }
+    &:hover {
+      .display-hover-item {
+        display: inline-block;
+        cursor: pointer;
+      }
+  } 
+  .display-hover-trash {
+    display: none;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+  }
+  &:hover {
+    .display-hover-trash {
+      display: inherit;
+    }
+  }
+  .selected-item {
+    cursor: pointer;
+    display: inline-block !important;
+  }
+}
+.status-badge {
+    position: absolute;
+    top: 6px;
+    left: 6px;
+  }
+.absolute-br {
+  position: absolute;
+  bottom: 6px;
+  right: 6px;
+}
+

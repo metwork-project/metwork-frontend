@@ -1,19 +1,28 @@
 <div class="row">
 
+
   <div class="card col-lg-10">
     <div class="card-body">
       <div class="d-flex">
         <h3 class="mr-auto">
           Reactions
         </h3>
-        <div>
+        <div>{{#if hasChanges}}
+          <button type="button" class="btn btn-primary" {{action "addItems"}}>
+            {{svg-jar "plus" class="octicon"}} Save changes
+          </button>
+          {{/if}}
           <button type="button" class="btn btn-success" {{action "createItem" "reaction" model}}>
             {{svg-jar "plus" class="octicon"}} New reaction
           </button>
         </div>
       </div>
 
-      {{reaction-list model=model class="card-text"}}
+      {{reaction-list 
+        model=model 
+        class="card-text" 
+        updatedReactionIds=updatedReactionIds 
+        hasChanges=hasChanges}}
 
     </div>
   </div>

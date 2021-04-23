@@ -1,0 +1,61 @@
+<div class="col my-1">
+
+
+    <div class="card  h-100 {{if isSelected 'border-primary'}}">
+
+        <div class="card-header font-weight-bold px-2 py-1 ">
+            <div class="{{if updatedReactionIds 'row'}} display-hover-group">
+
+                <div class="{{if updatedReactionIds 'col-10'}}">
+                    {{#link-to 
+                        'reactions.show' 
+                        reaction 
+                        class='d-inline-block w-100 text-truncate' 
+                        style="text-decoration: none;"}}
+                    {{reaction.name}}
+                    {{/link-to }}
+                </div>
+
+                {{#if isSelectable}}
+                <div class="col-2 display-hover-item {{if isSelected 'selected-item'}}"
+                    onclick={{action "toggleSlelect"}}>
+                    {{svg-jar "check" class="octicon"}}
+                </div>
+                {{/if}}
+            </div>
+        </div>
+
+        <div class="card-img-top text-center">
+            <div class="d-inline-block position-relative w-100 display-hover-group">
+                <p class="status-badge">{{status-badge model=reaction}}</p>
+                {{chemical-display
+                    canvasId=reaction.canvasId
+                    model=reaction
+                    chemType='reaction'
+                    customBorderWidth=0
+                    }}
+                <p class="absolute-br m-0 p-1 text-muted text-truncate font-italic"
+                    style="font-size: smaller; width=20px;">
+                    {{reaction.user_name}}
+                </p>
+                {{#if reaction.isEditable}}
+                <div class="display-hover-trash">
+                    {{#bs-button class="btn-sm" type="danger" onClick=(action (mut dataToDelete) reaction )}}
+                    {{svg-jar "trashcan" class="octicon"}}
+                    {{/bs-button}}
+                </div>
+                {{/if}}
+            </div>
+        </div>
+        {{#if reaction.hasTags}}
+        <div class=" card-body px-1 py-0" style="font-size: smaller;">
+            {{#each reaction.tags_list as |tag|}}
+            <span class="badge badge-info d-inline-block d-inline">
+                {{tag}}
+            </span>
+            {{/each}}
+        </div>
+        {{/if}}
+    </div>
+
+</div>

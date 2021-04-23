@@ -13,6 +13,8 @@ export default Route.extend(
     model.set('activeNav', 'metabolization')
     controller.set('spinnerStatus', 'waiting');
     controller.set('nodeData', null);
+    let updatedReactionIds = [...model.reaction_ids]
+    controller.set('updatedReactionIds', updatedReactionIds)
     this.transitionTo('projects.show.metabolization', model);
   },
 

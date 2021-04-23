@@ -12,7 +12,6 @@ export default Component.extend(PaginatedControllerMixin, {
     my: false,
     user: null,
 
-
     init() {
         this._super(...arguments);
         this.uploadMetaDatas = [
@@ -29,13 +28,16 @@ export default Component.extend(PaginatedControllerMixin, {
     }),
 
     actions: {
+        addItems(){
+            this.set('triggerAddItems', !this.get('triggerAddItems'))
+        },
         updateDataFilter() {
             this.set('TriggerUpdateFilter', false)
             this.setFilter()
             this.get('updateDataPage')(this.get('modelName'), 1, this.get('filter'))
             return null
         },
-        createItem(modelName, model){
+        createItem(modelName, model) {
             this.get("newItem")(modelName, model)
         }
     },
