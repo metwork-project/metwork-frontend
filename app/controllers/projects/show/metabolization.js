@@ -13,15 +13,17 @@ export default Controller.extend(
   spinnerStatus: 'waiting',
   displayNodeName: 'parent_mass',
 
-  queryParams: ['status', 'text', 'my', 'user'],
+  queryParams: ['status', 'text', 'my', 'user', 'selected'],
 
   status: [30],
   text: null,
   my: false,
   user: null,
+  selected: "all",
   triggerAddItems: false,
   hasChanges: false,
-  
+
+
   genDataComponents: function() {
     this.setFilter()
     this.dataComponents['reactions'] =
@@ -38,7 +40,8 @@ export default Controller.extend(
       status: this.get("status"),
       my: this.get('my'),
       user: this.get('user'),
-      project_id: this.get('model').id
+      project_id: this.get('model').id,
+      selected: this.get('selected'),
     }
     this.set('filter', filter)
   },

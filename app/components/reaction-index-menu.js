@@ -9,12 +9,14 @@ export default Component.extend({
     inputMy: false,
     inputUser: null,
     updateFilter: false,
+    inputSelected: "all",
 
     init() {
         this._super(...arguments);
         this.set('inputText', this.get('text'))
         this.set('inputMy', this.get('my'))
         this.set('inputUser', this.get('user'))
+        this.set('inputSelected', this.get('selected'))
     },
 
     reactionStatus: computed('filter', function () {
@@ -51,6 +53,10 @@ export default Component.extend({
                 this.set("user", this.get('inputUser'))
             }
             this.set('TriggerUpdateFilter', true)
+            this.set("selected", this.get('inputSelected'))
+        },
+        updateSelected(value){
+            this.set('inputSelected', value)
         }
     }
 

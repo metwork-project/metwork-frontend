@@ -4,13 +4,15 @@ import { computed } from '@ember/object';
 
 export default Component.extend(PaginatedControllerMixin, {
 
-    queryParams: ['status', 'text', 'my', 'user'],
+    queryParams: ['status', 'text', 'my', 'user', 'selected'],
 
     page_size: 18,
     status: [10, 20, 30],
     text: null,
     my: false,
     user: null,
+    selected: "all",
+    triggerSelected: false,
 
     init() {
         this._super(...arguments);
@@ -27,8 +29,12 @@ export default Component.extend(PaginatedControllerMixin, {
         return null
     }),
 
+    selectedCount: computed('triggerSelected', function() {
+        return this.get('updatedReactionIds').length
+    }),
+
     actions: {
-        addItems(){
+        addItems() {
             this.set('triggerAddItems', !this.get('triggerAddItems'))
         },
         updateDataFilter() {
@@ -44,7 +50,12 @@ export default Component.extend(PaginatedControllerMixin, {
 
     setFilter() {
         let filter = {
-            text: this.get('text'), status: this.get("status"), my: this.get('my'), user: this.get('user')
+            text: this.get('text'), 
+            status: this.get("status"), 
+            my: this.get('my'), 
+            user: this.get('user'), 
+            project_id: this.get('project_id'),
+            selected: this.get('selected')
         }
         this.set('filter', filter)
     }

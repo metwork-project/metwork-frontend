@@ -4,10 +4,18 @@
   <div class="card col-lg-10">
     <div class="card-body">
       <div class="d-flex">
-        <h3 class="mr-auto">
-          Reactions
-        </h3>
-        <div>{{#if hasChanges}}
+        <div class="mr-auto">
+          <h3 class="d-inline">
+            Reactions
+          </h3>
+          {{#if updatedReactionIds}}
+          <span>
+            ({{selectedCount}} selected)
+          </span>
+          {{/if}}
+        </div>
+        <div>
+          {{#if hasChanges}}
           <button type="button" class="btn btn-primary" {{action "addItems"}}>
             {{svg-jar "plus" class="octicon"}} Save changes
           </button>
@@ -22,6 +30,7 @@
         model=model 
         class="card-text" 
         updatedReactionIds=updatedReactionIds 
+        triggerSelected=triggerSelected
         hasChanges=hasChanges}}
 
     </div>
@@ -29,7 +38,14 @@
 
   <div class="col-lg-2">
     {{WatchUpdateFilter}}
-    {{reaction-index-menu status=status text=text my=my user=user TriggerUpdateFilter=TriggerUpdateFilter}}
+    {{reaction-index-menu 
+      status=status 
+      text=text 
+      my=my 
+      user=user
+      selected=selected
+      TriggerUpdateFilter=TriggerUpdateFilter
+      updatedReactionIds=updatedReactionIds}}
 
   </div>
 

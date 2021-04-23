@@ -4,6 +4,7 @@
         <h4>Filter</h4>
 
         <form>
+            {{#if (not updatedReactionIds)}}
             <h5>Status</h5>
             {{#each reactionStatus as |status| }}
 
@@ -17,6 +18,7 @@
                 </label>
             </div>
             {{/each}}
+            {{/if}}
             <h5>Text</h5>
             <label>
                 {{input value=inputText class='form-control'}}
@@ -30,6 +32,16 @@
             <label>
                 {{input value=inputUser class='form-control' disabled=inputMy}}
             </label>
+            {{#if updatedReactionIds}}
+            <h5>Selection</h5>
+            <label>
+                <select class="form-control" onchange={{action "updateSelected" value="target.value"}}>
+                    <option value='all'>All</option>
+                    <option value='selected'>Selected</option>
+                    <option value='notselected'>Not selected</option>
+                </select>
+            </label>
+            {{/if}}
             {{#bs-button type="primary" onClick=(action 'updateFilter')}}Apply{{/bs-button}}
         </form>
 
