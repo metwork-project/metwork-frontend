@@ -1,0 +1,29 @@
+<div class="row">
+
+  <div class="card col-lg-10">
+    <div class="card-body">
+      <div class="d-flex">
+        <h3 class="mr-auto">
+          Reactions
+        </h3>
+        <div>
+          <button type="button" class="btn btn-success" {{action "createItem" "reaction" model}}>
+            {{svg-jar "plus" class="octicon"}} New reaction
+          </button>
+        </div>
+      </div>
+
+      {{reaction-list model=model class="card-text"}}
+
+    </div>
+  </div>
+
+  <div class="col-lg-2">
+    {{WatchUpdateFilter}}
+    {{reaction-index-menu status=status text=text my=my user=user TriggerUpdateFilter=TriggerUpdateFilter}}
+
+  </div>
+
+</div>
+{{delete-modal title="Delete reaction" dataToDelete=dataToDelete dataLabel=model.dataLabel
+updateDataController='updateDataController'}}

@@ -13,11 +13,28 @@ export default Controller.extend(
   spinnerStatus: 'waiting',
   displayNodeName: 'parent_mass',
 
+  queryParams: ['status', 'text', 'my', 'user'],
+
+  status: [30],
+  text: null,
+  my: false,
+  user: null,
+
   genDataComponents: function () {
-    this.dataComponents['reactions-available'] =
-      { routeLabel: 'reaction', params: { project_id: this.model.id, page: 1, page_size: 15, selected: false } };
-    this.dataComponents['reactions-selected'] =
-      { routeLabel: 'reaction', params: { project_id: this.model.id, page: 1, page_size: 15, selected: true } };
+    this.setFilter()
+    this.dataComponents['reactions'] =
+      { routeLabel: 'reaction', params: { page: 1, page_size: 15, filter:this.get('filter')} };
+    // this.dataComponents['reactions-available'] =
+    //   { routeLabel: 'reaction', params: { project_id: this.model.id, page: 1, page_size: 15, selected: false } };
+    // this.dataComponents['reactions-selected'] =
+    //   { routeLabel: 'reaction', params: { project_id: this.model.id, page: 1, page_size: 15, selected: true } };
+  },
+
+  setFilter() {
+    let filter = {
+      text: this.get('text'), status: this.get("status"), my: this.get('my'), user: this.get('user')
+    }
+    this.set('filter', filter)
   },
 
   actions: {

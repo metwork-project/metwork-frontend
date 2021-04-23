@@ -1,6 +1,6 @@
 import Controller from '@ember/controller';
 import PaginatedControllerMixin from 'metwork-frontend/mixins/paginated-controller';
-import { computed } from '@ember/object';
+
 
 
 export default Controller.extend(PaginatedControllerMixin, {
@@ -20,21 +20,6 @@ export default Controller.extend(PaginatedControllerMixin, {
       { type: 'text', label: 'Reaction name', field: 'name', bindFilename: true },
       { type: 'textarea', label: 'Description', field: 'description' },
     ];
-  },
-
-  WatchUpdateFilter: computed('TriggerUpdateFilter', function () {
-    if (this.get('TriggerUpdateFilter')) {
-      this.set('TriggerUpdateFilter', false)
-      this.send('updateDataFilter')
-    }
-  }),
-
-  actions: {
-    updateDataFilter() {
-      this.setFilter()
-      this.send('updateDataPage', 'model', 1, this.get('filter'))
-      return null
-    }
   },
 
   setFilter() {
