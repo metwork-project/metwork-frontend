@@ -17,6 +17,12 @@ export default Component.extend({
         this.set('inputMy', this.get('my'))
         this.set('inputUser', this.get('user'))
         this.set('inputSelected', this.get('selected'))
+        let selectedOptions = {
+            all: "All",
+            selected: "Selected",
+            notselected: "Not Selected",
+        }
+        this.set("selectedOptions", selectedOptions)
     },
 
     reactionStatus: computed('filter', function () {

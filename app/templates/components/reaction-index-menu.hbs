@@ -35,10 +35,13 @@
             {{#if updatedReactionIds}}
             <h5>Selection</h5>
             <label>
-                <select class="form-control" onchange={{action "updateSelected" value="target.value"}}>
-                    <option value='all'>All</option>
-                    <option value='selected'>Selected</option>
-                    <option value='notselected'>Not selected</option>
+                <select class="form-control" onchange={{action "updateSelected" value="target.value"}}
+                    >
+                    {{#each-in selectedOptions as |value label| }}
+                    <option value={{value}} selected={{if (eq value selected) true}}>
+                        {{label}}
+                    </option>
+                    {{/each-in}}
                 </select>
             </label>
             {{/if}}
