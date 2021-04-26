@@ -1,54 +1,13 @@
-<div class="card">
-    <div class="card-header">{{svg-jar "filter" class="octicon"}} Filter</div>
-    <div class="card-body">
-
-        <form>
-            {{#if (not projectView)}}
-            <h5>Status</h5>
-            {{#each itemStatus as |status| }}
-
-            <div class="checkbox">
-                <label>
-                    {{input type="checkbox" checked=status.checked }}
-                    <span class="badge badge-{{status.class}}" style="vertical-align:top">
-                        {{status.libelle}}
-                    </span>
-
-                </label>
-            </div>
-            {{/each}}
-            {{/if}}
-            <h5>Text</h5>
-            <label>
-                {{input value=inputText class='form-control'}}
-            </label>
-            <h5>User</h5>
-            <div class="checkbox">
-                <label>
-                    {{input type="checkbox" checked=inputMy }} My reactions
-                </label>
-            </div>
-            <label>
-                {{input value=inputUser class='form-control' disabled=inputMy}}
-            </label>
-            {{#if projectView}}
-            <h5>Selection</h5>
-            <label>
-                <select class="form-control" onchange={{action "updateSelected" value="target.value"}}>
-                    {{#each-in selectedOptions as |value label| }}
-                    <option value={{value}} selected={{if (eq value selected) true}}>
-                        {{label}}
-                    </option>
-                    {{/each-in}}
-                </select>
-            </label>
-            {{/if}}
-        </form>
-
-
-    </div>
-    <ul class="list-group list-group-flush btn-group-vertical">
-        <button type="button" class="btn btn-primary" {{action "updateFilter"}} 
-        style="border-top-left-radius: 0; border-top-right-radius: 0;">Apply</button>
-    </ul>
+<h5>Text</h5>
+<label>
+    {{input value=text class='form-control'}}
+</label>
+<h5>User</h5>
+<div class="checkbox">
+    <label>
+        {{input type="checkbox" checked=my }} My reactions
+    </label>
 </div>
+<label>
+    {{input value=user class='form-control' disabled=my}}
+</label>

@@ -1,18 +1,19 @@
 import ItemsManager from 'metwork-frontend/components/items-manager';
-
+import { reactionStatus } from '../models/reaction'
 
 export default ItemsManager.extend(
     {
-
-        queryParams: ['status', 'text', 'my', 'user', 'selected'],
-
-        page_size: 18,
-        status: [10, 20, 30],
+        availableStatus: [10, 20, 30, 40],
         text: null,
         my: false,
         user: null,
         dataLabel: 'reaction',
+        itemIdsLabel: "reaction_ids",
 
+
+        getItemStatus() {
+            return reactionStatus
+        },
 
         getFilter() {
             return {

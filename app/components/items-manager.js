@@ -3,58 +3,57 @@ import { computed } from '@ember/object';
 import PaginatedControllerMixin from 'metwork-frontend/mixins/paginated-controller';
 
 export default Component.extend(
-    PaginatedControllerMixin, 
-    {
+  PaginatedControllerMixin,
+  {
 
     selected: "all",
+    TriggerUpdateFilter: false,
     triggerSelected: false,
+    triggerAddItems: "init",
+
+    init() {
+      this._super(...arguments);
+      this.set('inputSelected', this.get('selected'))
+    },
 
     WatchUpdateFilter: computed('TriggerUpdateFilter', function() {
-        if (this.get('TriggerUpdateFilter')) {
-            this.send('updateDataFilter')
-        }
-        return null
+      this.send('updateDataFilter')
+      return null
+    }),
+
+    WatchAddItems: computed('triggerAddItems', function() {
+      if (this.get("triggerAddItems") != "init") {
+        this.send('addItems')
+      }
+      return null
     }),
 
     selectedCount: computed('triggerSelected', function() {
-        return this.get('updatedItemIds').length
+      return this.get('updatedItemIds').length
     }),
 
     actions: {
-        addItems() {
-            this.set('triggerAddItems', !this.get('triggerAddItems'))
-        },
-        updateDataFilter() {
-            this.set('TriggerUpdateFilter', false)
-            this.setFilter()
-            this.get('updateDataPage')(this.get('modelName'), 1, this.get('filter'))
-            return null
-        },
-        selectAll() {
-            this.setFilter()
-            let this_ = this
-            this.get('store').query(this.get('dataLabel'), { only_ids: true, filter: this.get("filter") }).then(
-                function(response) {
-                    this_.set("updatedItemIds", response.meta.ids)
-                    this_.changetriggerSelected()
-                    this_.set('hasChanges', true)
-                })
-        },
-        deSelectAll() {
-            this.set("updatedItemIds", [])
-            this.changetriggerSelected()
-            this.set('hasChanges', true)
-        },
-        cancelSelect() {
-            this.set("updatedItemIds", [...this.get('initItemIds')])
-            this.changetriggerSelected()
-            this.set('hasChanges', false)
-        }
+      updateDataFilter() {
+        this.setFilter()
+        this.get('updateDataPage')(this.get('modelName'), 1, this.get('filter'))
+        return null
+      },
+      addItems() {
+        var this_ = this
+        this.get('project').addItems({
+          dataLabel: this.get('modelName'),
+          item_ids: this.get('updatedItemIds')
+        })
+          .then(function(/*response*/) {
+            let itemIds = [...this_.get('updatedItemIds')]
+            this_.set('project.' + this_.get("itemIdsLabel"), itemIds)
+            this_.set('hasChanges', false)
+          });
+      },
     },
 
-    changetriggerSelected() { this.set("triggerSelected", !this.triggerSelected) },
 
     setFilter() {
-        this.set('filter', this.getFilter())
+      this.set('filter', this.getFilter())
     }
-});
+  });

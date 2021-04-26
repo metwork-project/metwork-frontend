@@ -20,7 +20,6 @@ export default Controller.extend(
   my: false,
   user: null,
   selected: "all",
-  triggerAddItems: "init",
   hasChanges: false,
 
 
@@ -46,26 +45,7 @@ export default Controller.extend(
     this.set('filter', filter)
   },
 
-  WatchAddItems: computed('triggerAddItems', function() {
-    if (this.get("triggerAddItems") != "init") {
-      this.send('addItems')
-    }
-    return null
-  }),
-
   actions: {
-    addItems() {
-      var this_ = this
-      this.get('model').addItems({
-        dataLabel: 'reactions',
-        item_ids: this.get('updatedItemIds')
-      })
-        .then(function(/*response*/) {
-          let reactionIds = [...this_.get('updatedItemIds')]
-          this_.set('model.reaction_ids', reactionIds)
-          this_.set('hasChanges', false)
-        });
-    },
     toggleDisplayNodeName() {
       var field = 'best_cosine';
       if (this.get('displayNodeName') === 'parent_mass') {

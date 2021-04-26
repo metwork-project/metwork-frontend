@@ -52,10 +52,9 @@
 </div>
 {{/if}}
 
-{{WatchAddItems}}
-
 {{reaction-manager 
   model=reactions
+  project=model
   store=store
   modelName="reactions"
   initItemIds=model.reaction_ids 
@@ -63,7 +62,6 @@
   hasChanges=hasChanges
   projectView=true
   updateDataPage=(route-action 'updateDataPage')
-  triggerAddItems=triggerAddItems
   status=status
   text=text
   my=my

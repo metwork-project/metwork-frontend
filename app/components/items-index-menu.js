@@ -8,27 +8,17 @@ export default Component.extend({
 
     init() {
         this._super(...arguments);
-        this.set('inputSelected', this.get('selected'))
         let selectedOptions = {
             all: "All",
             selected: "Selected",
             notselected: "Not Selected",
         }
         this.set("selectedOptions", selectedOptions)
-        this.set('availableStatus', [])
-        this.setCustomFileds()
     },
 
-    setCustomFileds() {
 
-    },
-
-    getItemStatus() {
-        return {}
-    },
-
-    itemStatus: computed('filter', function () {
-        let availableStatus = this.get('availableStatus')
+    itemStatus: computed('filter', function() {
+        let availableStatus = this.get('availableStatus', [])
         let res = Object.values(this.getItemStatus()).reduce(
             (res, status) => {
                 if (availableStatus.includes(status.code)) {
@@ -46,7 +36,7 @@ export default Component.extend({
     }),
 
 
-    updateFilterStatus(){
+    updateFilterStatus() {
         let res = []
         this.itemStatus.forEach(status => {
             if (status.checked) {
@@ -55,20 +45,41 @@ export default Component.extend({
         });
         this.set("status", res)
     },
-    updateCustomFilter() {
 
-    },
+    changetriggerSelected() { this.set("triggerSelected", !this.triggerSelected) },
 
     actions: {
-        updateFilter() {
+        triggerFilter() {
             this.updateFilterStatus()
-            this.updateCustomFilter()
-            this.set('TriggerUpdateFilter', true)
-            this.set("selected", this.get('inputSelected'))
+            this.set("TriggerUpdateFilter", !this.get("TriggerUpdateFilter"))
         },
-        updateSelected(value){
-            this.set('inputSelected', value)
-        }
+        updateSelected(value) {
+            this.set('selected', value)
+        },
+        addItems() {
+            this.set('triggerAddItems', !this.get('triggerAddItems'))
+        },
+        selectAll() {
+            this.setFilter()
+            let this_ = this
+            console.log("filter", this.get("filter"))
+            this.get('store').query(this.get('dataLabel'), { only_ids: true, filter: this.get("filter") }).then(
+                function(response) {
+                    this_.set("updatedItemIds", response.meta.ids)
+                    this_.changetriggerSelected()
+                    this_.set('hasChanges', true)
+                })
+        },
+        deSelectAll() {
+            this.set("updatedItemIds", [])
+            this.changetriggerSelected()
+            this.set('hasChanges', true)
+        },
+        cancelSelect() {
+            this.set("updatedItemIds", [...this.get('initItemIds')])
+            this.changetriggerSelected()
+            this.set('hasChanges', false)
+        },
     }
 
 

@@ -1,32 +1,64 @@
-  <div>
+<div class="card">
+  <div class="card-header">{{svg-jar "filter" class="octicon"}}Filter</div>
+  <div class="card-body">
 
-    <div>
-      {{WatchUpdateFilter}}
-      {{yield}}
+    <form>
+      {{#if (not projectView)}}
+      <h5>Status</h5>
+      {{#each itemStatus as |status| }}
 
+      <div class="checkbox">
+        <label>
+          {{input type="checkbox" checked=status.checked }}
+          <span class="badge badge-{{status.class}}" style="vertical-align:top">
+            {{status.libelle}}
+          </span>
 
-      {{#if projectView}}
-      <div class="card my-2">
-        <div class="card-header">{{svg-jar "gear" class="octicon"}} Actions</div>
-        <ul class="list-group list-group-flush btn-group-vertical">
-
-          <button type="button" class="btn btn-primary" {{action "selectAll"}} style="border-radius: 0;">
-            {{svg-jar "tasklist" class="octicon"}} All
-          </button>
-          <button type="button" class="btn btn-primary" {{action "deSelectAll"}}>
-            {{svg-jar "circle-slash" class="octicon"}} None
-          </button>
-          <button type="button" class="btn btn-primary" {{action "addItems"}} disabled={{if (not hasChanges) true}}>
-            {{svg-jar "save" class="octicon"}} Save
-          </button>
-          <button type="button" class="btn btn-secondary" {{action "cancelSelect"}}
-            disabled={{if (not hasChanges) true}}>
-            {{svg-jar "clear" class="octicon"}} Cancel
-          </button>
-        </ul>
+        </label>
       </div>
+      {{/each}}
       {{/if}}
 
-    </div>
-  </div>
+      {{yield}}
 
+      {{#if projectView}}
+      <h5>Selection</h5>
+      <label>
+        <select class="form-control" onchange={{action "updateSelected" value="target.value"}}>
+          {{#each-in selectedOptions as |value label| }}
+          <option value={{value}} selected={{if (eq value selected) true}}>
+            {{label}}
+          </option>
+          {{/each-in}}
+        </select>
+      </label>
+      {{/if}}
+    </form>
+
+  </div>
+  <ul class="list-group list-group-flush btn-group-vertical">
+    <button type="button" class="btn btn-primary" {{action "triggerFilter"}}
+      style="border-top-left-radius: 0; border-top-right-radius: 0;">Apply</button>
+  </ul>
+</div>
+
+{{#if projectView}}
+<div class="card my-2">
+  <div class="card-header">{{svg-jar "gear" class="octicon"}} Actions</div>
+  <ul class="list-group list-group-flush btn-group-vertical">
+
+    <button type="button" class="btn btn-primary" {{action "selectAll"}} style="border-radius: 0;">
+      {{svg-jar "tasklist" class="octicon"}} All
+    </button>
+    <button type="button" class="btn btn-primary" {{action "deSelectAll"}}>
+      {{svg-jar "circle-slash" class="octicon"}} None
+    </button>
+    <button type="button" class="btn btn-primary" {{action "addItems"}} disabled={{if (not hasChanges) true}}>
+      {{svg-jar "save" class="octicon"}} Save
+    </button>
+    <button type="button" class="btn btn-secondary" {{action "cancelSelect"}} disabled={{if (not hasChanges) true}}>
+      {{svg-jar "clear" class="octicon"}} Cancel
+    </button>
+  </ul>
+</div>
+{{/if}}
