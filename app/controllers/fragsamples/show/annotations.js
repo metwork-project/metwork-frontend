@@ -6,6 +6,8 @@ import FileManagerController from '../../file-manager-controller';
 export default FileManagerController.extend(
     PaginatedControllerMixin, {
 
+    status: [ 20, 30],
+
     genDataComponents: function () {
         this.dataComponents['frag-annotation'] =
             { params: { page: 1, page_size: 6, frag_sample_id: this.model.id } };

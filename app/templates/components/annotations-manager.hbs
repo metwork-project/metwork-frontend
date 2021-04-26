@@ -1,3 +1,6 @@
+{{WatchUpdateFilter}}
+{{WatchAddItems}}
+
 <div class="row">
 
   {{#items-list
@@ -16,13 +19,31 @@
   {{/each}}
   {{/items-list}}
 
-  {{#items-index-menu class="col-lg-2"}}
-  {{annotations-index-menu 
+  {{#items-index-menu
+      class="col-lg-2"
+      dataLabel="annotation"
+      getFilter=getFilter
+      setFilter=setFilter
+      store=store
       status=status 
       selected=selected
+      triggerSelected=triggerSelected 
       TriggerUpdateFilter=TriggerUpdateFilter
+      triggerAddItems=triggerAddItems
+      projectView=projectView
+      getItemStatus=getItemStatus
+      availableStatus=availableStatus
       updatedItemIds=updatedItemIds
-      projectView=projectView}}
+      initItemIds=initItemIds
+      hasChanges=hasChanges
+      text=text 
+      my=my 
+      user=user}}
+  {{annotations-index-menu 
+      text=text 
+      my=my 
+      user=user
+  }}
   {{/items-index-menu}}
 
 </div>
