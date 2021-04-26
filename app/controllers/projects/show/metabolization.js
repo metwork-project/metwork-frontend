@@ -58,10 +58,10 @@ export default Controller.extend(
       var this_ = this
       this.get('model').addItems({
         dataLabel: 'reactions',
-        item_ids: this.get('updatedReactionIds')
+        item_ids: this.get('updatedItemIds')
       })
         .then(function(/*response*/) {
-          let reactionIds = [...this_.get('updatedReactionIds')]
+          let reactionIds = [...this_.get('updatedItemIds')]
           this_.set('model.reaction_ids', reactionIds)
           this_.set('hasChanges', false)
         });

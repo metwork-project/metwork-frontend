@@ -14,14 +14,6 @@ export default Controller.extend(PaginatedControllerMixin, {
   user: null,
 
 
-  init() {
-    this._super(...arguments);
-    this.uploadMetaDatas = [
-      { type: 'text', label: 'Reaction name', field: 'name', bindFilename: true },
-      { type: 'textarea', label: 'Description', field: 'description' },
-    ];
-  },
-
   setFilter() {
     let filter = {
       text: this.get('text'), status: this.get("status"), my: this.get('my'), user: this.get('user')

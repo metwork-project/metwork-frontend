@@ -1,72 +1,32 @@
 <div class="row">
 
-  <div class="col-lg-10">
+  {{#items-list
+    class="col-lg-10" 
+    title="Reactions"
+    modelLabel="reaction" 
+    model=model 
+    newItem=(route-action 'newItem')}}
+  {{#each model as |reaction|}}
+  {{reaction-list-item 
+                item=reaction 
+                updatedItemIds=updatedItemIds 
+                triggerSelected=triggerSelected 
+                hasChanges=hasChanges
+                projectView=projectView}}
+  {{/each}}
+  {{/items-list}}
 
-    <div class="d-flex mb-3">
-      <div class="mr-auto">
-        <h2 class="d-inline">
-          Reactions
-        </h2>
-        {{#if updatedReactionIds}}
-        <span>
-          ({{selectedCount}} selected)
-        </span>
-        {{/if}}
-      </div>
-      <div>
-        <button type="button" class="btn btn-success" {{action "createItem" "reaction" model}}>
-          {{svg-jar "plus" class="octicon"}} New reaction
-        </button>
-      </div>
-    </div>
-    <div>
-      {{reaction-list 
-        model=model 
-        class="card-text" 
-        updatedReactionIds=updatedReactionIds 
-        triggerSelected=triggerSelected
-        hasChanges=hasChanges
-        projectView=projectView}}
-    </div>
-  </div>
-  <div class="col-lg-2">
-
-    <div class="">
-      {{WatchUpdateFilter}}
-      {{reaction-index-menu 
+  {{#items-index-menu class="col-lg-2"}}
+  {{reaction-index-menu 
       status=status 
       text=text 
       my=my 
       user=user
       selected=selected
       TriggerUpdateFilter=TriggerUpdateFilter
-      updatedReactionIds=updatedReactionIds
+      updatedItemIds=updatedItemIds
       projectView=projectView}}
-
-      {{#if projectView}}
-      <div class="card my-2">
-        <div class="card-header">{{svg-jar "gear" class="octicon"}} Actions</div>
-        <ul class="list-group list-group-flush btn-group-vertical">
-
-          <button type="button" class="btn btn-primary" {{action "selectAll"}} style="border-radius: 0;">
-            {{svg-jar "tasklist" class="octicon"}} All
-          </button>
-          <button type="button" class="btn btn-primary" {{action "deSelectAll"}}>
-            {{svg-jar "circle-slash" class="octicon"}} None
-          </button>
-          <button type="button" class="btn btn-primary" {{action "addItems"}} disabled={{if (not hasChanges) true}}>
-            {{svg-jar "save" class="octicon"}} Save
-          </button>
-          <button type="button" class="btn btn-secondary" {{action "cancelSelect"}}
-            disabled={{if (not hasChanges) true}}>
-            {{svg-jar "clear" class="octicon"}} Cancel
-          </button>
-        </ul>
-      </div>
-      {{/if}}
-
-    </div>
-  </div>
+  {{/items-index-menu}}
 
 </div>
 {{delete-modal title="Delete reaction" dataToDelete=dataToDelete dataLabel=model.dataLabel

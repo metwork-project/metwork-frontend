@@ -9,10 +9,10 @@
                 <div class="{{if projectView 'col-10'}}">
                     {{#link-to 
                         'reactions.show' 
-                        reaction 
+                        item 
                         class='d-inline-block w-100 text-truncate' 
                         style="text-decoration: none;"}}
-                    {{reaction.name}}
+                    {{item.name}}
                     {{/link-to }}
                 </div>
 
@@ -27,29 +27,29 @@
 
         <div class="card-img-top text-center">
             <div class="d-inline-block position-relative w-100 display-hover-group">
-                <p class="status-badge">{{status-badge model=reaction}}</p>
+                <p class="status-badge">{{status-badge model=item}}</p>
                 {{chemical-display
-                    canvasId=reaction.canvasId
-                    model=reaction
+                    canvasId=item.canvasId
+                    model=item
                     chemType='reaction'
                     customBorderWidth=0
                     }}
                 <p class="absolute-br m-0 p-1 text-muted text-truncate font-italic"
                     style="font-size: smaller; width=20px;">
-                    {{reaction.user_name}}
+                    {{item.user_name}}
                 </p>
-                {{#if reaction.isEditable}}
+                {{#if item.isEditable}}
                 <div class="display-hover-trash">
-                    {{#bs-button class="btn-sm" type="danger" onClick=(action (mut dataToDelete) reaction )}}
+                    {{#bs-button class="btn-sm" type="danger" onClick=(action (mut dataToDelete) item )}}
                     {{svg-jar "trashcan" class="octicon"}}
                     {{/bs-button}}
                 </div>
                 {{/if}}
             </div>
         </div>
-        {{#if reaction.hasTags}}
+        {{#if item.hasTags}}
         <div class=" card-body px-1 py-0" style="font-size: smaller;">
-            {{#each reaction.tags_list as |tag|}}
+            {{#each item.tags_list as |tag|}}
             <span class="badge badge-info d-inline-block d-inline">
                 {{tag}}
             </span>
