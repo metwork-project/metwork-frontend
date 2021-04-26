@@ -20,7 +20,7 @@ export default Controller.extend(
   my: false,
   user: null,
   selected: "all",
-  triggerAddItems: false,
+  triggerAddItems: "init",
   hasChanges: false,
 
 
@@ -47,7 +47,9 @@ export default Controller.extend(
   },
 
   WatchAddItems: computed('triggerAddItems', function() {
-    this.send('addItems')
+    if (this.get("triggerAddItems") != "init") {
+      this.send('addItems')
+    }
     return null
   }),
 

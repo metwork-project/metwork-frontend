@@ -1,5 +1,5 @@
 import DS from 'ember-data';
-import { memberAction/*, collectionAction*/ } from 'ember-api-actions';
+import { memberAction, collectionAction } from 'ember-api-actions';
 import { computed } from '@ember/object';
 
 let reactionStatus = {
@@ -88,6 +88,8 @@ export default DS.Model.extend({
   addTag: memberAction({ path: 'add_tag', type: 'patch' }),
 
   removeTag: memberAction({ path: 'remove_tag', type: 'patch' }),
+
+  filteredIds: memberAction({ path: 'filtered_ids', type: 'get' }),
 
   display: computed('name', function() {
     return this.get('name');

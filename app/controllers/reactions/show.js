@@ -64,7 +64,6 @@ export default Controller.extend({
 
   actions: {
     saveReaction(JSONUpdated) {
-      console.log("saveReaction")
       let isNew = this.model.get('isNew')
       if (JSONUpdated || isNew) {
         this.set('products', false)
@@ -145,7 +144,6 @@ export default Controller.extend({
       var old_status = this.model.get('status_code')
       this.model.set('status_code', this.model.statusRef().OBSOLETE.code)
       this.model.save().then(function () {
-        console.log("then")
         this_.model.reload()
       }).catch(
         function (error) {

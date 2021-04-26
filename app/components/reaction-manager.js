@@ -2,6 +2,7 @@ import Component from '@ember/component';
 import PaginatedControllerMixin from 'metwork-frontend/mixins/paginated-controller';
 import { computed } from '@ember/object';
 
+
 export default Component.extend(PaginatedControllerMixin, {
 
     queryParams: ['status', 'text', 'my', 'user', 'selected'],
@@ -45,15 +46,37 @@ export default Component.extend(PaginatedControllerMixin, {
         },
         createItem(modelName, model) {
             this.get("newItem")(modelName, model)
+        },
+        selectAll() {
+            this.setFilter()
+            let this_ = this
+            this.get('store').query('reaction', { only_ids: true, filter: this.get("filter") }).then(
+                function(response) {
+                    this_.set("updatedReactionIds", response.meta.ids)
+                    this_.changetriggerSelected()
+                    this_.set('hasChanges', true)
+                })
+        },
+        deSelectAll() {
+            this.set("updatedReactionIds", [])
+            this.changetriggerSelected()
+            this.set('hasChanges', true)
+        },
+        cancelSelect() {
+            this.set("updatedReactionIds", [...this.get('initReactionIds')])
+            this.changetriggerSelected()
+            this.set('hasChanges', false)
         }
     },
 
+    changetriggerSelected() { this.set("triggerSelected", !this.triggerSelected) },
+
     setFilter() {
         let filter = {
-            text: this.get('text'), 
-            status: this.get("status"), 
-            my: this.get('my'), 
-            user: this.get('user'), 
+            text: this.get('text'),
+            status: this.get("status"),
+            my: this.get('my'),
+            user: this.get('user'),
             project_id: this.get('project_id'),
             selected: this.get('selected')
         }

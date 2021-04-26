@@ -55,10 +55,13 @@
 {{WatchAddItems}}
 
 {{reaction-manager 
-  model=reactions 
+  model=reactions
+  store=store
   modelName="reactions"
+  initReactionIds=model.reaction_ids 
   updatedReactionIds=updatedReactionIds 
   hasChanges=hasChanges
+  projectView=true
   updateDataPage=(route-action 'updateDataPage')
   triggerAddItems=triggerAddItems
   newItem=(route-action 'newItem')

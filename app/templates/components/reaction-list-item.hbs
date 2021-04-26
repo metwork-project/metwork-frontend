@@ -4,9 +4,9 @@
     <div class="card  h-100 {{if isSelected 'border-primary'}}">
 
         <div class="card-header font-weight-bold px-2 py-1 ">
-            <div class="{{if updatedReactionIds 'row'}} display-hover-group">
+            <div class="{{if projectView 'row'}} display-hover-group">
 
-                <div class="{{if updatedReactionIds 'col-10'}}">
+                <div class="{{if projectView 'col-10'}}">
                     {{#link-to 
                         'reactions.show' 
                         reaction 

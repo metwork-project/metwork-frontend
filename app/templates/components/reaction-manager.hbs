@@ -1,52 +1,71 @@
 <div class="row">
 
+  <div class="col-lg-10">
 
-  <div class="card col-lg-10">
-    <div class="card-body">
-      <div class="d-flex">
-        <div class="mr-auto">
-          <h3 class="d-inline">
-            Reactions
-          </h3>
-          {{#if updatedReactionIds}}
-          <span>
-            ({{selectedCount}} selected)
-          </span>
-          {{/if}}
-        </div>
-        <div>
-          {{#if hasChanges}}
-          <button type="button" class="btn btn-primary" {{action "addItems"}}>
-            {{svg-jar "plus" class="octicon"}} Save changes
-          </button>
-          {{/if}}
-          <button type="button" class="btn btn-success" {{action "createItem" "reaction" model}}>
-            {{svg-jar "plus" class="octicon"}} New reaction
-          </button>
-        </div>
+    <div class="d-flex mb-3">
+      <div class="mr-auto">
+        <h2 class="d-inline">
+          Reactions
+        </h2>
+        {{#if updatedReactionIds}}
+        <span>
+          ({{selectedCount}} selected)
+        </span>
+        {{/if}}
       </div>
-
+      <div>
+        <button type="button" class="btn btn-success" {{action "createItem" "reaction" model}}>
+          {{svg-jar "plus" class="octicon"}} New reaction
+        </button>
+      </div>
+    </div>
+    <div>
       {{reaction-list 
         model=model 
         class="card-text" 
         updatedReactionIds=updatedReactionIds 
         triggerSelected=triggerSelected
-        hasChanges=hasChanges}}
-
+        hasChanges=hasChanges
+        projectView=projectView}}
     </div>
   </div>
-
   <div class="col-lg-2">
-    {{WatchUpdateFilter}}
-    {{reaction-index-menu 
+
+    <div class="">
+      {{WatchUpdateFilter}}
+      {{reaction-index-menu 
       status=status 
       text=text 
       my=my 
       user=user
       selected=selected
       TriggerUpdateFilter=TriggerUpdateFilter
-      updatedReactionIds=updatedReactionIds}}
+      updatedReactionIds=updatedReactionIds
+      projectView=projectView}}
 
+      {{#if projectView}}
+      <div class="card my-2">
+        <div class="card-header">{{svg-jar "gear" class="octicon"}} Actions</div>
+        <ul class="list-group list-group-flush btn-group-vertical">
+
+          <button type="button" class="btn btn-primary" {{action "selectAll"}} style="border-radius: 0;">
+            {{svg-jar "tasklist" class="octicon"}} All
+          </button>
+          <button type="button" class="btn btn-primary" {{action "deSelectAll"}}>
+            {{svg-jar "circle-slash" class="octicon"}} None
+          </button>
+          <button type="button" class="btn btn-primary" {{action "addItems"}} disabled={{if (not hasChanges) true}}>
+            {{svg-jar "save" class="octicon"}} Save
+          </button>
+          <button type="button" class="btn btn-secondary" {{action "cancelSelect"}}
+            disabled={{if (not hasChanges) true}}>
+            {{svg-jar "clear" class="octicon"}} Cancel
+          </button>
+        </ul>
+      </div>
+      {{/if}}
+
+    </div>
   </div>
 
 </div>
