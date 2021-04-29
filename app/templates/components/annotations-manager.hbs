@@ -8,14 +8,17 @@
     title="Features Annotations"
     modelLabel="frag-annotation" 
     model=model 
-    newItem=(route-action 'newItem')}}
+    newItem=(route-action 'newItem')
+    listHeader="annotations-list-header"
+    }}
   {{#each model as |annotation|}}
   {{annotations-list-item 
                 item=annotation 
                 updatedItemIds=updatedItemIds 
                 triggerSelected=triggerSelected 
                 hasChanges=hasChanges
-                projectView=projectView}}
+                projectView=projectView
+                annotationToEdit=annotationToEdit}}
   {{/each}}
   {{/items-list}}
 
@@ -47,3 +50,4 @@
   {{/items-index-menu}}
 
 </div>
+

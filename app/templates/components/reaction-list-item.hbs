@@ -39,7 +39,7 @@
                     {{item.user_name}}
                 </p>
                 {{#if item.isEditable}}
-                <div class="display-hover-trash">
+                <div class="display-hover-absolute">
                     {{#bs-button class="btn-sm" type="danger" onClick=(action (mut dataToDelete) item )}}
                     {{svg-jar "trashcan" class="octicon"}}
                     {{/bs-button}}

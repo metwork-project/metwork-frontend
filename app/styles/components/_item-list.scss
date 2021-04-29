@@ -10,14 +10,14 @@
         cursor: pointer;
       }
   } 
-  .display-hover-trash {
+  .display-hover-absolute {
     display: none;
     position: absolute;
     top: 6px;
     right: 6px;
   }
   &:hover {
-    .display-hover-trash {
+    .display-hover-absolute {
       display: inherit;
     }
   }

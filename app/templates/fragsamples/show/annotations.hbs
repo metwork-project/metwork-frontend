@@ -1,12 +1,14 @@
 
 {{annotations-manager 
-  model=model 
+  model=frag-annotation 
   modelName="frag-annotation" 
   updateDataPage=(route-action 'updateDataPage')
   status=status
+  annotationToEdit=annotationToEdit
+  
 }}
 
-
+{{!-- 
 <div class="d-flex">
   <h3 class="mr-auto">Ions annotations</h3>
   <div class='d-flex'>
@@ -76,7 +78,7 @@
 </div>
 
 {{pagination-handler data=frag-annotation}}
-
+--}}
 {{#bs-modal open=modalAddAnnot onHidden=(action (mut modalAddAnnot) false) as |modal|}}
 {{#modal.header}}
 <h4 class="modal-title">
@@ -117,4 +119,4 @@
 
 {{annotation-editor title="Edit annotation" annotation=annotationToEdit}}
 
-{{delete-modal title="Delete annotation" dataToDelete=dataToDelete dataLabel='frag-annotation' updateDataController='updateDataController'}}
+{{delete-modal title="Delete annotation" dataToDelete=dataToDelete dataLabel='frag-annotation' updateDataController='updateDataController'}} 
