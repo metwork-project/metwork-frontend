@@ -1,0 +1,7 @@
+{{#bs-button
+class="btn m-1"
+type="primary"
+onClick=(route-action 'downloadFile' model file 'text/plain;charset=utf-8'
+fileName)}}
+{{yield}}
+{{/bs-button}}

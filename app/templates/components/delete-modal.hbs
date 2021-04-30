@@ -3,16 +3,16 @@
 {{deleteDataOpenModal}}
 
 {{#bs-modal open=deleteDataModal onHidden=(action 'closeDeleteModal') as |modal|}}
-  {{#modal.header}}
-    <h4 class="modal-title">
-      {{title}}
-    </h4>
-  {{/modal.header}}
-  {{#modal.body}}
-    Are you shure to delete {{dataToDelete.name}} ?
-  {{/modal.body}}
-  {{#modal.footer}}
-        {{#bs-button onClick=(action 'closeDeleteModal')}}Cancel{{/bs-button}}
-        {{#bs-button type="danger" onClick=(action 'deleteData')}}Delete{{/bs-button}}
-  {{/modal.footer}}
+{{#modal.header}}
+<h4 class="modal-title">
+  {{title}}
+</h4>
+{{/modal.header}}
+{{#modal.body}}
+Are you shure to delete {{dataToDelete.name}} ?
+{{/modal.body}}
+{{#modal.footer}}
+{{#bs-button onClick=(action 'closeDeleteModal')}}Cancel{{/bs-button}}
+{{#bs-button type="danger" onClick=(action 'deleteData')}}Delete{{/bs-button}}
+{{/modal.footer}}
 {{/bs-modal}}

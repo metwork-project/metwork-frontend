@@ -1,14 +1,17 @@
-
-{{annotations-manager 
-  model=frag-annotation 
-  modelName="frag-annotation" 
-  updateDataPage=(route-action 'updateDataPage')
-  status=status
-  annotationToEdit=annotationToEdit
-  
+{{annotations-manager
+model=frag-annotation
+project=model
+modelName="frag-annotation"
+updateDataPage=(route-action 'updateDataPage')
+status=status
+annotationToEdit=annotationToEdit
+formatSelect=model.annotationFileFormats
+uploadAnnotRouteLabel=uploadAnnotRouteLabel
+updateDataController=(action 'updateDataController')
+dataLabel=frag-annotation.dataLabel
 }}
-
-{{!-- 
+{{!-- controller {{getFile}} --}}
+{{!--
 <div class="d-flex">
   <h3 class="mr-auto">Ions annotations</h3>
   <div class='d-flex'>
@@ -20,12 +23,12 @@
     </div>
     {{/if}}
     {{file-upload
-            class="m-1"
-            modalId="annot-file-upload-modal"
-            title="Import annotation file"
-            routeLabel=uploadAnnotRouteLabel
-            dataLabel=frag-annotation.dataLabel
-            formatSelect=model.annotationFileFormats}}
+    class="m-1"
+    modalId="annot-file-upload-modal"
+    title="Import annotation file"
+    routeLabel=uploadAnnotRouteLabel
+    dataLabel=frag-annotation.dataLabel
+    formatSelect=model.annotationFileFormats}}
     {{#bs-button class="btn m-1" type="primary" onClick=(action 'getFile' 'annotations' 'annotations.csv')}}
     {{svg-jar "cloud-download" class="octicon"}} Annotations
     {{/bs-button}}
@@ -42,10 +45,10 @@
         <div class="d-inline-block position-relative w-100">
           <p class="status-badge">{{annotation-status-badge statusId=annotation.status_id}}</p>
           {{chemical-display
-                model = annotation
-                canvasId = annotation.canvasId
-                chemType = 'molecule'
-                customBorderWidth=0}}
+          model = annotation
+          canvasId = annotation.canvasId
+          chemType = 'molecule'
+          customBorderWidth=0}}
           <div class="display-hover-item">
             {{#bs-button class="btn-sm m-1" type="primary" onClick=(action (mut annotationToEdit) annotation )}}
             {{svg-jar "pencil" class="octicon"}}
@@ -118,5 +121,3 @@
 {{/bs-modal}}
 
 {{annotation-editor title="Edit annotation" annotation=annotationToEdit}}
-
-{{delete-modal title="Delete annotation" dataToDelete=dataToDelete dataLabel='frag-annotation' updateDataController='updateDataController'}} 

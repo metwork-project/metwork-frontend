@@ -7,13 +7,16 @@
     </div>
     {{/if}}
     {{file-upload
-            class="m-1"
-            modalId="annot-file-upload-modal"
-            title="Import annotation file"
-            routeLabel=uploadAnnotRouteLabel
-            dataLabel=frag-annotation.dataLabel
-            formatSelect=model.annotationFileFormats}}
-    {{!-- {{#bs-button class="btn m-1" type="primary" onClick=(action 'getFile' 'annotations' 'annotations.csv')}}
+    class="m-1"
+    modalId="annot-file-upload-modal"
+    title="Import annotation file"
+    routeLabel=uploadAnnotRouteLabel
+    dataLabel=dataLabel
+    formatSelect=formatSelect}}
+    {{#download-file-button
+    model=model
+    file='annotations'
+    fileName='annotations.csv'}}
     {{svg-jar "cloud-download" class="octicon"}} Annotations
-    {{/bs-button}} --}}
+    {{/download-file-button}}
 </div>

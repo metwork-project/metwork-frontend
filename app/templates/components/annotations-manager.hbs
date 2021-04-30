@@ -4,50 +4,56 @@
 <div class="row">
 
   {{#items-list
-    class="col-lg-10" 
-    title="Features Annotations"
-    modelLabel="frag-annotation" 
-    model=model 
-    newItem=(route-action 'newItem')
-    listHeader="annotations-list-header"
-    }}
+  class="col-lg-10"
+  title="Features Annotations"
+  modelLabel="frag-annotation"
+  project=project
+  newItem=(route-action 'newItem')
+  listHeader="annotations-list-header"
+  formatSelect=formatSelect
+  uploadAnnotRouteLabel=uploadAnnotRouteLabel
+  dataToDelete=dataToDelete
+  updateDataController=(action 'updateDataController')
+  dataLabel=dataLabel
+  }}
+  {{!-- getFile=(action "getFile") --}}
   {{#each model as |annotation|}}
-  {{annotations-list-item 
-                item=annotation 
-                updatedItemIds=updatedItemIds 
-                triggerSelected=triggerSelected 
-                hasChanges=hasChanges
-                projectView=projectView
-                annotationToEdit=annotationToEdit}}
+  {{annotations-list-item
+  item=annotation
+  updatedItemIds=updatedItemIds
+  triggerSelected=triggerSelected
+  hasChanges=hasChanges
+  projectView=projectView
+  annotationToEdit=annotationToEdit
+  dataToDelete=dataToDelete}}
   {{/each}}
   {{/items-list}}
 
   {{#items-index-menu
-      class="col-lg-2"
-      dataLabel="annotation"
-      getFilter=getFilter
-      setFilter=setFilter
-      store=store
-      status=status 
-      selected=selected
-      triggerSelected=triggerSelected 
-      TriggerUpdateFilter=TriggerUpdateFilter
-      triggerAddItems=triggerAddItems
-      projectView=projectView
-      getItemStatus=getItemStatus
-      availableStatus=availableStatus
-      updatedItemIds=updatedItemIds
-      initItemIds=initItemIds
-      hasChanges=hasChanges
-      text=text 
-      my=my 
-      user=user}}
-  {{annotations-index-menu 
-      text=text 
-      my=my 
-      user=user
+  class="col-lg-2"
+  dataLabel="annotation"
+  getFilter=getFilter
+  setFilter=setFilter
+  store=store
+  status=status
+  selected=selected
+  triggerSelected=triggerSelected
+  TriggerUpdateFilter=TriggerUpdateFilter
+  triggerAddItems=triggerAddItems
+  projectView=projectView
+  getItemStatus=getItemStatus
+  availableStatus=availableStatus
+  updatedItemIds=updatedItemIds
+  initItemIds=initItemIds
+  hasChanges=hasChanges
+  text=text
+  my=my
+  user=user}}
+  {{annotations-index-menu
+  text=text
+  my=my
+  user=user
   }}
   {{/items-index-menu}}
 
 </div>
-

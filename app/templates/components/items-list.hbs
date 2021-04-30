@@ -11,7 +11,12 @@
             </span>
             {{/if}}
         </div>
-        {{component listHeader}}
+        {{component listHeader
+        formatSelect=formatSelect
+        uploadAnnotRouteLabel=uploadAnnotRouteLabel
+        dataLabel=dataLabel
+        model=project
+        }}
     </div>
     <div>
         <div>
@@ -23,3 +28,5 @@
 
     </div>
 </div>
+{{delete-modal title="Delete annotation" dataToDelete=dataToDelete
+}}
