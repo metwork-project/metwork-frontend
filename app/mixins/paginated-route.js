@@ -76,6 +76,7 @@ export default Mixin.create({
       this.refresh();
     },
     newItem(routeLabel) {
+      console.log("newItem")
       var inflector = new Inflector(Inflector.defaultRules);
       this.transitionTo(inflector.pluralize(routeLabel) + '.new');
     },
