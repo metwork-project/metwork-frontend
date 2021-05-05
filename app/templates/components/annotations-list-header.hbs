@@ -1,24 +1,26 @@
-<div class='d-flex'>
-    {{#if false}}
+<div class="d-flex">
+  {{#if false}}
     <div class="m-1">
-        {{#bs-button type="success" onClick=(action 'openAddAnnotModal')}}
+      {{#bs-button type="success" onClick=(action "openAddAnnotModal")}}
         {{svg-jar "plus" class="octicon"}}Add annotation
-        {{/bs-button}}
+      {{/bs-button}}
     </div>
-    {{/if}}
-    {{#if (not projectView)}}
+  {{/if}}
+  {{#if (not projectView)}}
     {{file-upload
-    class="m-1"
-    modalId="annot-file-upload-modal"
-    title="Import annotation file"
-    routeLabel=uploadAnnotRouteLabel
-    dataLabel=dataLabel
-    formatSelect=formatSelect}}
+      class="m-1"
+      modalId="annot-file-upload-modal"
+      title="Import annotation file"
+      routeLabel=uploadAnnotRouteLabel
+      dataLabel=dataLabel
+      formatSelect=model.annotationFileFormats
+    }}
     {{#download-file-button
-    model=model
-    file='annotations'
-    fileName='annotations.csv'}}
-    {{svg-jar "cloud-download" class="octicon"}} Annotations
+      model=model
+      file="annotations"
+      fileName="annotations.csv"
+    }}
+      {{svg-jar "cloud-download" class="octicon"}}Annotations
     {{/download-file-button}}
-    {{/if}}
+  {{/if}}
 </div>

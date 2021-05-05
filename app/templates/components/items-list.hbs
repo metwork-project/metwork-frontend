@@ -14,7 +14,6 @@
     </div>
     {{component
       listHeader
-      formatSelect=formatSelect
       uploadAnnotRouteLabel=uploadAnnotRouteLabel
       dataLabel=dataLabel
       model=project
@@ -28,6 +27,7 @@
           {{items-list-item
             listItem=listItem
             item=item
+            itemToEdit=itemToEdit
             updatedItemIds=updatedItemIds
             triggerSelected=triggerSelected
             hasChanges=hasChanges

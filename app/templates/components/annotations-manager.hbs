@@ -1,58 +1,76 @@
-{{WatchUpdateFilter}}
-{{WatchAddItems}}
-
-<div class="row">
-
-  {{#items-list
-  class="col-lg-10"
-  title="Features Annotations"
-  modelLabel="frag-annotation"
+{{items-manager
+  title="Annotations"
+  model=model
   project=project
-  listHeader="annotations-list-header"
-  projectView=projectView
-  formatSelect=formatSelect
-  uploadAnnotRouteLabel=uploadAnnotRouteLabel
-  dataToDelete=dataToDelete
-  updateDataController=(action 'updateDataController')
-  dataLabel=dataLabel
-  }}
-  {{#each model as |annotation|}}
-  {{#items-list-item}}
-  {{annotations-list-item
-  item=annotation
-  updatedItemIds=updatedItemIds
-  triggerSelected=triggerSelected
-  hasChanges=hasChanges
-  projectView=projectView
-  annotationToEdit=annotationToEdit
-  dataToDelete=dataToDelete}}
-  {{/items-list-item}}
-  {{/each}}
-  {{/items-list}}
-
-  {{#items-index-menu
-  class="col-lg-2"
-  dataLabel="annotation"
-  getFilter=getFilter
-  setFilter=setFilter
-  store=store
+  modelName=modelName
+  dataLabel="frag-annotation"
+  updateDataPage=(route-action "updateDataPage")
+  customParams=customParams
   status=status
-  selected=selected
-  triggerSelected=triggerSelected
-  TriggerUpdateFilter=TriggerUpdateFilter
-  triggerAddItems=triggerAddItems
-  projectView=projectView
+  getFilter=getFilter
+  listHeader="annotations-list-header"
+  listItem="annotations-list-item"
+  indexMenu="annotations-index-menu"
+  deleteTitle="Delete annotation"
   getItemStatus=getItemStatus
   availableStatus=availableStatus
+  projectView=projectView
   updatedItemIds=updatedItemIds
+  project_id=project_id
+  selected=selected
   initItemIds=initItemIds
-  hasChanges=hasChanges
-  projectViewStatus=true}}
-  {{annotations-index-menu
-  text=text
-  my=my
-  user=user
+  itemToEdit=itemToEdit
+  store=store
+}}
+{{!-- {{WatchUpdateFilter}}
+{{WatchAddItems}}
+<div class="row">
+  {{#items-list
+    class="col-lg-10"
+    title="Features Annotations"
+    modelLabel="frag-annotation"
+    project=project
+    listHeader="annotations-list-header"
+    projectView=projectView
+    formatSelect=formatSelect
+    uploadAnnotRouteLabel=uploadAnnotRouteLabel
+    dataToDelete=dataToDelete
+    updateDataController=(action "updateDataController")
+    dataLabel=dataLabel
   }}
+    {{#each model as |annotation|}}
+      {{#items-list-item}}
+        {{annotations-list-item
+          item=annotation
+          updatedItemIds=updatedItemIds
+          triggerSelected=triggerSelected
+          hasChanges=hasChanges
+          projectView=projectView
+          itemToEdit=itemToEdit
+          dataToDelete=dataToDelete
+        }}
+      {{/items-list-item}}
+    {{/each}}
+  {{/items-list}}
+  {{#items-index-menu
+    class="col-lg-2"
+    dataLabel="annotation"
+    getFilter=getFilter
+    setFilter=setFilter
+    store=store
+    status=status
+    selected=selected
+    triggerSelected=triggerSelected
+    TriggerUpdateFilter=TriggerUpdateFilter
+    triggerAddItems=triggerAddItems
+    projectView=projectView
+    getItemStatus=getItemStatus
+    availableStatus=availableStatus
+    updatedItemIds=updatedItemIds
+    initItemIds=initItemIds
+    hasChanges=hasChanges
+    projectViewStatus=true
+  }}
+    {{annotations-index-menu text=text my=my user=user}}
   {{/items-index-menu}}
-
-</div>
+</div> --}}

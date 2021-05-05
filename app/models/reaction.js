@@ -29,53 +29,58 @@ export default DS.Model.extend({
   chemdoodle_json: DS.attr(),
   chemdoodle_json_error: DS.attr('string'),
 
-  statusRef: function() {
+  statusRef: function () {
     return reactionStatus
   },
 
-  statusCodesRef: function() {
+  statusCodesRef: function () {
     let statusRef = this.statusRef()
-    return Object.keys(statusRef).reduce(function(total, status) {
+    return Object.keys(statusRef).reduce(function (total, status) {
       total[statusRef[status].code] = status
       return total
     }, {})
   },
 
-  statusInfo: computed('status_code', function() {
+  statusInfo: computed('status_code', function () {
     return this.statusRef()[
       this.statusCodesRef()[this.get('status_code')]
     ];
   }),
 
-  isActive: computed('status_code', function() {
+  isSelectable: computed('isActive', function () {
+    return this.isActive;
+  }),
+
+
+  isActive: computed('status_code', function () {
     return this.get('status_code') === this.statusRef().ACTIVE.code;
   }),
 
-  isAtLeastValid: computed('status_code', function() {
+  isAtLeastValid: computed('status_code', function () {
     return this.get('status_code') >= this.statusRef().VALID.code;
   }),
 
-  isReadyToActive: computed('status_code', function() {
+  isReadyToActive: computed('status_code', function () {
     return this.get('status_code') === this.statusRef().VALID.code;
   }),
 
-  isNotInit: computed('status_code', function() {
+  isNotInit: computed('status_code', function () {
     return this.get('status_code') > this.statusRef().INIT.code
   }),
 
-  isEditing: computed('status_code', function() {
+  isEditing: computed('status_code', function () {
     return this.get('status_code') < this.statusRef().VALID.code
   }),
 
-  isEditable: computed('status_code', function() {
+  isEditable: computed('status_code', function () {
     return this.get('status_code') < this.statusRef().ACTIVE.code
   }),
 
-  notObsolete: computed('status_code', function() {
+  notObsolete: computed('status_code', function () {
     return this.get('status_code') < this.statusRef().OBSOLETE.code
   }),
 
-  isObsolete: computed('status_code', function() {
+  isObsolete: computed('status_code', function () {
     return this.get('status_code') === this.statusRef().OBSOLETE.code
   }),
 
@@ -91,15 +96,15 @@ export default DS.Model.extend({
 
   filteredIds: memberAction({ path: 'filtered_ids', type: 'get' }),
 
-  display: computed('name', function() {
+  display: computed('name', function () {
     return this.get('name');
   }),
 
-  canvasId: computed(function() {
+  canvasId: computed(function () {
     return 'canvas-reaction-' + this.id
   }),
 
-  hasTags: computed('tags_list', function() {
+  hasTags: computed('tags_list', function () {
     return this.get('tags_list').length > 0
   })
 });

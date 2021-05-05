@@ -5,7 +5,11 @@
     <div class="card-header font-weight-bold px-2 py-1">
       <div class="{{if projectView "row"}} display-hover-group">
         <div class="{{if projectView "col-10"}}">
-          {{component itemHeader item=item}}
+          {{#if itemHeader}}
+            {{component itemHeader item=item}}
+          {{else}}
+            {{item.name}}
+          {{/if}}
         </div>
         {{#if isSelectable}}
           <div
@@ -20,10 +24,12 @@
     {{component
       listItem
       item=item
+      itemToEdit=itemToEdit
       updatedItemIds=updatedItemIds
       triggerSelected=triggerSelected
       hasChanges=hasChanges
       projectView=projectView
+      isSelectable=isSelectable
     }}
   </div>
 </div>

@@ -15,7 +15,7 @@ export default Component.extend({
 
     isSelectable: computed('item.status', function () {
         let itemIds = this.get('updatedItemIds')
-        return itemIds && this.get('item').isActive
+        return itemIds && this.get('item').isSelectable
     }),
 
 

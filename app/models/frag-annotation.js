@@ -19,6 +19,11 @@ export default DS.Model.extend({
 
   canvasId: computed(function () {
     return 'canvas-annotation-' + this.id
-  })
+  }),
+
+  isSelectable: computed('status_id', function () {
+    return true;
+  }),
+
 
 });

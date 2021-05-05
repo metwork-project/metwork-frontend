@@ -13,7 +13,8 @@ export default Route.extend(
   setupController(controller, model) {
     this._super(...arguments);
     model.set('activeNav', 'data')
-    // this.transitionTo('projects.show.data', model);
+    let updatedItemIds = [...model.annotation_init_ids]
+    controller.set('updatedItemIds', updatedItemIds)
   },
 
 });
