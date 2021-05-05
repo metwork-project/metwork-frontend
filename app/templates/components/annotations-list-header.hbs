@@ -6,6 +6,7 @@
         {{/bs-button}}
     </div>
     {{/if}}
+    {{#if (not projectView)}}
     {{file-upload
     class="m-1"
     modalId="annot-file-upload-modal"
@@ -19,4 +20,5 @@
     fileName='annotations.csv'}}
     {{svg-jar "cloud-download" class="octicon"}} Annotations
     {{/download-file-button}}
+    {{/if}}
 </div>

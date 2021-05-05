@@ -1,13 +1,18 @@
-<h5>Text</h5>
+<h5>
+  Text
+</h5>
 <label>
-    {{input value=text class='form-control'}}
+  {{input value=params.text class="form-control"}}
 </label>
-<h5>User</h5>
+<h5>
+  User
+</h5>
 <div class="checkbox">
-    <label>
-        {{input type="checkbox" checked=my }} My reactions
-    </label>
+  <label>
+    {{input type="checkbox" checked=params.my}}
+    My reactions
+  </label>
 </div>
 <label>
-    {{input value=user class='form-control' disabled=my}}
+  {{input value=params.user class="form-control" disabled=params.my}}
 </label>

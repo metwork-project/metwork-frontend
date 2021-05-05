@@ -1,90 +1,74 @@
 {{#if model.runFinish}}
-<div class="d-flex">
-  <div class="mr-auto">
-    <h4 class="d-inline">
-      Metabolization Network
-    </h4>
+  <div class="d-flex">
+    <div class="mr-auto">
+      <h4 class="d-inline">
+        Metabolization Network
+      </h4>
+    </div>
+    <div>
+      {{#bs-button
+        type="info"
+        class="m-1"
+        onClick=(action "toggleDisplayNodeName")
+      }}
+        Display
+        {{#if (eq displayNodeName "parent_mass")}}
+          cosines
+        {{else}}
+          mass
+        {{/if}}
+      {{/bs-button}}
+      {{#bs-button
+        type="secondary"
+        class="m-1"
+        onClick=(action "reloadMetabolizationNetwork")
+      }}
+        {{svg-jar "sync" class="octicon"}}
+      {{/bs-button}}
+      {{#bs-button type="warning" class="m-1" onClick=(action "downloadSVG")}}
+        {{svg-jar "cloud-download" class="octicon"}}.svg
+      {{/bs-button}}
+    </div>
   </div>
-
-  <div>
-    {{#bs-button type="info"
-          class="m-1"
-
-          onClick=(action 'toggleDisplayNodeName') }}
-    Display
-    {{#if (eq displayNodeName 'parent_mass')}}
-    cosines
-    {{else}}
-    mass
-    {{/if}}
-    {{/bs-button}}
-    {{#bs-button type="secondary"
-          class="m-1"
-          onClick=(action 'reloadMetabolizationNetwork') }}
-    {{svg-jar "sync" class="octicon"}}
-    {{/bs-button}}
-    {{#bs-button type="warning"
-          class="m-1"
-          onClick=(action 'downloadSVG') }}
-    {{svg-jar "cloud-download" class="octicon"}} .svg
-    {{/bs-button}}
+  <div class="row graph {{if isGraphFullScreen "graph-full-screen"}}">
+    <div class="col-md-8 graph-content">
+      {{graph-loader
+        spinnerStatus=spinnerStatus
+        loadNetwork=(action "reloadMetabolizationNetwork")
+        class="h-100"
+      }}
+      {{GraphFitFullScreen}}
+      {{#bs-button
+        type="light"
+        class="full-screen-button"
+        onClick=(action (mut isGraphFullScreen) (not isGraphFullScreen))
+      }}
+        {{svg-jar "screen-full" class="octicon"}}
+      {{/bs-button}}
+      <div id="cy"></div>
+    </div>
+    <div class="col-md-4">
+      {{metabo-graph-node
+        project=model
+        nodeData=nodeData
+        reloadMetabolizationNetwork=(action "reloadMetabolizationNetwork")
+      }}
+    </div>
   </div>
-</div>
-<div class="row graph {{if isGraphFullScreen "graph-full-screen"}}">
-  <div class="col-md-8 graph-content">
-    {{graph-loader
-      spinnerStatus=spinnerStatus
-      loadNetwork=(action 'reloadMetabolizationNetwork')
-      class="h-100"}}
-    {{GraphFitFullScreen}}
-    {{#bs-button type="light" class="full-screen-button" onClick=(action (mut isGraphFullScreen) (not isGraphFullScreen))}}
-    {{svg-jar "screen-full" class="octicon"}}
-    {{/bs-button}}
-    <div id="cy"></div>
-  </div>
-  <div class="col-md-4">
-    {{metabo-graph-node
-      project=model
-      nodeData=nodeData
-      reloadMetabolizationNetwork=(action "reloadMetabolizationNetwork")}}
-  </div>
-
-</div>
 {{/if}}
-
-{{reaction-manager 
+{{reaction-manager
   model=reactions
+  modelName="reactions"
+  updateDataPage=(route-action "updateDataPage")
+  status=status
+  customParams=customParams
+  getFilter=getFilter
   project=model
   store=store
-  modelName="reactions"
-  initItemIds=model.reaction_ids 
-  updatedItemIds=updatedItemIds 
+  initItemIds=model.reaction_ids
+  updatedItemIds=updatedItemIds
   hasChanges=hasChanges
   projectView=true
-  updateDataPage=(route-action 'updateDataPage')
-  status=status
-  text=text
-  my=my
-  user=user
   project_id=model.id
-  selected=selected}}
-
-
-{{!-- {{reaction-list model=reactions class="card-text"}} --}}
-{{!-- 
-{{chemical-select
-    title="Selected reactions"
-    project=model
-    chemType='reaction'
-    listAvailable=reactions-available
-    listSelected=reactions-selected
-    dataLabel="reactions"
-    editable=(not model.runOrFinish)
-    updateDataComponent=(action 'updateDataController')
-    additionalActions=additionalActions
-    itemLink=true
-  }} --}}
-
-{{!-- <div class="card-footer">
-    <img src="/assets/images/powered_by_chemaxon_GOLD_M.png" class="mx-auto d-block" height=40 />
-  </div> --}}
+  selected=selected
+}}

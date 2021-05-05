@@ -2,32 +2,41 @@ import Controller from '@ember/controller';
 import PaginatedControllerMixin from 'metwork-frontend/mixins/paginated-controller';
 
 export default Controller.extend(
-  PaginatedControllerMixin,{
+  PaginatedControllerMixin, {
 
-  genDataComponents:  function () {
-      this.dataComponents['fragsample'] =
-          { params : {page: 1, page_size: 10} };
-      this.dataComponents['annotations-available'] =
-          { routeLabel: 'frag-annotation', params : {project_id: this.model.id, page: 1, page_size: 10, selected: false} };
-      this.dataComponents['annotations-selected'] =
-          { routeLabel: 'frag-annotation', params : {project_id: this.model.id, page: 1, page_size: 10, selected: true} };
+  queryParams: ['status'],
+  status: [20, 30],
+  selected: "all",
+
+  genDataComponents: function () {
+    this.setFilter()
+    this.dataComponents['fragsample'] =
+      { params: { page: 1, page_size: 10 } };
+    this.dataComponents['frag-annotation'] =
+      { routeLabel: 'frag-annotation', params: { page: 1, page_size: 6, filter: this.get('filter') } };
+  },
+
+  setFilter() {
+    let filter = {
+      status: this.get("status"),
+      project_id: this.get('model').id,
+      selected: this.get('selected'),
+    }
+    this.set('filter', filter)
   },
 
   actions: {
     setFragSample(fragSample) {
-        let self = this;
-        this.model.updateFragSample({
-                frag_sample_id: fragSample.id ,
-            }).then(function(/*response*/)  {
-
-                //self.dataComponents['frag-annotation'].params.frag_sample_id = fragSample.id;
-                self.model.reload().then( function() {
-                  self.genDataComponents();
-                  self.send('updateDataPage', 'annotations-available', 1);
-                  self.send('updateDataPage', 'annotations-selected', 1);
-                  self.set('selectFragModal', false);
-                });
+      let self = this;
+      this.model.updateFragSample({
+        frag_sample_id: fragSample.id,
+      }).then(function (/*response*/) {
+        self.model.reload().then(function () {
+          self.genDataComponents();
+          self.send('updateDataPage', 'frag-annotation', 1, self.get('filter'));
+          self.set('selectFragModal', false);
         });
+      });
     },
   },
 

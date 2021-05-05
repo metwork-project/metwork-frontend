@@ -9,6 +9,7 @@
   modelLabel="frag-annotation"
   project=project
   listHeader="annotations-list-header"
+  projectView=projectView
   formatSelect=formatSelect
   uploadAnnotRouteLabel=uploadAnnotRouteLabel
   dataToDelete=dataToDelete
@@ -16,6 +17,7 @@
   dataLabel=dataLabel
   }}
   {{#each model as |annotation|}}
+  {{#items-list-item}}
   {{annotations-list-item
   item=annotation
   updatedItemIds=updatedItemIds
@@ -24,6 +26,7 @@
   projectView=projectView
   annotationToEdit=annotationToEdit
   dataToDelete=dataToDelete}}
+  {{/items-list-item}}
   {{/each}}
   {{/items-list}}
 
@@ -44,9 +47,7 @@
   updatedItemIds=updatedItemIds
   initItemIds=initItemIds
   hasChanges=hasChanges
-  text=text
-  my=my
-  user=user}}
+  projectViewStatus=true}}
   {{annotations-index-menu
   text=text
   my=my

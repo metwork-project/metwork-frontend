@@ -1,49 +1,23 @@
-import Controller from '@ember/controller';
 import { computed } from '@ember/object';
-import svg from 'cytoscape-svg';
 import CytoscapeMixin from 'metwork-frontend/mixins/cytoscape';
-import PaginatedControllerMixin from 'metwork-frontend/mixins/paginated-controller';
-import { inject as service } from '@ember/service';
+import ReactionController from 'metwork-frontend/utils/reaction-controller';
 
-export default Controller.extend(
-  PaginatedControllerMixin,
+export default ReactionController.extend(
   CytoscapeMixin, {
 
   cosineDisplayed: false,
   spinnerStatus: 'waiting',
   displayNodeName: 'parent_mass',
-
-  queryParams: ['status', 'text', 'my', 'user', 'selected'],
-
   status: [30],
-  text: null,
-  my: false,
-  user: null,
   selected: "all",
   hasChanges: false,
 
-
-  genDataComponents: function() {
+  genDataComponents: function () {
     this.setFilter()
     this.dataComponents['reactions'] =
       { routeLabel: 'reaction', params: { page: 1, page_size: 15, filter: this.get('filter') } };
-    // this.dataComponents['reactions-available'] =
-    //   { routeLabel: 'reaction', params: { project_id: this.model.id, page: 1, page_size: 15, selected: false } };
-    // this.dataComponents['reactions-selected'] =
-    //   { routeLabel: 'reaction', params: { project_id: this.model.id, page: 1, page_size: 15, selected: true } };
   },
 
-  setFilter() {
-    let filter = {
-      text: this.get('text'),
-      status: this.get("status"),
-      my: this.get('my'),
-      user: this.get('user'),
-      project_id: this.get('model').id,
-      selected: this.get('selected'),
-    }
-    this.set('filter', filter)
-  },
 
   actions: {
     toggleDisplayNodeName() {
@@ -53,7 +27,7 @@ export default Controller.extend(
       } else {
         field = 'parent_mass';
       }
-      this.get('cy').nodes('[nodeType = "molecule"]').forEach(function(node) {
+      this.get('cy').nodes('[nodeType = "molecule"]').forEach(function (node) {
         if (node.data(field)) {
           node.data('name', node.data(field));
         } else {
@@ -80,7 +54,7 @@ export default Controller.extend(
     }
   },
 
-  additionalActions: computed(function() {
+  additionalActions: computed(function () {
     return [
       {
         call: 'selectReactionsByTag',
@@ -89,17 +63,17 @@ export default Controller.extend(
     ]
   }),
 
-  hasReaction: function(reactionId) {
+  hasReaction: function (reactionId) {
     return reactionId in this.get('model.reactions_ids');
   },
 
-  loadMetabolizationNetwork: function(force) {
+  loadMetabolizationNetwork: function (force) {
     let _this = this
     this.set('spinnerStatus', 'loading');
     if (!force) {
       force = false
     }
-    this.model.metabolizationNetwork({ force: force }).then(function(response) {
+    this.model.metabolizationNetwork({ force: force }).then(function (response) {
       _this.send(
         'startCytoscape',
         response,
@@ -108,7 +82,7 @@ export default Controller.extend(
     });
   },
 
-  manageMetabolizationNetwork: computed('model.activeNav', function() {
+  manageMetabolizationNetwork: computed('model.activeNav', function () {
     if (this.get('model').activeNav == 'metabolization') {
       this.loadMetabolizationNetwork();
     } else if (this.get('cy')) {

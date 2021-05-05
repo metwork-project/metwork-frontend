@@ -6,46 +6,45 @@ export default Controller.extend({
 
   currentUser: service('current-user'),
 
-  isOwner: computed('currentUser.user.id', function() {
+  isOwner: computed('currentUser.user.id', function () {
     return this.model.get('user_id') == this.get('currentUser').getId()
   }),
 
   actions: {
     startRun() {
-        let self = this;
-        this.model
-            .startRun()
-            .then(function(/*response*/) {
-              //console.log(response.data.status_code);
-              //self.model.set('status_code', response.data.status_code);
-              self.model.reload().then(function(/*response*/) {
-                self.model.poll()
-              });
-            });
+      let self = this;
+      this.model
+        .startRun()
+        .then(function (/*response*/) {
+          //self.model.set('status_code', response.data.status_code);
+          self.model.reload().then(function (/*response*/) {
+            self.model.poll()
+          });
+        });
     },
     stopRun() {
       let self = this;
       this.model
-          .stopRun()
-          .then(function(/*response*/) {
-            self.model.reload()
-          });
+        .stopRun()
+        .then(function (/*response*/) {
+          self.model.reload()
+        });
     },
     cloneProject() {
-        let self = this;
-        this.model
-            .cloneProject()
-            .then(function(response) {
-                //if (response.data.error) {
-                //  console.log('error');
-                //} else {
-                if (response.data.clone_id) {
-                  self.send('redirectToProject', response.data.clone_id);
-                }
-            });
+      let self = this;
+      this.model
+        .cloneProject()
+        .then(function (response) {
+          //if (response.data.error) {
+          //  console.log('error');
+          //} else {
+          if (response.data.clone_id) {
+            self.send('redirectToProject', response.data.clone_id);
+          }
+        });
     },
     getFile(request, fileName) {
-       this.send(
+      this.send(
         'downloadFile',
         this.model,
         request,

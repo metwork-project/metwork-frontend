@@ -1,53 +1,59 @@
 <div class="d-flex">
   <h3 class="mr-auto">Fragmentation data</h3>
-    {{#if model.editable}}
-      <div>
-        {{bs-button type="info"
-          defaultText="Select data"
-          onClick=(action (mut selectFragModal) true) }}
-      </div>
-    {{/if}}
+  {{#if model.editable}}
+  <div>
+    {{bs-button type="info"
+    defaultText="Select data"
+    onClick=(action (mut selectFragModal) true) }}
+  </div>
+  {{/if}}
 </div>
 {{#if model.hasSample}}
-    <p><b>Sample name : </b> {{#link-to 'fragsamples.show' model.frag_sample}} {{model.frag_sample.name}} {{/link-to }}</p>
-    <p><b>Total ions : </b> {{model.frag_sample.ions_count}}</p>
-    <p><b>Annotated ions : </b> {{model.frag_sample.annotations_count}}</p>
-    {{chemical-select
-      title="Selected annotations"
-      project=model
-      chemType='molecule'
-      listAvailable=annotations-available
-      listSelected=annotations-selected
-      dataLabel="annotations"
-      editable=(not model.runOrFinish)
-      updateDataComponent=(action 'updateDataController')
-    }}
+<p><b>Sample name : </b> {{#link-to 'fragsamples.show' model.frag_sample}} {{model.frag_sample.name}} {{/link-to }}</p>
+<p><b>Total ions : </b> {{model.frag_sample.ions_count}}</p>
+<p><b>Annotated ions : </b> {{model.frag_sample.annotations_count}}</p>
+{{annotations-manager
+model=frag-annotation
+project=model
+modelName="frag-annotation"
+updateDataPage=(route-action 'updateDataPage')
+status=status
+annotationToEdit=annotationToEdit
+formatSelect=model.annotationFileFormats
+uploadAnnotRouteLabel=uploadAnnotRouteLabel
+updateDataController=(action 'updateDataController')
+dataLabel=frag-annotation.dataLabel
+project_id=model.id
+selected=selected
+projectView=true
+availableStatus=status
+}}
 {{else}}
-  <div>No data selected</div>
+<div>No data selected</div>
 {{/if}}
 
 {{#bs-modal class=modalId open=selectFragModal onHidden=(action (mut selectFragModal) false) as |modal|}}
- {{#modal.header}}
-  <h4 class="modal-title">
-   Select fragmentation data
-  </h4>
- {{/modal.header}}
- {{#modal.body}}
-    <ul class="list-group">
-     {{#each fragsample as |fs|}}
-				{{#if fs.importFinish}}
-		      <a href="#" class="list-group-item list-group-item-action d-flex" {{action 'setFragSample' fs}}>
-		        <div class="mr-auto">
-		        {{fs.name}}
-		        </div>
-		        <div>
-		          <span class="badge badge-primary">{{fs.ions_count}} ions</span>
-		          <span class="badge badge-secondary ">{{fs.annotations_count}} annotations</span>
-		        </div>
-		      </a>
-				{{/if}}
-     {{/each}}
-    </ul>
-    {{pagination-handler data=fragsample}}
- {{/modal.body}}
+{{#modal.header}}
+<h4 class="modal-title">
+  Select fragmentation data
+</h4>
+{{/modal.header}}
+{{#modal.body}}
+<ul class="list-group">
+  {{#each fragsample as |fs|}}
+  {{#if fs.importFinish}}
+  <a href="#" class="list-group-item list-group-item-action d-flex" {{action 'setFragSample' fs}}>
+    <div class="mr-auto">
+      {{fs.name}}
+    </div>
+    <div>
+      <span class="badge badge-primary">{{fs.ions_count}} ions</span>
+      <span class="badge badge-secondary ">{{fs.annotations_count}} annotations</span>
+    </div>
+  </a>
+  {{/if}}
+  {{/each}}
+</ul>
+{{pagination-handler data=fragsample}}
+{{/modal.body}}
 {{/bs-modal}}

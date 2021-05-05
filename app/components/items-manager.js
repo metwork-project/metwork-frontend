@@ -16,19 +16,19 @@ export default Component.extend(
       this.set('inputSelected', this.get('selected'))
     },
 
-    WatchUpdateFilter: computed('TriggerUpdateFilter', function() {
+    WatchUpdateFilter: computed('TriggerUpdateFilter', function () {
       this.send('updateDataFilter')
       return null
     }),
 
-    WatchAddItems: computed('triggerAddItems', function() {
+    WatchAddItems: computed('triggerAddItems', function () {
       if (this.get("triggerAddItems") != "init") {
         this.send('addItems')
       }
       return null
     }),
 
-    selectedCount: computed('triggerSelected', function() {
+    selectedCount: computed('triggerSelected', function () {
       return this.get('updatedItemIds').length
     }),
 
@@ -44,7 +44,7 @@ export default Component.extend(
           dataLabel: this.get('modelName'),
           item_ids: this.get('updatedItemIds')
         })
-          .then(function(/*response*/) {
+          .then(function (/*response*/) {
             let itemIds = [...this_.get('updatedItemIds')]
             this_.set('project.' + this_.get("itemIdsLabel"), itemIds)
             this_.set('hasChanges', false)

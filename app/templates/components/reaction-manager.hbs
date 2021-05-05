@@ -1,50 +1,25 @@
-{{WatchUpdateFilter}}
-{{WatchAddItems}}
-
-<div class="row">
-
-  {{#items-list
-  class="col-lg-10"
+{{items-manager
   title="Reactions"
   model=model
-  listHeader="reaction-list-header"}}
-  {{#each model as |reaction|}}
-  {{reaction-list-item
-  item=reaction
-  updatedItemIds=updatedItemIds
-  triggerSelected=triggerSelected
-  hasChanges=hasChanges
-  projectView=projectView}}
-  {{/each}}
-  {{/items-list}}
-
-  {{#items-index-menu
-  class="col-lg-2"
+  modelName=modelName
   dataLabel="reaction"
-  getFilter=getFilter
-  setFilter=setFilter
-  store=store
+  updateDataPage=(route-action "updateDataPage")
+  customParams=customParams
   status=status
-  selected=selected
-  triggerSelected=triggerSelected
-  TriggerUpdateFilter=TriggerUpdateFilter
-  triggerAddItems=triggerAddItems
-  projectView=projectView
+  getFilter=getFilter
+  listHeader="reaction-list-header"
+  listItem="reaction-list-item"
+  indexMenu="reaction-index-menu"
+  itemHeader="reaction-list-item-header"
+  deleteTitle="Delete reaction"
   getItemStatus=getItemStatus
   availableStatus=availableStatus
+  projectView=projectView
   updatedItemIds=updatedItemIds
+  project=project
+  project_id=project_id
+  selected=selected
   initItemIds=initItemIds
-  hasChanges=hasChanges
-  text=text
-  my=my
-  user=user}}
-  {{reaction-index-menu
-  text=text
-  my=my
-  user=user
-  }}
-  {{/items-index-menu}}
-
-</div>
-{{delete-modal title="Delete reaction" dataToDelete=dataToDelete dataLabel=model.dataLabel
-updateDataController='updateDataController'}}
+}}
+{{!-- {{delete-modal title="Delete reaction" dataToDelete=dataToDelete dataLabel=model.dataLabel
+updateDataController='updateDataController'}} --}}

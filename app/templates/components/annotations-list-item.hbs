@@ -1,41 +1,39 @@
-<div class="col mb-4">
-    <div class="card h-100 display-hover-group">
-        <div class="card-header font-weight-bold">
-            {{item.name}}
-        </div>
-        <div class="card-img-top text-center">
-            <div class="d-inline-block position-relative w-100">
-                <p class="status-badge">{{annotation-status-badge statusId=item.status_id}}</p>
-                {{chemical-display
-                model = item
-                canvasId = item.canvasId
-                chemType = 'molecule'
-                customBorderWidth=0}}
-                <div class="display-hover-absolute">
-                    {{#bs-button class="btn-sm m-1" type="primary" onClick=(action (mut annotationToEdit) item )}}
-                    {{svg-jar "pencil" class="octicon"}}
-                    {{/bs-button}}
-                    {{#if item.has_no_project}}
-                    <br />
-                    {{#bs-button class="btn-sm m-1" type="danger" onClick=(action (mut dataToDelete) item )}}
-                    {{svg-jar "trashcan" class="octicon"}}
-                    {{/bs-button}}
-                    {{/if}}
-                </div>
+<div class="card">
+    <div class="card-header font-weight-bold">
+        {{item.name}}
+    </div>
+    <div class="card-img-top text-center">
+        <div class="d-inline-block position-relative w-100">
+            <p class="status-badge">{{annotation-status-badge statusId=item.status_id}}</p>
+            {{chemical-display
+            model = item
+            canvasId = item.canvasId
+            chemType = 'molecule'
+            customBorderWidth=0}}
+            <div class="display-hover-absolute">
+                {{#bs-button class="btn-sm m-1" type="primary" onClick=(action (mut annotationToEdit) item )}}
+                {{svg-jar "pencil" class="octicon"}}
+                {{/bs-button}}
+                {{#if item.has_no_project}}
+                <br />
+                {{#bs-button class="btn-sm m-1" type="danger" onClick=(action (mut dataToDelete) item )}}
+                {{svg-jar "trashcan" class="octicon"}}
+                {{/bs-button}}
+                {{/if}}
             </div>
         </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                <b>Id :</b> {{item.ion_id}}<br>
-                <b>m/z :</b>{{item.mz}}<br>
-                <b>Adduct :</b> {{item.adduct}}
-            </li>
-        </ul>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">
-                <b>Source DB :</b> {{item.db_source}}<br>
-                <b>Source Id :</b> {{item.db_id}}
-            </li>
-        </ul>
     </div>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <b>Id :</b> {{item.ion_id}}<br>
+            <b>m/z :</b>{{item.mz}}<br>
+            <b>Adduct :</b> {{item.adduct}}
+        </li>
+    </ul>
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <b>Source DB :</b> {{item.db_source}}<br>
+            <b>Source Id :</b> {{item.db_id}}
+        </li>
+    </ul>
 </div>

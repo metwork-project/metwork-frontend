@@ -1,1 +1,46 @@
-{{yield}}
+{{WatchUpdateFilter}}
+{{WatchAddItems}}
+<div class="row">
+  {{items-list
+    class="col-lg-10"
+    title=title
+    model=model
+    listHeader=listHeader
+    listItem=listItem
+    item=item
+    updatedItemIds=updatedItemIds
+    triggerSelected=triggerSelected
+    hasChanges=hasChanges
+    projectView=projectView
+    itemHeader=itemHeader
+  }}
+  {{items-index-menu
+    class="col-lg-2"
+    dataLabel=dataLabel
+    getFilter=getFilter
+    setFilter=setFilter
+    store=store
+    status=status
+    selected=selected
+    triggerSelected=triggerSelected
+    TriggerUpdateFilter=TriggerUpdateFilter
+    triggerAddItems=triggerAddItems
+    projectView=projectView
+    getItemStatus=getItemStatus
+    availableStatus=availableStatus
+    updatedItemIds=updatedItemIds
+    initItemIds=initItemIds
+    hasChanges=hasChanges
+    text=text
+    my=my
+    user=user
+    indexMenu=indexMenu
+    customParams=customParams
+  }}
+</div>
+{{delete-modal
+  title=deleteTitle
+  dataToDelete=dataToDelete
+  dataLabel=model.dataLabel
+  updateDataController="updateDataController"
+}}

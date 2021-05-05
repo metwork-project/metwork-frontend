@@ -1,1 +1,29 @@
-{{yield}}
+<div class="col mb-2">
+  <div
+    class="card display-hover-group h-100 {{if isSelected "border-primary"}}"
+  >
+    <div class="card-header font-weight-bold px-2 py-1">
+      <div class="{{if projectView "row"}} display-hover-group">
+        <div class="{{if projectView "col-10"}}">
+          {{component itemHeader item=item}}
+        </div>
+        {{#if isSelectable}}
+          <div
+            class="col-2 display-hover-item {{if isSelected "selected-item"}}"
+            onclick={{action "toggleSlelect"}}
+          >
+            {{svg-jar "check" class="octicon"}}
+          </div>
+        {{/if}}
+      </div>
+    </div>
+    {{component
+      listItem
+      item=item
+      updatedItemIds=updatedItemIds
+      triggerSelected=triggerSelected
+      hasChanges=hasChanges
+      projectView=projectView
+    }}
+  </div>
+</div>

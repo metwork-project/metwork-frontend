@@ -7,12 +7,12 @@ export default Controller.extend(
 
     filter: "private",
 
-    triggerFilter: computed('filter', function() {
+    triggerFilter: computed('filter', function () {
         this.send('updateDataPage', 'model', 1, this.filter)
         return null
     }),
 
-    isPublic: computed('filter', function() {
+    isPublic: computed('filter', function () {
         return this.filter === "public"
     })
 

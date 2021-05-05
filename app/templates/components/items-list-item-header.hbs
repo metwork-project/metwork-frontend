@@ -1,0 +1,14 @@
+<div class="card-header font-weight-bold px-2 py-1 ">
+    <div class="{{if projectView 'row'}} display-hover-group">
+
+        <div class="{{if projectView 'col-10'}}">
+            {{yield}}
+        </div>
+
+        {{#if isSelectable}}
+        <div class="col-2 display-hover-item {{if isSelected 'selected-item'}}" onclick={{action "toggleSlelect" }}>
+            {{svg-jar "check" class="octicon"}}
+        </div>
+        {{/if}}
+    </div>
+</div>

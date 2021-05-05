@@ -16,8 +16,7 @@ export default Component.extend({
         this.set("selectedOptions", selectedOptions)
     },
 
-
-    itemStatus: computed('filter', function() {
+    itemStatus: computed('filter', function () {
         let availableStatus = this.get('availableStatus', [])
         let res = Object.values(this.getItemStatus()).reduce(
             (res, status) => {
@@ -34,7 +33,6 @@ export default Component.extend({
             , [])
         return res
     }),
-
 
     updateFilterStatus() {
         let res = []
@@ -62,9 +60,8 @@ export default Component.extend({
         selectAll() {
             this.setFilter()
             let this_ = this
-            console.log("filter", this.get("filter"))
             this.get('store').query(this.get('dataLabel'), { only_ids: true, filter: this.get("filter") }).then(
-                function(response) {
+                function (response) {
                     this_.set("updatedItemIds", response.meta.ids)
                     this_.changetriggerSelected()
                     this_.set('hasChanges', true)
@@ -81,6 +78,4 @@ export default Component.extend({
             this.set('hasChanges', false)
         },
     }
-
-
 });

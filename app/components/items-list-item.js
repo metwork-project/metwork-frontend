@@ -3,7 +3,7 @@ import { computed } from '@ember/object';
 
 export default Component.extend({
 
-    isSelected: computed('triggerSelected', function() {
+    isSelected: computed('triggerSelected', function () {
         let itemIds = this.get('updatedItemIds')
         if (itemIds) {
             return itemIds.includes(parseInt(this.get('item').id))
@@ -13,7 +13,7 @@ export default Component.extend({
 
     }),
 
-    isSelectable: computed('item.status', function() {
+    isSelectable: computed('item.status', function () {
         let itemIds = this.get('updatedItemIds')
         return itemIds && this.get('item').isActive
     }),

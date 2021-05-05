@@ -7,12 +7,13 @@ export default Route.extend(
   AuthenticatedRouteMixin, {
 
   model() {
-      return this.modelFor('projects.show')
+    return this.modelFor('projects.show')
   },
 
   setupController(controller, model) {
     this._super(...arguments);
     model.set('activeNav', 'data')
+    // this.transitionTo('projects.show.data', model);
   },
 
 });

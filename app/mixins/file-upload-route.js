@@ -44,7 +44,6 @@ export default Mixin.create({
                 type: 'POST',
             }).then((response) => {
                 run(function () {
-                    console.log("component.dataLabel", component.dataLabel)
                     if (component.dataLabel) {
                         self.updateData(component.dataLabel);
                     }

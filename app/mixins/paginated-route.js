@@ -76,7 +76,6 @@ export default Mixin.create({
       this.refresh();
     },
     newItem(routeLabel) {
-      console.log("newItem")
       var inflector = new Inflector(Inflector.defaultRules);
       this.transitionTo(inflector.pluralize(routeLabel) + '.new');
     },
@@ -103,6 +102,7 @@ export default Mixin.create({
 
   updateData: function (dataLabel) {
 
+
     let self = this;
     let routeLabel = this.controller.dataComponents[dataLabel].routeLabel
     let params = this.controller.dataComponents[dataLabel].params;
@@ -112,8 +112,7 @@ export default Mixin.create({
         self.controller.set(dataLabel, data);
         self.transitionTo({ queryParams: params });
       }, function () {
-
-        this.transitionTo('index');
+        self.transitionTo('index');
       });
   },
 

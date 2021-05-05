@@ -1,24 +1,7 @@
-import Controller from '@ember/controller';
-import PaginatedControllerMixin from 'metwork-frontend/mixins/paginated-controller';
+import ReactionController from 'metwork-frontend/utils/reaction-controller';
 
+export default ReactionController.extend({
 
-
-export default Controller.extend(PaginatedControllerMixin, {
-
-  queryParams: ['status', 'text', 'my', 'user'],
-
-  page_size: 18,
   status: [10, 20, 30],
-  text: null,
-  my: false,
-  user: null,
-
-
-  setFilter() {
-    let filter = {
-      text: this.get('text'), status: this.get("status"), my: this.get('my'), user: this.get('user')
-    }
-    this.set('filter', filter)
-  }
 
 });
