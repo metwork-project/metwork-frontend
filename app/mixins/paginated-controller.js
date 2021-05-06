@@ -7,8 +7,8 @@ export default Mixin.create({
   page_size: 30,
 
   actions: {
-    updateDataController: function (dataLabel) {
-      this.send('updateDataPage', dataLabel, this.dataComponents[dataLabel].params.page, this.get('filter'));
+    updateDataController: function(dataLabel) {
+      this.updateDataPage(dataLabel, this.dataComponents[dataLabel].params.page, this.get('filter'));
     },
   },
 

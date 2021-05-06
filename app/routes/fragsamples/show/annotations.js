@@ -18,7 +18,6 @@ export default Route.extend(
 
     setupController(controller, model) {
         this._super(...arguments);
-        controller.set('uploadAnnotRouteLabel', 'fragsamples/' + model.id + '/uploadfile_annotation');
         model.set('activeNav', 'annotations')
     },
 

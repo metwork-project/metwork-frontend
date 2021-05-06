@@ -14,7 +14,6 @@
     </div>
     {{component
       listHeader
-      uploadAnnotRouteLabel=uploadAnnotRouteLabel
       dataLabel=dataLabel
       model=project
       projectView=projectView
@@ -33,6 +32,7 @@
             hasChanges=hasChanges
             projectView=projectView
             itemHeader=itemHeader
+            dataToDelete=dataToDelete
           }}
         {{/each}}
       </div>
@@ -40,4 +40,3 @@
     </div>
   </div>
 </div>
-{{delete-modal title="Delete annotation" dataToDelete=dataToDelete}}

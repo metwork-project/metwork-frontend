@@ -21,56 +21,5 @@
   initItemIds=initItemIds
   itemToEdit=itemToEdit
   store=store
+  dataComponents=dataComponents
 }}
-{{!-- {{WatchUpdateFilter}}
-{{WatchAddItems}}
-<div class="row">
-  {{#items-list
-    class="col-lg-10"
-    title="Features Annotations"
-    modelLabel="frag-annotation"
-    project=project
-    listHeader="annotations-list-header"
-    projectView=projectView
-    formatSelect=formatSelect
-    uploadAnnotRouteLabel=uploadAnnotRouteLabel
-    dataToDelete=dataToDelete
-    updateDataController=(action "updateDataController")
-    dataLabel=dataLabel
-  }}
-    {{#each model as |annotation|}}
-      {{#items-list-item}}
-        {{annotations-list-item
-          item=annotation
-          updatedItemIds=updatedItemIds
-          triggerSelected=triggerSelected
-          hasChanges=hasChanges
-          projectView=projectView
-          itemToEdit=itemToEdit
-          dataToDelete=dataToDelete
-        }}
-      {{/items-list-item}}
-    {{/each}}
-  {{/items-list}}
-  {{#items-index-menu
-    class="col-lg-2"
-    dataLabel="annotation"
-    getFilter=getFilter
-    setFilter=setFilter
-    store=store
-    status=status
-    selected=selected
-    triggerSelected=triggerSelected
-    TriggerUpdateFilter=TriggerUpdateFilter
-    triggerAddItems=triggerAddItems
-    projectView=projectView
-    getItemStatus=getItemStatus
-    availableStatus=availableStatus
-    updatedItemIds=updatedItemIds
-    initItemIds=initItemIds
-    hasChanges=hasChanges
-    projectViewStatus=true
-  }}
-    {{annotations-index-menu text=text my=my user=user}}
-  {{/items-index-menu}}
-</div> --}}

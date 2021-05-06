@@ -3,10 +3,11 @@ import { computed } from '@ember/object';
 
 export default Component.extend({
 
-    deleteDataOpenModal: computed('dataToDelete', function () {
+    deleteDataOpenModal: computed('dataToDelete', function() {
         if (this.dataToDelete) {
             this.set("deleteDataModal", true);
         }
+        return null
     }),
 
     closeModal() {
@@ -19,7 +20,6 @@ export default Component.extend({
             this.closeModal();
         },
         deleteData() {
-
             let self = this;
             let data = this.get('dataToDelete')
             let dataLabel = this.dataLabel

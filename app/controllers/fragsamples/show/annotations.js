@@ -9,12 +9,12 @@ export default FileManagerController.extend(
     queryParams: ['status'],
     status: [20, 30],
 
-    genDataComponents: function () {
+    genDataComponents: function() {
         this.dataComponents['frag-annotation'] =
             { params: { page: 1, page_size: 6, frag_sample_id: this.model.id } };
     },
 
-    annotationCount: computed('frag-annotations.meta.pagination.{last.page,self.page}', function () {
+    annotationCount: computed('frag-annotations.meta.pagination.{last.page,self.page}', function() {
         const total = this.get('frag-annotations.meta.pagination.last.page') || this.get('frag-annotations.meta.pagination.self.page');
         if (!total) return [];
         return new Array(total + 1).join('x').split('').map((e, i) => i + 1);
