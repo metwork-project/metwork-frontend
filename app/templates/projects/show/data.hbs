@@ -1,6 +1,7 @@
 <div class="d-flex">
   <h3 class="mr-auto">
     Fragmentation data
+    {{model.editable}}
   </h3>
   {{#if model.editable}}
     <div>
@@ -45,6 +46,7 @@
     project_id=model.id
     selected=selected
     projectView=true
+    listSelectable=model.editable
     availableStatus=status
     updatedItemIds=updatedItemIds
     store=store

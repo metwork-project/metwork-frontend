@@ -1,12 +1,12 @@
 <div class="d-flex">
-  {{#if false}}
-    <div class="m-1">
-      {{#bs-button type="success" onClick=(action "openAddAnnotModal")}}
-        {{svg-jar "plus" class="octicon"}}Add annotation
-      {{/bs-button}}
-    </div>
-  {{/if}}
   {{#if (not projectView)}}
+    {{#if false}}
+      <div class="m-1">
+        {{#bs-button type="success" onClick=(action "openAddAnnotModal")}}
+          {{svg-jar "plus" class="octicon"}}Add annotation
+        {{/bs-button}}
+      </div>
+    {{/if}}
     {{file-upload
       class="m-1"
       modalId="annot-file-upload-modal"
