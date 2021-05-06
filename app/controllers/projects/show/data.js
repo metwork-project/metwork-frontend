@@ -8,12 +8,6 @@ export default Controller.extend(
   status: [20, 30],
   selected: "all",
 
-  init() {
-    this._super(...arguments);
-    let selected = 'selected'
-    if (!this.get("model.editable")) { this.set("selected", "selected") }
-  },
-
   genDataComponents: function() {
     this.setFilter()
     this.dataComponents['fragsample'] =
@@ -25,8 +19,8 @@ export default Controller.extend(
   setFilter() {
     let filter = {
       status: this.get("status"),
-      project_id: this.get('model').id,
-      selected: this.get('selected'),
+      project_id: this.get('project_id'),
+      selected: this.get('selected')
     }
     this.set('filter', filter)
   },
