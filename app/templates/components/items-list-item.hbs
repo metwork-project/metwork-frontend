@@ -1,4 +1,4 @@
-<div class="col mb-2">
+<div class="col pb-2 h-100">
   <div
     class="card display-hover-group h-100 {{if isSelected "border-primary"}}"
   >
@@ -8,7 +8,12 @@
           {{#if itemHeader}}
             {{component itemHeader item=item}}
           {{else}}
-            {{item.name}}
+            <div class="d-inline-block w-100 text-truncate">
+              <BsTooltip>
+                {{item.name}}
+              </BsTooltip>
+              {{item.name}}
+            </div>
           {{/if}}
         </div>
         {{#if isSelectable}}
@@ -23,6 +28,7 @@
     </div>
     {{component
       listItem
+      tagName=""
       item=item
       itemToEdit=itemToEdit
       updatedItemIds=updatedItemIds

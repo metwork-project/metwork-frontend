@@ -29,10 +29,6 @@ export default Component.extend(
       return null
     }),
 
-    selectedCount: computed('triggerSelected', function() {
-      return this.get('updatedItemIds').length
-    }),
-
     actions: {
       updateDataFilter() {
         this.setFilter()
