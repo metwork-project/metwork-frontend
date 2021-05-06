@@ -3,13 +3,13 @@ import { computed } from '@ember/object';
 
 export default Component.extend({
 
-    displayMolDraw: computed('nodeData.id', function () {
+    displayMolDraw: computed('nodeData.id', function() {
         let nodeData = this.get("nodeData")
-        this.$("#chem-draw").empty().append('<canvas id="chem-draw-' + nodeData.id + '" class="chemical-select-item">mol</canvas>');
+        this.$("#chem-draw").empty().append('<canvas id="chem-draw-' + nodeData.id + '">mol</canvas>');
         this.displayMolecule(nodeData)
     }),
 
-    displayMolecule: function (node) {
+    displayMolecule: function(node) {
         ChemDoodle.default_atoms_useJMOLColors = true;
         var viewACS = new ChemDoodle.TransformCanvas("chem-draw-" + node.id, 250, 250);
         viewACS.specs.bonds_width_2D = .6;
