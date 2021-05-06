@@ -9,7 +9,7 @@ export default Mixin.create({
     session: service('session'),
 
     actions: {
-        uploadFile: function (component) {
+        uploadFile: function(component) {
 
             let self = this;
             let access_token = this.get('session.data.authenticated.token');
@@ -22,7 +22,7 @@ export default Mixin.create({
             }
             if (component.metaDatas) {
                 let $metaData = component.getModal().find('.meta-data');
-                component.metaDatas.map(function (meta) {
+                component.metaDatas.map(function(meta) {
                     form_data.append(meta.field, $metaData.find('.' + meta.field).val());
                 });
             }
@@ -32,7 +32,7 @@ export default Mixin.create({
                 base_url += '/' + ENV.APInameSpace
             }
             $.ajax({
-                beforeSend: function (xhr) {
+                beforeSend: function(xhr) {
                     xhr.setRequestHeader('Authorization', `Token ${access_token}`);
                 },
                 url: base_url + '/' + component.routeLabel,
@@ -43,7 +43,7 @@ export default Mixin.create({
                 data: form_data,
                 type: 'POST',
             }).then((response) => {
-                run(function () {
+                run(function() {
                     if (component.dataLabel) {
                         self.updateData(component.dataLabel);
                     }
@@ -64,7 +64,7 @@ export default Mixin.create({
                 });
             }, (/*xhr, status, error*/) => {
                 //var response = xhr.responseText;
-                run(function () {
+                run(function() {
                     //reject(response);
                 });
             });
