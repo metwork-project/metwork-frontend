@@ -71,6 +71,6 @@
   "dependencies": {
     "cytoscape": "^3.13.0",
     "cytoscape-svg": "^0.2.0",
-    "underscore": "^1.9.2"
+    "underscore": "^1.12.1"
   }
 }
