@@ -15,6 +15,9 @@ export default Route.extend(
     model.set('activeNav', 'data')
     let updatedItemIds = [...model.annotation_init_ids]
     controller.set('updatedItemIds', updatedItemIds)
+    let selected = "selected"
+    if (model.editable) { selected = "all" }
+    controller.set("selected", selected)
   },
 
 });

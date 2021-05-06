@@ -8,7 +8,13 @@ export default Controller.extend(
   status: [20, 30],
   selected: "all",
 
-  genDataComponents: function () {
+  init() {
+    this._super(...arguments);
+    let selected = 'selected'
+    if (!this.get("model.editable")) { this.set("selected", "selected") }
+  },
+
+  genDataComponents: function() {
     this.setFilter()
     this.dataComponents['fragsample'] =
       { params: { page: 1, page_size: 10 } };
@@ -30,8 +36,8 @@ export default Controller.extend(
       let self = this;
       this.model.updateFragSample({
         frag_sample_id: fragSample.id,
-      }).then(function (/*response*/) {
-        self.model.reload().then(function () {
+      }).then(function(/*response*/) {
+        self.model.reload().then(function() {
           self.genDataComponents();
           self.send('updateDataPage', 'frag-annotation', 1, self.get('filter'));
           self.set('selectFragModal', false);

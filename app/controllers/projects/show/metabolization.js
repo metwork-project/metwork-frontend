@@ -9,15 +9,14 @@ export default ReactionController.extend(
   spinnerStatus: 'waiting',
   displayNodeName: 'parent_mass',
   status: [30],
-  selected: "all",
   hasChanges: false,
+  selected: "all",
 
-  genDataComponents: function () {
+  genDataComponents: function() {
     this.setFilter()
     this.dataComponents['reactions'] =
       { routeLabel: 'reaction', params: { page: 1, page_size: 15, filter: this.get('filter') } };
   },
-
 
   actions: {
     toggleDisplayNodeName() {
@@ -27,7 +26,7 @@ export default ReactionController.extend(
       } else {
         field = 'parent_mass';
       }
-      this.get('cy').nodes('[nodeType = "molecule"]').forEach(function (node) {
+      this.get('cy').nodes('[nodeType = "molecule"]').forEach(function(node) {
         if (node.data(field)) {
           node.data('name', node.data(field));
         } else {
@@ -54,7 +53,7 @@ export default ReactionController.extend(
     }
   },
 
-  additionalActions: computed(function () {
+  additionalActions: computed(function() {
     return [
       {
         call: 'selectReactionsByTag',
@@ -63,17 +62,17 @@ export default ReactionController.extend(
     ]
   }),
 
-  hasReaction: function (reactionId) {
+  hasReaction: function(reactionId) {
     return reactionId in this.get('model.reactions_ids');
   },
 
-  loadMetabolizationNetwork: function (force) {
+  loadMetabolizationNetwork: function(force) {
     let _this = this
     this.set('spinnerStatus', 'loading');
     if (!force) {
       force = false
     }
-    this.model.metabolizationNetwork({ force: force }).then(function (response) {
+    this.model.metabolizationNetwork({ force: force }).then(function(response) {
       _this.send(
         'startCytoscape',
         response,
@@ -82,7 +81,7 @@ export default ReactionController.extend(
     });
   },
 
-  manageMetabolizationNetwork: computed('model.activeNav', function () {
+  manageMetabolizationNetwork: computed('model.activeNav', function() {
     if (this.get('model').activeNav == 'metabolization') {
       this.loadMetabolizationNetwork();
     } else if (this.get('cy')) {

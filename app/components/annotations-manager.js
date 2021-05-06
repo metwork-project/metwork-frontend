@@ -10,7 +10,7 @@ let annotationStatus = {
 
 export default ItemsManager.extend({
 
-    availableStatus: [0, 10, 20, 30],
+    availableStatus: [20, 30],
     itemIdsLabel: "annotation_ids",
 
     getItemStatus() {

@@ -1,61 +1,65 @@
-<div class="card">
-  <div class="card-header">
-    {{svg-jar "filter" class="octicon"}}
-    Filter
+{{#if (or (not projectView) listSelectable customParams projectViewStatus)}}
+  <div class="card">
+    <div class="card-header">
+      {{svg-jar "filter" class="octicon"}}
+      Filter
+    </div>
+    <div class="card-body">
+      <form>
+        {{#if (or (not projectView) projectViewStatus)}}
+          <h5>
+            Status
+          </h5>
+          {{#each itemStatus as |status|}}
+            <div class="checkbox">
+              <label>
+                {{input type="checkbox" checked=status.checked}}
+                <span
+                  class="badge badge-{{status.class}}"
+                  style="vertical-align:top"
+                >
+                  {{status.libelle}}
+                </span>
+              </label>
+            </div>
+          {{/each}}
+        {{/if}}
+        {{component indexMenu params=customParams}}
+        {{#if listSelectable}}
+          <h5>
+            Selection
+          </h5>
+          <label>
+            <select
+              class="form-control"
+              onchange={{action "updateSelected" value="target.value"}}
+            >
+              {{#each-in selectedOptions as |value label|}}
+                <option
+                  value={{value}}
+                  selected={{if (eq value selected) true}}
+                >
+                  {{label}}
+                </option>
+              {{/each-in}}
+            </select>
+          </label>
+        {{/if}}
+      </form>
+    </div>
+    <ul class="list-group list-group-flush btn-group-vertical">
+      <button
+        type="button"
+        class="btn btn-primary"
+        style="border-top-left-radius: 0; border-top-right-radius: 0;"
+        {{action "triggerFilter"}}
+      >
+        Apply
+      </button>
+    </ul>
   </div>
-  <div class="card-body">
-    <form>
-      {{projectViewStatus}}
-      {{#if (or (not projectView) projectViewStatus)}}
-        <h5>
-          Status
-        </h5>
-        {{#each itemStatus as |status|}}
-          <div class="checkbox">
-            <label>
-              {{input type="checkbox" checked=status.checked}}
-              <span
-                class="badge badge-{{status.class}}"
-                style="vertical-align:top"
-              >
-                {{status.libelle}}
-              </span>
-            </label>
-          </div>
-        {{/each}}
-      {{/if}}
-      {{component indexMenu params=customParams}}
-      {{#if projectView}}
-        <h5>
-          Selection
-        </h5>
-        <label>
-          <select
-            class="form-control"
-            onchange={{action "updateSelected" value="target.value"}}
-          >
-            {{#each-in selectedOptions as |value label|}}
-              <option value={{value}} selected={{if (eq value selected) true}}>
-                {{label}}
-              </option>
-            {{/each-in}}
-          </select>
-        </label>
-      {{/if}}
-    </form>
-  </div>
-  <ul class="list-group list-group-flush btn-group-vertical">
-    <button
-      type="button"
-      class="btn btn-primary"
-      style="border-top-left-radius: 0; border-top-right-radius: 0;"
-      {{action "triggerFilter"}}
-    >
-      Apply
-    </button>
-  </ul>
-</div>
-{{#if projectView}}
+{{/if}}
+{{#if listSelectable}}
   <div class="card my-2">
     <div class="card-header">
       {{svg-jar "gear" class="octicon"}}

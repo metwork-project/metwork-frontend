@@ -15,6 +15,13 @@ export default Route.extend(
     controller.set('nodeData', null);
     let updatedItemIds = [...model.reaction_ids]
     controller.set('updatedItemIds', updatedItemIds)
+    let selected = "selected"
+    if (model.editable) {
+      selected = "all"
+    } else {
+      controller.set("status", [30, 40])
+    }
+    controller.set("selected", selected)
     this.transitionTo('projects.show.metabolization', model);
   },
 

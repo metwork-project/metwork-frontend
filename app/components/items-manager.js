@@ -6,15 +6,15 @@ export default Component.extend(
   PaginatedControllerMixin,
   {
 
-    selected: "all",
     TriggerUpdateFilter: false,
     triggerSelected: false,
     triggerAddItems: "init",
     dataToDelete: false,
 
+
     init() {
       this._super(...arguments);
-      this.set('inputSelected', this.get('selected'))
+      // if (!this.get("project.editable")) { this.set("selected", "selected") }
     },
 
     WatchUpdateFilter: computed('TriggerUpdateFilter', function() {

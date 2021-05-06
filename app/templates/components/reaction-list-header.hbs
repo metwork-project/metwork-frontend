@@ -1,5 +1,12 @@
 <div>
-    <button type="button" class="btn btn-success" {{action (route-action 'newItem' "reaction" )}}>
-        {{svg-jar "plus" class="octicon"}} Create Reaction
+  {{#if (or (not projectView) listSelectable)}}
+    <button
+      type="button"
+      class="btn btn-success"
+      {{action (route-action "newItem" "reaction")}}
+    >
+      {{svg-jar "plus" class="octicon"}}
+      Create Reaction
     </button>
+  {{/if}}
 </div>

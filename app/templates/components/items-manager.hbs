@@ -1,26 +1,23 @@
 {{WatchUpdateFilter}}
 {{WatchAddItems}}
-<div class="row">
-  {{items-list
-    class="col-lg-10"
-    title=title
-    model=model
-    project=project
-    listHeader=listHeader
-    listItem=listItem
-    itemToEdit=itemToEdit
-    item=item
-    updatedItemIds=updatedItemIds
-    triggerSelected=triggerSelected
-    hasChanges=hasChanges
-    projectView=projectView
-    itemHeader=itemHeader
-    dataToDelete=dataToDelete
-    dataLabel=dataLabel
-    listSelectable=listSelectable
-  }}
+{{#items-list
+  title=title
+  model=model
+  project=project
+  listHeader=listHeader
+  listItem=listItem
+  itemToEdit=itemToEdit
+  item=item
+  updatedItemIds=updatedItemIds
+  triggerSelected=triggerSelected
+  hasChanges=hasChanges
+  projectView=projectView
+  itemHeader=itemHeader
+  dataToDelete=dataToDelete
+  dataLabel=dataLabel
+  listSelectable=listSelectable
+}}
   {{items-index-menu
-    class="col-lg-2"
     dataLabel=dataLabel
     getFilter=getFilter
     setFilter=setFilter
@@ -31,6 +28,7 @@
     TriggerUpdateFilter=TriggerUpdateFilter
     triggerAddItems=triggerAddItems
     projectView=projectView
+    projectViewStatus=projectViewStatus
     getItemStatus=getItemStatus
     availableStatus=availableStatus
     updatedItemIds=updatedItemIds
@@ -43,7 +41,7 @@
     customParams=customParams
     listSelectable=listSelectable
   }}
-</div>
+{{/items-list}}
 {{delete-modal
   title=deleteTitle
   dataToDelete=dataToDelete

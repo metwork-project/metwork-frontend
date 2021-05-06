@@ -4,7 +4,6 @@ import { computed } from '@ember/object';
 export default Component.extend({
 
     updateFilter: false,
-    inputSelected: "all",
 
     init() {
         this._super(...arguments);
@@ -16,7 +15,7 @@ export default Component.extend({
         this.set("selectedOptions", selectedOptions)
     },
 
-    itemStatus: computed('filter', function () {
+    itemStatus: computed('filter', function() {
         let availableStatus = this.get('availableStatus', [])
         let res = Object.values(this.getItemStatus()).reduce(
             (res, status) => {
@@ -35,13 +34,15 @@ export default Component.extend({
     }),
 
     updateFilterStatus() {
-        let res = []
-        this.itemStatus.forEach(status => {
-            if (status.checked) {
-                res.push(status.code)
-            }
-        });
-        this.set("status", res)
+        if (!this.get('projectView') || this.get('projectViewStatus')) {
+            let res = []
+            this.itemStatus.forEach(status => {
+                if (status.checked) {
+                    res.push(status.code)
+                }
+            });
+            this.set("status", res)
+        }
     },
 
     changetriggerSelected() { this.set("triggerSelected", !this.triggerSelected) },
@@ -61,7 +62,7 @@ export default Component.extend({
             this.setFilter()
             let this_ = this
             this.get('store').query(this.get('dataLabel'), { only_ids: true, filter: this.get("filter") }).then(
-                function (response) {
+                function(response) {
                     this_.set("updatedItemIds", response.meta.ids)
                     this_.changetriggerSelected()
                     this_.set('hasChanges', true)

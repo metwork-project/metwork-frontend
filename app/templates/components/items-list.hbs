@@ -1,25 +1,26 @@
-<div>
-  <div class="d-flex mb-3">
-    <div class="mr-auto">
-      <h2 class="d-inline">
-        {{title}}
-      </h2>
-      {{#if updatedItemIds}}
-        <span>
-          (
-          {{selectedCount}}
-          selected )
-        </span>
-      {{/if}}
-    </div>
-    {{component
-      listHeader
-      dataLabel=dataLabel
-      model=project
-      projectView=projectView
-    }}
+<div class="d-flex mb-3">
+  <div class="mr-auto">
+    <h2 class="d-inline">
+      {{title}}
+    </h2>
+    {{#if updatedItemIds}}
+      <span>
+        (
+        {{selectedCount}}
+        selected )
+      </span>
+    {{/if}}
   </div>
-  <div>
+  {{component
+    listHeader
+    dataLabel=dataLabel
+    model=project
+    projectView=projectView
+    listSelectable=listSelectable
+  }}
+</div>
+<div class="row">
+  <div class="col-lg-10">
     <div>
       <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3">
         {{#each model as |item|}}
@@ -39,5 +40,8 @@
       </div>
       {{pagination-handler data=model}}
     </div>
+  </div>
+  <div class="col-lg-2">
+    {{yield}}
   </div>
 </div>

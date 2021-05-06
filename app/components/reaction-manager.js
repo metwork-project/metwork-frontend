@@ -3,7 +3,7 @@ import { reactionStatus } from '../models/reaction'
 
 export default ItemsManager.extend(
     {
-        availableStatus: [10, 20, 30, 40],
+        availableStatus: [10, 20, 30],
         dataLabel: 'reaction',
         itemIdsLabel: "reaction_ids",
 
