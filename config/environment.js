@@ -1,9 +1,9 @@
 'use strict';
 
-module.exports = function (environment) {
+module.exports = function(environment) {
   let ENV = {
     modulePrefix: 'metwork-frontend',
-    version: '0.6.7',
+    version: '0.6.8',
     environment,
     host: 'https://somehost.com',
     rootURL: '/',

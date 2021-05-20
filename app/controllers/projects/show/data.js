@@ -4,12 +4,12 @@ import PaginatedControllerMixin from 'metwork-frontend/mixins/paginated-controll
 export default Controller.extend(
   PaginatedControllerMixin, {
 
-  notInitData: true,
+  notInitData: { "frag-annotation": true },
   queryParams: ['status'],
   status: [20, 30],
   selected: "all",
 
-  genDataComponents: function () {
+  genDataComponents: function() {
     this.setFilter()
     this.dataComponents['fragsample'] =
       { params: { page: 1, page_size: 10 } };
@@ -31,8 +31,8 @@ export default Controller.extend(
       let self = this;
       this.model.updateFragSample({
         frag_sample_id: fragSample.id,
-      }).then(function (/*response*/) {
-        self.model.reload().then(function () {
+      }).then(function(/*response*/) {
+        self.model.reload().then(function() {
           self.genDataComponents();
           self.send('updateDataPage', 'frag-annotation', 1, self.get('filter'));
           self.set('selectFragModal', false);

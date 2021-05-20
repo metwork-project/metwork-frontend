@@ -5,7 +5,6 @@ export default Mixin.create({
 
   model(params) {
     let filter = this.getFilter(params)
-    console.log("this.routeLabel", this.routeLabel)
     if (this.routeLabel) {
       return this.store.query(this.routeLabel, {
         page_size: params.page_size,
@@ -42,8 +41,8 @@ export default Mixin.create({
 
     if (controller.dataComponents) {
       Object.keys(controller.dataComponents).map(
-        function (dataLabel) {
-          if (!controller.notInitData) {
+        function(dataLabel) {
+          if (!controller.notInitData || !controller.notInitData[dataLabel]) {
             this.addData(dataLabel, controller.dataComponents[dataLabel])
           }
         },
@@ -68,7 +67,7 @@ export default Mixin.create({
     error(/*error, transition*/) {
       this.transitionTo('index');
     },
-    updateDataPage: function (dataLabel, page, filter) {
+    updateDataPage: function(dataLabel, page, filter) {
       this.controller.dataComponents[dataLabel].params.page = page
       if (filter) {
         this.controller.dataComponents[dataLabel].params.filter = filter;
@@ -84,7 +83,7 @@ export default Mixin.create({
     },
   },
 
-  addData: function (dataLabel, values) {
+  addData: function(dataLabel, values) {
     let params = {
       page: 1,
       page_size: 5,
@@ -92,7 +91,7 @@ export default Mixin.create({
     // add specific params
     if (values.params) {
       Object.keys(values.params).map(
-        function (param) {
+        function(param) {
           params[param] = values.params[param];
         },
         this);
@@ -103,17 +102,17 @@ export default Mixin.create({
     this.updateData(dataLabel)
   },
 
-  updateData: function (dataLabel) {
+  updateData: function(dataLabel) {
 
     let self = this;
     let routeLabel = this.controller.dataComponents[dataLabel].routeLabel
     let params = this.controller.dataComponents[dataLabel].params;
     this.store.query(routeLabel, params)
-      .then(function (data) {
+      .then(function(data) {
         data.set('dataLabel', dataLabel);
         self.controller.set(dataLabel, data);
         self.transitionTo({ queryParams: params });
-      }, function () {
+      }, function() {
         self.transitionTo('index');
       });
   },
